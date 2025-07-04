@@ -218,13 +218,50 @@
       return '"' + String(val).replace(/"/g, '""') + '"';
     }
 
-    function extractLocationFromWBS(wbs) {
-      if (!wbs) return '';
-      const codes = ['DCH','EYD','MYD','FSA','GEN YARD','CONVEYANCE','MCP','USS','PERUN'];
-      const upperWBS = wbs.toUpperCase();
-      for (const code of codes) {
-        if (upperWBS.includes(code)) return code;
+    function extractLocationFromWBS(name, wbs) {
+      if (!name && !wbs) return '';
+      
+      // Combine name and wbs for scanning, like in the TSX version
+      const activityText = `${name || ''} ${wbs || ''}`.toLowerCase();
+      
+      // Location keywords mapping from TSX version
+      const locationKeywords = {
+        'DCH1': ['dch1'],
+        'DCH2': ['dch2'], 
+        'DCH3': ['dch3'],
+        'DCH4': ['dch4'],
+        'EYD1': ['eyd1'],
+        'EYD2': ['eyd2'],
+        'EYD3': ['eyd3'], 
+        'EYD4': ['eyd4'],
+        'FSA': ['fsa'],
+        'FUEL_STORAGE': ['fuel storage'],
+        'LOADING_BAY': ['loading bay'],
+        'MYD1_BLOCK_1': ['myd1 block 1', 'myd1 blk 1'],
+        'MYD1_BLOCK_2': ['myd1 block 2', 'myd1 blk 2'],
+        'MYD2': ['myd2'],
+        'MYD3': ['myd3'],
+        'MYD4': ['myd4'],
+        'NORTH_LAYDOWN': ['north laydown'],
+        'PERUN': ['perun'],
+        'WASTE_MANAGEMENT': ['waste management'],
+        // Add the codes you mentioned in the filter dropdown
+        'DCH': ['dch'],
+        'EYD': ['eyd'],
+        'MYD': ['myd'],
+        'GEN YARD': ['gen yard'],
+        'CONVEYANCE': ['conveyance'],
+        'MCP': ['mcp'],
+        'USS': ['uss']
+      };
+      
+      // Scan for matches like in TSX version
+      for (const [locationCode, keywords] of Object.entries(locationKeywords)) {
+        if (keywords.some(keyword => activityText.includes(keyword))) {
+          return locationCode;
+        }
       }
+      
       return '';
     }
 
@@ -251,7 +288,7 @@
         totalFloat: getText(activity, 'TotalFloat') || '0',
         status: getText(activity, 'Status') || 'Not Started',
         wbs: getText(activity, 'WBSName') || getText(activity, 'WBSCode') || '',
-        location: extractLocationFromWBS(getText(activity, 'WBSName') || getText(activity, 'WBSCode') || '')
+        location: extractLocationFromWBS(getText(activity, 'Name') || getText(activity, 'ActivityName') || '', getText(activity, 'WBSName') || getText(activity, 'WBSCode') || '')
       }));
     }
 
@@ -284,7 +321,7 @@
         totalFloat: a.total_float_hr_cnt || '0',
         status: a.status_code || 'Not Started',
         wbs: a.wbs_id || '',
-        location: extractLocationFromWBS(a.wbs_id || '')
+        location: extractLocationFromWBS(a.task_name || '', a.wbs_id || '')
       }));
     }
 
@@ -333,7 +370,7 @@
           totalFloat: values[floatIdx] || '0',
           status: values[statusIdx] || 'Not Started',
           wbs,
-          location: extractLocationFromWBS(wbs)
+          location: extractLocationFromWBS(values[nameIdx] || '', wbs)
         });
       }
       
@@ -469,9 +506,12 @@
       const groups = {};
       dataCentreCodes.forEach(code => { groups[code] = []; });
       activities.forEach(a => {
-        const wbs = a.wbs ? a.wbs.toUpperCase() : '';
-        const found = dataCentreCodes.find(code => wbs.includes(code));
-        if (found) groups[found].push(a);
+        // Use the assigned location instead of scanning WBS
+        if (a.location) {
+          // Check if the location matches any of our data centre codes
+          const found = dataCentreCodes.find(code => a.location.toUpperCase().includes(code.toUpperCase()));
+          if (found) groups[found].push(a);
+        }
       });
       return groups;
     }
