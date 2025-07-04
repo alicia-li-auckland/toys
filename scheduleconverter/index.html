@@ -66,21 +66,23 @@
             <i data-lucide="search" class="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400"></i>
             <input type="text" id="searchInput" placeholder="Search activities..." class="w-full pl-9 pr-4 py-2 text-sm border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none">
           </div>
-          <select id="zoneFilter" class="w-36 px-3 py-2 text-sm border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none">
-            <option value="">All Zones</option>
-          </select>
-          <select id="locationFilter" class="w-36 px-3 py-2 text-sm border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none">
-            <option value="">All Locations</option>
-            <option value="DCH">DCH</option>
-            <option value="EYD">EYD</option>
-            <option value="MYD">MYD</option>
-            <option value="FSA">FSA</option>
-            <option value="GEN YARD">GEN YARD</option>
-            <option value="CONVEYANCE">CONVEYANCE</option>
-            <option value="MCP">MCP</option>
-            <option value="USS">USS</option>
-            <option value="PERUN">PERUN</option>
-          </select>
+          <div class="relative w-48">
+            <button id="locationFilterBtn" class="w-full px-3 py-2 text-sm border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none bg-white text-left flex items-center justify-between">
+              <span id="locationFilterText">All Locations</span>
+              <i data-lucide="chevron-down" class="w-4 h-4 text-slate-400"></i>
+            </button>
+            <div id="locationFilterDropdown" class="absolute top-full left-0 right-0 mt-1 bg-white border border-slate-300 rounded-lg shadow-lg z-50 max-h-96 overflow-y-auto" style="display:none;">
+              <div class="p-3">
+                <div class="flex items-center justify-between mb-2">
+                  <h4 class="text-sm font-semibold text-slate-800">Locations</h4>
+                  <button id="selectAllLocations" class="text-xs font-medium text-blue-600 hover:underline">Select All</button>
+                </div>
+                <div id="locationCheckboxes" class="grid grid-cols-1 gap-2 max-h-64 overflow-y-auto">
+                  <!-- Location checkboxes will be populated here by JS -->
+                </div>
+              </div>
+            </div>
+          </div>
           <div class="relative w-48">
             <button id="tradeFilterBtn" class="w-full px-3 py-2 text-sm border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none bg-white text-left flex items-center justify-between">
               <span id="tradeFilterText">All Trades/Areas</span>
