@@ -804,6 +804,16 @@
 
       function renderDataCentreView() {
         const groups = groupByDataCentre(filteredActivities);
+        // Open all groups by default if openGroups is empty (first render or after filter)
+        const groupCodes = Object.keys(groups).filter(code => groups[code].length > 0);
+        if (openGroups.size === 0) {
+          groupCodes.forEach(code => openGroups.add(code));
+        } else {
+          // If new group codes appear (e.g. after filter), add them to openGroups
+          groupCodes.forEach(code => {
+            if (!openGroups.has(code)) openGroups.add(code);
+          });
+        }
         let html = '';
         let hasAny = false;
         html += '<div class="p-6">';
