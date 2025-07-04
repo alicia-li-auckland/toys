@@ -216,892 +216,894 @@
   </div>
 
   <script>
-    // Initialize Lucide Icons
-    lucide.createIcons();
-
-    // --- Utility Functions ---
-    function formatDate(dateString) {
-      if (!dateString) return '';
-      try {
-        const date = new Date(dateString);
-        return isNaN(date.getTime()) ? dateString : date.toISOString().split('T')[0];
-      } catch { return dateString; }
-    }
-    
-    function escapeCSV(val) {
-      if (val == null) return '';
-      return '"' + String(val).replace(/"/g, '""') + '"';
-    }
-
-    function extractLocationFromWBS(name, wbs) {
-      if (!name && !wbs) return '';
-      // Combine name and wbs for scanning, like in the TSX version
-      const activityText = `${name || ''} ${wbs || ''}`.toLowerCase();
-      // Location keywords mapping from TSX version
-      const locationKeywords = {
-        'DCH1': ['dch1'],
-        'DCH2': ['dch2'], 
-        'DCH3': ['dch3'],
-        'DCH4': ['dch4'],
-        'EYD1': ['eyd1'],
-        'EYD2': ['eyd2'],
-        'EYD3': ['eyd3'], 
-        'EYD4': ['eyd4'],
-        'FSA': ['fsa'],
-        'FUEL_STORAGE': ['fuel storage'],
-        'LOADING_BAY': ['loading bay'],
-        'MYD1_BLOCK_1': ['myd1 block 1', 'myd1 blk 1'],
-        'MYD1_BLOCK_2': ['myd1 block 2', 'myd1 blk 2'],
-        'MYD2': ['myd2'],
-        'MYD3': ['myd3'],
-        'MYD4': ['myd4'],
-        'NORTH_LAYDOWN': ['north laydown'],
-        'PERUN': ['perun'],
-        'WASTE_MANAGEMENT': ['waste management'],
-        // Add the codes you mentioned in the filter dropdown
-        'DCH': ['dch'],
-        'EYD': ['eyd'],
-        'MYD': ['myd'],
-        'GEN YARD': ['gen yard'],
-        'CONVEYANCE': ['conveyance'],
-        'MCP': ['mcp'],
-        'USS': ['uss']
-      };
-      // Scan for matches like in TSX version
-      for (const [locationCode, keywords] of Object.entries(locationKeywords)) {
-        if (keywords.some(keyword => activityText.includes(keyword))) {
-          return locationCode;
-        }
-      }
-      return '';
-    }
-
-    // --- Parsing Functions ---
-    function parseXMLData(xmlContent) {
-      const parser = new DOMParser();
-      const xmlDoc = parser.parseFromString(xmlContent, 'text/xml');
-      if (xmlDoc.getElementsByTagName('parsererror').length) throw new Error('Failed to parse XML file.');
-      const activities = Array.from(xmlDoc.getElementsByTagName('Activity'));
-      if (!activities.length) throw new Error('No activities found in XML file.');
-      
-      function getText(parent, tag) {
-        const el = parent.getElementsByTagName(tag)[0];
-        return el ? el.textContent : '';
-      }
-      
-      return activities.map((activity, i) => ({
-        id: getText(activity, 'Id') || getText(activity, 'ActivityId') || `ACT-${i+1}`,
-        name: getText(activity, 'Name') || getText(activity, 'ActivityName') || 'Unnamed Activity',
-        startDate: formatDate(getText(activity, 'PlannedStartDate') || getText(activity, 'StartDate')),
-        finishDate: formatDate(getText(activity, 'PlannedFinishDate') || getText(activity, 'FinishDate')),
-        duration: getText(activity, 'PlannedDuration') || getText(activity, 'Duration') || '0',
-        percentComplete: getText(activity, 'PercentComplete') || '0',
-        totalFloat: getText(activity, 'TotalFloat') || '0',
-        status: getText(activity, 'Status') || 'Not Started',
-        wbs: getText(activity, 'WBSName') || getText(activity, 'WBSCode') || '',
-        location: extractLocationFromWBS(getText(activity, 'Name') || getText(activity, 'ActivityName') || '', getText(activity, 'WBSName') || getText(activity, 'WBSCode') || '')
-      }));
-    }
-
-    function parseXERData(xerContent) {
-      const lines = xerContent.split('\n');
-      let isTaskSection = false, headers = [], taskData = [];
-      
-      for (const line of lines) {
-        const trimmed = line.trim();
-        if (trimmed.startsWith('%T') && trimmed.includes('TASK')) { isTaskSection = true; continue; }
-        if (isTaskSection && trimmed.startsWith('%F')) { headers = trimmed.substring(3).split('\t').map(h => h.trim()); continue; }
-        if (isTaskSection && trimmed.startsWith('%R')) {
-          const values = trimmed.substring(3).split('\t');
-          const activity = {};
-          headers.forEach((header, i) => activity[header] = values[i] ? values[i].trim() : '');
-          taskData.push(activity);
-        }
-        if (isTaskSection && trimmed.startsWith('%T') && !trimmed.includes('TASK')) break;
-      }
-      
-      if (taskData.length === 0) throw new Error('No TASK records found in the XER file.');
-      
-      return taskData.map((a, i) => ({
-        id: a.task_code || `XER-ACT-${i+1}`,
-        name: a.task_name || 'Unnamed Activity',
-        startDate: formatDate(a.early_start_date),
-        finishDate: formatDate(a.early_end_date),
-        duration: a.target_drtn_hr_cnt || '0',
-        percentComplete: a.phys_complete_pct || '0',
-        totalFloat: a.total_float_hr_cnt || '0',
-        status: a.status_code || 'Not Started',
-        wbs: a.wbs_id || '',
-        location: extractLocationFromWBS(a.task_name || '', a.wbs_id || '')
-      }));
-    }
-
-    function parseCSVData(csvContent) {
-      const lines = csvContent.split(/\r?\n/).filter(line => line.trim() !== '');
-      if (lines.length < 2) throw new Error('CSV file must have a header and at least one data row.');
-      
-      function parseRow(row) {
-        const result = [], len = row.length;
-        let current = '', inQuotes = false;
-        for (let i = 0; i < len; i++) {
-          const char = row[i];
-          if (char === '"') inQuotes = !inQuotes;
-          else if (char === ',' && !inQuotes) { result.push(current); current = ''; }
-          else current += char;
-        }
-        result.push(current);
-        return result.map(v => v.trim().replace(/^"|"$/g, '').replace(/""/g, '"'));
-      }
-      
-      const headers = parseRow(lines[0]).map(h => h.toLowerCase().trim());
-      const findIdx = names => { for (const n of names) { const idx = headers.indexOf(n.toLowerCase()); if (idx !== -1) return idx; } return -1; };
-      
-      const idIdx = findIdx(['activity id','id','task id']);
-      const nameIdx = findIdx(['activity name','name','task name']);
-      const startIdx = findIdx(['start','start date','planned start']);
-      const finishIdx = findIdx(['finish','finish date','planned finish']);
-      const durIdx = findIdx(['original duration','duration']);
-      const pctIdx = findIdx(['activity % complete','% complete','percent complete']);
-      const statusIdx = findIdx(['activity status','status']);
-      const floatIdx = findIdx(['total float','total float (days)']);
-      const wbsIdx = findIdx(['wbs name','wbs','wbs code']);
-      
-      const activities = [];
-      for (let i = 1; i < lines.length; i++) {
-        const values = parseRow(lines[i]);
-        if (values.length < headers.length) continue;
-        const wbs = values[wbsIdx] || '';
-        activities.push({
-          id: values[idIdx] || `CSV-ACT-${i}`,
-          name: values[nameIdx] || 'Unnamed Activity',
-          startDate: formatDate(values[startIdx]),
-          finishDate: formatDate(values[finishIdx]),
-          duration: values[durIdx] || '0',
-          percentComplete: values[pctIdx] || '0',
-          totalFloat: values[floatIdx] || '0',
-          status: values[statusIdx] || 'Not Started',
-          wbs,
-          location: extractLocationFromWBS(values[nameIdx] || '', wbs)
-        });
-      }
-      
-      if (activities.length === 0) throw new Error('Could not parse any valid activity rows from the CSV file.');
-      return activities;
-    }
-
-    // --- Trade Filter System (from TSX) ---
-    const tradeKeywords = {
-      excavation: ['excavat', 'dig', 'earth', 'soil', 'grade', 'cut', 'fill', 'trenching', 'backfill'],
-      utilities: ['utility', 'utilities', 'water', 'sewer', 'gas', 'electric service', 'storm', 'drain'],
-      structural_steel: ['steel', 'beam', 'column', 'frame', 'structural steel', 'erection', 'welding'],
-      roofing: ['roof', 'shingle', 'membrane', 'flashing', 'gutter', 'downspout', 'metal deck', 'roof deck'],
-      structural_piles: ['pile', 'piles', 'foundation', 'caisson', 'pier', 'deep foundation'],
-      concrete_pour: ['pour', 'concrete pour', 'placement', 'concrete placement', 'slab', 'footing'],
-      concrete_formwork: ['form', 'formwork', 'shoring', 'falsework', 'scaffolding'],
-      concrete_rebar: ['rebar', 'reinforc', 'steel reinforc', 'reinforcing', 'bar'],
-      masonry: ['masonry', 'brick', 'block', 'stone', 'mortar'],
-      electrical: ['electrical', 'electric', 'wiring', 'conduit', 'panel', 'lighting'],
-      plumbing: ['plumb', 'pipe', 'piping', 'fixture', 'valve'],
-      hvac: ['hvac', 'heating', 'cooling', 'ventilation', 'duct', 'air condition'],
-      insulation: ['insulat', 'thermal', 'vapor barrier', 'roofing insulation'],
-      drywall: ['drywall', 'gypsum', 'sheetrock', 'taping', 'finishing'],
-      flooring: ['floor', 'carpet', 'tile', 'hardwood', 'vinyl'],
-      painting: ['paint', 'coating', 'finish', 'primer'],
-      landscaping: ['landscape', 'plant', 'irrigation', 'lawn', 'tree'],
-      other_trades: ['trade', 'specialty', 'subcontractor']
-    };
-
-    // Trade filter state
-    let selectedTrades = {
-      excavation: false, utilities: false, structural_steel: false, roofing: false,
-      structural_piles: false, concrete_pour: false, concrete_formwork: false, concrete_rebar: false,
-      masonry: false, electrical: false, plumbing: false, hvac: false, insulation: false,
-      drywall: false, flooring: false, painting: false, landscaping: false, other_trades: false
-    };
-    let customKeywords = '';
-    let excludeKeywords = ['rfp', 'rfi', 'approval', 'submittal', 'review', 'meeting', 'mobilization', 
-                          'demobilization', 'permit', 'inspection', 'testing', 'close out', 'closeout',
-                          'procurement', 'ordering', 'delivery', 'schedule', 'planning', 'coordination'];
-
-    // --- Location Multiselect Logic ---
-    const locationCodes = [
-      'DCH', 'EYD', 'MYD', 'FSA', 'GEN YARD', 'CONVEYANCE', 'MCP', 'USS', 'PERUN'
-    ];
-    let selectedLocations = [...locationCodes]; // Default: all selected
-
-    const locationFilterBtn = document.getElementById('locationFilterBtn');
-    const locationFilterDropdown = document.getElementById('locationFilterDropdown');
-    const locationFilterText = document.getElementById('locationFilterText');
-    const locationCheckboxes = document.getElementById('locationCheckboxes');
-    const selectAllLocations = document.getElementById('selectAllLocations');
-
-    function updateLocationCheckboxes() {
-      locationCheckboxes.innerHTML = locationCodes.map(code => `
-        <label class="flex items-center space-x-2 cursor-pointer p-2 rounded-lg hover:bg-slate-100">
-          <input type="checkbox" data-location="${code}" class="h-4 w-4 rounded border-slate-300 text-blue-600 focus:ring-blue-500" ${selectedLocations.includes(code) ? 'checked' : ''}>
-          <span class="text-sm text-slate-700">${code}</span>
-        </label>
-      `).join('');
-    }
-
-    function updateLocationFilterText() {
-      if (selectedLocations.length === 0 || selectedLocations.length === locationCodes.length) {
-        locationFilterText.textContent = 'All Locations';
-      } else if (selectedLocations.length === 1) {
-        locationFilterText.textContent = selectedLocations[0];
-      } else {
-        locationFilterText.textContent = `${selectedLocations.length} Locations`;
-      }
-    }
-
-    function handleLocationCheckboxChange(e) {
-      const code = e.target.dataset.location;
-      if (e.target.checked) {
-        if (!selectedLocations.includes(code)) selectedLocations.push(code);
-      } else {
-        selectedLocations = selectedLocations.filter(l => l !== code);
-      }
-      updateLocationFilterText();
-      filterActivities();
-    }
-
-    function handleSelectAllLocations() {
-      if (selectedLocations.length === locationCodes.length) {
-        selectedLocations = [];
-      } else {
-        selectedLocations = [...locationCodes];
-      }
-      updateLocationCheckboxes();
-      updateLocationFilterText();
-      filterActivities();
-    }
-
-    locationFilterBtn.addEventListener('click', () => {
-      locationFilterDropdown.style.display = locationFilterDropdown.style.display === 'none' ? 'block' : 'none';
+    document.addEventListener('DOMContentLoaded', function() {
+      // Initialize Lucide Icons
       lucide.createIcons();
-    });
-    document.addEventListener('click', (e) => {
-      if (!locationFilterBtn.contains(e.target) && !locationFilterDropdown.contains(e.target)) {
-        locationFilterDropdown.style.display = 'none';
+
+      // --- Utility Functions ---
+      function formatDate(dateString) {
+        if (!dateString) return '';
+        try {
+          const date = new Date(dateString);
+          return isNaN(date.getTime()) ? dateString : date.toISOString().split('T')[0];
+        } catch { return dateString; }
       }
-    });
-    locationCheckboxes.addEventListener('change', handleLocationCheckboxChange);
-    selectAllLocations.addEventListener('click', handleSelectAllLocations);
-
-    function initializeLocationFilter() {
-      updateLocationCheckboxes();
-      updateLocationFilterText();
-    }
-    // --- END Location Multiselect Logic ---
-
-    // --- UI Logic ---
-    let allActivities = [], filteredActivities = [];
-    const fileInput = document.getElementById('fileInput');
-    const exportBtn = document.getElementById('exportBtn');
-    const table = document.getElementById('activitiesTable');
-    const tbody = table.querySelector('tbody');
-    const message = document.getElementById('message');
-    const emptyState = document.getElementById('emptyState');
-    const tradeFilterBtn = document.getElementById('tradeFilterBtn');
-    const tradeFilterDropdown = document.getElementById('tradeFilterDropdown');
-    const tradeFilterText = document.getElementById('tradeFilterText');
-    const tradeCheckboxes = document.getElementById('tradeCheckboxes');
-    const selectAllTrades = document.getElementById('selectAllTrades');
-    const customKeywordsInput = document.getElementById('customKeywords');
-    const clearCustomKeywords = document.getElementById('clearCustomKeywords');
-    const excludeKeywordsTags = document.getElementById('excludeKeywordsTags');
-    const newExcludeKeyword = document.getElementById('newExcludeKeyword');
-    const addExcludeKeyword = document.getElementById('addExcludeKeyword');
-    const clearExcludeKeywords = document.getElementById('clearExcludeKeywords');
-    const zoneFilter = document.getElementById('zoneFilter');
-    const dataCentreCodes = ['DCH','EYD','MYD','FSA','GEN YARD','CONVEYANCE','MCP','USS','PERUN'];
-    let viewMode = 'standard'; // 'standard' or 'dataCentre'
-    const standardViewBtn = document.getElementById('standardViewBtn');
-    const dataCentreViewBtn = document.getElementById('dataCentreViewBtn');
-    const dataCentreViewDiv = document.getElementById('dataCentreView');
-    const processBtn = document.getElementById('processBtn');
-    let selectedFile = null;
-
-    function showMessage(msg, type) {
-      const bgColor = type === 'error' ? 'bg-red-50 border-red-200 text-red-800' : 'bg-green-50 border-green-200 text-green-800';
-      const icon = type === 'error' ? 'alert-circle' : 'check-circle';
       
-      // Show in main message area for errors
-      if (type === 'error') {
-        message.innerHTML = `
-          <div class="mx-6 mb-4 p-4 border rounded-lg ${bgColor} flex items-center gap-3 fade-in">
-            <i data-lucide="${icon}" class="w-5 h-5"></i>
-            <span class="text-sm font-medium">${msg}</span>
-          </div>
-        `;
-        lucide.createIcons();
-      } else {
-        // Show success messages as toast notification
-        const toast = document.getElementById('toast');
-        toast.innerHTML = `
-          <div class="bg-white border border-gray-200 rounded-lg shadow-lg p-4 flex items-center gap-3 min-w-80">
-            <i data-lucide="${icon}" class="w-5 h-5 text-green-600"></i>
-            <span class="text-sm font-medium text-gray-800">${msg}</span>
-            <button onclick="hideToast()" class="ml-auto text-gray-400 hover:text-gray-600">
-              <i data-lucide="x" class="w-4 h-4"></i>
-            </button>
-          </div>
-        `;
-        lucide.createIcons();
+      function escapeCSV(val) {
+        if (val == null) return '';
+        return '"' + String(val).replace(/"/g, '""') + '"';
+      }
+
+      function extractLocationFromWBS(name, wbs) {
+        if (!name && !wbs) return '';
+        // Combine name and wbs for scanning, like in the TSX version
+        const activityText = `${name || ''} ${wbs || ''}`.toLowerCase();
+        // Location keywords mapping from TSX version
+        const locationKeywords = {
+          'DCH1': ['dch1'],
+          'DCH2': ['dch2'], 
+          'DCH3': ['dch3'],
+          'DCH4': ['dch4'],
+          'EYD1': ['eyd1'],
+          'EYD2': ['eyd2'],
+          'EYD3': ['eyd3'], 
+          'EYD4': ['eyd4'],
+          'FSA': ['fsa'],
+          'FUEL_STORAGE': ['fuel storage'],
+          'LOADING_BAY': ['loading bay'],
+          'MYD1_BLOCK_1': ['myd1 block 1', 'myd1 blk 1'],
+          'MYD1_BLOCK_2': ['myd1 block 2', 'myd1 blk 2'],
+          'MYD2': ['myd2'],
+          'MYD3': ['myd3'],
+          'MYD4': ['myd4'],
+          'NORTH_LAYDOWN': ['north laydown'],
+          'PERUN': ['perun'],
+          'WASTE_MANAGEMENT': ['waste management'],
+          // Add the codes you mentioned in the filter dropdown
+          'DCH': ['dch'],
+          'EYD': ['eyd'],
+          'MYD': ['myd'],
+          'GEN YARD': ['gen yard'],
+          'CONVEYANCE': ['conveyance'],
+          'MCP': ['mcp'],
+          'USS': ['uss']
+        };
+        // Scan for matches like in TSX version
+        for (const [locationCode, keywords] of Object.entries(locationKeywords)) {
+          if (keywords.some(keyword => activityText.includes(keyword))) {
+            return locationCode;
+          }
+        }
+        return '';
+      }
+
+      // --- Parsing Functions ---
+      function parseXMLData(xmlContent) {
+        const parser = new DOMParser();
+        const xmlDoc = parser.parseFromString(xmlContent, 'text/xml');
+        if (xmlDoc.getElementsByTagName('parsererror').length) throw new Error('Failed to parse XML file.');
+        const activities = Array.from(xmlDoc.getElementsByTagName('Activity'));
+        if (!activities.length) throw new Error('No activities found in XML file.');
         
-        // Show toast
-        toast.classList.remove('translate-y-full');
-        toast.classList.add('translate-y-0');
+        function getText(parent, tag) {
+          const el = parent.getElementsByTagName(tag)[0];
+          return el ? el.textContent : '';
+        }
         
-        // Auto-hide after 3 seconds
-        setTimeout(() => {
-          hideToast();
-        }, 3000);
+        return activities.map((activity, i) => ({
+          id: getText(activity, 'Id') || getText(activity, 'ActivityId') || `ACT-${i+1}`,
+          name: getText(activity, 'Name') || getText(activity, 'ActivityName') || 'Unnamed Activity',
+          startDate: formatDate(getText(activity, 'PlannedStartDate') || getText(activity, 'StartDate')),
+          finishDate: formatDate(getText(activity, 'PlannedFinishDate') || getText(activity, 'FinishDate')),
+          duration: getText(activity, 'PlannedDuration') || getText(activity, 'Duration') || '0',
+          percentComplete: getText(activity, 'PercentComplete') || '0',
+          totalFloat: getText(activity, 'TotalFloat') || '0',
+          status: getText(activity, 'Status') || 'Not Started',
+          wbs: getText(activity, 'WBSName') || getText(activity, 'WBSCode') || '',
+          location: extractLocationFromWBS(getText(activity, 'Name') || getText(activity, 'ActivityName') || '', getText(activity, 'WBSName') || getText(activity, 'WBSCode') || '')
+        }));
       }
-    }
 
-    function hideToast() {
-      const toast = document.getElementById('toast');
-      toast.classList.remove('translate-y-0');
-      toast.classList.add('translate-y-full');
-    }
-
-    function clearMessage() { 
-      message.innerHTML = ''; 
-    }
-
-    // --- View Mode Functions ---
-    function setViewMode(mode) {
-      viewMode = mode;
-      
-      if (mode === 'standard') {
-        standardViewBtn.className = 'px-4 py-2 text-sm font-medium rounded-md transition-colors bg-blue-600 text-white shadow-sm';
-        dataCentreViewBtn.className = 'px-4 py-2 text-sm font-medium rounded-md transition-colors text-slate-700 hover:bg-slate-100';
-        dataCentreViewDiv.style.display = 'none';
-        table.style.display = 'table';
-      } else {
-        standardViewBtn.className = 'px-4 py-2 text-sm font-medium rounded-md transition-colors text-slate-700 hover:bg-slate-100';
-        dataCentreViewBtn.className = 'px-4 py-2 text-sm font-medium rounded-md transition-colors bg-blue-600 text-white shadow-sm';
-        dataCentreViewDiv.style.display = 'block';
-        table.style.display = 'none';
+      function parseXERData(xerContent) {
+        const lines = xerContent.split('\n');
+        let isTaskSection = false, headers = [], taskData = [];
+        
+        for (const line of lines) {
+          const trimmed = line.trim();
+          if (trimmed.startsWith('%T') && trimmed.includes('TASK')) { isTaskSection = true; continue; }
+          if (isTaskSection && trimmed.startsWith('%F')) { headers = trimmed.substring(3).split('\t').map(h => h.trim()); continue; }
+          if (isTaskSection && trimmed.startsWith('%R')) {
+            const values = trimmed.substring(3).split('\t');
+            const activity = {};
+            headers.forEach((header, i) => activity[header] = values[i] ? values[i].trim() : '');
+            taskData.push(activity);
+          }
+          if (isTaskSection && trimmed.startsWith('%T') && !trimmed.includes('TASK')) break;
+        }
+        
+        if (taskData.length === 0) throw new Error('No TASK records found in the XER file.');
+        
+        return taskData.map((a, i) => ({
+          id: a.task_code || `XER-ACT-${i+1}`,
+          name: a.task_name || 'Unnamed Activity',
+          startDate: formatDate(a.early_start_date),
+          finishDate: formatDate(a.early_end_date),
+          duration: a.target_drtn_hr_cnt || '0',
+          percentComplete: a.phys_complete_pct || '0',
+          totalFloat: a.total_float_hr_cnt || '0',
+          status: a.status_code || 'Not Started',
+          wbs: a.wbs_id || '',
+          location: extractLocationFromWBS(a.task_name || '', a.wbs_id || '')
+        }));
       }
-      
-      // Re-render based on current view
-      if (allActivities.length > 0) {
-        if (mode === 'dataCentre') {
-          renderDataCentreView();
+
+      function parseCSVData(csvContent) {
+        const lines = csvContent.split(/\r?\n/).filter(line => line.trim() !== '');
+        if (lines.length < 2) throw new Error('CSV file must have a header and at least one data row.');
+        
+        function parseRow(row) {
+          const result = [], len = row.length;
+          let current = '', inQuotes = false;
+          for (let i = 0; i < len; i++) {
+            const char = row[i];
+            if (char === '"') inQuotes = !inQuotes;
+            else if (char === ',' && !inQuotes) { result.push(current); current = ''; }
+            else current += char;
+          }
+          result.push(current);
+          return result.map(v => v.trim().replace(/^"|"$/g, '').replace(/""/g, '"'));
+        }
+        
+        const headers = parseRow(lines[0]).map(h => h.toLowerCase().trim());
+        const findIdx = names => { for (const n of names) { const idx = headers.indexOf(n.toLowerCase()); if (idx !== -1) return idx; } return -1; };
+        
+        const idIdx = findIdx(['activity id','id','task id']);
+        const nameIdx = findIdx(['activity name','name','task name']);
+        const startIdx = findIdx(['start','start date','planned start']);
+        const finishIdx = findIdx(['finish','finish date','planned finish']);
+        const durIdx = findIdx(['original duration','duration']);
+        const pctIdx = findIdx(['activity % complete','% complete','percent complete']);
+        const statusIdx = findIdx(['activity status','status']);
+        const floatIdx = findIdx(['total float','total float (days)']);
+        const wbsIdx = findIdx(['wbs name','wbs','wbs code']);
+        
+        const activities = [];
+        for (let i = 1; i < lines.length; i++) {
+          const values = parseRow(lines[i]);
+          if (values.length < headers.length) continue;
+          const wbs = values[wbsIdx] || '';
+          activities.push({
+            id: values[idIdx] || `CSV-ACT-${i}`,
+            name: values[nameIdx] || 'Unnamed Activity',
+            startDate: formatDate(values[startIdx]),
+            finishDate: formatDate(values[finishIdx]),
+            duration: values[durIdx] || '0',
+            percentComplete: values[pctIdx] || '0',
+            totalFloat: values[floatIdx] || '0',
+            status: values[statusIdx] || 'Not Started',
+            wbs,
+            location: extractLocationFromWBS(values[nameIdx] || '', wbs)
+          });
+        }
+        
+        if (activities.length === 0) throw new Error('Could not parse any valid activity rows from the CSV file.');
+        return activities;
+      }
+
+      // --- Trade Filter System (from TSX) ---
+      const tradeKeywords = {
+        excavation: ['excavat', 'dig', 'earth', 'soil', 'grade', 'cut', 'fill', 'trenching', 'backfill'],
+        utilities: ['utility', 'utilities', 'water', 'sewer', 'gas', 'electric service', 'storm', 'drain'],
+        structural_steel: ['steel', 'beam', 'column', 'frame', 'structural steel', 'erection', 'welding'],
+        roofing: ['roof', 'shingle', 'membrane', 'flashing', 'gutter', 'downspout', 'metal deck', 'roof deck'],
+        structural_piles: ['pile', 'piles', 'foundation', 'caisson', 'pier', 'deep foundation'],
+        concrete_pour: ['pour', 'concrete pour', 'placement', 'concrete placement', 'slab', 'footing'],
+        concrete_formwork: ['form', 'formwork', 'shoring', 'falsework', 'scaffolding'],
+        concrete_rebar: ['rebar', 'reinforc', 'steel reinforc', 'reinforcing', 'bar'],
+        masonry: ['masonry', 'brick', 'block', 'stone', 'mortar'],
+        electrical: ['electrical', 'electric', 'wiring', 'conduit', 'panel', 'lighting'],
+        plumbing: ['plumb', 'pipe', 'piping', 'fixture', 'valve'],
+        hvac: ['hvac', 'heating', 'cooling', 'ventilation', 'duct', 'air condition'],
+        insulation: ['insulat', 'thermal', 'vapor barrier', 'roofing insulation'],
+        drywall: ['drywall', 'gypsum', 'sheetrock', 'taping', 'finishing'],
+        flooring: ['floor', 'carpet', 'tile', 'hardwood', 'vinyl'],
+        painting: ['paint', 'coating', 'finish', 'primer'],
+        landscaping: ['landscape', 'plant', 'irrigation', 'lawn', 'tree'],
+        other_trades: ['trade', 'specialty', 'subcontractor']
+      };
+
+      // Trade filter state
+      let selectedTrades = {
+        excavation: false, utilities: false, structural_steel: false, roofing: false,
+        structural_piles: false, concrete_pour: false, concrete_formwork: false, concrete_rebar: false,
+        masonry: false, electrical: false, plumbing: false, hvac: false, insulation: false,
+        drywall: false, flooring: false, painting: false, landscaping: false, other_trades: false
+      };
+      let customKeywords = '';
+      let excludeKeywords = ['rfp', 'rfi', 'approval', 'submittal', 'review', 'meeting', 'mobilization', 
+                            'demobilization', 'permit', 'inspection', 'testing', 'close out', 'closeout',
+                            'procurement', 'ordering', 'delivery', 'schedule', 'planning', 'coordination'];
+
+      // --- Location Multiselect Logic ---
+      const locationCodes = [
+        'DCH', 'EYD', 'MYD', 'FSA', 'GEN YARD', 'CONVEYANCE', 'MCP', 'USS', 'PERUN'
+      ];
+      let selectedLocations = [...locationCodes]; // Default: all selected
+
+      const locationFilterBtn = document.getElementById('locationFilterBtn');
+      const locationFilterDropdown = document.getElementById('locationFilterDropdown');
+      const locationFilterText = document.getElementById('locationFilterText');
+      const locationCheckboxes = document.getElementById('locationCheckboxes');
+      const selectAllLocations = document.getElementById('selectAllLocations');
+
+      function updateLocationCheckboxes() {
+        locationCheckboxes.innerHTML = locationCodes.map(code => `
+          <label class="flex items-center space-x-2 cursor-pointer p-2 rounded-lg hover:bg-slate-100">
+            <input type="checkbox" data-location="${code}" class="h-4 w-4 rounded border-slate-300 text-blue-600 focus:ring-blue-500" ${selectedLocations.includes(code) ? 'checked' : ''}>
+            <span class="text-sm text-slate-700">${code}</span>
+          </label>
+        `).join('');
+      }
+
+      function updateLocationFilterText() {
+        if (selectedLocations.length === 0 || selectedLocations.length === locationCodes.length) {
+          locationFilterText.textContent = 'All Locations';
+        } else if (selectedLocations.length === 1) {
+          locationFilterText.textContent = selectedLocations[0];
         } else {
-          renderTable(filteredActivities);
+          locationFilterText.textContent = `${selectedLocations.length} Locations`;
         }
       }
-    }
 
-    // --- Trade Filter Functions ---
-    function initializeTradeFilter() {
-      // Populate trade checkboxes
-      tradeCheckboxes.innerHTML = Object.keys(tradeKeywords).map(trade => `
-        <label class="flex items-center space-x-2 cursor-pointer p-2 rounded-lg hover:bg-slate-100">
-          <input type="checkbox" data-trade="${trade}" class="h-4 w-4 rounded border-slate-300 text-blue-600 focus:ring-blue-500">
-          <span class="text-sm text-slate-700 capitalize">${trade.replace(/_/g, ' ')}</span>
-        </label>
-      `).join('');
-
-      // Populate exclude keywords tags
-      updateExcludeKeywordsTags();
-
-      // Add event listeners
-      tradeCheckboxes.addEventListener('change', handleTradeCheckboxChange);
-      selectAllTrades.addEventListener('click', handleSelectAllTrades);
-      customKeywordsInput.addEventListener('input', handleCustomKeywordsChange);
-      clearCustomKeywords.addEventListener('click', handleClearCustomKeywords);
-      addExcludeKeyword.addEventListener('click', handleAddExcludeKeyword);
-      clearExcludeKeywords.addEventListener('click', handleClearExcludeKeywords);
-      newExcludeKeyword.addEventListener('keypress', (e) => {
-        if (e.key === 'Enter') handleAddExcludeKeyword();
-      });
-
-      // Toggle dropdown
-      tradeFilterBtn.addEventListener('click', () => {
-        tradeFilterDropdown.style.display = tradeFilterDropdown.style.display === 'none' ? 'block' : 'none';
-        lucide.createIcons(); // Recreate icons after showing dropdown
-      });
-
-      // Close dropdown when clicking outside
-      document.addEventListener('click', (e) => {
-        if (!tradeFilterBtn.contains(e.target) && !tradeFilterDropdown.contains(e.target)) {
-          tradeFilterDropdown.style.display = 'none';
+      function handleLocationCheckboxChange(e) {
+        const code = e.target.dataset.location;
+        if (e.target.checked) {
+          if (!selectedLocations.includes(code)) selectedLocations.push(code);
+        } else {
+          selectedLocations = selectedLocations.filter(l => l !== code);
         }
-      });
-    }
-
-    function handleTradeCheckboxChange(e) {
-      const trade = e.target.dataset.trade;
-      selectedTrades[trade] = e.target.checked;
-      updateTradeFilterText();
-      filterActivities();
-    }
-
-    function handleSelectAllTrades() {
-      const allSelected = Object.values(selectedTrades).every(Boolean);
-      const newState = Object.keys(selectedTrades).reduce((acc, trade) => {
-        acc[trade] = !allSelected;
-        return acc;
-      }, {});
-      selectedTrades = newState;
-      
-      // Update checkboxes
-      tradeCheckboxes.querySelectorAll('input[type="checkbox"]').forEach(checkbox => {
-        checkbox.checked = selectedTrades[checkbox.dataset.trade];
-      });
-      
-      updateTradeFilterText();
-      filterActivities();
-    }
-
-    function handleCustomKeywordsChange(e) {
-      customKeywords = e.target.value;
-      filterActivities();
-    }
-
-    function handleClearCustomKeywords() {
-      customKeywords = '';
-      customKeywordsInput.value = '';
-      filterActivities();
-    }
-
-    function handleAddExcludeKeyword() {
-      const keyword = newExcludeKeyword.value.trim().toLowerCase();
-      if (keyword && !excludeKeywords.includes(keyword)) {
-        excludeKeywords.push(keyword);
-        updateExcludeKeywordsTags();
-        newExcludeKeyword.value = '';
+        updateLocationFilterText();
         filterActivities();
       }
-    }
 
-    function handleClearExcludeKeywords() {
-      excludeKeywords = [];
-      updateExcludeKeywordsTags();
-      filterActivities();
-    }
-
-    function updateExcludeKeywordsTags() {
-      excludeKeywordsTags.innerHTML = excludeKeywords.map(keyword => `
-        <span class="bg-red-100 text-red-800 text-xs font-medium px-2.5 py-1 rounded-full flex items-center">
-          ${keyword}
-          <button onclick="removeExcludeKeyword('${keyword}')" class="ml-1.5 text-red-500 hover:text-red-700">
-            <i data-lucide="x" class="w-3 h-3"></i>
-          </button>
-        </span>
-      `).join('');
-      lucide.createIcons();
-    }
-
-    function removeExcludeKeyword(keyword) {
-      excludeKeywords = excludeKeywords.filter(k => k !== keyword);
-      updateExcludeKeywordsTags();
-      filterActivities();
-    }
-
-    function updateTradeFilterText() {
-      const selectedCount = Object.values(selectedTrades).filter(Boolean).length;
-      const totalCount = Object.keys(selectedTrades).length;
-      
-      if (selectedCount === 0) {
-        tradeFilterText.textContent = 'All Trades/Areas';
-      } else if (selectedCount === totalCount) {
-        tradeFilterText.textContent = 'All Trades Selected';
-      } else {
-        tradeFilterText.textContent = `${selectedCount} Trade${selectedCount > 1 ? 's' : ''} Selected`;
+      function handleSelectAllLocations() {
+        if (selectedLocations.length === locationCodes.length) {
+          selectedLocations = [];
+        } else {
+          selectedLocations = [...locationCodes];
+        }
+        updateLocationCheckboxes();
+        updateLocationFilterText();
+        filterActivities();
       }
-    }
 
-    function renderTable(data) {
-      tbody.innerHTML = '';
-      if (!data.length) { 
-        table.style.display = 'none';
-        emptyState.style.display = 'flex';
-        return; 
-      }
-      
-      table.style.display = '';
-      emptyState.style.display = 'none';
-      
-      data.forEach((a, index) => {
-        const tr = document.createElement('tr');
-        tr.className = 'hover:bg-slate-50 transition-colors fade-in';
-        tr.style.animationDelay = `${index * 0.05}s`;
-        
-        const getStatusColor = (status) => {
-          const statusLower = status.toLowerCase();
-          if (statusLower.includes('complete')) return 'bg-green-100 text-green-800';
-          if (statusLower.includes('progress')) return 'bg-blue-100 text-blue-800';
-          if (statusLower.includes('not started')) return 'bg-slate-100 text-slate-800';
-          return 'bg-yellow-100 text-yellow-800';
-        };
-
-        tr.innerHTML = `
-          <td class="px-4 py-3 text-sm font-medium text-slate-900">${a.id}</td>
-          <td class="px-4 py-3 text-sm text-slate-600">${a.location || ''}</td>
-          <td class="px-4 py-3 text-sm text-slate-900">${a.name}</td>
-          <td class="px-4 py-3 text-sm text-slate-600">${a.startDate}</td>
-          <td class="px-4 py-3 text-sm text-slate-600">${a.finishDate}</td>
-          <td class="px-4 py-3 text-sm text-slate-600">${a.duration}</td>
-          <td class="px-4 py-3 text-sm text-slate-600">${a.percentComplete}%</td>
-          <td class="px-4 py-3 text-sm text-slate-600">${a.totalFloat}</td>
-          <td class="px-4 py-3">
-            <span class="inline-flex px-2 py-1 text-xs font-medium rounded-full ${getStatusColor(a.status)}">
-              ${a.status}
-            </span>
-          </td>
-          <td class="px-4 py-3 text-sm text-slate-600">${a.wbs}</td>
-        `;
-        tbody.appendChild(tr);
+      locationFilterBtn.addEventListener('click', () => {
+        locationFilterDropdown.style.display = locationFilterDropdown.style.display === 'none' ? 'block' : 'none';
+        lucide.createIcons();
       });
-    }
-
-    function extractZone(trade) {
-      const match = trade.match(/Zone\s*\d+/i);
-      return match ? match[0].trim() : '';
-    }
-
-    function extractLocation(trade) {
-      // Look for known codes or patterns (e.g., 'USS', 'MCP', 'MYD', 'EYD', 'Gen Yard-Pad', etc.)
-      const codes = ['USS', 'MCP', 'MYD', 'EYD', 'Gen Yard-Pad', 'SSS', 'DCH', 'DWTR', 'GPS', 'Loading Dock', 'Booster Pump System', 'Fire Pump House', 'Tank Yard', 'Conveyance'];
-      for (const code of codes) {
-        if (trade.toUpperCase().includes(code.replace(/ /g, '').toUpperCase())) return code;
-      }
-      // Fallback: try to extract a word after 'Zone X-' or the first word
-      const afterZone = trade.split('-')[1];
-      if (afterZone) return afterZone.split(' ')[0];
-      return trade.split(' ')[0];
-    }
-
-    function updateZoneFilterOptions() {
-      const zoneSet = new Set();
-      allActivities.forEach(a => {
-        if (a.wbs && extractZone(a.wbs)) zoneSet.add(extractZone(a.wbs));
-      });
-      const options = ['<option value="">All Zones</option>'];
-      Array.from(zoneSet).sort().forEach(zone => {
-        options.push(`<option value="${zone}">${zone}</option>`);
-      });
-      zoneFilter.innerHTML = options.join('');
-    }
-
-    function updateAllFilters() {
-      updateZoneFilterOptions();
-    }
-
-    function groupByDataCentre(activities) {
-      const groups = {};
-      dataCentreCodes.forEach(code => { groups[code] = []; });
-      activities.forEach(a => {
-        if (a.location) {
-          // Check if the location matches any of our data centre codes
-          const found = dataCentreCodes.find(code => a.location.toUpperCase().includes(code.toUpperCase()));
-          if (found) groups[found].push(a);
+      document.addEventListener('click', (e) => {
+        if (!locationFilterBtn.contains(e.target) && !locationFilterDropdown.contains(e.target)) {
+          locationFilterDropdown.style.display = 'none';
         }
       });
-      return groups;
-    }
+      locationCheckboxes.addEventListener('change', handleLocationCheckboxChange);
+      selectAllLocations.addEventListener('click', handleSelectAllLocations);
 
-    // Data Centre view state
-    let selectedItems = new Set();
-    let hiddenItems = new Set();
+      function initializeLocationFilter() {
+        updateLocationCheckboxes();
+        updateLocationFilterText();
+      }
+      // --- END Location Multiselect Logic ---
 
-    function renderDataCentreView() {
-      const groups = groupByDataCentre(filteredActivities);
-      let html = '';
-      let hasAny = false;
-      
-      // Add padding container for proper scrolling
-      html += '<div class="p-6">';
-      
-      // Add control buttons like in TSX version
-      html += `
-        <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6 gap-4">
-          <h2 class="text-2xl font-bold text-gray-900">Data Centre Structured View</h2>
-          <div class="flex gap-2">
-            <button onclick="handleHideSelected()" disabled class="flex items-center gap-2 px-4 py-2 bg-yellow-500 text-white font-semibold rounded-lg shadow-sm hover:bg-yellow-600 disabled:bg-gray-300 disabled:cursor-not-allowed">
-              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.878 9.878L3 3m6.878 6.878L21 21"></path></svg>
-              Hide Selected (<span id="selectedCount">0</span>)
-            </button>
-            <button onclick="handleShowAll()" disabled class="flex items-center gap-2 px-4 py-2 bg-blue-500 text-white font-semibold rounded-lg shadow-sm hover:bg-blue-600 disabled:bg-gray-300 disabled:cursor-not-allowed">
-              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path></svg>
-              Show All (<span id="hiddenCount">0</span>)
-            </button>
-            <button onclick="exportDataCentreCSV()" class="bg-green-600 hover:bg-green-700 text-white font-bold px-6 py-2 rounded-lg transition-all duration-300 flex items-center gap-2 shadow-sm hover:shadow-md">
-              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
-              Export
-            </button>
-          </div>
-        </div>
-      `;
-      
-      // Create accordion-style groups like TSX version
-      Object.keys(groups).sort().forEach(code => {
-        const group = groups[code];
-        if (group.length) {
-          hasAny = true;
-          const visibleActivities = group.filter(a => !hiddenItems.has(a.id));
-          if (hiddenItems.has(code) || visibleActivities.length === 0) return;
-          
-          const allInGroupSelected = visibleActivities.length > 0 && 
-            visibleActivities.every(a => selectedItems.has(a.id));
-          
-          html += `
-            <div class="mb-4 border border-gray-200 rounded-lg overflow-hidden">
-              <div class="bg-gray-50 px-4 py-3 border-b border-gray-200 cursor-pointer" onclick="toggleGroup('${code}')">
-                <div class="flex items-center w-full">
-                  <input type="checkbox" 
-                    class="h-4 w-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500 mr-3"
-                    ${allInGroupSelected ? 'checked' : ''}
-                    onclick="event.stopPropagation(); handleGroupSelect('${code}', ${JSON.stringify(visibleActivities.map(a => a.id))})"
-                  />
-                  <span class="flex-1 font-semibold text-gray-800">${code}</span>
-                  <span class="text-sm text-gray-600 mr-2">${visibleActivities.length} activities</span>
-                  <svg class="w-5 h-5 transform transition-transform" id="icon-${code}" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
-                  </svg>
-                </div>
-              </div>
-              <div class="p-4" id="content-${code}">
-                <ul class="space-y-2">
-                  ${visibleActivities.map(activity => `
-                    <li class="flex items-center text-sm">
-                      <input type="checkbox" 
-                        class="h-4 w-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500 mr-3"
-                        ${selectedItems.has(activity.id) ? 'checked' : ''}
-                        onchange="handleItemSelect('${activity.id}')"
-                      />
-                      <span class="text-gray-800">${activity.name} (${activity.startDate || 'No Date'})</span>
-                    </li>
-                  `).join('')}
-                </ul>
-              </div>
+      // --- UI Logic ---
+      let allActivities = [], filteredActivities = [];
+      const fileInput = document.getElementById('fileInput');
+      const exportBtn = document.getElementById('exportBtn');
+      const table = document.getElementById('activitiesTable');
+      const tbody = table.querySelector('tbody');
+      const message = document.getElementById('message');
+      const emptyState = document.getElementById('emptyState');
+      const tradeFilterBtn = document.getElementById('tradeFilterBtn');
+      const tradeFilterDropdown = document.getElementById('tradeFilterDropdown');
+      const tradeFilterText = document.getElementById('tradeFilterText');
+      const tradeCheckboxes = document.getElementById('tradeCheckboxes');
+      const selectAllTrades = document.getElementById('selectAllTrades');
+      const customKeywordsInput = document.getElementById('customKeywords');
+      const clearCustomKeywords = document.getElementById('clearCustomKeywords');
+      const excludeKeywordsTags = document.getElementById('excludeKeywordsTags');
+      const newExcludeKeyword = document.getElementById('newExcludeKeyword');
+      const addExcludeKeyword = document.getElementById('addExcludeKeyword');
+      const clearExcludeKeywords = document.getElementById('clearExcludeKeywords');
+      const zoneFilter = document.getElementById('zoneFilter');
+      const dataCentreCodes = ['DCH','EYD','MYD','FSA','GEN YARD','CONVEYANCE','MCP','USS','PERUN'];
+      let viewMode = 'standard'; // 'standard' or 'dataCentre'
+      const standardViewBtn = document.getElementById('standardViewBtn');
+      const dataCentreViewBtn = document.getElementById('dataCentreViewBtn');
+      const dataCentreViewDiv = document.getElementById('dataCentreView');
+      const processBtn = document.getElementById('processBtn');
+      let selectedFile = null;
+
+      function showMessage(msg, type) {
+        const bgColor = type === 'error' ? 'bg-red-50 border-red-200 text-red-800' : 'bg-green-50 border-green-200 text-green-800';
+        const icon = type === 'error' ? 'alert-circle' : 'check-circle';
+        
+        // Show in main message area for errors
+        if (type === 'error') {
+          message.innerHTML = `
+            <div class="mx-6 mb-4 p-4 border rounded-lg ${bgColor} flex items-center gap-3 fade-in">
+              <i data-lucide="${icon}" class="w-5 h-5"></i>
+              <span class="text-sm font-medium">${msg}</span>
             </div>
           `;
-        }
-      });
-      
-      if (!hasAny) {
-        html = `<div class='text-slate-500 text-center py-8'>No activities found for any data centre.</div>`;
-      }
-      
-      html += '</div>'; // Close padding container
-      dataCentreViewDiv.innerHTML = html;
-      updateCounts();
-    }
-
-    function toggleGroup(code) {
-      const content = document.getElementById(`content-${code}`);
-      const icon = document.getElementById(`icon-${code}`);
-      if (content.style.display === 'none') {
-        content.style.display = 'block';
-        icon.style.transform = 'rotate(0deg)';
-      } else {
-        content.style.display = 'none';
-        icon.style.transform = 'rotate(180deg)';
-      }
-    }
-
-    function handleGroupSelect(groupKey, activityIds) {
-      const allSelected = activityIds.every(id => selectedItems.has(id));
-      
-      if (allSelected) {
-        activityIds.forEach(id => selectedItems.delete(id));
-      } else {
-        activityIds.forEach(id => selectedItems.add(id));
-      }
-      
-      renderDataCentreView(); // Refresh the view
-    }
-
-    function handleItemSelect(id) {
-      if (selectedItems.has(id)) {
-        selectedItems.delete(id);
-      } else {
-        selectedItems.add(id);
-      }
-      
-      renderDataCentreView(); // Refresh the view
-    }
-
-    function handleHideSelected() {
-      hiddenItems = new Set([...hiddenItems, ...selectedItems]);
-      selectedItems.clear();
-      renderDataCentreView();
-    }
-
-    function handleShowAll() {
-      hiddenItems.clear();
-      renderDataCentreView();
-    }
-
-    function updateCounts() {
-      document.getElementById('selectedCount').textContent = selectedItems.size;
-      document.getElementById('hiddenCount').textContent = hiddenItems.size;
-      
-      // Update button states
-      const hideButton = document.querySelector('button[onclick="handleHideSelected()"]');
-      const showButton = document.querySelector('button[onclick="handleShowAll()"]');
-      
-      if (hideButton) hideButton.disabled = selectedItems.size === 0;
-      if (showButton) showButton.disabled = hiddenItems.size === 0;
-    }
-
-    function exportDataCentreCSV() {
-      const groups = groupByDataCentre(filteredActivities);
-      const csvRows = [];
-      const headers = ['Location', 'Activity ID', 'Activity Name', 'Start Date', 'Finish Date', 'Duration', '% Complete', 'Status', 'WBS'];
-      csvRows.push(headers.join(','));
-      
-      const sortedLocationKeys = Object.keys(groups).sort();
-      
-      for (const locationKey of sortedLocationKeys) {
-        const location = groups[locationKey];
-        const locationName = locationKey;
-        
-        for (const activity of location) {
-          const row = [
-            `"${locationName}"`,
-            `"${activity.id}"`,
-            `"${activity.name.replace(/"/g, '""')}"`,
-            `"${activity.startDate || ''}"`,
-            `"${activity.finishDate || ''}"`,
-            `"${activity.duration || '0'}"`,
-            `"${activity.percentComplete || '0'}"`,
-            `"${activity.status || 'Not Started'}"`,
-            `"${(activity.wbs || '').replace(/"/g, '""')}"`
-          ];
-          csvRows.push(row.join(','));
+          lucide.createIcons();
+        } else {
+          // Show success messages as toast notification
+          const toast = document.getElementById('toast');
+          toast.innerHTML = `
+            <div class="bg-white border border-gray-200 rounded-lg shadow-lg p-4 flex items-center gap-3 min-w-80">
+              <i data-lucide="${icon}" class="w-5 h-5 text-green-600"></i>
+              <span class="text-sm font-medium text-gray-800">${msg}</span>
+              <button onclick="hideToast()" class="ml-auto text-gray-400 hover:text-gray-600">
+                <i data-lucide="x" class="w-4 h-4"></i>
+              </button>
+            </div>
+          `;
+          lucide.createIcons();
+          
+          // Show toast
+          toast.classList.remove('translate-y-full');
+          toast.classList.add('translate-y-0');
+          
+          // Auto-hide after 3 seconds
+          setTimeout(() => {
+            hideToast();
+          }, 3000);
         }
       }
-      
-      const blob = new Blob([csvRows.join('\n')], { type: 'text/csv;charset=utf-8;' });
-      const link = document.createElement('a');
-      link.href = URL.createObjectURL(blob);
-      link.download = `DataCentre_structured_export_${new Date().toISOString().split('T')[0]}.csv`;
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
-      URL.revokeObjectURL(link.href);
-      
-      showMessage(`Exported Data Centre view to CSV`, 'success');
-    }
 
-    function filterActivities() {
-      const q = searchInput.value.trim().toLowerCase();
-      const zone = zoneFilter.value;
-      const locations = selectedLocations;
-      
-      // Trade filtering logic from TSX version
-      const anyTradeSelected = Object.values(selectedTrades).some(isSelected => isSelected);
-      const hasCustomKeywords = customKeywords.trim() !== '';
-      
-      filteredActivities = allActivities.filter(a => {
-        // Basic search filtering
-        const matchesSearch = !q || a.id.toLowerCase().includes(q) || a.name.toLowerCase().includes(q) || (a.wbs && a.wbs.toLowerCase().includes(q));
-        const matchesZone = !zone || (a.wbs && extractZone(a.wbs) === zone);
-        const matchesLocation = locations.length === 0 || (a.location && locations.includes(a.location));
+      function hideToast() {
+        const toast = document.getElementById('toast');
+        toast.classList.remove('translate-y-0');
+        toast.classList.add('translate-y-full');
+      }
+
+      function clearMessage() { 
+        message.innerHTML = ''; 
+      }
+
+      // --- View Mode Functions ---
+      function setViewMode(mode) {
+        viewMode = mode;
         
-        // Trade filtering (from TSX logic)
-        const activityText = `${a.name || ''} ${a.wbs || ''}`.toLowerCase();
-        
-        // Check exclude keywords first
-        if (excludeKeywords.some(k => activityText.includes(k))) return false;
-        
-        // If no trade filters are active, show all activities
-        if (!anyTradeSelected && !hasCustomKeywords) {
-          return matchesSearch && matchesZone && matchesLocation;
+        if (mode === 'standard') {
+          standardViewBtn.className = 'px-4 py-2 text-sm font-medium rounded-md transition-colors bg-blue-600 text-white shadow-sm';
+          dataCentreViewBtn.className = 'px-4 py-2 text-sm font-medium rounded-md transition-colors text-slate-700 hover:bg-slate-100';
+          dataCentreViewDiv.style.display = 'none';
+          table.style.display = 'table';
+        } else {
+          standardViewBtn.className = 'px-4 py-2 text-sm font-medium rounded-md transition-colors text-slate-700 hover:bg-slate-100';
+          dataCentreViewBtn.className = 'px-4 py-2 text-sm font-medium rounded-md transition-colors bg-blue-600 text-white shadow-sm';
+          dataCentreViewDiv.style.display = 'block';
+          table.style.display = 'none';
         }
         
-        // Check trade matches
-        const matchesTrade = anyTradeSelected && Object.entries(selectedTrades).some(([trade, selected]) => 
-          selected && tradeKeywords[trade]?.some(k => activityText.includes(k))
-        );
-        
-        // Check custom keywords
-        const matchesCustom = hasCustomKeywords && customKeywords.toLowerCase().split(',').map(k => k.trim()).filter(Boolean).some(k => activityText.includes(k));
-        
-        return matchesSearch && matchesZone && matchesLocation && (matchesTrade || matchesCustom);
-      });
-      
-      renderTable(filteredActivities);
-      exportBtn.disabled = filteredActivities.length === 0;
-      if (viewMode === 'dataCentre') renderDataCentreView();
-    }
+        // Re-render based on current view
+        if (allActivities.length > 0) {
+          if (mode === 'dataCentre') {
+            renderDataCentreView();
+          } else {
+            renderTable(filteredActivities);
+          }
+        }
+      }
 
-    // Event Listeners
-    fileInput.addEventListener('change', e => {
-      selectedFile = e.target.files[0] || null;
-      processBtn.disabled = !selectedFile;
-    });
-    processBtn.addEventListener('click', async () => {
-      if (!selectedFile) return;
-      clearMessage();
-      const ext = selectedFile.name.split('.').pop().toLowerCase();
-      let content;
-      try {
-        content = await selectedFile.text();
-        let activities;
-        if (ext === 'xml') activities = parseXMLData(content);
-        else if (ext === 'xer') activities = parseXERData(content);
-        else if (ext === 'csv') activities = parseCSVData(content);
-        else throw new Error('Unsupported file format. Please upload XML, XER, or CSV.');
-        allActivities = activities;
-        searchInput.value = '';
-        updateAllFilters();
+      // --- Trade Filter Functions ---
+      function initializeTradeFilter() {
+        // Populate trade checkboxes
+        tradeCheckboxes.innerHTML = Object.keys(tradeKeywords).map(trade => `
+          <label class="flex items-center space-x-2 cursor-pointer p-2 rounded-lg hover:bg-slate-100">
+            <input type="checkbox" data-trade="${trade}" class="h-4 w-4 rounded border-slate-300 text-blue-600 focus:ring-blue-500">
+            <span class="text-sm text-slate-700 capitalize">${trade.replace(/_/g, ' ')}</span>
+          </label>
+        `).join('');
+
+        // Populate exclude keywords tags
+        updateExcludeKeywordsTags();
+
+        // Add event listeners
+        tradeCheckboxes.addEventListener('change', handleTradeCheckboxChange);
+        selectAllTrades.addEventListener('click', handleSelectAllTrades);
+        customKeywordsInput.addEventListener('input', handleCustomKeywordsChange);
+        clearCustomKeywords.addEventListener('click', handleClearCustomKeywords);
+        addExcludeKeyword.addEventListener('click', handleAddExcludeKeyword);
+        clearExcludeKeywords.addEventListener('click', handleClearExcludeKeywords);
+        newExcludeKeyword.addEventListener('keypress', (e) => {
+          if (e.key === 'Enter') handleAddExcludeKeyword();
+        });
+
+        // Toggle dropdown
+        tradeFilterBtn.addEventListener('click', () => {
+          tradeFilterDropdown.style.display = tradeFilterDropdown.style.display === 'none' ? 'block' : 'none';
+          lucide.createIcons(); // Recreate icons after showing dropdown
+        });
+
+        // Close dropdown when clicking outside
+        document.addEventListener('click', (e) => {
+          if (!tradeFilterBtn.contains(e.target) && !tradeFilterDropdown.contains(e.target)) {
+            tradeFilterDropdown.style.display = 'none';
+          }
+        });
+      }
+
+      function handleTradeCheckboxChange(e) {
+        const trade = e.target.dataset.trade;
+        selectedTrades[trade] = e.target.checked;
+        updateTradeFilterText();
         filterActivities();
-        showMessage(`Successfully parsed ${activities.length} activities`, 'success');
-      } catch (err) {
-        allActivities = [];
-        filterActivities();
-        showMessage('Error: ' + err.message, 'error');
       }
-    });
 
-    searchInput.addEventListener('input', filterActivities);
+      function handleSelectAllTrades() {
+        const allSelected = Object.values(selectedTrades).every(Boolean);
+        const newState = Object.keys(selectedTrades).reduce((acc, trade) => {
+          acc[trade] = !allSelected;
+          return acc;
+        }, {});
+        selectedTrades = newState;
+        
+        // Update checkboxes
+        tradeCheckboxes.querySelectorAll('input[type="checkbox"]').forEach(checkbox => {
+          checkbox.checked = selectedTrades[checkbox.dataset.trade];
+        });
+        
+        updateTradeFilterText();
+        filterActivities();
+      }
 
-    exportBtn.addEventListener('click', () => {
-      if (!filteredActivities.length) return;
-      
-      const headers = ['Activity ID','Activity Name','Start Date','Finish Date','Duration','% Complete','Total Float','Status','Trade','Location'];
-      const rows = [headers.map(escapeCSV).join(',')];
-      
-      filteredActivities.forEach(a => {
-        rows.push([
-          a.id, a.name, a.startDate, a.finishDate, a.duration, a.percentComplete, a.totalFloat, a.status, a.wbs, a.location || ''
-        ].map(escapeCSV).join(','));
+      function handleCustomKeywordsChange(e) {
+        customKeywords = e.target.value;
+        filterActivities();
+      }
+
+      function handleClearCustomKeywords() {
+        customKeywords = '';
+        customKeywordsInput.value = '';
+        filterActivities();
+      }
+
+      function handleAddExcludeKeyword() {
+        const keyword = newExcludeKeyword.value.trim().toLowerCase();
+        if (keyword && !excludeKeywords.includes(keyword)) {
+          excludeKeywords.push(keyword);
+          updateExcludeKeywordsTags();
+          newExcludeKeyword.value = '';
+          filterActivities();
+        }
+      }
+
+      function handleClearExcludeKeywords() {
+        excludeKeywords = [];
+        updateExcludeKeywordsTags();
+        filterActivities();
+      }
+
+      function updateExcludeKeywordsTags() {
+        excludeKeywordsTags.innerHTML = excludeKeywords.map(keyword => `
+          <span class="bg-red-100 text-red-800 text-xs font-medium px-2.5 py-1 rounded-full flex items-center">
+            ${keyword}
+            <button onclick="removeExcludeKeyword('${keyword}')" class="ml-1.5 text-red-500 hover:text-red-700">
+              <i data-lucide="x" class="w-3 h-3"></i>
+            </button>
+          </span>
+        `).join('');
+        lucide.createIcons();
+      }
+
+      function removeExcludeKeyword(keyword) {
+        excludeKeywords = excludeKeywords.filter(k => k !== keyword);
+        updateExcludeKeywordsTags();
+        filterActivities();
+      }
+
+      function updateTradeFilterText() {
+        const selectedCount = Object.values(selectedTrades).filter(Boolean).length;
+        const totalCount = Object.keys(selectedTrades).length;
+        
+        if (selectedCount === 0) {
+          tradeFilterText.textContent = 'All Trades/Areas';
+        } else if (selectedCount === totalCount) {
+          tradeFilterText.textContent = 'All Trades Selected';
+        } else {
+          tradeFilterText.textContent = `${selectedCount} Trade${selectedCount > 1 ? 's' : ''} Selected`;
+        }
+      }
+
+      function renderTable(data) {
+        tbody.innerHTML = '';
+        if (!data.length) { 
+          table.style.display = 'none';
+          emptyState.style.display = 'flex';
+          return; 
+        }
+        
+        table.style.display = '';
+        emptyState.style.display = 'none';
+        
+        data.forEach((a, index) => {
+          const tr = document.createElement('tr');
+          tr.className = 'hover:bg-slate-50 transition-colors fade-in';
+          tr.style.animationDelay = `${index * 0.05}s`;
+          
+          const getStatusColor = (status) => {
+            const statusLower = status.toLowerCase();
+            if (statusLower.includes('complete')) return 'bg-green-100 text-green-800';
+            if (statusLower.includes('progress')) return 'bg-blue-100 text-blue-800';
+            if (statusLower.includes('not started')) return 'bg-slate-100 text-slate-800';
+            return 'bg-yellow-100 text-yellow-800';
+          };
+
+          tr.innerHTML = `
+            <td class="px-4 py-3 text-sm font-medium text-slate-900">${a.id}</td>
+            <td class="px-4 py-3 text-sm text-slate-600">${a.location || ''}</td>
+            <td class="px-4 py-3 text-sm text-slate-900">${a.name}</td>
+            <td class="px-4 py-3 text-sm text-slate-600">${a.startDate}</td>
+            <td class="px-4 py-3 text-sm text-slate-600">${a.finishDate}</td>
+            <td class="px-4 py-3 text-sm text-slate-600">${a.duration}</td>
+            <td class="px-4 py-3 text-sm text-slate-600">${a.percentComplete}%</td>
+            <td class="px-4 py-3 text-sm text-slate-600">${a.totalFloat}</td>
+            <td class="px-4 py-3">
+              <span class="inline-flex px-2 py-1 text-xs font-medium rounded-full ${getStatusColor(a.status)}">
+                ${a.status}
+              </span>
+            </td>
+            <td class="px-4 py-3 text-sm text-slate-600">${a.wbs}</td>
+          `;
+          tbody.appendChild(tr);
+        });
+      }
+
+      function extractZone(trade) {
+        const match = trade.match(/Zone\s*\d+/i);
+        return match ? match[0].trim() : '';
+      }
+
+      function extractLocation(trade) {
+        // Look for known codes or patterns (e.g., 'USS', 'MCP', 'MYD', 'EYD', 'Gen Yard-Pad', etc.)
+        const codes = ['USS', 'MCP', 'MYD', 'EYD', 'Gen Yard-Pad', 'SSS', 'DCH', 'DWTR', 'GPS', 'Loading Dock', 'Booster Pump System', 'Fire Pump House', 'Tank Yard', 'Conveyance'];
+        for (const code of codes) {
+          if (trade.toUpperCase().includes(code.replace(/ /g, '').toUpperCase())) return code;
+        }
+        // Fallback: try to extract a word after 'Zone X-' or the first word
+        const afterZone = trade.split('-')[1];
+        if (afterZone) return afterZone.split(' ')[0];
+        return trade.split(' ')[0];
+      }
+
+      function updateZoneFilterOptions() {
+        const zoneSet = new Set();
+        allActivities.forEach(a => {
+          if (a.wbs && extractZone(a.wbs)) zoneSet.add(extractZone(a.wbs));
+        });
+        const options = ['<option value="">All Zones</option>'];
+        Array.from(zoneSet).sort().forEach(zone => {
+          options.push(`<option value="${zone}">${zone}</option>`);
+        });
+        zoneFilter.innerHTML = options.join('');
+      }
+
+      function updateAllFilters() {
+        updateZoneFilterOptions();
+      }
+
+      function groupByDataCentre(activities) {
+        const groups = {};
+        dataCentreCodes.forEach(code => { groups[code] = []; });
+        activities.forEach(a => {
+          if (a.location) {
+            // Check if the location matches any of our data centre codes
+            const found = dataCentreCodes.find(code => a.location.toUpperCase().includes(code.toUpperCase()));
+            if (found) groups[found].push(a);
+          }
+        });
+        return groups;
+      }
+
+      // Data Centre view state
+      let selectedItems = new Set();
+      let hiddenItems = new Set();
+
+      function renderDataCentreView() {
+        const groups = groupByDataCentre(filteredActivities);
+        let html = '';
+        let hasAny = false;
+        
+        // Add padding container for proper scrolling
+        html += '<div class="p-6">';
+        
+        // Add control buttons like in TSX version
+        html += `
+          <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6 gap-4">
+            <h2 class="text-2xl font-bold text-gray-900">Data Centre Structured View</h2>
+            <div class="flex gap-2">
+              <button onclick="handleHideSelected()" disabled class="flex items-center gap-2 px-4 py-2 bg-yellow-500 text-white font-semibold rounded-lg shadow-sm hover:bg-yellow-600 disabled:bg-gray-300 disabled:cursor-not-allowed">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.878 9.878L3 3m6.878 6.878L21 21"></path></svg>
+                Hide Selected (<span id="selectedCount">0</span>)
+              </button>
+              <button onclick="handleShowAll()" disabled class="flex items-center gap-2 px-4 py-2 bg-blue-500 text-white font-semibold rounded-lg shadow-sm hover:bg-blue-600 disabled:bg-gray-300 disabled:cursor-not-allowed">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path></svg>
+                Show All (<span id="hiddenCount">0</span>)
+              </button>
+              <button onclick="exportDataCentreCSV()" class="bg-green-600 hover:bg-green-700 text-white font-bold px-6 py-2 rounded-lg transition-all duration-300 flex items-center gap-2 shadow-sm hover:shadow-md">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
+                Export
+              </button>
+            </div>
+          </div>
+        `;
+        
+        // Create accordion-style groups like TSX version
+        Object.keys(groups).sort().forEach(code => {
+          const group = groups[code];
+          if (group.length) {
+            hasAny = true;
+            const visibleActivities = group.filter(a => !hiddenItems.has(a.id));
+            if (hiddenItems.has(code) || visibleActivities.length === 0) return;
+            
+            const allInGroupSelected = visibleActivities.length > 0 && 
+              visibleActivities.every(a => selectedItems.has(a.id));
+            
+            html += `
+              <div class="mb-4 border border-gray-200 rounded-lg overflow-hidden">
+                <div class="bg-gray-50 px-4 py-3 border-b border-gray-200 cursor-pointer" onclick="toggleGroup('${code}')">
+                  <div class="flex items-center w-full">
+                    <input type="checkbox" 
+                      class="h-4 w-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500 mr-3"
+                      ${allInGroupSelected ? 'checked' : ''}
+                      onclick="event.stopPropagation(); handleGroupSelect('${code}', ${JSON.stringify(visibleActivities.map(a => a.id))})"
+                    />
+                    <span class="flex-1 font-semibold text-gray-800">${code}</span>
+                    <span class="text-sm text-gray-600 mr-2">${visibleActivities.length} activities</span>
+                    <svg class="w-5 h-5 transform transition-transform" id="icon-${code}" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                    </svg>
+                  </div>
+                </div>
+                <div class="p-4" id="content-${code}">
+                  <ul class="space-y-2">
+                    ${visibleActivities.map(activity => `
+                      <li class="flex items-center text-sm">
+                        <input type="checkbox" 
+                          class="h-4 w-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500 mr-3"
+                          ${selectedItems.has(activity.id) ? 'checked' : ''}
+                          onchange="handleItemSelect('${activity.id}')"
+                        />
+                        <span class="text-gray-800">${activity.name} (${activity.startDate || 'No Date'})</span>
+                      </li>
+                    `).join('')}
+                  </ul>
+                </div>
+              </div>
+            `;
+          }
+        });
+        
+        if (!hasAny) {
+          html = `<div class='text-slate-500 text-center py-8'>No activities found for any data centre.</div>`;
+        }
+        
+        html += '</div>'; // Close padding container
+        dataCentreViewDiv.innerHTML = html;
+        updateCounts();
+      }
+
+      function toggleGroup(code) {
+        const content = document.getElementById(`content-${code}`);
+        const icon = document.getElementById(`icon-${code}`);
+        if (content.style.display === 'none') {
+          content.style.display = 'block';
+          icon.style.transform = 'rotate(0deg)';
+        } else {
+          content.style.display = 'none';
+          icon.style.transform = 'rotate(180deg)';
+        }
+      }
+
+      function handleGroupSelect(groupKey, activityIds) {
+        const allSelected = activityIds.every(id => selectedItems.has(id));
+        
+        if (allSelected) {
+          activityIds.forEach(id => selectedItems.delete(id));
+        } else {
+          activityIds.forEach(id => selectedItems.add(id));
+        }
+        
+        renderDataCentreView(); // Refresh the view
+      }
+
+      function handleItemSelect(id) {
+        if (selectedItems.has(id)) {
+          selectedItems.delete(id);
+        } else {
+          selectedItems.add(id);
+        }
+        
+        renderDataCentreView(); // Refresh the view
+      }
+
+      function handleHideSelected() {
+        hiddenItems = new Set([...hiddenItems, ...selectedItems]);
+        selectedItems.clear();
+        renderDataCentreView();
+      }
+
+      function handleShowAll() {
+        hiddenItems.clear();
+        renderDataCentreView();
+      }
+
+      function updateCounts() {
+        document.getElementById('selectedCount').textContent = selectedItems.size;
+        document.getElementById('hiddenCount').textContent = hiddenItems.size;
+        
+        // Update button states
+        const hideButton = document.querySelector('button[onclick="handleHideSelected()"]');
+        const showButton = document.querySelector('button[onclick="handleShowAll()"]');
+        
+        if (hideButton) hideButton.disabled = selectedItems.size === 0;
+        if (showButton) showButton.disabled = hiddenItems.size === 0;
+      }
+
+      function exportDataCentreCSV() {
+        const groups = groupByDataCentre(filteredActivities);
+        const csvRows = [];
+        const headers = ['Location', 'Activity ID', 'Activity Name', 'Start Date', 'Finish Date', 'Duration', '% Complete', 'Status', 'WBS'];
+        csvRows.push(headers.join(','));
+        
+        const sortedLocationKeys = Object.keys(groups).sort();
+        
+        for (const locationKey of sortedLocationKeys) {
+          const location = groups[locationKey];
+          const locationName = locationKey;
+          
+          for (const activity of location) {
+            const row = [
+              `"${locationName}"`,
+              `"${activity.id}"`,
+              `"${activity.name.replace(/"/g, '""')}"`,
+              `"${activity.startDate || ''}"`,
+              `"${activity.finishDate || ''}"`,
+              `"${activity.duration || '0'}"`,
+              `"${activity.percentComplete || '0'}"`,
+              `"${activity.status || 'Not Started'}"`,
+              `"${(activity.wbs || '').replace(/"/g, '""')}"`
+            ];
+            csvRows.push(row.join(','));
+          }
+        }
+        
+        const blob = new Blob([csvRows.join('\n')], { type: 'text/csv;charset=utf-8;' });
+        const link = document.createElement('a');
+        link.href = URL.createObjectURL(blob);
+        link.download = `DataCentre_structured_export_${new Date().toISOString().split('T')[0]}.csv`;
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        URL.revokeObjectURL(link.href);
+        
+        showMessage(`Exported Data Centre view to CSV`, 'success');
+      }
+
+      function filterActivities() {
+        const q = searchInput.value.trim().toLowerCase();
+        const zone = zoneFilter.value;
+        const locations = selectedLocations;
+        
+        // Trade filtering logic from TSX version
+        const anyTradeSelected = Object.values(selectedTrades).some(isSelected => isSelected);
+        const hasCustomKeywords = customKeywords.trim() !== '';
+        
+        filteredActivities = allActivities.filter(a => {
+          // Basic search filtering
+          const matchesSearch = !q || a.id.toLowerCase().includes(q) || a.name.toLowerCase().includes(q) || (a.wbs && a.wbs.toLowerCase().includes(q));
+          const matchesZone = !zone || (a.wbs && extractZone(a.wbs) === zone);
+          const matchesLocation = locations.length === 0 || (a.location && locations.includes(a.location));
+          
+          // Trade filtering (from TSX logic)
+          const activityText = `${a.name || ''} ${a.wbs || ''}`.toLowerCase();
+          
+          // Check exclude keywords first
+          if (excludeKeywords.some(k => activityText.includes(k))) return false;
+          
+          // If no trade filters are active, show all activities
+          if (!anyTradeSelected && !hasCustomKeywords) {
+            return matchesSearch && matchesZone && matchesLocation;
+          }
+          
+          // Check trade matches
+          const matchesTrade = anyTradeSelected && Object.entries(selectedTrades).some(([trade, selected]) => 
+            selected && tradeKeywords[trade]?.some(k => activityText.includes(k))
+          );
+          
+          // Check custom keywords
+          const matchesCustom = hasCustomKeywords && customKeywords.toLowerCase().split(',').map(k => k.trim()).filter(Boolean).some(k => activityText.includes(k));
+          
+          return matchesSearch && matchesZone && matchesLocation && (matchesTrade || matchesCustom);
+        });
+        
+        renderTable(filteredActivities);
+        exportBtn.disabled = filteredActivities.length === 0;
+        if (viewMode === 'dataCentre') renderDataCentreView();
+      }
+
+      // Event Listeners
+      fileInput.addEventListener('change', e => {
+        selectedFile = e.target.files[0] || null;
+        processBtn.disabled = !selectedFile;
       });
+      processBtn.addEventListener('click', async () => {
+        if (!selectedFile) return;
+        clearMessage();
+        const ext = selectedFile.name.split('.').pop().toLowerCase();
+        let content;
+        try {
+          content = await selectedFile.text();
+          let activities;
+          if (ext === 'xml') activities = parseXMLData(content);
+          else if (ext === 'xer') activities = parseXERData(content);
+          else if (ext === 'csv') activities = parseCSVData(content);
+          else throw new Error('Unsupported file format. Please upload XML, XER, or CSV.');
+          allActivities = activities;
+          searchInput.value = '';
+          updateAllFilters();
+          filterActivities();
+          showMessage(`Successfully parsed ${activities.length} activities`, 'success');
+        } catch (err) {
+          allActivities = [];
+          filterActivities();
+          showMessage('Error: ' + err.message, 'error');
+        }
+      });
+
+      searchInput.addEventListener('input', filterActivities);
+
+      exportBtn.addEventListener('click', () => {
+        if (!filteredActivities.length) return;
+        
+        const headers = ['Activity ID','Activity Name','Start Date','Finish Date','Duration','% Complete','Total Float','Status','Trade','Location'];
+        const rows = [headers.map(escapeCSV).join(',')];
+        
+        filteredActivities.forEach(a => {
+          rows.push([
+            a.id, a.name, a.startDate, a.finishDate, a.duration, a.percentComplete, a.totalFloat, a.status, a.wbs, a.location || ''
+          ].map(escapeCSV).join(','));
+        });
+        
+        const blob = new Blob([rows.join('\n')], {type:'text/csv'});
+        const link = document.createElement('a');
+        link.href = URL.createObjectURL(blob);
+        link.download = 'filtered_schedule.csv';
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        URL.revokeObjectURL(link.href);
+        
+        showMessage(`Exported ${filteredActivities.length} activities to CSV`, 'success');
+      });
+
+      zoneFilter.addEventListener('change', filterActivities);
+
+      // View mode toggle buttons
+      standardViewBtn.addEventListener('click', () => setViewMode('standard'));
+      dataCentreViewBtn.addEventListener('click', () => setViewMode('dataCentre'));
+
+      // Initialize trade filter system
+      initializeTradeFilter();
       
-      const blob = new Blob([rows.join('\n')], {type:'text/csv'});
-      const link = document.createElement('a');
-      link.href = URL.createObjectURL(blob);
-      link.download = 'filtered_schedule.csv';
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
-      URL.revokeObjectURL(link.href);
+      // Initialize location filter
+      initializeLocationFilter();
       
-      showMessage(`Exported ${filteredActivities.length} activities to CSV`, 'success');
+      // Initial state
+      filterActivities();
     });
-
-    zoneFilter.addEventListener('change', filterActivities);
-
-    // View mode toggle buttons
-    standardViewBtn.addEventListener('click', () => setViewMode('standard'));
-    dataCentreViewBtn.addEventListener('click', () => setViewMode('dataCentre'));
-
-    // Initialize trade filter system
-    initializeTradeFilter();
-    
-    // Initialize location filter
-    initializeLocationFilter();
-    
-    // Initial state
-    filterActivities();
   </script>
 </body>
 </html> 
