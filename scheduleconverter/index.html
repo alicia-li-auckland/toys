@@ -4,52 +4,149 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Schedule Converter</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/lucide@latest"></script>
   <style>
-    body { font-family: sans-serif; background: #f8f8f8; margin: 0; padding: 0; }
-    .container { max-width: 900px; margin: 2rem auto; background: #fff; border-radius: 8px; box-shadow: 0 2px 8px #0001; padding: 2rem; }
-    h1 { text-align: center; }
-    input[type="file"] { margin-bottom: 1rem; }
-    table { border-collapse: collapse; width: 100%; margin-top: 1rem; }
-    th, td { border: 1px solid #ddd; padding: 6px 8px; }
-    th { background: #f0f0f0; }
-    tr:nth-child(even) { background: #f9f9f9; }
-    .controls { display: flex; gap: 1rem; margin-bottom: 1rem; }
-    .controls input[type="text"] { flex: 1; padding: 0.5rem; }
-    .error { color: #b00; margin: 1rem 0; }
-    .success { color: #080; margin: 1rem 0; }
-    button { padding: 0.5rem 1rem; border: none; border-radius: 4px; background: #1976d2; color: #fff; cursor: pointer; }
-    button:disabled { background: #aaa; cursor: not-allowed; }
+    body {
+      font-family: 'Inter', sans-serif;
+    }
+    .custom-scrollbar::-webkit-scrollbar {
+      width: 8px;
+      height: 8px;
+    }
+    .custom-scrollbar::-webkit-scrollbar-track {
+      background: #f1f5f9;
+    }
+    .custom-scrollbar::-webkit-scrollbar-thumb {
+      background: #94a3b8;
+      border-radius: 4px;
+    }
+    .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+      background: #64748b;
+    }
+    .table-container {
+      max-height: 60vh;
+      overflow-y: auto;
+    }
+    .fade-in {
+      animation: fadeIn 0.3s ease-in;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
   </style>
 </head>
-<body>
-  <div class="container">
-    <h1>P6 Schedule Converter</h1>
-    <div class="controls">
-      <input type="file" id="fileInput" accept=".xml,.xer,.csv">
-      <input type="text" id="searchInput" placeholder="Search activities...">
-      <button id="exportBtn" disabled>Export CSV</button>
-    </div>
-    <div id="message"></div>
-    <div style="overflow-x:auto;">
-      <table id="activitiesTable" style="display:none;">
-        <thead>
-          <tr>
-            <th>Activity ID</th>
-            <th>Name</th>
-            <th>Start</th>
-            <th>Finish</th>
-            <th>Duration</th>
-            <th>% Complete</th>
-            <th>Total Float</th>
-            <th>Status</th>
-            <th>WBS</th>
-          </tr>
-        </thead>
-        <tbody></tbody>
-      </table>
+<body class="bg-slate-100 text-slate-800 min-h-screen">
+  <div class="flex h-screen">
+    <!-- Collapsed Sidebar -->
+    <aside class="bg-white w-16 flex flex-col items-center py-4 space-y-6 border-r border-slate-200 flex-shrink-0">
+      <div class="p-2 rounded-lg bg-slate-100">
+        <i data-lucide="layout-dashboard" class="text-slate-600"></i>
+      </div>
+      <i data-lucide="file-text" class="text-slate-500 hover:text-slate-800 cursor-pointer"></i>
+      <i data-lucide="folder" class="text-slate-500 hover:text-slate-800 cursor-pointer"></i>
+      <i data-lucide="download" class="text-slate-500 hover:text-slate-800 cursor-pointer"></i>
+      <i data-lucide="settings" class="text-slate-500 hover:text-slate-800 cursor-pointer mt-auto"></i>
+    </aside>
+
+    <!-- Main Content -->
+    <div class="flex-1 flex flex-col overflow-hidden">
+      <!-- Top Header -->
+      <header class="bg-white border-b border-slate-200 flex-shrink-0">
+        <div class="flex items-center justify-between p-4">
+          <div>
+            <h1 class="text-lg font-semibold">Schedule Converter</h1>
+            <p class="text-xs text-slate-500">P6 Schedule to CSV Converter</p>
+          </div>
+          <div class="flex items-center gap-4">
+            <button id="exportBtn" disabled class="flex items-center gap-2 px-4 py-2 text-sm font-medium text-white bg-blue-600 rounded-lg hover:bg-blue-700 disabled:bg-slate-300 disabled:cursor-not-allowed transition-colors">
+              <i data-lucide="download" class="w-4 h-4"></i>
+              <span>Export CSV</span>
+            </button>
+            <i data-lucide="help-circle" class="text-slate-500"></i>
+            <img src="https://placehold.co/32x32/64748b/ffffff?text=U" class="rounded-full" alt="User Avatar">
+          </div>
+        </div>
+      </header>
+
+      <!-- Main Content Area -->
+      <main class="flex-1 overflow-hidden">
+        <div class="p-4 lg:p-6 h-full">
+          <div class="bg-white rounded-xl shadow-sm h-full flex flex-col">
+            <!-- Upload Section -->
+            <div class="p-6 border-b border-slate-200">
+              <div class="flex items-center gap-4 mb-4">
+                <div class="p-2 rounded-lg bg-blue-100">
+                  <i data-lucide="upload" class="text-blue-600 w-5 h-5"></i>
+                </div>
+                <div>
+                  <h2 class="text-lg font-semibold text-slate-800">Upload Schedule File</h2>
+                  <p class="text-sm text-slate-600">Supported formats: XML, XER, CSV</p>
+                </div>
+              </div>
+              
+              <div class="flex items-center gap-4">
+                <div class="relative flex-1">
+                  <input type="file" id="fileInput" accept=".xml,.xer,.csv" 
+                         class="block w-full text-sm text-slate-500 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-medium file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100 transition-colors">
+                </div>
+                <div class="relative flex-grow max-w-xs">
+                  <i data-lucide="search" class="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400"></i>
+                  <input type="text" id="searchInput" placeholder="Search activities..." 
+                         class="w-full pl-9 pr-4 py-2 text-sm border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none">
+                </div>
+              </div>
+            </div>
+
+            <!-- Message Display -->
+            <div id="message" class="px-6"></div>
+
+            <!-- Table Section -->
+            <div class="flex-1 overflow-hidden">
+              <div class="table-container custom-scrollbar">
+                <table id="activitiesTable" class="w-full" style="display:none;">
+                  <thead class="bg-slate-50 sticky top-0 z-10">
+                    <tr>
+                      <th class="px-4 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider border-b border-slate-200">Activity ID</th>
+                      <th class="px-4 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider border-b border-slate-200">Name</th>
+                      <th class="px-4 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider border-b border-slate-200">Start</th>
+                      <th class="px-4 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider border-b border-slate-200">Finish</th>
+                      <th class="px-4 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider border-b border-slate-200">Duration</th>
+                      <th class="px-4 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider border-b border-slate-200">% Complete</th>
+                      <th class="px-4 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider border-b border-slate-200">Total Float</th>
+                      <th class="px-4 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider border-b border-slate-200">Status</th>
+                      <th class="px-4 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider border-b border-slate-200">WBS</th>
+                    </tr>
+                  </thead>
+                  <tbody class="bg-white divide-y divide-slate-200"></tbody>
+                </table>
+              </div>
+            </div>
+
+            <!-- Empty State -->
+            <div id="emptyState" class="flex-1 flex items-center justify-center p-8">
+              <div class="text-center">
+                <div class="mx-auto w-16 h-16 bg-slate-100 rounded-full flex items-center justify-center mb-4">
+                  <i data-lucide="file-text" class="w-8 h-8 text-slate-400"></i>
+                </div>
+                <h3 class="text-lg font-medium text-slate-900 mb-2">No schedule data</h3>
+                <p class="text-slate-500">Upload a P6 schedule file to get started</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </main>
     </div>
   </div>
+
   <script>
+    // Initialize Lucide Icons
+    lucide.createIcons();
+
     // --- Utility Functions ---
     function formatDate(dateString) {
       if (!dateString) return '';
@@ -58,10 +155,12 @@
         return isNaN(date.getTime()) ? dateString : date.toISOString().split('T')[0];
       } catch { return dateString; }
     }
+    
     function escapeCSV(val) {
       if (val == null) return '';
       return '"' + String(val).replace(/"/g, '""') + '"';
     }
+
     // --- Parsing Functions ---
     function parseXMLData(xmlContent) {
       const parser = new DOMParser();
@@ -69,10 +168,12 @@
       if (xmlDoc.getElementsByTagName('parsererror').length) throw new Error('Failed to parse XML file.');
       const activities = Array.from(xmlDoc.getElementsByTagName('Activity'));
       if (!activities.length) throw new Error('No activities found in XML file.');
+      
       function getText(parent, tag) {
         const el = parent.getElementsByTagName(tag)[0];
         return el ? el.textContent : '';
       }
+      
       return activities.map((activity, i) => ({
         id: getText(activity, 'Id') || getText(activity, 'ActivityId') || `ACT-${i+1}`,
         name: getText(activity, 'Name') || getText(activity, 'ActivityName') || 'Unnamed Activity',
@@ -85,9 +186,11 @@
         wbs: getText(activity, 'WBSName') || getText(activity, 'WBSCode') || ''
       }));
     }
+
     function parseXERData(xerContent) {
       const lines = xerContent.split('\n');
       let isTaskSection = false, headers = [], taskData = [];
+      
       for (const line of lines) {
         const trimmed = line.trim();
         if (trimmed.startsWith('%T') && trimmed.includes('TASK')) { isTaskSection = true; continue; }
@@ -100,7 +203,9 @@
         }
         if (isTaskSection && trimmed.startsWith('%T') && !trimmed.includes('TASK')) break;
       }
+      
       if (taskData.length === 0) throw new Error('No TASK records found in the XER file.');
+      
       return taskData.map((a, i) => ({
         id: a.task_code || `XER-ACT-${i+1}`,
         name: a.task_name || 'Unnamed Activity',
@@ -113,9 +218,11 @@
         wbs: a.wbs_id || ''
       }));
     }
+
     function parseCSVData(csvContent) {
       const lines = csvContent.split(/\r?\n/).filter(line => line.trim() !== '');
       if (lines.length < 2) throw new Error('CSV file must have a header and at least one data row.');
+      
       function parseRow(row) {
         const result = [], len = row.length;
         let current = '', inQuotes = false;
@@ -128,8 +235,10 @@
         result.push(current);
         return result.map(v => v.trim().replace(/^"|"$/g, '').replace(/""/g, '"'));
       }
+      
       const headers = parseRow(lines[0]).map(h => h.toLowerCase().trim());
       const findIdx = names => { for (const n of names) { const idx = headers.indexOf(n.toLowerCase()); if (idx !== -1) return idx; } return -1; };
+      
       const idIdx = findIdx(['activity id','id','task id']);
       const nameIdx = findIdx(['activity name','name','task name']);
       const startIdx = findIdx(['start','start date','planned start']);
@@ -139,6 +248,7 @@
       const statusIdx = findIdx(['activity status','status']);
       const floatIdx = findIdx(['total float','total float (days)']);
       const wbsIdx = findIdx(['wbs name','wbs','wbs code']);
+      
       const activities = [];
       for (let i = 1; i < lines.length; i++) {
         const values = parseRow(lines[i]);
@@ -155,9 +265,11 @@
           wbs: values[wbsIdx] || ''
         });
       }
+      
       if (activities.length === 0) throw new Error('Could not parse any valid activity rows from the CSV file.');
       return activities;
     }
+
     // --- UI Logic ---
     let allActivities = [], filteredActivities = [];
     const fileInput = document.getElementById('fileInput');
@@ -166,34 +278,72 @@
     const table = document.getElementById('activitiesTable');
     const tbody = table.querySelector('tbody');
     const message = document.getElementById('message');
+    const emptyState = document.getElementById('emptyState');
+
     function showMessage(msg, type) {
-      message.innerHTML = `<div class="${type}">${msg}</div>`;
+      const bgColor = type === 'error' ? 'bg-red-50 border-red-200 text-red-800' : 'bg-green-50 border-green-200 text-green-800';
+      const icon = type === 'error' ? 'alert-circle' : 'check-circle';
+      message.innerHTML = `
+        <div class="mx-6 mb-4 p-4 border rounded-lg ${bgColor} flex items-center gap-3 fade-in">
+          <i data-lucide="${icon}" class="w-5 h-5"></i>
+          <span class="text-sm font-medium">${msg}</span>
+        </div>
+      `;
+      lucide.createIcons();
     }
-    function clearMessage() { message.innerHTML = ''; }
+
+    function clearMessage() { 
+      message.innerHTML = ''; 
+    }
+
     function renderTable(data) {
       tbody.innerHTML = '';
-      if (!data.length) { table.style.display = 'none'; return; }
-      data.forEach(a => {
+      if (!data.length) { 
+        table.style.display = 'none';
+        emptyState.style.display = 'flex';
+        return; 
+      }
+      
+      table.style.display = '';
+      emptyState.style.display = 'none';
+      
+      data.forEach((a, index) => {
         const tr = document.createElement('tr');
+        tr.className = 'hover:bg-slate-50 transition-colors fade-in';
+        tr.style.animationDelay = `${index * 0.05}s`;
+        
+        const getStatusColor = (status) => {
+          const statusLower = status.toLowerCase();
+          if (statusLower.includes('complete')) return 'bg-green-100 text-green-800';
+          if (statusLower.includes('progress')) return 'bg-blue-100 text-blue-800';
+          if (statusLower.includes('not started')) return 'bg-slate-100 text-slate-800';
+          return 'bg-yellow-100 text-yellow-800';
+        };
+
         tr.innerHTML = `
-          <td>${a.id}</td>
-          <td>${a.name}</td>
-          <td>${a.startDate}</td>
-          <td>${a.finishDate}</td>
-          <td>${a.duration}</td>
-          <td>${a.percentComplete}</td>
-          <td>${a.totalFloat}</td>
-          <td>${a.status}</td>
-          <td>${a.wbs}</td>
+          <td class="px-4 py-3 text-sm font-medium text-slate-900">${a.id}</td>
+          <td class="px-4 py-3 text-sm text-slate-900">${a.name}</td>
+          <td class="px-4 py-3 text-sm text-slate-600">${a.startDate}</td>
+          <td class="px-4 py-3 text-sm text-slate-600">${a.finishDate}</td>
+          <td class="px-4 py-3 text-sm text-slate-600">${a.duration}</td>
+          <td class="px-4 py-3 text-sm text-slate-600">${a.percentComplete}%</td>
+          <td class="px-4 py-3 text-sm text-slate-600">${a.totalFloat}</td>
+          <td class="px-4 py-3">
+            <span class="inline-flex px-2 py-1 text-xs font-medium rounded-full ${getStatusColor(a.status)}">
+              ${a.status}
+            </span>
+          </td>
+          <td class="px-4 py-3 text-sm text-slate-600">${a.wbs}</td>
         `;
         tbody.appendChild(tr);
       });
-      table.style.display = '';
     }
+
     function filterActivities() {
       const q = searchInput.value.trim().toLowerCase();
-      if (!q) { filteredActivities = allActivities.slice(); }
-      else {
+      if (!q) { 
+        filteredActivities = allActivities.slice(); 
+      } else {
         filteredActivities = allActivities.filter(a =>
           a.id.toLowerCase().includes(q) ||
           a.name.toLowerCase().includes(q) ||
@@ -203,39 +353,50 @@
       renderTable(filteredActivities);
       exportBtn.disabled = filteredActivities.length === 0;
     }
+
+    // Event Listeners
     fileInput.addEventListener('change', async e => {
       clearMessage();
       const file = e.target.files[0];
       if (!file) return;
+      
       const ext = file.name.split('.').pop().toLowerCase();
       let content;
+      
       try {
         content = await file.text();
         let activities;
+        
         if (ext === 'xml') activities = parseXMLData(content);
         else if (ext === 'xer') activities = parseXERData(content);
         else if (ext === 'csv') activities = parseCSVData(content);
         else throw new Error('Unsupported file format. Please upload XML, XER, or CSV.');
+        
         allActivities = activities;
         searchInput.value = '';
         filterActivities();
-        showMessage(`Parsed ${activities.length} activities.`, 'success');
+        showMessage(`Successfully parsed ${activities.length} activities`, 'success');
       } catch (err) {
         allActivities = [];
         filterActivities();
         showMessage('Error: ' + err.message, 'error');
       }
     });
+
     searchInput.addEventListener('input', filterActivities);
+
     exportBtn.addEventListener('click', () => {
       if (!filteredActivities.length) return;
+      
       const headers = ['Activity ID','Activity Name','Start Date','Finish Date','Duration','% Complete','Total Float','Status','WBS'];
       const rows = [headers.map(escapeCSV).join(',')];
+      
       filteredActivities.forEach(a => {
         rows.push([
           a.id, a.name, a.startDate, a.finishDate, a.duration, a.percentComplete, a.totalFloat, a.status, a.wbs
         ].map(escapeCSV).join(','));
       });
+      
       const blob = new Blob([rows.join('\n')], {type:'text/csv'});
       const link = document.createElement('a');
       link.href = URL.createObjectURL(blob);
@@ -244,7 +405,10 @@
       link.click();
       document.body.removeChild(link);
       URL.revokeObjectURL(link.href);
+      
+      showMessage(`Exported ${filteredActivities.length} activities to CSV`, 'success');
     });
+
     // Initial state
     filterActivities();
   </script>
