@@ -153,6 +153,9 @@
 
             <!-- Message Display -->
             <div id="message" class="px-6"></div>
+            
+            <!-- Toast Notification -->
+            <div id="toast" class="fixed bottom-4 right-4 z-50 transform translate-y-full transition-transform duration-300"></div>
 
             <!-- Data Centre View Toggle -->
             <div class="px-6 py-2 flex items-center gap-4">
@@ -162,7 +165,7 @@
 
             <!-- Table Section -->
             <div class="flex-1 overflow-hidden">
-              <div id="dataCentreView" style="display:none;"></div>
+              <div id="dataCentreView" style="display:none;" class="h-full overflow-y-auto custom-scrollbar"></div>
               <div class="table-container custom-scrollbar">
                 <table id="activitiesTable" class="w-full" style="display:none;">
                   <thead class="bg-slate-50 sticky top-0 z-10">
@@ -362,13 +365,45 @@
     function showMessage(msg, type) {
       const bgColor = type === 'error' ? 'bg-red-50 border-red-200 text-red-800' : 'bg-green-50 border-green-200 text-green-800';
       const icon = type === 'error' ? 'alert-circle' : 'check-circle';
-      message.innerHTML = `
-        <div class="mx-6 mb-4 p-4 border rounded-lg ${bgColor} flex items-center gap-3 fade-in">
-          <i data-lucide="${icon}" class="w-5 h-5"></i>
-          <span class="text-sm font-medium">${msg}</span>
-        </div>
-      `;
-      lucide.createIcons();
+      
+      // Show in main message area for errors
+      if (type === 'error') {
+        message.innerHTML = `
+          <div class="mx-6 mb-4 p-4 border rounded-lg ${bgColor} flex items-center gap-3 fade-in">
+            <i data-lucide="${icon}" class="w-5 h-5"></i>
+            <span class="text-sm font-medium">${msg}</span>
+          </div>
+        `;
+        lucide.createIcons();
+      } else {
+        // Show success messages as toast notification
+        const toast = document.getElementById('toast');
+        toast.innerHTML = `
+          <div class="bg-white border border-gray-200 rounded-lg shadow-lg p-4 flex items-center gap-3 min-w-80">
+            <i data-lucide="${icon}" class="w-5 h-5 text-green-600"></i>
+            <span class="text-sm font-medium text-gray-800">${msg}</span>
+            <button onclick="hideToast()" class="ml-auto text-gray-400 hover:text-gray-600">
+              <i data-lucide="x" class="w-4 h-4"></i>
+            </button>
+          </div>
+        `;
+        lucide.createIcons();
+        
+        // Show toast
+        toast.classList.remove('translate-y-full');
+        toast.classList.add('translate-y-0');
+        
+        // Auto-hide after 3 seconds
+        setTimeout(() => {
+          hideToast();
+        }, 3000);
+      }
+    }
+
+    function hideToast() {
+      const toast = document.getElementById('toast');
+      toast.classList.remove('translate-y-0');
+      toast.classList.add('translate-y-full');
     }
 
     function clearMessage() { 
@@ -480,12 +515,16 @@
       const groups = groupByDataCentre(filteredActivities);
       let html = '';
       let hasAny = false;
+      
+      // Add padding container for proper scrolling
+      html += '<div class="p-6">';
+      
       dataCentreCodes.forEach(code => {
         const group = groups[code];
         if (group.length) {
           hasAny = true;
           html += `<div class="mb-8"><h2 class="text-lg font-semibold text-blue-700 mb-2">${code}</h2>`;
-          html += `<div class="table-container custom-scrollbar"><table class="w-full mb-2"><thead class="bg-slate-50 sticky top-0 z-10"><tr>` +
+          html += `<div class="overflow-x-auto"><table class="w-full mb-2"><thead class="bg-slate-50 sticky top-0 z-10"><tr>` +
             `<th class='px-4 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider border-b border-slate-200'>Activity ID</th>` +
             `<th class='px-4 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider border-b border-slate-200'>Name</th>` +
             `<th class='px-4 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider border-b border-slate-200'>Start</th>` +
@@ -517,6 +556,8 @@
       if (!hasAny) {
         html = `<div class='text-slate-500 text-center py-8'>No activities found for any data centre.</div>`;
       }
+      
+      html += '</div>'; // Close padding container
       dataCentreViewDiv.innerHTML = html;
     }
 
