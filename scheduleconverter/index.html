@@ -828,19 +828,19 @@
             const isOpen = openGroups.has(code);
             html += `
               <div class="mb-4 border border-gray-200 rounded-lg overflow-hidden">
-                <div class="bg-gray-50 px-4 py-3 border-b border-gray-200 cursor-pointer" onclick="toggleGroup('${code}')">
-                  <div class="flex items-center w-full">
-                    <input type="checkbox" 
-                      class="h-4 w-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500 mr-3"
-                      ${allInGroupSelected ? 'checked' : ''}
-                      onclick="event.stopPropagation(); handleGroupSelect('${code}', ${JSON.stringify(visibleActivities.map(a => a.id))})"
-                    />
-                    <span class="flex-1 font-semibold text-gray-800">${code}</span>
-                    <span class="text-sm text-gray-600 mr-2">${visibleActivities.length} activities</span>
+                <div class="bg-gray-50 px-4 py-3 border-b border-gray-200 flex items-center w-full">
+                  <input type="checkbox" 
+                    class="h-4 w-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500 mr-3"
+                    ${allInGroupSelected ? 'checked' : ''}
+                    onchange="event.stopPropagation(); handleGroupSelect('${code}', ${JSON.stringify(visibleActivities.map(a => a.id))})"
+                  />
+                  <span class="flex-1 font-semibold text-gray-800">${code}</span>
+                  <span class="text-sm text-gray-600 mr-2">${visibleActivities.length} activities</span>
+                  <button type="button" class="ml-2" onclick="toggleGroup('${code}')" tabindex="0" aria-label="Toggle group">
                     <svg class="w-5 h-5 transform transition-transform ${isOpen ? '' : 'rotate-180'}" id="icon-${code}" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
                     </svg>
-                  </div>
+                  </button>
                 </div>
                 <div class="p-4" id="content-${code}" style="display:${isOpen ? 'block' : 'none'};">
                   <ul class="space-y-2">
