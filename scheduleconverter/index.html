@@ -107,11 +107,45 @@
                 <div class="flex-shrink-0 min-w-[140px]">
                   <select id="locationFilter" class="w-full px-3 py-2 text-sm border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none">
                     <option value="">All Locations</option>
+                    <option value="DCH">DCH</option>
+                    <option value="EYD">EYD</option>
+                    <option value="MYD">MYD</option>
+                    <option value="FSA">FSA</option>
+                    <option value="GEN YARD">GEN YARD</option>
+                    <option value="CONVEYANCE">CONVEYANCE</option>
+                    <option value="MCP">MCP</option>
+                    <option value="USS">USS</option>
+                    <option value="PERUN">PERUN</option>
                   </select>
                 </div>
                 <div class="flex-shrink-0 min-w-[180px]">
                   <select id="wbsFilter" class="w-full px-3 py-2 text-sm border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none">
                     <option value="">All Trades/Areas</option>
+                    <option value="Wall Framing">Wall Framing</option>
+                    <option value="In Wall Insulation">In Wall Insulation</option>
+                    <option value="Wall Drywall">Wall Drywall</option>
+                    <option value="Overhead Fire Protection">Overhead Fire Protection</option>
+                    <option value="Structural Steel">Structural Steel</option>
+                    <option value="Mechanical Yard - Equipment Placement">Mechanical Yard - Equipment Placement</option>
+                    <option value="Electrical Yard – Equipment Placement">Electrical Yard – Equipment Placement</option>
+                    <option value="Structural Piles">Structural Piles</option>
+                    <option value="Concrete Pour">Concrete Pour</option>
+                    <option value="Overhead Duct Rough In">Overhead Duct Rough In</option>
+                    <option value="Wall Painting">Wall Painting</option>
+                    <option value="Wall Taping & Mudding">Wall Taping & Mudding</option>
+                    <option value="Concrete Formwork">Concrete Formwork</option>
+                    <option value="Concrete Rebar">Concrete Rebar</option>
+                    <option value="Overhead Electrical Rough In">Overhead Electrical Rough In</option>
+                    <option value="Generator Placement">Generator Placement</option>
+                    <option value="DWTR Installation">DWTR Installation</option>
+                    <option value="MWT Installation">MWT Installation</option>
+                    <option value="Conveyance">Conveyance</option>
+                    <option value="Booster Pump System Installation">Booster Pump System Installation</option>
+                    <option value="Backfill">Backfill</option>
+                    <option value="Electrical Yard Equipment Conduit">Electrical Yard Equipment Conduit</option>
+                    <option value="Roofing Metal Deck">Roofing Metal Deck</option>
+                    <option value="Roofing Insulation">Roofing Insulation</option>
+                    <option value="Roofing Membrane">Roofing Membrane</option>
                   </select>
                 </div>
               </div>
@@ -424,8 +458,8 @@
       filteredActivities = allActivities.filter(a => {
         const matchesSearch = !q || a.id.toLowerCase().includes(q) || a.name.toLowerCase().includes(q) || (a.wbs && a.wbs.toLowerCase().includes(q));
         const matchesZone = !zone || (a.wbs && extractZone(a.wbs) === zone);
-        const matchesLocation = !location || (a.wbs && extractLocation(a.wbs) === location);
-        const matchesWBS = !wbs || (a.wbs && a.wbs === wbs);
+        const matchesLocation = !location || (a.wbs && a.wbs.toUpperCase().includes(location.toUpperCase()));
+        const matchesWBS = !wbs || (a.wbs && a.wbs.toLowerCase().includes(wbs.toLowerCase()));
         return matchesSearch && matchesZone && matchesLocation && matchesWBS;
       });
       renderTable(filteredActivities);
