@@ -55,100 +55,174 @@
 
     <!-- Main Content -->
     <div class="flex-1 flex flex-col overflow-hidden">
-      <!-- Top Navigation Bar -->
-      <div class="w-full flex items-center justify-between px-8 py-4 bg-white shadow-sm border-b border-slate-200">
-        <div class="flex items-center gap-3">
-          <i data-lucide="layout-dashboard" class="w-7 h-7 text-blue-600"></i>
-          <span class="text-xl font-bold text-slate-800">Schedule Converter</span>
-          <span class="text-xs text-slate-500 ml-2">P6 Schedule to CSV Converter</span>
-        </div>
-        <div class="flex-1 flex items-center justify-center gap-3">
-          <div class="relative w-72">
-            <i data-lucide="search" class="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400"></i>
-            <input type="text" id="searchInput" placeholder="Search activities..." class="w-full pl-9 pr-4 py-2 text-sm border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none">
+      <!-- Top Header -->
+      <header class="bg-white border-b border-slate-200 flex-shrink-0">
+        <div class="flex items-center justify-between p-4">
+          <div>
+            <h1 class="text-lg font-semibold">Schedule Converter</h1>
+            <p class="text-xs text-slate-500">P6 Schedule to CSV Converter</p>
           </div>
-          <select id="zoneFilter" class="w-36 px-3 py-2 text-sm border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none">
-            <option value="">All Zones</option>
-          </select>
-          <select id="locationFilter" class="w-36 px-3 py-2 text-sm border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none">
-            <option value="">All Locations</option>
-            <option value="DCH">DCH</option>
-            <option value="EYD">EYD</option>
-            <option value="MYD">MYD</option>
-            <option value="FSA">FSA</option>
-            <option value="GEN YARD">GEN YARD</option>
-            <option value="CONVEYANCE">CONVEYANCE</option>
-            <option value="MCP">MCP</option>
-            <option value="USS">USS</option>
-            <option value="PERUN">PERUN</option>
-          </select>
-          <div class="relative w-48">
-            <button id="tradeFilterBtn" class="w-full px-3 py-2 text-sm border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none bg-white text-left flex items-center justify-between">
-              <span id="tradeFilterText">All Trades/Areas</span>
-              <i data-lucide="chevron-down" class="w-4 h-4 text-slate-400"></i>
-            </button>
-            <div id="tradeFilterDropdown" class="absolute top-full left-0 right-0 mt-1 bg-white border border-slate-300 rounded-lg shadow-lg z-50 max-h-96 overflow-y-auto" style="display:none;">
-              <div class="p-3 border-b border-slate-200">
-                <div class="flex items-center justify-between mb-2">
-                  <h4 class="text-sm font-semibold text-slate-800">Trade Categories</h4>
-                  <button id="selectAllTrades" class="text-xs font-medium text-blue-600 hover:underline">Select All</button>
-                </div>
-                <div id="tradeCheckboxes" class="grid grid-cols-1 gap-2 max-h-64 overflow-y-auto"></div>
-              </div>
-              <div class="p-3 border-b border-slate-200">
-                <div class="flex items-center justify-between mb-2">
-                  <h4 class="text-sm font-semibold text-slate-800">Additional Keywords</h4>
-                  <button id="clearCustomKeywords" class="text-xs font-medium text-blue-600 hover:underline">Clear</button>
-                </div>
-                <input id="customKeywords" type="text" placeholder="e.g., demolition, site work" class="w-full px-2 py-1 text-sm border border-slate-300 rounded focus:ring-1 focus:ring-blue-500 focus:outline-none">
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="flex items-center gap-3">
-          <button id="exportBtn" class="px-4 py-2 rounded-lg bg-slate-100 text-slate-500 font-semibold text-sm flex items-center gap-2" disabled>
-            <i data-lucide="download" class="w-4 h-4"></i> Export CSV
-          </button>
-          <div class="w-9 h-9 rounded-full bg-slate-200 flex items-center justify-center text-slate-600 font-bold">U</div>
-        </div>
-      </div>
-
-      <!-- Main Card/Panel -->
-      <div class="max-w-5xl mx-auto mt-8 bg-white rounded-xl shadow-md p-8">
-        <div class="flex items-center justify-between mb-6">
-          <!-- Upload Section -->
           <div class="flex items-center gap-4">
-            <div class="p-2 rounded-lg bg-blue-100">
-              <i data-lucide="upload" class="text-blue-600 w-5 h-5"></i>
-            </div>
-            <div>
-              <h2 class="text-lg font-semibold text-slate-800">Upload Schedule File</h2>
-              <p class="text-sm text-slate-600">Supported formats: XML, XER, CSV</p>
-              <input type="file" id="fileInput" accept=".xml,.xer,.csv" class="block mt-2 text-sm text-slate-500 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-medium file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100 transition-colors">
-            </div>
+            <button id="exportBtn" disabled class="flex items-center gap-2 px-4 py-2 text-sm font-medium text-white bg-blue-600 rounded-lg hover:bg-blue-700 disabled:bg-slate-300 disabled:cursor-not-allowed transition-colors">
+              <i data-lucide="download" class="w-4 h-4"></i>
+              <span>Export CSV</span>
+            </button>
+            <i data-lucide="help-circle" class="text-slate-500"></i>
+            <img src="https://placehold.co/32x32/64748b/ffffff?text=U" class="rounded-full" alt="User Avatar">
           </div>
-          <!-- View Mode Toggle -->
-          <div class="flex items-center gap-2">
-            <div class="flex bg-white rounded-lg border border-slate-300 p-1">
-              <button id="standardViewBtn" class="px-4 py-2 text-sm font-medium rounded-md transition-colors bg-blue-600 text-white shadow-sm">Standard View</button>
-              <button id="dataCentreViewBtn" class="px-4 py-2 text-sm font-medium rounded-md transition-colors text-slate-700 hover:bg-slate-100">Data Centre View</button>
+        </div>
+      </header>
+
+      <!-- Main Content Area -->
+      <main class="flex-1 overflow-hidden">
+        <div class="p-4 lg:p-6 h-full">
+          <div class="bg-white rounded-xl shadow-sm h-full flex flex-col">
+            <!-- Upload Section -->
+            <div class="p-6 border-b border-slate-200">
+              <div class="flex items-center gap-4 mb-4">
+                <div class="p-2 rounded-lg bg-blue-100">
+                  <i data-lucide="upload" class="text-blue-600 w-5 h-5"></i>
+                </div>
+                <div>
+                  <h2 class="text-lg font-semibold text-slate-800">Upload Schedule File</h2>
+                  <p class="text-sm text-slate-600">Supported formats: XML, XER, CSV</p>
+                </div>
+              </div>
+              
+              <div class="flex items-center gap-4 mb-4">
+                <div class="relative flex-1">
+                  <input type="file" id="fileInput" accept=".xml,.xer,.csv" 
+                         class="block w-full text-sm text-slate-500 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-medium file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100 transition-colors">
+                </div>
+                <div class="relative flex-grow max-w-xs">
+                  <i data-lucide="search" class="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400"></i>
+                  <input type="text" id="searchInput" placeholder="Search activities..." 
+                         class="w-full pl-9 pr-4 py-2 text-sm border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none">
+                </div>
+                <div class="flex-shrink-0 min-w-[140px]">
+                  <select id="zoneFilter" class="w-full px-3 py-2 text-sm border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none">
+                    <option value="">All Zones</option>
+                  </select>
+                </div>
+                <div class="flex-shrink-0 min-w-[140px]">
+                  <select id="locationFilter" class="w-full px-3 py-2 text-sm border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none">
+                    <option value="">All Locations</option>
+                    <option value="DCH">DCH</option>
+                    <option value="EYD">EYD</option>
+                    <option value="MYD">MYD</option>
+                    <option value="FSA">FSA</option>
+                    <option value="GEN YARD">GEN YARD</option>
+                    <option value="CONVEYANCE">CONVEYANCE</option>
+                    <option value="MCP">MCP</option>
+                    <option value="USS">USS</option>
+                    <option value="PERUN">PERUN</option>
+                  </select>
+                </div>
+                <div class="flex-shrink-0 min-w-[180px]">
+                  <div class="relative">
+                    <button id="tradeFilterBtn" class="w-full px-3 py-2 text-sm border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none bg-white text-left flex items-center justify-between">
+                      <span id="tradeFilterText">All Trades/Areas</span>
+                      <i data-lucide="chevron-down" class="w-4 h-4 text-slate-400"></i>
+                    </button>
+                    <div id="tradeFilterDropdown" class="absolute top-full left-0 right-0 mt-1 bg-white border border-slate-300 rounded-lg shadow-lg z-50 max-h-96 overflow-y-auto" style="display:none;">
+                      <div class="p-3 border-b border-slate-200">
+                        <div class="flex items-center justify-between mb-2">
+                          <h4 class="text-sm font-semibold text-slate-800">Trade Categories</h4>
+                          <button id="selectAllTrades" class="text-xs font-medium text-blue-600 hover:underline">Select All</button>
+                        </div>
+                        <div id="tradeCheckboxes" class="grid grid-cols-1 gap-2 max-h-64 overflow-y-auto">
+                          <!-- Trade checkboxes will be populated here -->
+                        </div>
+                      </div>
+                      <div class="p-3 border-b border-slate-200">
+                        <div class="flex items-center justify-between mb-2">
+                          <h4 class="text-sm font-semibold text-slate-800">Additional Keywords</h4>
+                          <button id="clearCustomKeywords" class="text-xs font-medium text-blue-600 hover:underline">Clear</button>
+                        </div>
+                        <input id="customKeywords" type="text" placeholder="e.g., demolition, site work" class="w-full px-2 py-1 text-sm border border-slate-300 rounded focus:ring-1 focus:ring-blue-500 focus:outline-none">
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- View Toggle and Exclude Keywords Section -->
+            <div class="px-6 py-4 border-b border-slate-200 bg-slate-50">
+              <div class="flex items-center justify-between">
+                <!-- View Mode Toggle Button Group -->
+                <div class="flex items-center gap-2">
+                  <span class="text-sm font-medium text-slate-700 mr-2">View Mode:</span>
+                  <div class="flex bg-white rounded-lg border border-slate-300 p-1">
+                    <button id="standardViewBtn" class="px-4 py-2 text-sm font-medium rounded-md transition-colors bg-blue-600 text-white shadow-sm">Standard View</button>
+                    <button id="dataCentreViewBtn" class="px-4 py-2 text-sm font-medium rounded-md transition-colors text-slate-700 hover:bg-slate-100">Data Centre View</button>
+                  </div>
+                </div>
+                
+                <!-- Exclude Keywords Section -->
+                <div class="flex items-center gap-3">
+                  <div class="flex items-center gap-2">
+                    <span class="text-sm font-medium text-slate-700">Exclude Keywords:</span>
+                    <div class="flex flex-wrap gap-1 max-w-xs">
+                      <div id="excludeKeywordsTags" class="flex flex-wrap gap-1">
+                        <!-- Exclude keyword tags will be populated here -->
+                      </div>
+                    </div>
+                  </div>
+                  <div class="flex items-center gap-1">
+                    <input id="newExcludeKeyword" type="text" placeholder="Add keyword to exclude" class="w-32 px-2 py-1 text-xs border border-slate-300 rounded focus:ring-1 focus:ring-blue-500 focus:outline-none">
+                    <button id="addExcludeKeyword" class="px-2 py-1 text-xs bg-red-600 hover:bg-red-700 text-white font-semibold rounded">Add</button>
+                    <button id="clearExcludeKeywords" class="px-2 py-1 text-xs bg-slate-600 hover:bg-slate-700 text-white font-semibold rounded">Clear</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Message Display -->
+            <div id="message" class="px-6"></div>
+            
+            <!-- Toast Notification -->
+            <div id="toast" class="fixed bottom-4 right-4 z-50 transform translate-y-full transition-transform duration-300"></div>
+
+
+
+            <!-- Table Section -->
+            <div class="flex-1 overflow-hidden">
+              <div id="dataCentreView" style="display:none;" class="h-full overflow-y-auto custom-scrollbar"></div>
+              <div class="table-container custom-scrollbar">
+                <table id="activitiesTable" class="w-full" style="display:none;">
+                  <thead class="bg-slate-50 sticky top-0 z-10">
+                    <tr>
+                      <th class="px-4 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider border-b border-slate-200">Activity ID</th>
+                      <th class="px-4 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider border-b border-slate-200">Location</th>
+                      <th class="px-4 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider border-b border-slate-200">Name</th>
+                      <th class="px-4 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider border-b border-slate-200">Start</th>
+                      <th class="px-4 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider border-b border-slate-200">Finish</th>
+                      <th class="px-4 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider border-b border-slate-200">Duration</th>
+                      <th class="px-4 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider border-b border-slate-200">% Complete</th>
+                      <th class="px-4 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider border-b border-slate-200">Total Float</th>
+                      <th class="px-4 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider border-b border-slate-200">Status</th>
+                      <th class="px-4 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider border-b border-slate-200">Trade/Area</th>
+                    </tr>
+                  </thead>
+                  <tbody class="bg-white divide-y divide-slate-200"></tbody>
+                </table>
+              </div>
+            </div>
+
+            <!-- Empty State -->
+            <div id="emptyState" class="flex-1 flex items-center justify-center p-8">
+              <div class="text-center">
+                <div class="mx-auto w-16 h-16 bg-slate-100 rounded-full flex items-center justify-center mb-4">
+                  <i data-lucide="file-text" class="w-8 h-8 text-slate-400"></i>
+                </div>
+                <h3 class="text-lg font-medium text-slate-900 mb-2">No schedule data</h3>
+                <p class="text-slate-500">Upload a P6 schedule file to get started</p>
+              </div>
             </div>
           </div>
         </div>
-        <!-- Keyword Exclusion Controls Centered -->
-        <div class="flex flex-col items-center mb-6">
-          <div class="flex items-center gap-2 mb-2">
-            <input id="newExcludeKeyword" type="text" placeholder="Add keyword to exclude" class="w-48 px-2 py-1 text-xs border border-slate-300 rounded focus:ring-1 focus:ring-blue-500 focus:outline-none">
-            <button id="addExcludeKeyword" class="px-2 py-1 text-xs bg-red-600 hover:bg-red-700 text-white font-semibold rounded">Add</button>
-            <button id="clearExcludeKeywords" class="px-2 py-1 text-xs bg-slate-600 hover:bg-slate-700 text-white font-semibold rounded">Clear</button>
-          </div>
-          <div class="flex flex-wrap gap-1 justify-center" id="excludeKeywordsTags"></div>
-        </div>
-        <!-- Table/Empty State/Other Content Here -->
-        <div id="mainContentArea">
-          <!-- Table, Data Centre View, or Empty State will be rendered here by JS -->
-        </div>
-      </div>
+      </main>
     </div>
   </div>
 
@@ -856,6 +930,8 @@
       
       showMessage(`Exported Data Centre view to CSV`, 'success');
     }
+
+
 
     function filterActivities() {
       const q = searchInput.value.trim().toLowerCase();
