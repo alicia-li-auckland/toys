@@ -153,6 +153,9 @@
 
             <!-- Message Display -->
             <div id="message" class="px-6"></div>
+            
+            <!-- Toast Notification -->
+            <div id="toast" class="fixed bottom-4 right-4 z-50 transform translate-y-full transition-transform duration-300"></div>
 
             <!-- Data Centre View Toggle -->
             <div class="px-6 py-2 flex items-center gap-4">
@@ -162,7 +165,7 @@
 
             <!-- Table Section -->
             <div class="flex-1 overflow-hidden">
-              <div id="dataCentreView" style="display:none;"></div>
+              <div id="dataCentreView" style="display:none;" class="h-full overflow-y-auto custom-scrollbar"></div>
               <div class="table-container custom-scrollbar">
                 <table id="activitiesTable" class="w-full" style="display:none;">
                   <thead class="bg-slate-50 sticky top-0 z-10">
@@ -220,10 +223,8 @@
 
     function extractLocationFromWBS(name, wbs) {
       if (!name && !wbs) return '';
-      
       // Combine name and wbs for scanning, like in the TSX version
       const activityText = `${name || ''} ${wbs || ''}`.toLowerCase();
-      
       // Location keywords mapping from TSX version
       const locationKeywords = {
         'DCH1': ['dch1'],
@@ -254,14 +255,12 @@
         'MCP': ['mcp'],
         'USS': ['uss']
       };
-      
       // Scan for matches like in TSX version
       for (const [locationCode, keywords] of Object.entries(locationKeywords)) {
         if (keywords.some(keyword => activityText.includes(keyword))) {
           return locationCode;
         }
       }
-      
       return '';
     }
 
@@ -399,13 +398,45 @@
     function showMessage(msg, type) {
       const bgColor = type === 'error' ? 'bg-red-50 border-red-200 text-red-800' : 'bg-green-50 border-green-200 text-green-800';
       const icon = type === 'error' ? 'alert-circle' : 'check-circle';
-      message.innerHTML = `
-        <div class="mx-6 mb-4 p-4 border rounded-lg ${bgColor} flex items-center gap-3 fade-in">
-          <i data-lucide="${icon}" class="w-5 h-5"></i>
-          <span class="text-sm font-medium">${msg}</span>
-        </div>
-      `;
-      lucide.createIcons();
+      
+      // Show in main message area for errors
+      if (type === 'error') {
+        message.innerHTML = `
+          <div class="mx-6 mb-4 p-4 border rounded-lg ${bgColor} flex items-center gap-3 fade-in">
+            <i data-lucide="${icon}" class="w-5 h-5"></i>
+            <span class="text-sm font-medium">${msg}</span>
+          </div>
+        `;
+        lucide.createIcons();
+      } else {
+        // Show success messages as toast notification
+        const toast = document.getElementById('toast');
+        toast.innerHTML = `
+          <div class="bg-white border border-gray-200 rounded-lg shadow-lg p-4 flex items-center gap-3 min-w-80">
+            <i data-lucide="${icon}" class="w-5 h-5 text-green-600"></i>
+            <span class="text-sm font-medium text-gray-800">${msg}</span>
+            <button onclick="hideToast()" class="ml-auto text-gray-400 hover:text-gray-600">
+              <i data-lucide="x" class="w-4 h-4"></i>
+            </button>
+          </div>
+        `;
+        lucide.createIcons();
+        
+        // Show toast
+        toast.classList.remove('translate-y-full');
+        toast.classList.add('translate-y-0');
+        
+        // Auto-hide after 3 seconds
+        setTimeout(() => {
+          hideToast();
+        }, 3000);
+      }
+    }
+
+    function hideToast() {
+      const toast = document.getElementById('toast');
+      toast.classList.remove('translate-y-0');
+      toast.classList.add('translate-y-full');
     }
 
     function clearMessage() { 
@@ -506,7 +537,6 @@
       const groups = {};
       dataCentreCodes.forEach(code => { groups[code] = []; });
       activities.forEach(a => {
-        // Use the assigned location instead of scanning WBS
         if (a.location) {
           // Check if the location matches any of our data centre codes
           const found = dataCentreCodes.find(code => a.location.toUpperCase().includes(code.toUpperCase()));
@@ -524,74 +554,44 @@
       const groups = groupByDataCentre(filteredActivities);
       let html = '';
       let hasAny = false;
-      
-      // Add control buttons
-      html += `
-        <div class="flex gap-2 mb-6">
-          <button onclick="handleHideSelected()" disabled class="flex items-center gap-2 px-4 py-2 bg-yellow-500 text-white font-semibold rounded-lg shadow-sm hover:bg-yellow-600 disabled:bg-gray-300 disabled:cursor-not-allowed">
-            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.878 9.878L3 3m6.878 6.878L21 21"></path></svg>
-            Hide Selected (<span id="selectedCount">0</span>)
-          </button>
-          <button onclick="handleShowAll()" disabled class="flex items-center gap-2 px-4 py-2 bg-blue-500 text-white font-semibold rounded-lg shadow-sm hover:bg-blue-600 disabled:bg-gray-300 disabled:cursor-not-allowed">
-            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path></svg>
-            Show All (<span id="hiddenCount">0</span>)
-          </button>
-          <button onclick="exportDataCentreCSV()" class="bg-green-600 hover:bg-green-700 text-white font-bold px-6 py-2 rounded-lg transition-all duration-300 flex items-center gap-2 shadow-sm hover:shadow-md">
-            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
-            Export
-          </button>
-        </div>
-      `;
-      
       dataCentreCodes.forEach(code => {
         const group = groups[code];
         if (group.length) {
           hasAny = true;
-          const visibleActivities = group.filter(a => !hiddenItems.has(a.id));
-          if (hiddenItems.has(code) || visibleActivities.length === 0) return;
-          
-          const allInGroupSelected = visibleActivities.length > 0 && 
-            visibleActivities.every(a => selectedItems.has(a.id));
-          
-          html += `
-            <div class="mb-4 border border-gray-200 rounded-lg overflow-hidden">
-              <div class="bg-gray-50 px-4 py-3 border-b border-gray-200 cursor-pointer" onclick="toggleGroup('${code}')">
-                <div class="flex items-center w-full">
-                  <input type="checkbox" 
-                    class="h-4 w-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500 mr-3"
-                    ${allInGroupSelected ? 'checked' : ''}
-                    onclick="event.stopPropagation(); handleGroupSelect('${code}', ${JSON.stringify(visibleActivities.map(a => a.id))})"
-                  />
-                  <span class="flex-1 font-semibold text-gray-800">${code}</span>
-                  <span class="text-sm text-gray-600 mr-2">${visibleActivities.length} activities</span>
-                  <svg class="w-5 h-5 transform transition-transform" id="icon-${code}" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
-                  </svg>
-                </div>
-              </div>
-              <div class="p-4" id="content-${code}">
-                <ul class="space-y-2">
-                  ${visibleActivities.map(activity => `
-                    <li class="flex items-center text-sm">
-                      <input type="checkbox" 
-                        class="h-4 w-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500 mr-3"
-                        ${selectedItems.has(activity.id) ? 'checked' : ''}
-                        onchange="handleItemSelect('${activity.id}')"
-                      />
-                      <span class="text-gray-800">${activity.name} (${activity.startDate || 'No Date'})</span>
-                    </li>
-                  `).join('')}
-                </ul>
-              </div>
-            </div>
-          `;
+          html += `<div class="mb-8"><h2 class="text-lg font-semibold text-blue-700 mb-2">${code}</h2>`;
+          html += `<div class="table-container custom-scrollbar"><table class="w-full mb-2"><thead class="bg-slate-50 sticky top-0 z-10"><tr>` +
+            `<th class='px-4 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider border-b border-slate-200'>Activity ID</th>` +
+            `<th class='px-4 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider border-b border-slate-200'>Name</th>` +
+            `<th class='px-4 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider border-b border-slate-200'>Start</th>` +
+            `<th class='px-4 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider border-b border-slate-200'>Finish</th>` +
+            `<th class='px-4 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider border-b border-slate-200'>Duration</th>` +
+            `<th class='px-4 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider border-b border-slate-200'>% Complete</th>` +
+            `<th class='px-4 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider border-b border-slate-200'>Total Float</th>` +
+            `<th class='px-4 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider border-b border-slate-200'>Status</th>` +
+            `<th class='px-4 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider border-b border-slate-200'>Trade/Area</th>` +
+            `<th class='px-4 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider border-b border-slate-200'>Location</th>` +
+            `</tr></thead><tbody class="bg-white divide-y divide-slate-200">`;
+          group.forEach(a => {
+            html += `<tr class='hover:bg-slate-50 transition-colors'>` +
+              `<td class='px-4 py-3 text-sm font-medium text-slate-900'>${a.id}</td>` +
+              `<td class='px-4 py-3 text-sm text-slate-900'>${a.name}</td>` +
+              `<td class='px-4 py-3 text-sm text-slate-600'>${a.startDate}</td>` +
+              `<td class='px-4 py-3 text-sm text-slate-600'>${a.finishDate}</td>` +
+              `<td class='px-4 py-3 text-sm text-slate-600'>${a.duration}</td>` +
+              `<td class='px-4 py-3 text-sm text-slate-600'>${a.percentComplete}%</td>` +
+              `<td class='px-4 py-3 text-sm text-slate-600'>${a.totalFloat}</td>` +
+              `<td class='px-4 py-3'><span class='inline-flex px-2 py-1 text-xs font-medium rounded-full'>${a.status}</span></td>` +
+              `<td class='px-4 py-3 text-sm text-slate-600'>${a.wbs}</td>` +
+              `<td class='px-4 py-3 text-sm text-slate-600'>${a.location || ''}</td>` +
+              `</tr>`;
+          });
+          html += `</tbody></table></div></div>`;
         }
       });
       
       if (!hasAny) {
         html = `<div class='text-slate-500 text-center py-8'>No activities found for any data centre.</div>`;
       }
-      
       dataCentreViewDiv.innerHTML = html;
       updateCounts();
     }
