@@ -1069,6 +1069,11 @@
       
       // Initial state
       filterActivities();
+
+      // Expose toggleGroup, handleGroupSelect, and handleItemSelect as global functions
+      window.toggleGroup = toggleGroup;
+      window.handleGroupSelect = handleGroupSelect;
+      window.handleItemSelect = handleItemSelect;
     });
   </script>
 </body>
