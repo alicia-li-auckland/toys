@@ -137,6 +137,13 @@
                             </div>
                         </div>
 
+                        <!-- CSV Upload UI -->
+                        <div class="p-3 border-b border-slate-200 flex items-center gap-4">
+                            <input type="file" id="csv-upload" accept=".csv" class="block text-sm text-slate-500 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-medium file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100 transition-colors">
+                            <button id="process-csv-btn" class="px-4 py-2 rounded-lg bg-blue-600 text-white font-semibold text-sm disabled:bg-slate-300 disabled:cursor-not-allowed" disabled>Process</button>
+                            <span class="text-xs text-slate-500">CSV format: Location,Activity ID,Activity Name,Start Date,Finish Date,Duration</span>
+                        </div>
+
                         <!-- Timeline Grid -->
                         <div class="timeline-grid-wrapper custom-scrollbar">
                             <!-- Corner block -->
@@ -319,95 +326,94 @@
         function render() {
             hierarchyBody.innerHTML = '';
             timelineBody.innerHTML = '';
-
             let rowIndex = 0;
             let timelineBarsHtml = '';
-
+            // Render header row
+            const headerRow = document.createElement('div');
+            headerRow.className = 'flex items-center h-10 border-b border-slate-300 text-xs font-bold bg-slate-100';
+            headerRow.innerHTML = `
+                <div style="width: 120px; padding-left: 1.25rem;" class="flex-shrink-0">Location</div>
+                <div style="width: 120px;" class="flex-shrink-0">Activity ID</div>
+                <div style="flex:1;" class="flex-shrink-0">Activity Name</div>
+                <div style="width: 110px;" class="flex-shrink-0">Start Date</div>
+                <div style="width: 110px;" class="flex-shrink-0">Finish Date</div>
+                <div style="width: 80px;" class="flex-shrink-0">Duration</div>
+            `;
+            hierarchyBody.appendChild(headerRow);
             function renderRecursive(items, parentId = 'root', parentIsVisible = true) {
                 items.forEach(item => {
                     const hasChildren = item.children && item.children.length > 0;
                     const isExpanded = item.isExpanded === undefined ? true : item.isExpanded;
-                    const isVisible = parentIsVisible && item.visible;
-
-                    const row = document.createElement('div');
-                    row.id = `row-${item.id}`;
-                    row.dataset.id = item.id;
-                    row.dataset.parentId = parentId;
-                    row.className = `flex items-center h-10 border-b border-slate-200 text-sm font-medium text-slate-700 hover:bg-slate-50 ${!isVisible ? 'hidden' : ''}`;
-
-                    let expanderIcon = hasChildren ? 
-                        `<i data-lucide="chevron-right" class="w-4 h-4 mr-1 transition-transform ${isExpanded ? 'rotate-90' : ''}"></i>` : 
-                        '<span class="w-5 mr-1"></span>';
-
-                    let statusIcon = '';
-                    if (item.status === 'Behind Schedule') {
-                        statusIcon = '<i data-lucide="alert-triangle" class="w-4 h-4 text-red-500 mr-2 flex-shrink-0"></i>';
-                    }
-
-                    row.innerHTML = `<div style="padding-left: ${item.level * 1.25}rem;" class="flex items-center flex-grow cursor-pointer">${expanderIcon}${statusIcon}<span>${item.name}</span></div>`;
-                    hierarchyBody.appendChild(row);
-
-                    if(isVisible) rowIndex++;
-
-                    if (item.startDate && item.endDate && isVisible) {
-                        const plannedStart = new Date(item.startDate);
-                        const plannedEnd = new Date(item.endDate);
-                        const plannedOffsetDays = getDaysBetween(overallStartDate, plannedStart);
-                        const plannedDurationDays = Math.max(1, getDaysBetween(plannedStart, plannedEnd));
-                        const plannedLeft = plannedOffsetDays * dayWidth;
-                        const plannedWidth = plannedDurationDays * dayWidth;
-
-                        const outlineColor = 'border-blue-500';
-                        timelineBarsHtml += `
-                            <div class="absolute h-10 flex items-center" style="top: ${(rowIndex - 1) * 40}px; left: ${plannedLeft}px; width: ${plannedWidth}px;">
-                                <div class="h-6 w-full rounded border-2 ${outlineColor}" title="${item.name} (Planned)"></div>
-                            </div>
+                    const isVisible = parentIsVisible && (item.level === 0 || item.level === 1 || item.visible !== false);
+                    if (item.level === 1) {
+                        // Location row
+                        const row = document.createElement('div');
+                        row.id = `row-${item.id}`;
+                        row.dataset.id = item.id;
+                        row.dataset.parentId = parentId;
+                        row.className = `flex items-center h-10 border-b border-slate-200 text-sm font-bold text-slate-700 bg-slate-50 hover:bg-slate-100 ${!isVisible ? 'hidden' : ''}`;
+                        let expanderIcon = hasChildren ? 
+                            `<i data-lucide="chevron-right" class="w-4 h-4 mr-1 transition-transform ${isExpanded ? 'rotate-90' : ''}"></i>` : 
+                            '<span class="w-5 mr-1"></span>';
+                        row.innerHTML = `
+                            <div style="width: 120px; padding-left: 1.25rem;" class="flex items-center flex-shrink-0 cursor-pointer">${expanderIcon}<span>${item.name}</span></div>
+                            <div style="width: 120px;" class="flex-shrink-0"></div>
+                            <div style="flex:1;" class="flex-shrink-0"></div>
+                            <div style="width: 110px;" class="flex-shrink-0"></div>
+                            <div style="width: 110px;" class="flex-shrink-0"></div>
+                            <div style="width: 80px;" class="flex-shrink-0"></div>
                         `;
-
-                        if (item.actualStartDate) {
-                            const actualStart = new Date(item.actualStartDate);
-                            const actualEnd = item.actualEndDate ? new Date(item.actualEndDate) : today;
-                            const actualOffsetDays = getDaysBetween(overallStartDate, actualStart);
-                            const actualDurationDays = Math.max(1, getDaysBetween(actualStart, actualEnd));
-                            const actualLeft = actualOffsetDays * dayWidth;
-                            const actualWidth = actualDurationDays * dayWidth;
-
-                            let fillColor = 'bg-blue-500';
-                            if (item.status === 'Behind Schedule') {
-                                fillColor = 'bg-red-500';
-                            }
-
+                        hierarchyBody.appendChild(row);
+                        if(isVisible) rowIndex++;
+                        if (hasChildren && isExpanded) renderRecursive(item.children, item.id, isVisible && isExpanded);
+                    } else if (item.level === 2) {
+                        // Activity row
+                        const row = document.createElement('div');
+                        row.id = `row-${item.id}`;
+                        row.dataset.id = item.id;
+                        row.dataset.parentId = parentId;
+                        row.className = `flex items-center h-10 border-b border-slate-200 text-sm text-slate-700 hover:bg-slate-50 ${!isVisible ? 'hidden' : ''}`;
+                        row.innerHTML = `
+                            <div style="width: 120px; padding-left: 2.5rem;" class="flex-shrink-0">${item.location}</div>
+                            <div style="width: 120px;" class="flex-shrink-0">${item.activityId}</div>
+                            <div style="flex:1;" class="flex-shrink-0">${item.activityName}</div>
+                            <div style="width: 110px;" class="flex-shrink-0">${item.startDate}</div>
+                            <div style="width: 110px;" class="flex-shrink-0">${item.endDate}</div>
+                            <div style="width: 80px;" class="flex-shrink-0">${item.duration}</div>
+                        `;
+                        hierarchyBody.appendChild(row);
+                        if(isVisible) rowIndex++;
+                        // Timeline bar for activity
+                        if (item.startDate && item.endDate && isVisible) {
+                            const plannedStart = new Date(item.startDate);
+                            const plannedEnd = new Date(item.endDate);
+                            const plannedOffsetDays = getDaysBetween(overallStartDate, plannedStart);
+                            const plannedDurationDays = Math.max(1, getDaysBetween(plannedStart, plannedEnd));
+                            const plannedLeft = plannedOffsetDays * dayWidth;
+                            const plannedWidth = plannedDurationDays * dayWidth;
+                            const outlineColor = 'border-blue-500';
                             timelineBarsHtml += `
-                                <div class="absolute h-10 flex items-center" style="top: ${(rowIndex - 1) * 40}px; left: ${actualLeft}px; width: ${actualWidth}px;" data-task-id="${item.id}">
-                                    <div class="h-6 w-full rounded ${fillColor} cursor-pointer" title="${item.name} (Actual: ${item.status})"></div>
+                                <div class="absolute h-10 flex items-center" style="top: ${(rowIndex - 1) * 40}px; left: ${plannedLeft}px; width: ${plannedWidth}px;">
+                                    <div class="h-6 w-full rounded border-2 ${outlineColor}" title="${item.activityName} (Planned)"></div>
                                 </div>
                             `;
                         }
                     }
-
-                    if (hasChildren) {
-                        renderRecursive(item.children, item.id, isVisible && isExpanded);
-                    }
                 });
             }
-
-            renderRecursive([projectData]);
-
+            renderRecursive(projectData.children);
             const totalHeight = rowIndex * 40;
             timelineBody.style.width = `${totalDays * dayWidth}px`;
             timelineBody.style.height = `${totalHeight}px`;
             hierarchyBody.style.height = `${totalHeight}px`;
-
             let gridLinesHtml = '';
             const months = [];
             let tempDate = new Date(overallStartDate);
             tempDate.setDate(1);
-
             while (tempDate <= addDays(overallEndDate, 30)) {
                 months.push(new Date(tempDate));
                 tempDate.setMonth(tempDate.getMonth() + 1);
             }
-
             months.forEach(monthDate => {
                 const startOffsetDays = getDaysBetween(overallStartDate, monthDate);
                 if (startOffsetDays > 0 && startOffsetDays < totalDays) {
@@ -415,14 +421,11 @@
                     gridLinesHtml += `<div class="absolute top-0 bottom-0 w-px bg-slate-200" style="left: ${left}px;"></div>`;
                 }
             });
-
             const todayOffset = getDaysBetween(overallStartDate, today);
             if (todayOffset >= 0 && todayOffset < totalDays) {
                 gridLinesHtml += `<div class="absolute top-0 bottom-0 w-0.5 bg-blue-500 z-10" style="left: ${todayOffset * dayWidth}px;"></div>`;
             }
-
             timelineBody.innerHTML = gridLinesHtml + timelineBarsHtml;
-
             renderTimelineHeader();
             lucide.createIcons();
         }
@@ -593,9 +596,9 @@
         });
 
         function showHoverCard(event, task) {
-            document.getElementById('hover-card-img').src = `https://placehold.co/600x400/a3a3a3/ffffff?text=${encodeURIComponent(task.groupName)}`;
-            document.getElementById('hover-card-title').textContent = task.name;
-            document.getElementById('hover-card-group').textContent = task.groupName;
+            document.getElementById('hover-card-img').src = `https://placehold.co/600x400/a3a3a3/ffffff?text=${encodeURIComponent(task.activityName)}`;
+            document.getElementById('hover-card-title').textContent = task.activityName;
+            document.getElementById('hover-card-group').textContent = task.location;
             document.getElementById('hover-card-status').textContent = task.status;
             document.getElementById('hover-card-planned').textContent = `${task.startDate} to ${task.endDate}`;
             document.getElementById('hover-card-actual').textContent = `${task.actualStartDate} to ${task.actualEndDate || 'Present'}`;
@@ -623,6 +626,65 @@
             timelineHeaderWrapper.scrollLeft = gridWrapper.scrollLeft;
             hierarchyBody.scrollTop = gridWrapper.scrollTop;
         });
+
+        // --- CSV Upload & Parsing ---
+        // Sample CSV:
+        // Location,Activity ID,Activity Name,Start Date,Finish Date,Duration
+        const csvUpload = document.getElementById('csv-upload');
+        const processCsvBtn = document.getElementById('process-csv-btn');
+        let uploadedCsvRows = [];
+        csvUpload.addEventListener('change', e => {
+            const file = e.target.files[0];
+            processCsvBtn.disabled = !file;
+            if (!file) return;
+            const reader = new FileReader();
+            reader.onload = function(evt) {
+                const text = evt.target.result;
+                uploadedCsvRows = parseCsv(text);
+            };
+            reader.readAsText(file);
+        });
+        processCsvBtn.addEventListener('click', () => {
+            if (!uploadedCsvRows.length) return;
+            projectData = buildTreeFromCsv(uploadedCsvRows);
+            collectDates([projectData]);
+            render();
+            populateFilterPanel();
+        });
+        function parseCsv(text) {
+            const lines = text.split(/\r?\n/).filter(line => line.trim());
+            const headers = lines[0].split(',').map(h => h.trim());
+            return lines.slice(1).map(line => {
+                const values = line.split(',').map(v => v.trim());
+                const row = {};
+                headers.forEach((h, i) => row[h] = values[i] || '');
+                return row;
+            });
+        }
+        function buildTreeFromCsv(rows) {
+            const root = { id: 'root', name: 'Project', level: 0, children: [] };
+            const locations = {};
+            rows.forEach(row => {
+                const loc = row['Location'];
+                if (!locations[loc]) {
+                    locations[loc] = { id: loc.replace(/\s+/g, '-').toLowerCase(), name: loc, level: 1, children: [] };
+                    root.children.push(locations[loc]);
+                }
+                const locationNode = locations[loc];
+                locationNode.children.push({
+                    id: row['Activity ID'],
+                    name: row['Activity Name'],
+                    level: 2,
+                    location: loc,
+                    activityId: row['Activity ID'],
+                    activityName: row['Activity Name'],
+                    startDate: row['Start Date'],
+                    endDate: row['Finish Date'],
+                    duration: row['Duration']
+                });
+            });
+            return root;
+        }
 
         // --- Initial Render ---
         render();
