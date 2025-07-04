@@ -806,47 +806,21 @@
       // Data Centre view state
       let selectedItems = new Set();
       let hiddenItems = new Set();
+      let openGroups = new Set();
 
       function renderDataCentreView() {
         const groups = groupByDataCentre(filteredActivities);
         let html = '';
         let hasAny = false;
-        
-        // Add padding container for proper scrolling
         html += '<div class="p-6">';
-        
-        // Add control buttons like in TSX version
-        html += `
-          <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6 gap-4">
-            <h2 class="text-2xl font-bold text-gray-900">Data Centre Structured View</h2>
-            <div class="flex gap-2">
-              <button onclick="handleHideSelected()" disabled class="flex items-center gap-2 px-4 py-2 bg-yellow-500 text-white font-semibold rounded-lg shadow-sm hover:bg-yellow-600 disabled:bg-gray-300 disabled:cursor-not-allowed">
-                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.878 9.878L3 3m6.878 6.878L21 21"></path></svg>
-                Hide Selected (<span id="selectedCount">0</span>)
-              </button>
-              <button onclick="handleShowAll()" disabled class="flex items-center gap-2 px-4 py-2 bg-blue-500 text-white font-semibold rounded-lg shadow-sm hover:bg-blue-600 disabled:bg-gray-300 disabled:cursor-not-allowed">
-                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path></svg>
-                Show All (<span id="hiddenCount">0</span>)
-              </button>
-              <button onclick="exportDataCentreCSV()" class="bg-green-600 hover:bg-green-700 text-white font-bold px-6 py-2 rounded-lg transition-all duration-300 flex items-center gap-2 shadow-sm hover:shadow-md">
-                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
-                Export
-              </button>
-            </div>
-          </div>
-        `;
-        
-        // Create accordion-style groups like TSX version
         Object.keys(groups).sort().forEach(code => {
           const group = groups[code];
           if (group.length) {
             hasAny = true;
             const visibleActivities = group.filter(a => !hiddenItems.has(a.id));
             if (hiddenItems.has(code) || visibleActivities.length === 0) return;
-            
-            const allInGroupSelected = visibleActivities.length > 0 && 
-              visibleActivities.every(a => selectedItems.has(a.id));
-            
+            const allInGroupSelected = visibleActivities.length > 0 && visibleActivities.every(a => selectedItems.has(a.id));
+            const isOpen = openGroups.has(code);
             html += `
               <div class="mb-4 border border-gray-200 rounded-lg overflow-hidden">
                 <div class="bg-gray-50 px-4 py-3 border-b border-gray-200 cursor-pointer" onclick="toggleGroup('${code}')">
@@ -858,12 +832,12 @@
                     />
                     <span class="flex-1 font-semibold text-gray-800">${code}</span>
                     <span class="text-sm text-gray-600 mr-2">${visibleActivities.length} activities</span>
-                    <svg class="w-5 h-5 transform transition-transform" id="icon-${code}" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <svg class="w-5 h-5 transform transition-transform ${isOpen ? '' : 'rotate-180'}" id="icon-${code}" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
                     </svg>
                   </div>
                 </div>
-                <div class="p-4" id="content-${code}">
+                <div class="p-4" id="content-${code}" style="display:${isOpen ? 'block' : 'none'};">
                   <ul class="space-y-2">
                     ${visibleActivities.map(activity => `
                       <li class="flex items-center text-sm">
@@ -881,26 +855,21 @@
             `;
           }
         });
-        
         if (!hasAny) {
           html = `<div class='text-slate-500 text-center py-8'>No activities found for any data centre.</div>`;
         }
-        
-        html += '</div>'; // Close padding container
+        html += '</div>';
         dataCentreViewDiv.innerHTML = html;
         updateCounts();
       }
 
       function toggleGroup(code) {
-        const content = document.getElementById(`content-${code}`);
-        const icon = document.getElementById(`icon-${code}`);
-        if (content.style.display === 'none') {
-          content.style.display = 'block';
-          icon.style.transform = 'rotate(0deg)';
+        if (openGroups.has(code)) {
+          openGroups.delete(code);
         } else {
-          content.style.display = 'none';
-          icon.style.transform = 'rotate(180deg)';
+          openGroups.add(code);
         }
+        renderDataCentreView();
       }
 
       function handleGroupSelect(groupKey, activityIds) {
