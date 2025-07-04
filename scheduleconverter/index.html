@@ -818,6 +818,12 @@
         let html = '';
         let hasAny = false;
         html += '<div class="p-6">';
+        html += `
+          <div class="flex items-center gap-4 mb-4">
+            <span class="text-sm">Selected: <span id="selectedCount">0</span></span>
+            <span class="text-sm">Hidden: <span id="hiddenCount">0</span></span>
+          </div>
+        `;
         Object.keys(groups).sort().forEach(code => {
           const group = groups[code];
           if (group.length) {
