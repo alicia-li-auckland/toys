@@ -1028,8 +1028,10 @@
       fileInput.addEventListener('change', e => {
         selectedFile = e.target.files[0] || null;
         processBtn.disabled = !selectedFile;
+        console.log('File selected:', selectedFile ? selectedFile.name : 'none');
       });
       processBtn.addEventListener('click', async () => {
+        console.log('Process button clicked. Selected file:', selectedFile ? selectedFile.name : 'none');
         if (!selectedFile) return;
         clearMessage();
         const ext = selectedFile.name.split('.').pop().toLowerCase();
