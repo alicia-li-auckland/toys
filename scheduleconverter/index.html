@@ -420,18 +420,6 @@
       zoneFilter.innerHTML = options.join('');
     }
 
-    function updateLocationFilterOptions() {
-      const locSet = new Set();
-      allActivities.forEach(a => {
-        if (a.wbs && extractLocation(a.wbs)) locSet.add(extractLocation(a.wbs));
-      });
-      const options = ['<option value="">All Locations</option>'];
-      Array.from(locSet).sort().forEach(loc => {
-        options.push(`<option value="${loc}">${loc}</option>`);
-      });
-      locationFilter.innerHTML = options.join('');
-    }
-
     function updateWBSFilterOptions() {
       const wbsSet = new Set();
       allActivities.forEach(a => {
@@ -446,7 +434,6 @@
 
     function updateAllFilters() {
       updateZoneFilterOptions();
-      updateLocationFilterOptions();
       updateWBSFilterOptions();
     }
 
