@@ -169,6 +169,7 @@
                       <th class="px-4 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider border-b border-slate-200">Total Float</th>
                       <th class="px-4 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider border-b border-slate-200">Status</th>
                       <th class="px-4 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider border-b border-slate-200">Trade/Area</th>
+                      <th class="px-4 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider border-b border-slate-200">Location</th>
                     </tr>
                   </thead>
                   <tbody class="bg-white divide-y divide-slate-200"></tbody>
@@ -210,6 +211,16 @@
       return '"' + String(val).replace(/"/g, '""') + '"';
     }
 
+    function extractLocationFromWBS(wbs) {
+      if (!wbs) return '';
+      const codes = ['DCH','EYD','MYD','FSA','GEN YARD','CONVEYANCE','MCP','USS','PERUN'];
+      const upperWBS = wbs.toUpperCase();
+      for (const code of codes) {
+        if (upperWBS.includes(code)) return code;
+      }
+      return '';
+    }
+
     // --- Parsing Functions ---
     function parseXMLData(xmlContent) {
       const parser = new DOMParser();
@@ -232,7 +243,8 @@
         percentComplete: getText(activity, 'PercentComplete') || '0',
         totalFloat: getText(activity, 'TotalFloat') || '0',
         status: getText(activity, 'Status') || 'Not Started',
-        wbs: getText(activity, 'WBSName') || getText(activity, 'WBSCode') || ''
+        wbs: getText(activity, 'WBSName') || getText(activity, 'WBSCode') || '',
+        location: extractLocationFromWBS(getText(activity, 'WBSName') || getText(activity, 'WBSCode') || '')
       }));
     }
 
@@ -264,7 +276,8 @@
         percentComplete: a.phys_complete_pct || '0',
         totalFloat: a.total_float_hr_cnt || '0',
         status: a.status_code || 'Not Started',
-        wbs: a.wbs_id || ''
+        wbs: a.wbs_id || '',
+        location: extractLocationFromWBS(a.wbs_id || '')
       }));
     }
 
@@ -302,6 +315,7 @@
       for (let i = 1; i < lines.length; i++) {
         const values = parseRow(lines[i]);
         if (values.length < headers.length) continue;
+        const wbs = values[wbsIdx] || '';
         activities.push({
           id: values[idIdx] || `CSV-ACT-${i}`,
           name: values[nameIdx] || 'Unnamed Activity',
@@ -311,7 +325,8 @@
           percentComplete: values[pctIdx] || '0',
           totalFloat: values[floatIdx] || '0',
           status: values[statusIdx] || 'Not Started',
-          wbs: values[wbsIdx] || ''
+          wbs,
+          location: extractLocationFromWBS(wbs)
         });
       }
       
@@ -386,6 +401,7 @@
             </span>
           </td>
           <td class="px-4 py-3 text-sm text-slate-600">${a.wbs}</td>
+          <td class="px-4 py-3 text-sm text-slate-600">${a.location || ''}</td>
         `;
         tbody.appendChild(tr);
       });
@@ -445,7 +461,7 @@
       filteredActivities = allActivities.filter(a => {
         const matchesSearch = !q || a.id.toLowerCase().includes(q) || a.name.toLowerCase().includes(q) || (a.wbs && a.wbs.toLowerCase().includes(q));
         const matchesZone = !zone || (a.wbs && extractZone(a.wbs) === zone);
-        const matchesLocation = !location || (a.wbs && a.wbs.toUpperCase().includes(location.toUpperCase()));
+        const matchesLocation = !location || (a.location && a.location.toUpperCase().includes(location.toUpperCase()));
         const matchesWBS = !wbs || (a.wbs && a.wbs.toLowerCase().includes(wbs.toLowerCase()));
         return matchesSearch && matchesZone && matchesLocation && matchesWBS;
       });
@@ -488,12 +504,12 @@
     exportBtn.addEventListener('click', () => {
       if (!filteredActivities.length) return;
       
-      const headers = ['Activity ID','Activity Name','Start Date','Finish Date','Duration','% Complete','Total Float','Status','Trade'];
+      const headers = ['Activity ID','Activity Name','Start Date','Finish Date','Duration','% Complete','Total Float','Status','Trade','Location'];
       const rows = [headers.map(escapeCSV).join(',')];
       
       filteredActivities.forEach(a => {
         rows.push([
-          a.id, a.name, a.startDate, a.finishDate, a.duration, a.percentComplete, a.totalFloat, a.status, a.wbs
+          a.id, a.name, a.startDate, a.finishDate, a.duration, a.percentComplete, a.totalFloat, a.status, a.wbs, a.location || ''
         ].map(escapeCSV).join(','));
       });
       
