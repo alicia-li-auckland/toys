@@ -119,34 +119,43 @@
                   </select>
                 </div>
                 <div class="flex-shrink-0 min-w-[180px]">
-                  <select id="wbsFilter" class="w-full px-3 py-2 text-sm border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none">
-                    <option value="">All Trades/Areas</option>
-                    <option value="Wall Framing">Wall Framing</option>
-                    <option value="In Wall Insulation">In Wall Insulation</option>
-                    <option value="Wall Drywall">Wall Drywall</option>
-                    <option value="Overhead Fire Protection">Overhead Fire Protection</option>
-                    <option value="Structural Steel">Structural Steel</option>
-                    <option value="Mechanical Yard - Equipment Placement">Mechanical Yard - Equipment Placement</option>
-                    <option value="Electrical Yard – Equipment Placement">Electrical Yard – Equipment Placement</option>
-                    <option value="Structural Piles">Structural Piles</option>
-                    <option value="Concrete Pour">Concrete Pour</option>
-                    <option value="Overhead Duct Rough In">Overhead Duct Rough In</option>
-                    <option value="Wall Painting">Wall Painting</option>
-                    <option value="Wall Taping & Mudding">Wall Taping & Mudding</option>
-                    <option value="Concrete Formwork">Concrete Formwork</option>
-                    <option value="Concrete Rebar">Concrete Rebar</option>
-                    <option value="Overhead Electrical Rough In">Overhead Electrical Rough In</option>
-                    <option value="Generator Placement">Generator Placement</option>
-                    <option value="DWTR Installation">DWTR Installation</option>
-                    <option value="MWT Installation">MWT Installation</option>
-                    <option value="Conveyance">Conveyance</option>
-                    <option value="Booster Pump System Installation">Booster Pump System Installation</option>
-                    <option value="Backfill">Backfill</option>
-                    <option value="Electrical Yard Equipment Conduit">Electrical Yard Equipment Conduit</option>
-                    <option value="Roofing Metal Deck">Roofing Metal Deck</option>
-                    <option value="Roofing Insulation">Roofing Insulation</option>
-                    <option value="Roofing Membrane">Roofing Membrane</option>
-                  </select>
+                  <div class="relative">
+                    <button id="tradeFilterBtn" class="w-full px-3 py-2 text-sm border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none bg-white text-left flex items-center justify-between">
+                      <span id="tradeFilterText">All Trades/Areas</span>
+                      <i data-lucide="chevron-down" class="w-4 h-4 text-slate-400"></i>
+                    </button>
+                    <div id="tradeFilterDropdown" class="absolute top-full left-0 right-0 mt-1 bg-white border border-slate-300 rounded-lg shadow-lg z-50 max-h-96 overflow-y-auto" style="display:none;">
+                      <div class="p-3 border-b border-slate-200">
+                        <div class="flex items-center justify-between mb-2">
+                          <h4 class="text-sm font-semibold text-slate-800">Trade Categories</h4>
+                          <button id="selectAllTrades" class="text-xs font-medium text-blue-600 hover:underline">Select All</button>
+                        </div>
+                        <div id="tradeCheckboxes" class="grid grid-cols-1 gap-2 max-h-64 overflow-y-auto">
+                          <!-- Trade checkboxes will be populated here -->
+                        </div>
+                      </div>
+                      <div class="p-3 border-b border-slate-200">
+                        <div class="flex items-center justify-between mb-2">
+                          <h4 class="text-sm font-semibold text-slate-800">Additional Keywords</h4>
+                          <button id="clearCustomKeywords" class="text-xs font-medium text-blue-600 hover:underline">Clear</button>
+                        </div>
+                        <input id="customKeywords" type="text" placeholder="e.g., demolition, site work" class="w-full px-2 py-1 text-sm border border-slate-300 rounded focus:ring-1 focus:ring-blue-500 focus:outline-none">
+                      </div>
+                      <div class="p-3">
+                        <div class="flex items-center justify-between mb-2">
+                          <h4 class="text-sm font-semibold text-slate-800">Keywords to Exclude</h4>
+                          <button id="clearExcludeKeywords" class="text-xs font-medium text-blue-600 hover:underline">Clear All</button>
+                        </div>
+                        <div id="excludeKeywordsTags" class="flex flex-wrap gap-1 mb-2">
+                          <!-- Exclude keyword tags will be populated here -->
+                        </div>
+                        <div class="flex gap-1">
+                          <input id="newExcludeKeyword" type="text" placeholder="Add keyword to exclude" class="flex-1 px-2 py-1 text-sm border border-slate-300 rounded focus:ring-1 focus:ring-blue-500 focus:outline-none">
+                          <button id="addExcludeKeyword" class="px-3 py-1 text-xs bg-red-600 hover:bg-red-700 text-white font-semibold rounded">Add</button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
@@ -377,6 +386,40 @@
       return activities;
     }
 
+    // --- Trade Filter System (from TSX) ---
+    const tradeKeywords = {
+      excavation: ['excavat', 'dig', 'earth', 'soil', 'grade', 'cut', 'fill', 'trenching', 'backfill'],
+      utilities: ['utility', 'utilities', 'water', 'sewer', 'gas', 'electric service', 'storm', 'drain'],
+      structural_steel: ['steel', 'beam', 'column', 'frame', 'structural steel', 'erection', 'welding'],
+      roofing: ['roof', 'shingle', 'membrane', 'flashing', 'gutter', 'downspout', 'metal deck', 'roof deck'],
+      structural_piles: ['pile', 'piles', 'foundation', 'caisson', 'pier', 'deep foundation'],
+      concrete_pour: ['pour', 'concrete pour', 'placement', 'concrete placement', 'slab', 'footing'],
+      concrete_formwork: ['form', 'formwork', 'shoring', 'falsework', 'scaffolding'],
+      concrete_rebar: ['rebar', 'reinforc', 'steel reinforc', 'reinforcing', 'bar'],
+      masonry: ['masonry', 'brick', 'block', 'stone', 'mortar'],
+      electrical: ['electrical', 'electric', 'wiring', 'conduit', 'panel', 'lighting'],
+      plumbing: ['plumb', 'pipe', 'piping', 'fixture', 'valve'],
+      hvac: ['hvac', 'heating', 'cooling', 'ventilation', 'duct', 'air condition'],
+      insulation: ['insulat', 'thermal', 'vapor barrier', 'roofing insulation'],
+      drywall: ['drywall', 'gypsum', 'sheetrock', 'taping', 'finishing'],
+      flooring: ['floor', 'carpet', 'tile', 'hardwood', 'vinyl'],
+      painting: ['paint', 'coating', 'finish', 'primer'],
+      landscaping: ['landscape', 'plant', 'irrigation', 'lawn', 'tree'],
+      other_trades: ['trade', 'specialty', 'subcontractor']
+    };
+
+    // Trade filter state
+    let selectedTrades = {
+      excavation: false, utilities: false, structural_steel: false, roofing: false,
+      structural_piles: false, concrete_pour: false, concrete_formwork: false, concrete_rebar: false,
+      masonry: false, electrical: false, plumbing: false, hvac: false, insulation: false,
+      drywall: false, flooring: false, painting: false, landscaping: false, other_trades: false
+    };
+    let customKeywords = '';
+    let excludeKeywords = ['rfp', 'rfi', 'approval', 'submittal', 'review', 'meeting', 'mobilization', 
+                          'demobilization', 'permit', 'inspection', 'testing', 'close out', 'closeout',
+                          'procurement', 'ordering', 'delivery', 'schedule', 'planning', 'coordination'];
+
     // --- UI Logic ---
     let allActivities = [], filteredActivities = [];
     const fileInput = document.getElementById('fileInput');
@@ -386,7 +429,17 @@
     const tbody = table.querySelector('tbody');
     const message = document.getElementById('message');
     const emptyState = document.getElementById('emptyState');
-    const wbsFilter = document.getElementById('wbsFilter');
+    const tradeFilterBtn = document.getElementById('tradeFilterBtn');
+    const tradeFilterDropdown = document.getElementById('tradeFilterDropdown');
+    const tradeFilterText = document.getElementById('tradeFilterText');
+    const tradeCheckboxes = document.getElementById('tradeCheckboxes');
+    const selectAllTrades = document.getElementById('selectAllTrades');
+    const customKeywordsInput = document.getElementById('customKeywords');
+    const clearCustomKeywords = document.getElementById('clearCustomKeywords');
+    const excludeKeywordsTags = document.getElementById('excludeKeywordsTags');
+    const newExcludeKeyword = document.getElementById('newExcludeKeyword');
+    const addExcludeKeyword = document.getElementById('addExcludeKeyword');
+    const clearExcludeKeywords = document.getElementById('clearExcludeKeywords');
     const zoneFilter = document.getElementById('zoneFilter');
     const locationFilter = document.getElementById('locationFilter');
     const dataCentreCodes = ['DCH','EYD','MYD','FSA','GEN YARD','CONVEYANCE','MCP','USS','PERUN'];
@@ -441,6 +494,126 @@
 
     function clearMessage() { 
       message.innerHTML = ''; 
+    }
+
+    // --- Trade Filter Functions ---
+    function initializeTradeFilter() {
+      // Populate trade checkboxes
+      tradeCheckboxes.innerHTML = Object.keys(tradeKeywords).map(trade => `
+        <label class="flex items-center space-x-2 cursor-pointer p-2 rounded-lg hover:bg-slate-100">
+          <input type="checkbox" data-trade="${trade}" class="h-4 w-4 rounded border-slate-300 text-blue-600 focus:ring-blue-500">
+          <span class="text-sm text-slate-700 capitalize">${trade.replace(/_/g, ' ')}</span>
+        </label>
+      `).join('');
+
+      // Populate exclude keywords tags
+      updateExcludeKeywordsTags();
+
+      // Add event listeners
+      tradeCheckboxes.addEventListener('change', handleTradeCheckboxChange);
+      selectAllTrades.addEventListener('click', handleSelectAllTrades);
+      customKeywordsInput.addEventListener('input', handleCustomKeywordsChange);
+      clearCustomKeywords.addEventListener('click', handleClearCustomKeywords);
+      addExcludeKeyword.addEventListener('click', handleAddExcludeKeyword);
+      clearExcludeKeywords.addEventListener('click', handleClearExcludeKeywords);
+      newExcludeKeyword.addEventListener('keypress', (e) => {
+        if (e.key === 'Enter') handleAddExcludeKeyword();
+      });
+
+      // Toggle dropdown
+      tradeFilterBtn.addEventListener('click', () => {
+        tradeFilterDropdown.style.display = tradeFilterDropdown.style.display === 'none' ? 'block' : 'none';
+        lucide.createIcons(); // Recreate icons after showing dropdown
+      });
+
+      // Close dropdown when clicking outside
+      document.addEventListener('click', (e) => {
+        if (!tradeFilterBtn.contains(e.target) && !tradeFilterDropdown.contains(e.target)) {
+          tradeFilterDropdown.style.display = 'none';
+        }
+      });
+    }
+
+    function handleTradeCheckboxChange(e) {
+      const trade = e.target.dataset.trade;
+      selectedTrades[trade] = e.target.checked;
+      updateTradeFilterText();
+      filterActivities();
+    }
+
+    function handleSelectAllTrades() {
+      const allSelected = Object.values(selectedTrades).every(Boolean);
+      const newState = Object.keys(selectedTrades).reduce((acc, trade) => {
+        acc[trade] = !allSelected;
+        return acc;
+      }, {});
+      selectedTrades = newState;
+      
+      // Update checkboxes
+      tradeCheckboxes.querySelectorAll('input[type="checkbox"]').forEach(checkbox => {
+        checkbox.checked = selectedTrades[checkbox.dataset.trade];
+      });
+      
+      updateTradeFilterText();
+      filterActivities();
+    }
+
+    function handleCustomKeywordsChange(e) {
+      customKeywords = e.target.value;
+      filterActivities();
+    }
+
+    function handleClearCustomKeywords() {
+      customKeywords = '';
+      customKeywordsInput.value = '';
+      filterActivities();
+    }
+
+    function handleAddExcludeKeyword() {
+      const keyword = newExcludeKeyword.value.trim().toLowerCase();
+      if (keyword && !excludeKeywords.includes(keyword)) {
+        excludeKeywords.push(keyword);
+        updateExcludeKeywordsTags();
+        newExcludeKeyword.value = '';
+        filterActivities();
+      }
+    }
+
+    function handleClearExcludeKeywords() {
+      excludeKeywords = [];
+      updateExcludeKeywordsTags();
+      filterActivities();
+    }
+
+    function updateExcludeKeywordsTags() {
+      excludeKeywordsTags.innerHTML = excludeKeywords.map(keyword => `
+        <span class="bg-red-100 text-red-800 text-xs font-medium px-2.5 py-1 rounded-full flex items-center">
+          ${keyword}
+          <button onclick="removeExcludeKeyword('${keyword}')" class="ml-1.5 text-red-500 hover:text-red-700">
+            <i data-lucide="x" class="w-3 h-3"></i>
+          </button>
+        </span>
+      `).join('');
+      lucide.createIcons();
+    }
+
+    function removeExcludeKeyword(keyword) {
+      excludeKeywords = excludeKeywords.filter(k => k !== keyword);
+      updateExcludeKeywordsTags();
+      filterActivities();
+    }
+
+    function updateTradeFilterText() {
+      const selectedCount = Object.values(selectedTrades).filter(Boolean).length;
+      const totalCount = Object.keys(selectedTrades).length;
+      
+      if (selectedCount === 0) {
+        tradeFilterText.textContent = 'All Trades/Areas';
+      } else if (selectedCount === totalCount) {
+        tradeFilterText.textContent = 'All Trades Selected';
+      } else {
+        tradeFilterText.textContent = `${selectedCount} Trade${selectedCount > 1 ? 's' : ''} Selected`;
+      }
     }
 
     function renderTable(data) {
@@ -516,21 +689,8 @@
       zoneFilter.innerHTML = options.join('');
     }
 
-    function updateWBSFilterOptions() {
-      const wbsSet = new Set();
-      allActivities.forEach(a => {
-        if (a.wbs && a.wbs.trim()) wbsSet.add(a.wbs.trim());
-      });
-      const options = ['<option value="">All Trades/Areas</option>'];
-      Array.from(wbsSet).sort().forEach(wbs => {
-        options.push(`<option value="${wbs.replace(/"/g, '&quot;')}">${wbs}</option>`);
-      });
-      wbsFilter.innerHTML = options.join('');
-    }
-
     function updateAllFilters() {
       updateZoneFilterOptions();
-      updateWBSFilterOptions();
     }
 
     function groupByDataCentre(activities) {
@@ -750,14 +910,39 @@
       const q = searchInput.value.trim().toLowerCase();
       const zone = zoneFilter.value;
       const location = locationFilter.value;
-      const wbs = wbsFilter.value;
+      
+      // Trade filtering logic from TSX version
+      const anyTradeSelected = Object.values(selectedTrades).some(isSelected => isSelected);
+      const hasCustomKeywords = customKeywords.trim() !== '';
+      
       filteredActivities = allActivities.filter(a => {
+        // Basic search filtering
         const matchesSearch = !q || a.id.toLowerCase().includes(q) || a.name.toLowerCase().includes(q) || (a.wbs && a.wbs.toLowerCase().includes(q));
         const matchesZone = !zone || (a.wbs && extractZone(a.wbs) === zone);
         const matchesLocation = !location || (a.location && a.location.toUpperCase().includes(location.toUpperCase()));
-        const matchesWBS = !wbs || (a.wbs && a.wbs.toLowerCase().includes(wbs.toLowerCase()));
-        return matchesSearch && matchesZone && matchesLocation && matchesWBS;
+        
+        // Trade filtering (from TSX logic)
+        const activityText = `${a.name || ''} ${a.wbs || ''}`.toLowerCase();
+        
+        // Check exclude keywords first
+        if (excludeKeywords.some(k => activityText.includes(k))) return false;
+        
+        // If no trade filters are active, show all activities
+        if (!anyTradeSelected && !hasCustomKeywords) {
+          return matchesSearch && matchesZone && matchesLocation;
+        }
+        
+        // Check trade matches
+        const matchesTrade = anyTradeSelected && Object.entries(selectedTrades).some(([trade, selected]) => 
+          selected && tradeKeywords[trade]?.some(k => activityText.includes(k))
+        );
+        
+        // Check custom keywords
+        const matchesCustom = hasCustomKeywords && customKeywords.toLowerCase().split(',').map(k => k.trim()).filter(Boolean).some(k => activityText.includes(k));
+        
+        return matchesSearch && matchesZone && matchesLocation && (matchesTrade || matchesCustom);
       });
+      
       renderTable(filteredActivities);
       exportBtn.disabled = filteredActivities.length === 0;
       if (isDataCentreView) renderDataCentreView();
@@ -821,13 +1006,15 @@
 
     zoneFilter.addEventListener('change', filterActivities);
     locationFilter.addEventListener('change', filterActivities);
-    wbsFilter.addEventListener('change', filterActivities);
 
     toggleDataCentreViewBtn.addEventListener('click', () => {
       isDataCentreView = !isDataCentreView;
       updateViewMode();
     });
 
+    // Initialize trade filter system
+    initializeTradeFilter();
+    
     // Initial state
     filterActivities();
   </script>
