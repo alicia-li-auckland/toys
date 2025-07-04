@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Schedule Converter</title>
+  <style>
+    body { font-family: sans-serif; background: #f8f8f8; margin: 0; padding: 0; }
+    .container { max-width: 900px; margin: 2rem auto; background: #fff; border-radius: 8px; box-shadow: 0 2px 8px #0001; padding: 2rem; }
+    h1 { text-align: center; }
+    input[type="file"] { margin-bottom: 1rem; }
+    table { border-collapse: collapse; width: 100%; margin-top: 1rem; }
+    th, td { border: 1px solid #ddd; padding: 6px 8px; }
+    th { background: #f0f0f0; }
+    tr:nth-child(even) { background: #f9f9f9; }
+    .controls { display: flex; gap: 1rem; margin-bottom: 1rem; }
+    .controls input[type="text"] { flex: 1; padding: 0.5rem; }
+    .error { color: #b00; margin: 1rem 0; }
+    .success { color: #080; margin: 1rem 0; }
+    button { padding: 0.5rem 1rem; border: none; border-radius: 4px; background: #1976d2; color: #fff; cursor: pointer; }
+    button:disabled { background: #aaa; cursor: not-allowed; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>P6 Schedule Converter</h1>
+    <div class="controls">
+      <input type="file" id="fileInput" accept=".xml,.xer,.csv">
+      <input type="text" id="searchInput" placeholder="Search activities...">
+      <button id="exportBtn" disabled>Export CSV</button>
+    </div>
+    <div id="message"></div>
+    <div style="overflow-x:auto;">
+      <table id="activitiesTable" style="display:none;">
+        <thead>
+          <tr>
+            <th>Activity ID</th>
+            <th>Name</th>
+            <th>Start</th>
+            <th>Finish</th>
+            <th>Duration</th>
+            <th>% Complete</th>
+            <th>Total Float</th>
+            <th>Status</th>
+            <th>WBS</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </div>
+  </div>
+  <script>
+    // --- Utility Functions ---
+    function formatDate(dateString) {
+      if (!dateString) return '';
+      try {
+        const date = new Date(dateString);
+        return isNaN(date.getTime()) ? dateString : date.toISOString().split('T')[0];
+      } catch { return dateString; }
+    }
+    function escapeCSV(val) {
+      if (val == null) return '';
+      return '"' + String(val).replace(/"/g, '""') + '"';
+    }
+    // --- Parsing Functions ---
+    function parseXMLData(xmlContent) {
+      const parser = new DOMParser();
+      const xmlDoc = parser.parseFromString(xmlContent, 'text/xml');
+      if (xmlDoc.getElementsByTagName('parsererror').length) throw new Error('Failed to parse XML file.');
+      const activities = Array.from(xmlDoc.getElementsByTagName('Activity'));
+      if (!activities.length) throw new Error('No activities found in XML file.');
+      function getText(parent, tag) {
+        const el = parent.getElementsByTagName(tag)[0];
+        return el ? el.textContent : '';
+      }
+      return activities.map((activity, i) => ({
+        id: getText(activity, 'Id') || getText(activity, 'ActivityId') || `ACT-${i+1}`,
+        name: getText(activity, 'Name') || getText(activity, 'ActivityName') || 'Unnamed Activity',
+        startDate: formatDate(getText(activity, 'PlannedStartDate') || getText(activity, 'StartDate')),
+        finishDate: formatDate(getText(activity, 'PlannedFinishDate') || getText(activity, 'FinishDate')),
+        duration: getText(activity, 'PlannedDuration') || getText(activity, 'Duration') || '0',
+        percentComplete: getText(activity, 'PercentComplete') || '0',
+        totalFloat: getText(activity, 'TotalFloat') || '0',
+        status: getText(activity, 'Status') || 'Not Started',
+        wbs: getText(activity, 'WBSName') || getText(activity, 'WBSCode') || ''
+      }));
+    }
+    function parseXERData(xerContent) {
+      const lines = xerContent.split('\n');
+      let isTaskSection = false, headers = [], taskData = [];
+      for (const line of lines) {
+        const trimmed = line.trim();
+        if (trimmed.startsWith('%T') && trimmed.includes('TASK')) { isTaskSection = true; continue; }
+        if (isTaskSection && trimmed.startsWith('%F')) { headers = trimmed.substring(3).split('\t').map(h => h.trim()); continue; }
+        if (isTaskSection && trimmed.startsWith('%R')) {
+          const values = trimmed.substring(3).split('\t');
+          const activity = {};
+          headers.forEach((header, i) => activity[header] = values[i] ? values[i].trim() : '');
+          taskData.push(activity);
+        }
+        if (isTaskSection && trimmed.startsWith('%T') && !trimmed.includes('TASK')) break;
+      }
+      if (taskData.length === 0) throw new Error('No TASK records found in the XER file.');
+      return taskData.map((a, i) => ({
+        id: a.task_code || `XER-ACT-${i+1}`,
+        name: a.task_name || 'Unnamed Activity',
+        startDate: formatDate(a.early_start_date),
+        finishDate: formatDate(a.early_end_date),
+        duration: a.target_drtn_hr_cnt || '0',
+        percentComplete: a.phys_complete_pct || '0',
+        totalFloat: a.total_float_hr_cnt || '0',
+        status: a.status_code || 'Not Started',
+        wbs: a.wbs_id || ''
+      }));
+    }
+    function parseCSVData(csvContent) {
+      const lines = csvContent.split(/\r?\n/).filter(line => line.trim() !== '');
+      if (lines.length < 2) throw new Error('CSV file must have a header and at least one data row.');
+      function parseRow(row) {
+        const result = [], len = row.length;
+        let current = '', inQuotes = false;
+        for (let i = 0; i < len; i++) {
+          const char = row[i];
+          if (char === '"') inQuotes = !inQuotes;
+          else if (char === ',' && !inQuotes) { result.push(current); current = ''; }
+          else current += char;
+        }
+        result.push(current);
+        return result.map(v => v.trim().replace(/^"|"$/g, '').replace(/""/g, '"'));
+      }
+      const headers = parseRow(lines[0]).map(h => h.toLowerCase().trim());
+      const findIdx = names => { for (const n of names) { const idx = headers.indexOf(n.toLowerCase()); if (idx !== -1) return idx; } return -1; };
+      const idIdx = findIdx(['activity id','id','task id']);
+      const nameIdx = findIdx(['activity name','name','task name']);
+      const startIdx = findIdx(['start','start date','planned start']);
+      const finishIdx = findIdx(['finish','finish date','planned finish']);
+      const durIdx = findIdx(['original duration','duration']);
+      const pctIdx = findIdx(['activity % complete','% complete','percent complete']);
+      const statusIdx = findIdx(['activity status','status']);
+      const floatIdx = findIdx(['total float','total float (days)']);
+      const wbsIdx = findIdx(['wbs name','wbs','wbs code']);
+      const activities = [];
+      for (let i = 1; i < lines.length; i++) {
+        const values = parseRow(lines[i]);
+        if (values.length < headers.length) continue;
+        activities.push({
+          id: values[idIdx] || `CSV-ACT-${i}`,
+          name: values[nameIdx] || 'Unnamed Activity',
+          startDate: formatDate(values[startIdx]),
+          finishDate: formatDate(values[finishIdx]),
+          duration: values[durIdx] || '0',
+          percentComplete: values[pctIdx] || '0',
+          totalFloat: values[floatIdx] || '0',
+          status: values[statusIdx] || 'Not Started',
+          wbs: values[wbsIdx] || ''
+        });
+      }
+      if (activities.length === 0) throw new Error('Could not parse any valid activity rows from the CSV file.');
+      return activities;
+    }
+    // --- UI Logic ---
+    let allActivities = [], filteredActivities = [];
+    const fileInput = document.getElementById('fileInput');
+    const searchInput = document.getElementById('searchInput');
+    const exportBtn = document.getElementById('exportBtn');
+    const table = document.getElementById('activitiesTable');
+    const tbody = table.querySelector('tbody');
+    const message = document.getElementById('message');
+    function showMessage(msg, type) {
+      message.innerHTML = `<div class="${type}">${msg}</div>`;
+    }
+    function clearMessage() { message.innerHTML = ''; }
+    function renderTable(data) {
+      tbody.innerHTML = '';
+      if (!data.length) { table.style.display = 'none'; return; }
+      data.forEach(a => {
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+          <td>${a.id}</td>
+          <td>${a.name}</td>
+          <td>${a.startDate}</td>
+          <td>${a.finishDate}</td>
+          <td>${a.duration}</td>
+          <td>${a.percentComplete}</td>
+          <td>${a.totalFloat}</td>
+          <td>${a.status}</td>
+          <td>${a.wbs}</td>
+        `;
+        tbody.appendChild(tr);
+      });
+      table.style.display = '';
+    }
+    function filterActivities() {
+      const q = searchInput.value.trim().toLowerCase();
+      if (!q) { filteredActivities = allActivities.slice(); }
+      else {
+        filteredActivities = allActivities.filter(a =>
+          a.id.toLowerCase().includes(q) ||
+          a.name.toLowerCase().includes(q) ||
+          (a.wbs && a.wbs.toLowerCase().includes(q))
+        );
+      }
+      renderTable(filteredActivities);
+      exportBtn.disabled = filteredActivities.length === 0;
+    }
+    fileInput.addEventListener('change', async e => {
+      clearMessage();
+      const file = e.target.files[0];
+      if (!file) return;
+      const ext = file.name.split('.').pop().toLowerCase();
+      let content;
+      try {
+        content = await file.text();
+        let activities;
+        if (ext === 'xml') activities = parseXMLData(content);
+        else if (ext === 'xer') activities = parseXERData(content);
+        else if (ext === 'csv') activities = parseCSVData(content);
+        else throw new Error('Unsupported file format. Please upload XML, XER, or CSV.');
+        allActivities = activities;
+        searchInput.value = '';
+        filterActivities();
+        showMessage(`Parsed ${activities.length} activities.`, 'success');
+      } catch (err) {
+        allActivities = [];
+        filterActivities();
+        showMessage('Error: ' + err.message, 'error');
+      }
+    });
+    searchInput.addEventListener('input', filterActivities);
+    exportBtn.addEventListener('click', () => {
+      if (!filteredActivities.length) return;
+      const headers = ['Activity ID','Activity Name','Start Date','Finish Date','Duration','% Complete','Total Float','Status','WBS'];
+      const rows = [headers.map(escapeCSV).join(',')];
+      filteredActivities.forEach(a => {
+        rows.push([
+          a.id, a.name, a.startDate, a.finishDate, a.duration, a.percentComplete, a.totalFloat, a.status, a.wbs
+        ].map(escapeCSV).join(','));
+      });
+      const blob = new Blob([rows.join('\n')], {type:'text/csv'});
+      const link = document.createElement('a');
+      link.href = URL.createObjectURL(blob);
+      link.download = 'filtered_schedule.csv';
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      URL.revokeObjectURL(link.href);
+    });
+    // Initial state
+    filterActivities();
+  </script>
+</body>
+</html> 

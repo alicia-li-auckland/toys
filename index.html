@@ -3,630 +3,107 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Progress AI Tracker</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <script src="https://unpkg.com/lucide@latest"></script>
+    <title>Q3 Product Design Prototypes</title>
     <style>
         body {
-            font-family: 'Inter', sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
-
-        /* Custom scrollbar for better aesthetics */
-        .custom-scrollbar::-webkit-scrollbar {
-            width: 8px;
-            height: 8px;
+        .container {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            padding: 3rem;
+            text-align: center;
+            max-width: 600px;
+            width: 90%;
         }
-
-        .custom-scrollbar::-webkit-scrollbar-track {
-            background: #f1f5f9;
+        h1 {
+            color: #2d3748;
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 2rem;
+            text-align: center;
         }
-
-        .custom-scrollbar::-webkit-scrollbar-thumb {
-            background: #94a3b8;
-            border-radius: 4px;
+        .description {
+            color: #718096;
+            font-size: 1.1rem;
+            margin-bottom: 3rem;
+            line-height: 1.6;
         }
-
-        .custom-scrollbar::-webkit-scrollbar-thumb:hover {
-            background: #64748b;
-        }
-
-        /* Layout for frozen panes */
-        .timeline-grid-wrapper {
+        .tools-grid {
             display: grid;
-            grid-template-columns: 300px 1fr;
-            overflow: auto;
-            height: calc(100vh - 225px); /* Adjust based on header/legend/filter height */
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
         }
-
-        .sticky-header {
-            position: sticky;
-            top: 0;
-            z-index: 20;
+        .tool-card {
+            background: #f7fafc;
+            border: 2px solid #e2e8f0;
+            border-radius: 12px;
+            padding: 2rem;
+            text-decoration: none;
+            color: inherit;
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
-
-        .sticky-col {
-            position: sticky;
-            left: 0;
-            z-index: 10;
+        .tool-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+            border-color: #667eea;
         }
-
-        /* Style for behind-schedule tasks */
-        .behind-schedule-bar {
-            background-color: #ef4444; /* red-500 */
+        .tool-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
         }
-
-        #hover-card {
-            transition: opacity 0.2s;
+        .tool-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: #2d3748;
+            margin-bottom: 0.5rem;
         }
+        .tool-description {
+            color: #718096;
+            font-size: 0.9rem;
+            text-align: center;
+        }
+        .timeline-icon::before { content: "📅"; }
+        .converter-icon::before { content: "🔄"; }
     </style>
 </head>
-<body class="bg-slate-100 text-slate-800">
-    <div class="flex h-screen">
-        <!-- Collapsed Sidebar (Frozen) -->
-        <aside class="bg-white w-16 flex flex-col items-center py-4 space-y-6 border-r border-slate-200 flex-shrink-0">
-            <div class="p-2 rounded-lg bg-slate-100">
-                <i data-lucide="layout-dashboard" class="text-slate-600"></i>
-            </div>
-            <i data-lucide="bar-chart-3" class="text-slate-500 hover:text-slate-800 cursor-pointer"></i>
-            <i data-lucide="folder" class="text-slate-500 hover:text-slate-800 cursor-pointer"></i>
-            <i data-lucide="map-pin" class="text-slate-500 hover:text-slate-800 cursor-pointer"></i>
-            <i data-lucide="users" class="text-slate-500 hover:text-slate-800 cursor-pointer"></i>
-            <i data-lucide="settings" class="text-slate-500 hover:text-slate-800 cursor-pointer mt-auto"></i>
-        </aside>
-
-        <!-- Main Content -->
-        <div class="flex-1 flex flex-col overflow-hidden">
-            <!-- Top Header (Frozen) -->
-            <header class="bg-white border-b border-slate-200 flex-shrink-0">
-                <div class="flex items-center justify-between p-4">
-                    <div>
-                        <h1 class="text-lg font-semibold">Progress AI</h1>
-                        <p class="text-xs text-slate-500">Home / Project / Fly Upload</p>
-                    </div>
-                    <div class="flex items-center gap-4">
-                        <button class="flex items-center gap-2 px-4 py-2 text-sm font-medium text-white bg-blue-600 rounded-lg hover:bg-blue-700">
-                            <i data-lucide="share-2" class="w-4 h-4"></i>
-                            <span>Share</span>
-                        </button>
-                        <i data-lucide="bell" class="text-slate-500"></i>
-                        <i data-lucide="help-circle" class="text-slate-500"></i>
-                        <img src="https://placehold.co/32x32/64748b/ffffff?text=U" class="rounded-full" alt="User Avatar">
-                    </div>
+<body>
+    <div class="container">
+        <h1>Q3 Product Design Prototypes</h1>
+        <p class="description">
+            Welcome to our collection of interactive design prototypes and tools. 
+            Explore the timeline visualization and schedule conversion utilities below.
+        </p>
+        
+        <div class="tools-grid">
+            <a href="timeline/" class="tool-card">
+                <div class="tool-icon timeline-icon"></div>
+                <div class="tool-title">Timeline</div>
+                <div class="tool-description">
+                    Interactive timeline visualization tool for project planning and milestone tracking
                 </div>
-            </header>
-
-            <!-- Main dashboard area -->
-            <main class="flex-1 overflow-hidden">
-                <div class="p-4 lg:p-6 h-full">
-                    <div class="bg-white rounded-xl shadow-sm h-full flex flex-col">
-                        <!-- Legend -->
-                        <div class="p-3 border-b border-slate-200 flex items-center gap-6 text-sm">
-                            <div class="flex items-center gap-2">
-                                <div class="w-10 h-4 rounded border-2 border-slate-400"></div>
-                                <span class="text-slate-600 font-medium">Planned Schedule</span>
-                            </div>
-                            <div class="flex items-center gap-2">
-                                <div class="w-10 h-4 rounded bg-slate-400"></div>
-                                <span class="text-slate-600 font-medium">Actual Progress</span>
-                            </div>
-                        </div>
-
-                        <!-- Search and Filter Controls -->
-                        <div class="p-3 border-b border-slate-200 flex items-center justify-between gap-4">
-                            <div class="relative flex-grow max-w-xs">
-                                <i data-lucide="search" class="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400"></i>
-                                <input type="text" id="search-input" placeholder="Search hierarchy..." class="w-full pl-9 pr-4 py-1.5 text-sm border border-slate-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:outline-none">
-                            </div>
-                            <div class="relative">
-                                <button id="filter-btn" class="flex items-center gap-2 px-3 py-1.5 text-sm font-medium text-slate-700 bg-white border border-slate-300 rounded-md hover:bg-slate-50">
-                                    <i data-lucide="filter" class="w-4 h-4"></i>
-                                    <span>Filter Zones</span>
-                                </button>
-                                <div id="filter-panel" class="hidden absolute top-full right-0 mt-2 w-72 bg-white border border-slate-200 rounded-lg shadow-lg z-40">
-                                    <div class="p-3 border-b flex justify-between items-center">
-                                        <h4 class="font-semibold text-sm">Filter by Zone</h4>
-                                        <button id="clear-filter-btn" class="text-xs text-blue-600 hover:underline">Clear all</button>
-                                    </div>
-                                    <div id="filter-options" class="p-3 max-h-60 overflow-y-auto custom-scrollbar space-y-2">
-                                        <!-- Checkboxes will be generated here -->
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Timeline Grid -->
-                        <div class="timeline-grid-wrapper custom-scrollbar">
-                            <!-- Corner block -->
-                            <div class="p-3 border-r border-b border-slate-200 bg-slate-100 sticky top-0 left-0 z-30">
-                                <h3 class="font-semibold text-slate-600 text-sm">Hierarchy</h3>
-                            </div>
-
-                            <!-- X-Axis Header -->
-                            <div id="timeline-header-wrapper" class="border-b border-slate-200 bg-slate-100/80 backdrop-blur-sm sticky top-0 z-20">
-                                <!-- JS generates date headers here -->
-                            </div>
-
-                            <!-- Y-Axis Body (Hierarchy Labels) -->
-                            <div id="hierarchy-body" class="border-r border-slate-200 bg-white sticky left-0 z-10">
-                                <!-- JS generates hierarchy here -->
-                            </div>
-
-                            <!-- X-Axis Body (Timeline Bars) -->
-                            <div id="timeline-body-wrapper" class="overflow-visible">
-                                <div id="timeline-body" class="relative">
-                                    <!-- JS generates timeline bars and grid lines here -->
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+            </a>
+            
+            <a href="scheduleconverter/" class="tool-card">
+                <div class="tool-icon converter-icon"></div>
+                <div class="tool-title">Schedule Converter</div>
+                <div class="tool-description">
+                    Convert and filter Primavera P6 schedules to CSV format with advanced filtering options
                 </div>
-            </main>
+            </a>
         </div>
     </div>
-
-    <!-- Hover Card -->
-    <div id="hover-card" class="hidden absolute z-50 p-3 bg-white rounded-lg shadow-xl w-64 border border-slate-200 pointer-events-none opacity-0">
-        <img id="hover-card-img" src="" class="w-full h-32 object-cover rounded-md mb-2 bg-slate-200" alt="Task Image">
-        <h4 id="hover-card-title" class="font-bold text-slate-800"></h4>
-        <p id="hover-card-group" class="text-sm text-slate-500 mb-2"></p>
-        <div class="text-xs space-y-1 text-slate-600">
-            <p><strong>Status:</strong> <span id="hover-card-status"></span></p>
-            <p><strong>Planned:</strong> <span id="hover-card-planned"></span></p>
-            <p><strong>Actual:</strong> <span id="hover-card-actual"></span></p>
-        </div>
-    </div>
-
-    <script>
-        // Initialize Lucide Icons
-        lucide.createIcons();
-
-        // --- Configuration ---
-        const dayWidth = 4; // Condensed width per day for monthly view
-        const today = new Date('2025-07-03T00:00:00Z'); // Fixed date for consistent highlighting
-
-        // --- Data Generation ---
-        function generateProjectData() {
-            const rawData = [
-                {Task_ID: 'WES1A-001', Task_Name: 'Site Mobilization', Planned_Start_Date: '2025-01-06', Planned_Finish_Date: '2025-01-17', Actual_Start_Date: '2025-01-07', Actual_Finish_Date: '2025-01-17'},
-                {Task_ID: 'WES1A-002', Task_Name: 'Clear and Grub', Planned_Start_Date: '2025-01-20', Planned_Finish_Date: '2025-02-07', Actual_Start_Date: '2025-01-20', Actual_Finish_Date: '2025-02-07'},
-                {Task_ID: 'WES1A-003', Task_Name: 'Mass Earthwork & Grading', Planned_Start_Date: '2025-02-10', Planned_Finish_Date: '2025-04-11', Actual_Start_Date: '2025-02-10', Actual_Finish_Date: '2025-04-11'},
-                {Task_ID: 'WES1A-004', Task_Name: 'EYD 1 - Underground Utilities', Planned_Start_Date: '2025-04-14', Planned_Finish_Date: '2025-05-16', Actual_Start_Date: '2025-04-15', Actual_Finish_Date: '2025-05-20'},
-                {Task_ID: 'WES1A-005', Task_Name: 'EYD 1 - Gen Pad Foundations', Planned_Start_Date: '2025-05-19', Planned_Finish_Date: '2025-06-20', Actual_Start_Date: '2025-05-22', Actual_Finish_Date: ''},
-                {Task_ID: 'WES1A-006', Task_Name: 'EYD 1 - USS Foundations', Planned_Start_Date: '2025-06-23', Planned_Finish_Date: '2025-07-25', Actual_Start_Date: '2025-06-25', Actual_Finish_Date: ''},
-                {Task_ID: 'WES1A-007', Task_Name: 'EYD 1 - Generator Placement', Planned_Start_Date: '2025-07-28', Planned_Finish_Date: '2025-08-15', Actual_Start_Date: '', Actual_Finish_Date: ''},
-                {Task_ID: 'WES1A-008', Task_Name: 'EYD 1 - USS Placement', Planned_Start_Date: '2025-08-18', Planned_Finish_Date: '2025-09-05', Actual_Start_Date: '', Actual_Finish_Date: ''},
-                {Task_ID: 'WES1A-009', Task_Name: 'EYD 1 - Steel Erection', Planned_Start_Date: '2025-09-08', Planned_Finish_Date: '2025-10-03', Actual_Start_Date: '', Actual_Finish_Date: ''},
-                {Task_ID: 'WES1A-010', Task_Name: 'EYD 1 - Above-Ground Conduit', Planned_Start_Date: '2025-10-06', Planned_Finish_Date: '2025-11-14', Actual_Start_Date: '', Actual_Finish_Date: ''},
-                {Task_ID: 'WES1A-011', Task_Name: 'EYD 1 - Cable Pulling & Terminations', Planned_Start_Date: '2025-11-17', Planned_Finish_Date: '2026-01-09', Actual_Start_Date: '', Actual_Finish_Date: ''},
-                {Task_ID: 'WES1A-012', Task_Name: 'EYD 1 - Commissioning', Planned_Start_Date: '2026-01-12', Planned_Finish_Date: '2026-02-20', Actual_Start_Date: '', Actual_Finish_Date: ''},
-                {Task_ID: 'WES1A-013', Task_Name: 'EYD 2 - Underground Utilities', Planned_Start_Date: '2025-05-19', Planned_Finish_Date: '2025-06-20', Actual_Start_Date: '2025-05-20', Actual_Finish_Date: ''},
-                {Task_ID: 'WES1A-014', Task_Name: 'EYD 2 - Gen Pad Foundations', Planned_Start_Date: '2025-06-23', Planned_Finish_Date: '2025-07-25', Actual_Start_Date: '', Actual_Finish_Date: ''},
-                {Task_ID: 'WES1A-015', Task_Name: 'EYD 2 - USS Foundations', Planned_Start_Date: '2025-07-28', Planned_Finish_Date: '2025-08-29', Actual_Start_Date: '', Actual_Finish_Date: ''},
-                {Task_ID: 'WES1A-016', Task_Name: 'EYD 2 - Generator Placement', Planned_Start_Date: '2025-09-01', Planned_Finish_Date: '2025-09-19', Actual_Start_Date: '', Actual_Finish_Date: ''},
-                {Task_ID: 'WES1A-017', Task_Name: 'EYD 2 - USS Placement', Planned_Start_Date: '2025-09-22', Planned_Finish_Date: '2025-10-10', Actual_Start_Date: '', Actual_Finish_Date: ''},
-                {Task_ID: 'WES1A-018', Task_Name: 'EYD 2 - Steel Erection', Planned_Start_Date: '2025-10-13', Planned_Finish_Date: '2025-11-07', Actual_Start_Date: '', Actual_Finish_Date: ''},
-                {Task_ID: 'WES1A-019', Task_Name: 'EYD 2 - Above-Ground Conduit', Planned_Start_Date: '2025-11-10', Planned_Finish_Date: '2025-12-19', Actual_Start_Date: '', Actual_Finish_Date: ''},
-                {Task_ID: 'WES1A-020', Task_Name: 'EYD 2 - Cable Pulling & Terminations', Planned_Start_Date: '2025-12-22', Planned_Finish_Date: '2026-02-13', Actual_Start_Date: '', Actual_Finish_Date: ''},
-                {Task_ID: 'WES1A-021', Task_Name: 'EYD 2 - Commissioning', Planned_Start_Date: '2026-02-16', Planned_Finish_Date: '2026-03-27', Actual_Start_Date: '', Actual_Finish_Date: ''},
-                {Task_ID: 'WES1A-022', Task_Name: 'DCH 1 - Foundations', Planned_Start_Date: '2025-04-14', Planned_Finish_Date: '2025-05-23', Actual_Start_Date: '2025-04-14', Actual_Finish_Date: '2025-05-23'},
-                {Task_ID: 'WES1A-023', Task_Name: 'DCH 1 - Steel Erection', Planned_Start_Date: '2025-05-26', Planned_Finish_Date: '2025-06-27', Actual_Start_Date: '2025-05-26', Actual_Finish_Date: ''},
-                {Task_ID: 'WES1A-024', Task_Name: 'DCH 1 - SOG & Precast', Planned_Start_Date: '2025-06-30', Planned_Finish_Date: '2025-08-01', Actual_Start_Date: '', Actual_Finish_Date: ''},
-                {Task_ID: 'WES1A-025', Task_Name: 'DCH 1 - Roofing', Planned_Start_Date: '2025-08-04', Planned_Finish_Date: '2025-08-29', Actual_Start_Date: '', Actual_Finish_Date: ''},
-                {Task_ID: 'WES1A-026', Task_Name: 'DCH 1 - Interior Fitout', Planned_Start_Date: '2025-09-01', Planned_Finish_Date: '2025-11-21', Actual_Start_Date: '', Actual_Finish_Date: ''},
-                {Task_ID: 'WES1A-027', Task_Name: 'DCH 1 - Commissioning', Planned_Start_Date: '2025-11-24', Planned_Finish_Date: '2026-01-16', Actual_Start_Date: '', Actual_Finish_Date: ''},
-                {Task_ID: 'WES1A-028', Task_Name: 'DCH 2 - Foundations', Planned_Start_Date: '2025-06-23', Planned_Finish_Date: '2025-08-01', Actual_Start_Date: '2025-06-23', Actual_Finish_Date: ''},
-                {Task_ID: 'WES1A-029', Task_Name: 'DCH 2 - Steel Erection', Planned_Start_Date: '2025-08-04', Planned_Finish_Date: '2025-09-05', Actual_Start_Date: '', Actual_Finish_Date: ''},
-                {Task_ID: 'WES1A-030', Task_Name: 'DCH 2 - SOG & Precast', Planned_Start_Date: '2025-09-08', Planned_Finish_Date: '2025-10-10', Actual_Start_Date: '', Actual_Finish_Date: ''},
-                {Task_ID: 'WES1A-031', Task_Name: 'DCH 2 - Roofing', Planned_Start_Date: '2025-10-13', Planned_Finish_Date: '2025-11-07', Actual_Start_Date: '', Actual_Finish_Date: ''},
-                {Task_ID: 'WES1A-032', Task_Name: 'DCH 2 - Interior Fitout', Planned_Start_Date: '2025-11-10', Planned_Finish_Date: '2026-01-30', Actual_Start_Date: '', Actual_Finish_Date: ''},
-                {Task_ID: 'WES1A-033', Task_Name: 'DCH 2 - Commissioning', Planned_Start_Date: '2026-02-02', Planned_Finish_Date: '2026-03-20', Actual_Start_Date: '', Actual_Finish_Date: ''}
-            ];
-
-            const root = { id: 'root', name: 'Project', level: 0, children: [] };
-            const groups = {};
-
-            const filteredData = rawData.filter(task => 
-                !task.Task_Name.toLowerCase().includes('project closeout') && 
-                !task.Task_Name.toLowerCase().includes('commissioning')
-            );
-
-            filteredData.forEach(task => {
-                const parts = task.Task_Name.split(' - ');
-                const groupName = parts.length > 1 ? parts[0] : 'General';
-                const taskName = parts.length > 1 ? parts.slice(1).join(' - ') : task.Task_Name;
-
-                if (!groups[groupName]) {
-                    groups[groupName] = {
-                        id: groupName.toLowerCase().replace(/ /g, '-'),
-                        name: groupName,
-                        level: 1,
-                        children: []
-                    };
-                    root.children.push(groups[groupName]);
-                }
-
-                groups[groupName].children.push({
-                    id: task.Task_ID,
-                    name: taskName,
-                    level: 2,
-                    groupName: groupName, // Store parent name
-                    startDate: task.Planned_Start_Date,
-                    endDate: task.Planned_Finish_Date,
-                    actualStartDate: task.Actual_Start_Date,
-                    actualEndDate: task.Actual_Finish_Date
-                });
-            });
-
-            return root;
-        }
-
-        let projectData = generateProjectData();
-
-        // --- Date & Scheduling ---
-        const addDays = (date, days) => new Date(date.valueOf() + days * 864e5);
-        const getDaysBetween = (start, end) => Math.round((end - start) / 864e5);
-
-        const allDates = [];
-        function collectDates(items) {
-            items.forEach(item => {
-                item.visible = true; // Set visibility for filtering
-                if (item.startDate) allDates.push(new Date(item.startDate));
-                if (item.endDate) allDates.push(new Date(item.endDate));
-                if (item.actualStartDate) allDates.push(new Date(item.actualStartDate));
-                if (item.actualEndDate) allDates.push(new Date(item.actualEndDate));
-
-                if (item.startDate && !item.status) {
-                    const plannedStart = new Date(item.startDate);
-                    const actualStart = item.actualStartDate ? new Date(item.actualStartDate) : null;
-                    const actualEnd = item.actualEndDate ? new Date(item.actualEndDate) : null;
-
-                    if (actualEnd) {
-                        item.status = 'Complete';
-                    } else if (actualStart) {
-                        item.status = 'In Progress';
-                    } else if (plannedStart < today) {
-                        item.status = 'Behind Schedule';
-                    } else {
-                        item.status = 'Not Started';
-                    }
-                }
-                if (item.children) collectDates(item.children);
-            });
-        }
-        collectDates([projectData]);
-
-        const overallStartDate = new Date(Math.min(...allDates));
-        const overallEndDate = new Date(Math.max(...allDates));
-        const totalDays = getDaysBetween(overallStartDate, addDays(overallEndDate, 30));
-
-        // --- DOM Elements ---
-        const hierarchyBody = document.getElementById('hierarchy-body');
-        const timelineHeaderWrapper = document.getElementById('timeline-header-wrapper');
-        const timelineBodyWrapper = document.getElementById('timeline-body-wrapper');
-        const timelineBody = document.getElementById('timeline-body');
-        const searchInput = document.getElementById('search-input');
-        const filterBtn = document.getElementById('filter-btn');
-        const filterPanel = document.getElementById('filter-panel');
-        const filterOptions = document.getElementById('filter-options');
-        const clearFilterBtn = document.getElementById('clear-filter-btn');
-        const hoverCard = document.getElementById('hover-card');
-        let hideCardTimeout;
-
-        // --- Rendering ---
-        function render() {
-            hierarchyBody.innerHTML = '';
-            timelineBody.innerHTML = '';
-
-            let rowIndex = 0;
-            let timelineBarsHtml = '';
-
-            function renderRecursive(items, parentId = 'root', parentIsVisible = true) {
-                items.forEach(item => {
-                    const hasChildren = item.children && item.children.length > 0;
-                    const isExpanded = item.isExpanded === undefined ? true : item.isExpanded;
-                    const isVisible = parentIsVisible && item.visible;
-
-                    const row = document.createElement('div');
-                    row.id = `row-${item.id}`;
-                    row.dataset.id = item.id;
-                    row.dataset.parentId = parentId;
-                    row.className = `flex items-center h-10 border-b border-slate-200 text-sm font-medium text-slate-700 hover:bg-slate-50 ${!isVisible ? 'hidden' : ''}`;
-
-                    let expanderIcon = hasChildren ? 
-                        `<i data-lucide="chevron-right" class="w-4 h-4 mr-1 transition-transform ${isExpanded ? 'rotate-90' : ''}"></i>` : 
-                        '<span class="w-5 mr-1"></span>';
-
-                    let statusIcon = '';
-                    if (item.status === 'Behind Schedule') {
-                        statusIcon = '<i data-lucide="alert-triangle" class="w-4 h-4 text-red-500 mr-2 flex-shrink-0"></i>';
-                    }
-
-                    row.innerHTML = `<div style="padding-left: ${item.level * 1.25}rem;" class="flex items-center flex-grow cursor-pointer">${expanderIcon}${statusIcon}<span>${item.name}</span></div>`;
-                    hierarchyBody.appendChild(row);
-
-                    if(isVisible) rowIndex++;
-
-                    if (item.startDate && item.endDate && isVisible) {
-                        const plannedStart = new Date(item.startDate);
-                        const plannedEnd = new Date(item.endDate);
-                        const plannedOffsetDays = getDaysBetween(overallStartDate, plannedStart);
-                        const plannedDurationDays = Math.max(1, getDaysBetween(plannedStart, plannedEnd));
-                        const plannedLeft = plannedOffsetDays * dayWidth;
-                        const plannedWidth = plannedDurationDays * dayWidth;
-
-                        const outlineColor = 'border-blue-500';
-                        timelineBarsHtml += `
-                            <div class="absolute h-10 flex items-center" style="top: ${(rowIndex - 1) * 40}px; left: ${plannedLeft}px; width: ${plannedWidth}px;">
-                                <div class="h-6 w-full rounded border-2 ${outlineColor}" title="${item.name} (Planned)"></div>
-                            </div>
-                        `;
-
-                        if (item.actualStartDate) {
-                            const actualStart = new Date(item.actualStartDate);
-                            const actualEnd = item.actualEndDate ? new Date(item.actualEndDate) : today;
-                            const actualOffsetDays = getDaysBetween(overallStartDate, actualStart);
-                            const actualDurationDays = Math.max(1, getDaysBetween(actualStart, actualEnd));
-                            const actualLeft = actualOffsetDays * dayWidth;
-                            const actualWidth = actualDurationDays * dayWidth;
-
-                            let fillColor = 'bg-blue-500';
-                            if (item.status === 'Behind Schedule') {
-                                fillColor = 'bg-red-500';
-                            }
-
-                            timelineBarsHtml += `
-                                <div class="absolute h-10 flex items-center" style="top: ${(rowIndex - 1) * 40}px; left: ${actualLeft}px; width: ${actualWidth}px;" data-task-id="${item.id}">
-                                    <div class="h-6 w-full rounded ${fillColor} cursor-pointer" title="${item.name} (Actual: ${item.status})"></div>
-                                </div>
-                            `;
-                        }
-                    }
-
-                    if (hasChildren) {
-                        renderRecursive(item.children, item.id, isVisible && isExpanded);
-                    }
-                });
-            }
-
-            renderRecursive([projectData]);
-
-            const totalHeight = rowIndex * 40;
-            timelineBody.style.width = `${totalDays * dayWidth}px`;
-            timelineBody.style.height = `${totalHeight}px`;
-            hierarchyBody.style.height = `${totalHeight}px`;
-
-            let gridLinesHtml = '';
-            const months = [];
-            let tempDate = new Date(overallStartDate);
-            tempDate.setDate(1);
-
-            while (tempDate <= addDays(overallEndDate, 30)) {
-                months.push(new Date(tempDate));
-                tempDate.setMonth(tempDate.getMonth() + 1);
-            }
-
-            months.forEach(monthDate => {
-                const startOffsetDays = getDaysBetween(overallStartDate, monthDate);
-                if (startOffsetDays > 0 && startOffsetDays < totalDays) {
-                    const left = startOffsetDays * dayWidth;
-                    gridLinesHtml += `<div class="absolute top-0 bottom-0 w-px bg-slate-200" style="left: ${left}px;"></div>`;
-                }
-            });
-
-            const todayOffset = getDaysBetween(overallStartDate, today);
-            if (todayOffset >= 0 && todayOffset < totalDays) {
-                gridLinesHtml += `<div class="absolute top-0 bottom-0 w-0.5 bg-blue-500 z-10" style="left: ${todayOffset * dayWidth}px;"></div>`;
-            }
-
-            timelineBody.innerHTML = gridLinesHtml + timelineBarsHtml;
-
-            renderTimelineHeader();
-            lucide.createIcons();
-        }
-
-        function renderTimelineHeader() {
-            let yearRowHtml = '';
-            let monthRowHtml = '';
-
-            const months = [];
-            let tempDate = new Date(overallStartDate);
-            tempDate.setDate(1);
-            while (tempDate < addDays(overallEndDate, 30)) {
-                months.push(new Date(tempDate));
-                tempDate.setMonth(tempDate.getMonth() + 1);
-            }
-
-            let yearSpans = {};
-            months.forEach(m => {
-                const year = m.getFullYear();
-                if (!yearSpans[year]) yearSpans[year] = 0;
-                yearSpans[year]++;
-            });
-
-            let yearGridTemplateColumns = '';
-            for (const year in yearSpans) {
-                let yearWidth = 0;
-                months.filter(m => m.getFullYear() == year).forEach(m => {
-                    const daysInMonth = new Date(m.getFullYear(), m.getMonth() + 1, 0).getDate();
-                    yearWidth += daysInMonth * dayWidth;
-                });
-                yearGridTemplateColumns += `${yearWidth}px `;
-                yearRowHtml += `<div class="text-sm font-semibold text-slate-600 p-1 text-center border-r border-slate-200">${year}</div>`;
-            }
-
-            let monthGridTemplateColumns = '';
-            months.forEach(monthDate => {
-                const daysInMonth = new Date(monthDate.getFullYear(), monthDate.getMonth() + 1, 0).getDate();
-                const monthWidth = daysInMonth * dayWidth;
-                monthGridTemplateColumns += `${monthWidth}px `;
-                const monthName = monthDate.toLocaleString('default', { month: 'short' }).toUpperCase();
-                monthRowHtml += `<div class="h-8 flex items-center justify-center border-l border-slate-200 text-xs text-slate-500">${monthName}</div>`;
-            });
-
-            const totalWidth = totalDays * dayWidth;
-
-            timelineHeaderWrapper.innerHTML = `
-                <div style="width: ${totalWidth}px;">
-                    <div class="grid" style="grid-template-columns: ${yearGridTemplateColumns.trim()};">
-                        ${yearRowHtml}
-                    </div>
-                    <div class="grid border-t border-slate-200" style="grid-template-columns: ${monthGridTemplateColumns.trim()};">
-                        ${monthRowHtml}
-                    </div>
-                </div>
-            `;
-        }
-
-        // --- Filter and Search Logic ---
-        function applyFilters() {
-            const searchTerm = searchInput.value.toLowerCase();
-            const activeFilters = [...filterOptions.querySelectorAll('input:checked')].map(el => el.value);
-
-            function filterRecursive(items) {
-                let isAnyChildVisible = false;
-                items.forEach(item => {
-                    const hasMatchingChild = item.children ? filterRecursive(item.children) : false;
-
-                    const matchesSearch = item.name.toLowerCase().includes(searchTerm);
-                    const matchesFilter = activeFilters.length === 0 || 
-                        (item.level === 1 && activeFilters.includes(item.id)) || 
-                        item.level !== 1;
-
-                    item.visible = (matchesSearch || hasMatchingChild) && matchesFilter;
-
-                    if(item.visible) isAnyChildVisible = true;
-                });
-                return isAnyChildVisible;
-            }
-
-            filterRecursive(projectData.children);
-            render();
-        }
-
-        function populateFilterPanel() {
-            filterOptions.innerHTML = '';
-            const level1Items = projectData.children;
-            level1Items.forEach(item => {
-                if(item.level === 1) {
-                    const label = document.createElement('label');
-                    label.className = 'flex items-center space-x-2 cursor-pointer';
-                    label.innerHTML = `
-                        <input type="checkbox" value="${item.id}" class="h-4 w-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500">
-                        <span>${item.name}</span>
-                    `;
-                    filterOptions.appendChild(label);
-                }
-            });
-        }
-
-        // --- Event Handling ---
-        function findDataItem(items, id) {
-            for (const item of items) {
-                if (item.id === id) return item;
-                if (item.children) {
-                    const found = findDataItem(item.children, id);
-                    if (found) return found;
-                }
-            }
-            return null;
-        }
-
-        hierarchyBody.addEventListener('click', (e) => {
-            const row = e.target.closest('[data-id]');
-            if (!row) return;
-
-            const id = row.dataset.id;
-            const item = findDataItem(projectData.children, id);
-
-            if (item && item.children && item.children.length > 0) {
-                item.isExpanded = item.isExpanded === undefined ? false : !item.isExpanded;
-                render();
-            }
-        });
-
-        searchInput.addEventListener('input', applyFilters);
-
-        filterBtn.addEventListener('click', () => {
-            filterPanel.classList.toggle('hidden');
-        });
-
-        clearFilterBtn.addEventListener('click', () => {
-            filterOptions.querySelectorAll('input').forEach(input => input.checked = false);
-            applyFilters();
-        });
-
-        filterOptions.addEventListener('change', applyFilters);
-
-        // --- Hover Card Logic ---
-        timelineBody.addEventListener('mouseover', (e) => {
-            const target = e.target.closest('[data-task-id]');
-            if (!target) return;
-
-            clearTimeout(hideCardTimeout);
-            const taskId = target.dataset.taskId;
-            const task = findDataItem(projectData.children, taskId);
-            if (task) {
-                showHoverCard(e, task);
-            }
-        });
-
-        timelineBody.addEventListener('mouseout', (e) => {
-            const target = e.target.closest('[data-task-id]');
-            if (target) {
-                hideCardTimeout = setTimeout(hideHoverCard, 200);
-            }
-        });
-
-        hoverCard.addEventListener('mouseover', () => {
-            clearTimeout(hideCardTimeout);
-        });
-
-        hoverCard.addEventListener('mouseout', () => {
-            hideCardTimeout = setTimeout(hideHoverCard, 200);
-        });
-
-        document.body.addEventListener('mousemove', (e) => {
-            positionHoverCard(e);
-        });
-
-        function showHoverCard(event, task) {
-            document.getElementById('hover-card-img').src = `https://placehold.co/600x400/a3a3a3/ffffff?text=${encodeURIComponent(task.groupName)}`;
-            document.getElementById('hover-card-title').textContent = task.name;
-            document.getElementById('hover-card-group').textContent = task.groupName;
-            document.getElementById('hover-card-status').textContent = task.status;
-            document.getElementById('hover-card-planned').textContent = `${task.startDate} to ${task.endDate}`;
-            document.getElementById('hover-card-actual').textContent = `${task.actualStartDate} to ${task.actualEndDate || 'Present'}`;
-
-            hoverCard.classList.remove('hidden');
-            setTimeout(() => hoverCard.classList.remove('opacity-0'), 10); // Fade in
-            positionHoverCard(event);
-        }
-
-        function hideHoverCard() {
-            hoverCard.classList.add('opacity-0');
-            setTimeout(() => hoverCard.classList.add('hidden'), 200); // Wait for fade out
-        }
-
-        function positionHoverCard(event) {
-            const offsetX = 15;
-            const offsetY = 15;
-            hoverCard.style.left = `${event.clientX + offsetX}px`;
-            hoverCard.style.top = `${event.clientY + offsetY}px`;
-        }
-
-        // --- Sync Scrolling ---
-        const gridWrapper = document.querySelector('.timeline-grid-wrapper');
-        gridWrapper.addEventListener('scroll', () => {
-            timelineHeaderWrapper.scrollLeft = gridWrapper.scrollLeft;
-            hierarchyBody.scrollTop = gridWrapper.scrollTop;
-        });
-
-        // --- Initial Render ---
-        render();
-        populateFilterPanel();
-    </script>
 </body>
 </html> 
