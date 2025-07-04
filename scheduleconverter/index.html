@@ -89,7 +89,7 @@
                 </div>
               </div>
               
-              <div class="flex items-center gap-4">
+              <div class="flex items-center gap-4 mb-4">
                 <div class="relative flex-1">
                   <input type="file" id="fileInput" accept=".xml,.xer,.csv" 
                          class="block w-full text-sm text-slate-500 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-medium file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100 transition-colors">
@@ -98,6 +98,21 @@
                   <i data-lucide="search" class="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400"></i>
                   <input type="text" id="searchInput" placeholder="Search activities..." 
                          class="w-full pl-9 pr-4 py-2 text-sm border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none">
+                </div>
+                <div class="flex-shrink-0 min-w-[140px]">
+                  <select id="zoneFilter" class="w-full px-3 py-2 text-sm border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none">
+                    <option value="">All Zones</option>
+                  </select>
+                </div>
+                <div class="flex-shrink-0 min-w-[140px]">
+                  <select id="locationFilter" class="w-full px-3 py-2 text-sm border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none">
+                    <option value="">All Locations</option>
+                  </select>
+                </div>
+                <div class="flex-shrink-0 min-w-[180px]">
+                  <select id="wbsFilter" class="w-full px-3 py-2 text-sm border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none">
+                    <option value="">All Trades/Areas</option>
+                  </select>
                 </div>
               </div>
             </div>
@@ -119,7 +134,7 @@
                       <th class="px-4 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider border-b border-slate-200">% Complete</th>
                       <th class="px-4 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider border-b border-slate-200">Total Float</th>
                       <th class="px-4 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider border-b border-slate-200">Status</th>
-                      <th class="px-4 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider border-b border-slate-200">WBS</th>
+                      <th class="px-4 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider border-b border-slate-200">Trade/Area</th>
                     </tr>
                   </thead>
                   <tbody class="bg-white divide-y divide-slate-200"></tbody>
@@ -279,6 +294,9 @@
     const tbody = table.querySelector('tbody');
     const message = document.getElementById('message');
     const emptyState = document.getElementById('emptyState');
+    const wbsFilter = document.getElementById('wbsFilter');
+    const zoneFilter = document.getElementById('zoneFilter');
+    const locationFilter = document.getElementById('locationFilter');
 
     function showMessage(msg, type) {
       const bgColor = type === 'error' ? 'bg-red-50 border-red-200 text-red-800' : 'bg-green-50 border-green-200 text-green-800';
@@ -339,17 +357,77 @@
       });
     }
 
+    function extractZone(trade) {
+      const match = trade.match(/Zone\s*\d+/i);
+      return match ? match[0].trim() : '';
+    }
+
+    function extractLocation(trade) {
+      // Look for known codes or patterns (e.g., 'USS', 'MCP', 'MYD', 'EYD', 'Gen Yard-Pad', etc.)
+      const codes = ['USS', 'MCP', 'MYD', 'EYD', 'Gen Yard-Pad', 'SSS', 'DCH', 'DWTR', 'GPS', 'Loading Dock', 'Booster Pump System', 'Fire Pump House', 'Tank Yard', 'Conveyance'];
+      for (const code of codes) {
+        if (trade.toUpperCase().includes(code.replace(/ /g, '').toUpperCase())) return code;
+      }
+      // Fallback: try to extract a word after 'Zone X-' or the first word
+      const afterZone = trade.split('-')[1];
+      if (afterZone) return afterZone.split(' ')[0];
+      return trade.split(' ')[0];
+    }
+
+    function updateZoneFilterOptions() {
+      const zoneSet = new Set();
+      allActivities.forEach(a => {
+        if (a.wbs && extractZone(a.wbs)) zoneSet.add(extractZone(a.wbs));
+      });
+      const options = ['<option value="">All Zones</option>'];
+      Array.from(zoneSet).sort().forEach(zone => {
+        options.push(`<option value="${zone}">${zone}</option>`);
+      });
+      zoneFilter.innerHTML = options.join('');
+    }
+
+    function updateLocationFilterOptions() {
+      const locSet = new Set();
+      allActivities.forEach(a => {
+        if (a.wbs && extractLocation(a.wbs)) locSet.add(extractLocation(a.wbs));
+      });
+      const options = ['<option value="">All Locations</option>'];
+      Array.from(locSet).sort().forEach(loc => {
+        options.push(`<option value="${loc}">${loc}</option>`);
+      });
+      locationFilter.innerHTML = options.join('');
+    }
+
+    function updateWBSFilterOptions() {
+      const wbsSet = new Set();
+      allActivities.forEach(a => {
+        if (a.wbs && a.wbs.trim()) wbsSet.add(a.wbs.trim());
+      });
+      const options = ['<option value="">All Trades/Areas</option>'];
+      Array.from(wbsSet).sort().forEach(wbs => {
+        options.push(`<option value="${wbs.replace(/"/g, '&quot;')}">${wbs}</option>`);
+      });
+      wbsFilter.innerHTML = options.join('');
+    }
+
+    function updateAllFilters() {
+      updateZoneFilterOptions();
+      updateLocationFilterOptions();
+      updateWBSFilterOptions();
+    }
+
     function filterActivities() {
       const q = searchInput.value.trim().toLowerCase();
-      if (!q) { 
-        filteredActivities = allActivities.slice(); 
-      } else {
-        filteredActivities = allActivities.filter(a =>
-          a.id.toLowerCase().includes(q) ||
-          a.name.toLowerCase().includes(q) ||
-          (a.wbs && a.wbs.toLowerCase().includes(q))
-        );
-      }
+      const zone = zoneFilter.value;
+      const location = locationFilter.value;
+      const wbs = wbsFilter.value;
+      filteredActivities = allActivities.filter(a => {
+        const matchesSearch = !q || a.id.toLowerCase().includes(q) || a.name.toLowerCase().includes(q) || (a.wbs && a.wbs.toLowerCase().includes(q));
+        const matchesZone = !zone || (a.wbs && extractZone(a.wbs) === zone);
+        const matchesLocation = !location || (a.wbs && extractLocation(a.wbs) === location);
+        const matchesWBS = !wbs || (a.wbs && a.wbs === wbs);
+        return matchesSearch && matchesZone && matchesLocation && matchesWBS;
+      });
       renderTable(filteredActivities);
       exportBtn.disabled = filteredActivities.length === 0;
     }
@@ -374,6 +452,7 @@
         
         allActivities = activities;
         searchInput.value = '';
+        updateAllFilters();
         filterActivities();
         showMessage(`Successfully parsed ${activities.length} activities`, 'success');
       } catch (err) {
@@ -388,7 +467,7 @@
     exportBtn.addEventListener('click', () => {
       if (!filteredActivities.length) return;
       
-      const headers = ['Activity ID','Activity Name','Start Date','Finish Date','Duration','% Complete','Total Float','Status','WBS'];
+      const headers = ['Activity ID','Activity Name','Start Date','Finish Date','Duration','% Complete','Total Float','Status','Trade'];
       const rows = [headers.map(escapeCSV).join(',')];
       
       filteredActivities.forEach(a => {
@@ -408,6 +487,10 @@
       
       showMessage(`Exported ${filteredActivities.length} activities to CSV`, 'success');
     });
+
+    zoneFilter.addEventListener('change', filterActivities);
+    locationFilter.addEventListener('change', filterActivities);
+    wbsFilter.addEventListener('change', filterActivities);
 
     // Initial state
     filterActivities();
