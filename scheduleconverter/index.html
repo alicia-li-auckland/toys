@@ -422,6 +422,77 @@
                           'demobilization', 'permit', 'inspection', 'testing', 'close out', 'closeout',
                           'procurement', 'ordering', 'delivery', 'schedule', 'planning', 'coordination'];
 
+    // --- Location Multiselect Logic ---
+    const locationCodes = [
+      'DCH', 'EYD', 'MYD', 'FSA', 'GEN YARD', 'CONVEYANCE', 'MCP', 'USS', 'PERUN'
+    ];
+    let selectedLocations = [...locationCodes]; // Default: all selected
+
+    const locationFilterBtn = document.getElementById('locationFilterBtn');
+    const locationFilterDropdown = document.getElementById('locationFilterDropdown');
+    const locationFilterText = document.getElementById('locationFilterText');
+    const locationCheckboxes = document.getElementById('locationCheckboxes');
+    const selectAllLocations = document.getElementById('selectAllLocations');
+
+    function updateLocationCheckboxes() {
+      locationCheckboxes.innerHTML = locationCodes.map(code => `
+        <label class="flex items-center space-x-2 cursor-pointer p-2 rounded-lg hover:bg-slate-100">
+          <input type="checkbox" data-location="${code}" class="h-4 w-4 rounded border-slate-300 text-blue-600 focus:ring-blue-500" ${selectedLocations.includes(code) ? 'checked' : ''}>
+          <span class="text-sm text-slate-700">${code}</span>
+        </label>
+      `).join('');
+    }
+
+    function updateLocationFilterText() {
+      if (selectedLocations.length === 0 || selectedLocations.length === locationCodes.length) {
+        locationFilterText.textContent = 'All Locations';
+      } else if (selectedLocations.length === 1) {
+        locationFilterText.textContent = selectedLocations[0];
+      } else {
+        locationFilterText.textContent = `${selectedLocations.length} Locations`;
+      }
+    }
+
+    function handleLocationCheckboxChange(e) {
+      const code = e.target.dataset.location;
+      if (e.target.checked) {
+        if (!selectedLocations.includes(code)) selectedLocations.push(code);
+      } else {
+        selectedLocations = selectedLocations.filter(l => l !== code);
+      }
+      updateLocationFilterText();
+      filterActivities();
+    }
+
+    function handleSelectAllLocations() {
+      if (selectedLocations.length === locationCodes.length) {
+        selectedLocations = [];
+      } else {
+        selectedLocations = [...locationCodes];
+      }
+      updateLocationCheckboxes();
+      updateLocationFilterText();
+      filterActivities();
+    }
+
+    locationFilterBtn.addEventListener('click', () => {
+      locationFilterDropdown.style.display = locationFilterDropdown.style.display === 'none' ? 'block' : 'none';
+      lucide.createIcons();
+    });
+    document.addEventListener('click', (e) => {
+      if (!locationFilterBtn.contains(e.target) && !locationFilterDropdown.contains(e.target)) {
+        locationFilterDropdown.style.display = 'none';
+      }
+    });
+    locationCheckboxes.addEventListener('change', handleLocationCheckboxChange);
+    selectAllLocations.addEventListener('click', handleSelectAllLocations);
+
+    function initializeLocationFilter() {
+      updateLocationCheckboxes();
+      updateLocationFilterText();
+    }
+    // --- END Location Multiselect Logic ---
+
     // --- UI Logic ---
     let allActivities = [], filteredActivities = [];
     const fileInput = document.getElementById('fileInput');
@@ -442,7 +513,6 @@
     const addExcludeKeyword = document.getElementById('addExcludeKeyword');
     const clearExcludeKeywords = document.getElementById('clearExcludeKeywords');
     const zoneFilter = document.getElementById('zoneFilter');
-    const locationFilter = document.getElementById('locationFilter');
     const dataCentreCodes = ['DCH','EYD','MYD','FSA','GEN YARD','CONVEYANCE','MCP','USS','PERUN'];
     let viewMode = 'standard'; // 'standard' or 'dataCentre'
     const standardViewBtn = document.getElementById('standardViewBtn');
@@ -921,7 +991,7 @@
     function filterActivities() {
       const q = searchInput.value.trim().toLowerCase();
       const zone = zoneFilter.value;
-      const location = locationFilter.value;
+      const locations = selectedLocations;
       
       // Trade filtering logic from TSX version
       const anyTradeSelected = Object.values(selectedTrades).some(isSelected => isSelected);
@@ -931,7 +1001,7 @@
         // Basic search filtering
         const matchesSearch = !q || a.id.toLowerCase().includes(q) || a.name.toLowerCase().includes(q) || (a.wbs && a.wbs.toLowerCase().includes(q));
         const matchesZone = !zone || (a.wbs && extractZone(a.wbs) === zone);
-        const matchesLocation = !location || (a.location && a.location.toUpperCase().includes(location.toUpperCase()));
+        const matchesLocation = locations.length === 0 || (a.location && locations.includes(a.location));
         
         // Trade filtering (from TSX logic)
         const activityText = `${a.name || ''} ${a.wbs || ''}`.toLowerCase();
@@ -1017,7 +1087,6 @@
     });
 
     zoneFilter.addEventListener('change', filterActivities);
-    locationFilter.addEventListener('change', filterActivities);
 
     // View mode toggle buttons
     standardViewBtn.addEventListener('click', () => setViewMode('standard'));
@@ -1025,6 +1094,9 @@
 
     // Initialize trade filter system
     initializeTradeFilter();
+    
+    // Initialize location filter
+    initializeLocationFilter();
     
     // Initial state
     filterActivities();
