@@ -143,6 +143,7 @@
                   <input type="file" id="fileInput" accept=".xml,.xer,.csv" 
                          class="block w-full text-sm text-slate-500 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-medium file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100 transition-colors">
                 </div>
+                <button id="processBtn" class="px-4 py-2 rounded-lg bg-blue-600 text-white font-semibold text-sm flex items-center gap-2 disabled:bg-slate-300 disabled:cursor-not-allowed" disabled>Process</button>
               </div>
             </div>
 
@@ -508,6 +509,8 @@
     const standardViewBtn = document.getElementById('standardViewBtn');
     const dataCentreViewBtn = document.getElementById('dataCentreViewBtn');
     const dataCentreViewDiv = document.getElementById('dataCentreView');
+    const processBtn = document.getElementById('processBtn');
+    let selectedFile = null;
 
     function showMessage(msg, type) {
       const bgColor = type === 'error' ? 'bg-red-50 border-red-200 text-red-800' : 'bg-green-50 border-green-200 text-green-800';
@@ -1021,23 +1024,22 @@
     }
 
     // Event Listeners
-    fileInput.addEventListener('change', async e => {
+    fileInput.addEventListener('change', e => {
+      selectedFile = e.target.files[0] || null;
+      processBtn.disabled = !selectedFile;
+    });
+    processBtn.addEventListener('click', async () => {
+      if (!selectedFile) return;
       clearMessage();
-      const file = e.target.files[0];
-      if (!file) return;
-      
-      const ext = file.name.split('.').pop().toLowerCase();
+      const ext = selectedFile.name.split('.').pop().toLowerCase();
       let content;
-      
       try {
-        content = await file.text();
+        content = await selectedFile.text();
         let activities;
-        
         if (ext === 'xml') activities = parseXMLData(content);
         else if (ext === 'xer') activities = parseXERData(content);
         else if (ext === 'csv') activities = parseCSVData(content);
         else throw new Error('Unsupported file format. Please upload XML, XER, or CSV.');
-        
         allActivities = activities;
         searchInput.value = '';
         updateAllFilters();
