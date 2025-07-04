@@ -441,7 +441,7 @@
         const matchesSearch = !q || a.id.toLowerCase().includes(q) || a.name.toLowerCase().includes(q) || (a.wbs && a.wbs.toLowerCase().includes(q));
         const matchesZone = !zone || (a.wbs && extractZone(a.wbs) === zone);
         const matchesLocation = !location || (a.location && a.location.toUpperCase().includes(location.toUpperCase()));
-        const matchesWBS = !wbs || (a.wbs && a.wbs === wbs);
+        const matchesWBS = !wbs || (a.wbs && a.wbs.toLowerCase().includes(wbs.toLowerCase()));
         return matchesSearch && matchesZone && matchesLocation && matchesWBS;
       });
       renderTable(filteredActivities);
