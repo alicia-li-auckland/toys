@@ -243,44 +243,6 @@
         totalDays = getDaysBetween(overallStartDate, addDays(overallEndDate, 30));
     }
 
-        // --- Date & Scheduling ---
-        function parseDateSafe(dateStr) {
-            if (!dateStr) return null;
-            const d = new Date(dateStr);
-            return isNaN(d.getTime()) ? null : d;
-        }
-
-        // --- Data Handling ---
-        function processData(data) {
-            projectData = data;
-            const allDates = [];
-            function collectDatesAndStatus(items) {
-                if (!items) return;
-                items.forEach(item => {
-                    item.visible = true;
-                    const s = parseDateSafe(item.startDate);
-                    const e = parseDateSafe(item.endDate);
-                    const as = parseDateSafe(item.actualStartDate);
-                    const ae = parseDateSafe(item.actualEndDate);
-                    if (s) allDates.push(s);
-                    if (e) allDates.push(e);
-                    if (as) allDates.push(as);
-                    if (ae) allDates.push(ae);
-                    if (s && !item.status) {
-                        if (ae) item.status = 'Complete';
-                        else if (as) item.status = 'In Progress';
-                        else if (s < today) item.status = 'Behind Schedule';
-                        else item.status = 'Not Started';
-                    }
-                    if (item.children) collectDatesAndStatus(item.children);
-                });
-            }
-            collectDatesAndStatus([projectData]);
-            overallStartDate = allDates.length > 0 ? new Date(Math.min(...allDates)) : new Date();
-            overallEndDate = allDates.length > 0 ? new Date(Math.max(...allDates)) : new Date();
-            totalDays = getDaysBetween(overallStartDate, addDays(overallEndDate, 30));
-        }
-
         // --- DOM Elements ---
         const hierarchyBody = document.getElementById('hierarchy-body');
         const timelineHeaderWrapper = document.getElementById('timeline-header-wrapper');
@@ -292,7 +254,6 @@
         const filterOptions = document.getElementById('filter-options');
         const clearFilterBtn = document.getElementById('clear-filter-btn');
         const hoverCard = document.getElementById('hover-card');
-        let hideCardTimeout;
         const csvUpload = document.getElementById('csv-upload');
         const processCsvBtn = document.getElementById('process-csv-btn');
 
@@ -551,16 +512,13 @@ processData(rows);
                 reader.readAsText(file);
             });
             processCsvBtn.addEventListener('click', () => {
-if (!projectData) return;
-showLoading();
-setTimeout(() => {
-    render();
-    populateFilterPanel();
-}, 100); // Allow loading indicator to render
-                    render();
-                    populateFilterPanel();
-                }, 100); // Allow loading indicator to render
-            });
+    if (!projectData) return;
+    showLoading();
+    setTimeout(() => {
+        render();
+        populateFilterPanel();
+    }, 100); // Allow loading indicator to render
+});
         }
 
         // Call once on load
