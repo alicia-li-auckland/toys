@@ -244,8 +244,6 @@
     }
 
         // --- Date & Scheduling ---
-        const addDays = (date, days) => new Date(date.valueOf() + days * 864e5);
-        const getDaysBetween = (start, end) => Math.round((end - start) / 864e5);
         function parseDateSafe(dateStr) {
             if (!dateStr) return null;
             const d = new Date(dateStr);
