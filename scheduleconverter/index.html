@@ -931,7 +931,7 @@
       function exportDataCentreCSV() {
         const groups = groupByDataCentre(filteredActivities);
         const csvRows = [];
-        const headers = ['Location', 'Activity ID', 'Activity Name', 'Start Date', 'Finish Date', 'Duration', '% Complete', 'Status', 'WBS'];
+        const headers = ['Location', 'Activity ID', 'Activity Name', 'Start Date', 'Finish Date', 'Duration'];
         csvRows.push(headers.join(','));
         
         const sortedLocationKeys = Object.keys(groups).sort();
@@ -947,10 +947,7 @@
               `"${activity.name.replace(/"/g, '""')}"`,
               `"${activity.startDate || ''}"`,
               `"${activity.finishDate || ''}"`,
-              `"${activity.duration || '0'}"`,
-              `"${activity.percentComplete || '0'}"`,
-              `"${activity.status || 'Not Started'}"`,
-              `"${(activity.wbs || '').replace(/"/g, '""')}"`
+              `"${activity.duration || '0'}"`
             ];
             csvRows.push(row.join(','));
           }
@@ -1046,12 +1043,18 @@
       exportBtn.addEventListener('click', () => {
         if (!filteredActivities.length) return;
         
-        const headers = ['Activity ID','Activity Name','Start Date','Finish Date','Duration','% Complete','Total Float','Status','Trade','Location'];
+        // Only export the columns required by the timeline, in the correct order
+        const headers = ['Location','Activity ID','Activity Name','Start Date','Finish Date','Duration'];
         const rows = [headers.map(escapeCSV).join(',')];
         
         filteredActivities.forEach(a => {
           rows.push([
-            a.id, a.name, a.startDate, a.finishDate, a.duration, a.percentComplete, a.totalFloat, a.status, a.wbs, a.location || ''
+            a.location || '',
+            a.id,
+            a.name,
+            a.startDate,
+            a.finishDate,
+            a.duration
           ].map(escapeCSV).join(','));
         });
         
