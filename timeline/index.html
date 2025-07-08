@@ -195,82 +195,7 @@
         const today = new Date('2025-07-03T00:00:00Z'); // Fixed date for consistent highlighting
 
         // --- Data Generation ---
-        function generateProjectData() {
-            const rawData = [
-                {Task_ID: 'WES1A-001', Task_Name: 'Site Mobilization', Planned_Start_Date: '2025-01-06', Planned_Finish_Date: '2025-01-17', Actual_Start_Date: '2025-01-07', Actual_Finish_Date: '2025-01-17'},
-                {Task_ID: 'WES1A-002', Task_Name: 'Clear and Grub', Planned_Start_Date: '2025-01-20', Planned_Finish_Date: '2025-02-07', Actual_Start_Date: '2025-01-20', Actual_Finish_Date: '2025-02-07'},
-                {Task_ID: 'WES1A-003', Task_Name: 'Mass Earthwork & Grading', Planned_Start_Date: '2025-02-10', Planned_Finish_Date: '2025-04-11', Actual_Start_Date: '2025-02-10', Actual_Finish_Date: '2025-04-11'},
-                {Task_ID: 'WES1A-004', Task_Name: 'EYD 1 - Underground Utilities', Planned_Start_Date: '2025-04-14', Planned_Finish_Date: '2025-05-16', Actual_Start_Date: '2025-04-15', Actual_Finish_Date: '2025-05-20'},
-                {Task_ID: 'WES1A-005', Task_Name: 'EYD 1 - Gen Pad Foundations', Planned_Start_Date: '2025-05-19', Planned_Finish_Date: '2025-06-20', Actual_Start_Date: '2025-05-22', Actual_Finish_Date: ''},
-                {Task_ID: 'WES1A-006', Task_Name: 'EYD 1 - USS Foundations', Planned_Start_Date: '2025-06-23', Planned_Finish_Date: '2025-07-25', Actual_Start_Date: '2025-06-25', Actual_Finish_Date: ''},
-                {Task_ID: 'WES1A-007', Task_Name: 'EYD 1 - Generator Placement', Planned_Start_Date: '2025-07-28', Planned_Finish_Date: '2025-08-15', Actual_Start_Date: '', Actual_Finish_Date: ''},
-                {Task_ID: 'WES1A-008', Task_Name: 'EYD 1 - USS Placement', Planned_Start_Date: '2025-08-18', Planned_Finish_Date: '2025-09-05', Actual_Start_Date: '', Actual_Finish_Date: ''},
-                {Task_ID: 'WES1A-009', Task_Name: 'EYD 1 - Steel Erection', Planned_Start_Date: '2025-09-08', Planned_Finish_Date: '2025-10-03', Actual_Start_Date: '', Actual_Finish_Date: ''},
-                {Task_ID: 'WES1A-010', Task_Name: 'EYD 1 - Above-Ground Conduit', Planned_Start_Date: '2025-10-06', Planned_Finish_Date: '2025-11-14', Actual_Start_Date: '', Actual_Finish_Date: ''},
-                {Task_ID: 'WES1A-011', Task_Name: 'EYD 1 - Cable Pulling & Terminations', Planned_Start_Date: '2025-11-17', Planned_Finish_Date: '2026-01-09', Actual_Start_Date: '', Actual_Finish_Date: ''},
-                {Task_ID: 'WES1A-012', Task_Name: 'EYD 1 - Commissioning', Planned_Start_Date: '2026-01-12', Planned_Finish_Date: '2026-02-20', Actual_Start_Date: '', Actual_Finish_Date: ''},
-                {Task_ID: 'WES1A-013', Task_Name: 'EYD 2 - Underground Utilities', Planned_Start_Date: '2025-05-19', Planned_Finish_Date: '2025-06-20', Actual_Start_Date: '2025-05-20', Actual_Finish_Date: ''},
-                {Task_ID: 'WES1A-014', Task_Name: 'EYD 2 - Gen Pad Foundations', Planned_Start_Date: '2025-06-23', Planned_Finish_Date: '2025-07-25', Actual_Start_Date: '', Actual_Finish_Date: ''},
-                {Task_ID: 'WES1A-015', Task_Name: 'EYD 2 - USS Foundations', Planned_Start_Date: '2025-07-28', Planned_Finish_Date: '2025-08-29', Actual_Start_Date: '', Actual_Finish_Date: ''},
-                {Task_ID: 'WES1A-016', Task_Name: 'EYD 2 - Generator Placement', Planned_Start_Date: '2025-09-01', Planned_Finish_Date: '2025-09-19', Actual_Start_Date: '', Actual_Finish_Date: ''},
-                {Task_ID: 'WES1A-017', Task_Name: 'EYD 2 - USS Placement', Planned_Start_Date: '2025-09-22', Planned_Finish_Date: '2025-10-10', Actual_Start_Date: '', Actual_Finish_Date: ''},
-                {Task_ID: 'WES1A-018', Task_Name: 'EYD 2 - Steel Erection', Planned_Start_Date: '2025-10-13', Planned_Finish_Date: '2025-11-07', Actual_Start_Date: '', Actual_Finish_Date: ''},
-                {Task_ID: 'WES1A-019', Task_Name: 'EYD 2 - Above-Ground Conduit', Planned_Start_Date: '2025-11-10', Planned_Finish_Date: '2025-12-19', Actual_Start_Date: '', Actual_Finish_Date: ''},
-                {Task_ID: 'WES1A-020', Task_Name: 'EYD 2 - Cable Pulling & Terminations', Planned_Start_Date: '2025-12-22', Planned_Finish_Date: '2026-02-13', Actual_Start_Date: '', Actual_Finish_Date: ''},
-                {Task_ID: 'WES1A-021', Task_Name: 'EYD 2 - Commissioning', Planned_Start_Date: '2026-02-16', Planned_Finish_Date: '2026-03-27', Actual_Start_Date: '', Actual_Finish_Date: ''},
-                {Task_ID: 'WES1A-022', Task_Name: 'DCH 1 - Foundations', Planned_Start_Date: '2025-04-14', Planned_Finish_Date: '2025-05-23', Actual_Start_Date: '2025-04-14', Actual_Finish_Date: '2025-05-23'},
-                {Task_ID: 'WES1A-023', Task_Name: 'DCH 1 - Steel Erection', Planned_Start_Date: '2025-05-26', Planned_Finish_Date: '2025-06-27', Actual_Start_Date: '2025-05-26', Actual_Finish_Date: ''},
-                {Task_ID: 'WES1A-024', Task_Name: 'DCH 1 - SOG & Precast', Planned_Start_Date: '2025-06-30', Planned_Finish_Date: '2025-08-01', Actual_Start_Date: '', Actual_Finish_Date: ''},
-                {Task_ID: 'WES1A-025', Task_Name: 'DCH 1 - Roofing', Planned_Start_Date: '2025-08-04', Planned_Finish_Date: '2025-08-29', Actual_Start_Date: '', Actual_Finish_Date: ''},
-                {Task_ID: 'WES1A-026', Task_Name: 'DCH 1 - Interior Fitout', Planned_Start_Date: '2025-09-01', Planned_Finish_Date: '2025-11-21', Actual_Start_Date: '', Actual_Finish_Date: ''},
-                {Task_ID: 'WES1A-027', Task_Name: 'DCH 1 - Commissioning', Planned_Start_Date: '2025-11-24', Planned_Finish_Date: '2026-01-16', Actual_Start_Date: '', Actual_Finish_Date: ''},
-                {Task_ID: 'WES1A-028', Task_Name: 'DCH 2 - Foundations', Planned_Start_Date: '2025-06-23', Planned_Finish_Date: '2025-08-01', Actual_Start_Date: '2025-06-23', Actual_Finish_Date: ''},
-                {Task_ID: 'WES1A-029', Task_Name: 'DCH 2 - Steel Erection', Planned_Start_Date: '2025-08-04', Planned_Finish_Date: '2025-09-05', Actual_Start_Date: '', Actual_Finish_Date: ''},
-                {Task_ID: 'WES1A-030', Task_Name: 'DCH 2 - SOG & Precast', Planned_Start_Date: '2025-09-08', Planned_Finish_Date: '2025-10-10', Actual_Start_Date: '', Actual_Finish_Date: ''},
-                {Task_ID: 'WES1A-031', Task_Name: 'DCH 2 - Roofing', Planned_Start_Date: '2025-10-13', Planned_Finish_Date: '2025-11-07', Actual_Start_Date: '', Actual_Finish_Date: ''},
-                {Task_ID: 'WES1A-032', Task_Name: 'DCH 2 - Interior Fitout', Planned_Start_Date: '2025-11-10', Planned_Finish_Date: '2026-01-30', Actual_Start_Date: '', Actual_Finish_Date: ''},
-                {Task_ID: 'WES1A-033', Task_Name: 'DCH 2 - Commissioning', Planned_Start_Date: '2026-02-02', Planned_Finish_Date: '2026-03-20', Actual_Start_Date: '', Actual_Finish_Date: ''}
-            ];
-
-            const root = { id: 'root', name: 'Project', level: 0, children: [] };
-            const groups = {};
-
-            const filteredData = rawData.filter(task => 
-                !task.Task_Name.toLowerCase().includes('project closeout') && 
-                !task.Task_Name.toLowerCase().includes('commissioning')
-            );
-
-            filteredData.forEach(task => {
-                const parts = task.Task_Name.split(' - ');
-                const groupName = parts.length > 1 ? parts[0] : 'General';
-                const taskName = parts.length > 1 ? parts.slice(1).join(' - ') : task.Task_Name;
-
-                if (!groups[groupName]) {
-                    groups[groupName] = {
-                        id: groupName.toLowerCase().replace(/ /g, '-'),
-                        name: groupName,
-                        level: 1,
-                        children: []
-                    };
-                    root.children.push(groups[groupName]);
-                }
-
-                groups[groupName].children.push({
-                    id: task.Task_ID,
-                    name: taskName,
-                    level: 2,
-                    groupName: groupName, // Store parent name
-                    startDate: task.Planned_Start_Date,
-                    endDate: task.Planned_Finish_Date,
-                    actualStartDate: task.Actual_Start_Date,
-                    actualEndDate: task.Actual_Finish_Date
-                });
-            });
-
-            return root;
-        }
-
-        let projectData = generateProjectData();
+        let projectData = { id: 'root', name: 'Project', level: 0, children: [] };
 
         // --- Date & Scheduling ---
         const addDays = (date, days) => new Date(date.valueOf() + days * 864e5);
@@ -358,10 +283,10 @@
                         row.innerHTML = `
                             <div style="width: 120px; padding-left: 1.25rem;" class="flex items-center flex-shrink-0 cursor-pointer">${expanderIcon}<span>${item.name}</span></div>
                             <div style="width: 120px;" class="flex-shrink-0"></div>
-                            <div style="flex:1;" class="flex-shrink-0"></div>
-                            <div style="width: 110px;" class="flex-shrink-0"></div>
-                            <div style="width: 110px;" class="flex-shrink-0"></div>
-                            <div style="width: 80px;" class="flex-shrink-0"></div>
+                            <div style="flex:1;" class="flex-shrink-0 truncate" title="${item.name}"><span style="white-space:pre-line;">${item.name}</span></div>
+                            <div style="width: 110px;" class="flex-shrink-0">${item.startDate}</div>
+                            <div style="width: 110px;" class="flex-shrink-0">${item.endDate}</div>
+                            <div style="width: 80px;" class="flex-shrink-0">${item.duration}</div>
                         `;
                         hierarchyBody.appendChild(row);
                         if(isVisible) rowIndex++;
@@ -376,7 +301,7 @@
                         row.innerHTML = `
                             <div style="width: 120px; padding-left: 2.5rem;" class="flex-shrink-0">${item.location}</div>
                             <div style="width: 120px;" class="flex-shrink-0">${item.activityId}</div>
-                            <div style="flex:1;" class="flex-shrink-0">${item.activityName}</div>
+                            <div style="flex:1;" class="flex-shrink-0 truncate" title="${item.activityName}"><span style="white-space:pre-line;">${item.activityName}</span></div>
                             <div style="width: 110px;" class="flex-shrink-0">${item.startDate}</div>
                             <div style="width: 110px;" class="flex-shrink-0">${item.endDate}</div>
                             <div style="width: 80px;" class="flex-shrink-0">${item.duration}</div>
@@ -655,7 +580,7 @@
             const lines = text.split(/\r?\n/).filter(line => line.trim());
             const headers = lines[0].split(',').map(h => h.trim());
             return lines.slice(1).map(line => {
-                const values = line.split(',').map(v => v.trim());
+                const values = line.split(',').map(v => v.trim().replace(/^"|"$/g, ''));
                 const row = {};
                 headers.forEach((h, i) => row[h] = values[i] || '');
                 return row;
@@ -663,27 +588,67 @@
         }
         function buildTreeFromCsv(rows) {
             const root = { id: 'root', name: 'Project', level: 0, children: [] };
-            const locations = {};
+            const wbsMap = { 'root': root };
             rows.forEach(row => {
-                const loc = row['Location'];
-                if (!locations[loc]) {
-                    locations[loc] = { id: loc.replace(/\s+/g, '-').toLowerCase(), name: loc, level: 1, children: [] };
-                    root.children.push(locations[loc]);
-                }
-                const locationNode = locations[loc];
-                locationNode.children.push({
-                    id: row['Activity ID'],
+                const wbs = row['WBS'] || '';
+                const wbsParts = wbs.split('.').map(s => s.trim()).filter(Boolean);
+                let parent = root;
+                let wbsPath = '';
+                wbsParts.forEach((part, idx) => {
+                    wbsPath = wbsPath ? wbsPath + '.' + part : part;
+                    if (!wbsMap[wbsPath]) {
+                        const node = {
+                            id: wbsPath,
+                            name: part,
+                            level: idx + 1,
+                            children: []
+                        };
+                        wbsMap[wbsPath] = node;
+                        parent.children.push(node);
+                    }
+                    parent = wbsMap[wbsPath];
+                });
+                // Add activity as leaf
+                const trade = mapTrade(row['Activity Name'], row['Activity ID']);
+                parent.children.push({
+                    id: row['Activity ID'] || row['Activity Name'],
                     name: row['Activity Name'],
-                    level: 2,
-                    location: loc,
+                    level: wbsParts.length + 1,
+                    location: row['Location'],
                     activityId: row['Activity ID'],
                     activityName: row['Activity Name'],
+                    trade: trade,
                     startDate: row['Start Date'],
                     endDate: row['Finish Date'],
                     duration: row['Duration']
                 });
             });
             return root;
+        }
+
+        // --- Trade Mapping Helpers ---
+        function mapTrade(activityName, activityId) {
+            const name = activityName.toLowerCase();
+            // Keyword-based mapping
+            if (/piling|drilled-pier|pile-cap|pad/.test(name)) return 'Foundations';
+            if (/slab-on-grade|pour|curing/.test(name)) return 'Concrete Slab';
+            if (/steel erection|framing|beam installation/.test(name)) return 'Structural Steel';
+            if (/roofing|cladding|weathertight-closure/.test(name)) return 'Envelope';
+            if (/piping|ductwork|hanger|hvac/.test(name)) return 'Mechanical';
+            if (/ductbank|cable pull|busway|breaker|mdc|termination/.test(name)) return 'Electrical';
+            if (/sprinkler|fire-alarm|aspirating-pipe/.test(name)) return 'Fire Protection';
+            if (/server-row|shiraz|valve skid|multitrade rack/.test(name)) return 'Equipment Installation';
+            if (/cx|handover|fit-out/.test(name)) return 'Commissioning & Fit-out';
+            if (/perun/.test(name)) return 'Substation (Perun)';
+            // Uniformat II Activity ID mapping
+            if (/^A/.test(activityId)) return 'Foundations';
+            if (/^B/.test(activityId)) return 'Envelope';
+            if (/^C/.test(activityId)) return 'Interiors';
+            if (/^D/.test(activityId)) return 'Services';
+            if (/^E/.test(activityId)) return 'Equipment Installation';
+            if (/^F/.test(activityId)) return 'Special Construction';
+            if (/^G/.test(activityId)) return 'Sitework';
+            return 'Other';
         }
 
         // --- Initial Render ---
