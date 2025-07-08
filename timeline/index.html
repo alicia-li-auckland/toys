@@ -204,12 +204,8 @@
         };
 
         // --- State ---
-        const state = {
-            projectData: { id: 'root', name: 'Project', level: 0, children: [] },
-            allDates: [],
-            uploadedCsvRows: [],
-            hideCardTimeout: null,
-        };
+        let uploadedCsvRows = [];
+        let hideCardTimeout;
 
         // --- Date & Scheduling ---
         const addDays = (date, days) => new Date(date.valueOf() + days * 864e5);
@@ -502,13 +498,14 @@
                 return isAnyChildVisible;
             }
 
-            filterRecursive(state.projectData.children);
+            filterRecursive(projectData.children);
             render();
         }
 
         function populateFilterPanel() {
             filterOptions.innerHTML = '';
-            const level1Items = state.projectData.children;
+            if (!projectData || !projectData.children) return;
+            const level1Items = projectData.children;
             level1Items.forEach(item => {
                 if(item.level === 1) {
                     const label = document.createElement('label');
@@ -538,7 +535,7 @@
                 const row = e.target.closest('[data-id]');
                 if (!row) return;
                 const id = row.dataset.id;
-                const item = findDataItem(state.projectData.children, id);
+                const item = findDataItem(projectData.children, id);
                 if (item && item.children && item.children.length > 0) {
                     item.isExpanded = item.isExpanded === undefined ? false : !item.isExpanded;
                     render();
@@ -562,9 +559,9 @@
             timelineBody.addEventListener('mouseover', (e) => {
                 const target = e.target.closest('[data-task-id]');
                 if (!target) return;
-                clearTimeout(state.hideCardTimeout);
+                clearTimeout(hideCardTimeout);
                 const taskId = target.dataset.taskId;
-                const task = findDataItem(state.projectData.children, taskId);
+                const task = findDataItem(projectData.children, taskId);
                 if (task) {
                     showHoverCard(e, task);
                 }
@@ -572,14 +569,14 @@
             timelineBody.addEventListener('mouseout', (e) => {
                 const target = e.target.closest('[data-task-id]');
                 if (target) {
-                    state.hideCardTimeout = setTimeout(hideHoverCard, 200);
+                    hideCardTimeout = setTimeout(hideHoverCard, 200);
                 }
             });
             hoverCard.addEventListener('mouseover', () => {
-                clearTimeout(state.hideCardTimeout);
+                clearTimeout(hideCardTimeout);
             });
             hoverCard.addEventListener('mouseout', () => {
-                state.hideCardTimeout = setTimeout(hideHoverCard, 200);
+                hideCardTimeout = setTimeout(hideHoverCard, 200);
             });
             document.body.addEventListener('mousemove', (e) => {
                 positionHoverCard(e);
@@ -600,16 +597,16 @@
                 const reader = new FileReader();
                 reader.onload = function(evt) {
                     const text = evt.target.result;
-                    state.uploadedCsvRows = parseCsv(text);
+                    uploadedCsvRows = parseCsv(text);
                 };
                 reader.readAsText(file);
             });
             processCsvBtn.addEventListener('click', () => {
-                if (!state.uploadedCsvRows.length) return;
+                if (!uploadedCsvRows.length) return;
                 showLoading();
                 setTimeout(() => {
-                    state.projectData = buildTreeFromCsv(state.uploadedCsvRows);
-                    collectDates([state.projectData]);
+                    const treeData = buildTreeFromCsv(uploadedCsvRows);
+                    processData(treeData);
                     render();
                     populateFilterPanel();
                 }, 100); // Allow loading indicator to render
