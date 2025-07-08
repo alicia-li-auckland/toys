@@ -193,14 +193,55 @@
     </div>
 
     <script>
-        // Initialize Lucide Icons
-        lucide.createIcons();
+    // Initialize Lucide Icons
+    lucide.createIcons();
 
-        // --- Configuration ---
-        const dayWidth = 4; // Condensed width per day for monthly view
-        let today = new Date('2025-07-03T00:00:00Z'); // Default date
-        let projectData; // Global project data
-        let overallStartDate, overallEndDate, totalDays;
+    // --- Configuration ---
+    const dayWidth = 4; // Condensed width per day for monthly view
+    let today = new Date('2025-07-03T00:00:00Z'); // Default date
+    let projectData; // Global project data
+    let overallStartDate, overallEndDate, totalDays;
+    let hideCardTimeout;
+
+    // --- Date & Scheduling ---
+    const addDays = (date, days) => new Date(date.valueOf() + days * 864e5);
+    const getDaysBetween = (start, end) => Math.round((end - start) / 864e5);
+    function parseDateSafe(dateStr) {
+        if (!dateStr) return null;
+        const d = new Date(dateStr);
+        return isNaN(d.getTime()) ? null : d;
+    }
+
+    // --- Data Handling ---
+    function processData(data) {
+        projectData = data;
+        const allDates = [];
+        function collectDatesAndStatus(items) {
+            if (!items) return;
+            items.forEach(item => {
+                item.visible = true;
+                const s = parseDateSafe(item.startDate);
+                const e = parseDateSafe(item.endDate);
+                const as = parseDateSafe(item.actualStartDate);
+                const ae = parseDateSafe(item.actualEndDate);
+                if (s) allDates.push(s);
+                if (e) allDates.push(e);
+                if (as) allDates.push(as);
+                if (ae) allDates.push(ae);
+                if (s && !item.status) {
+                    if (ae) item.status = 'Complete';
+                    else if (as) item.status = 'In Progress';
+                    else if (s < today) item.status = 'Behind Schedule';
+                    else item.status = 'Not Started';
+                }
+                if (item.children) collectDatesAndStatus(item.children);
+            });
+        }
+        collectDatesAndStatus([projectData]);
+        overallStartDate = allDates.length > 0 ? new Date(Math.min(...allDates)) : new Date();
+        overallEndDate = allDates.length > 0 ? new Date(Math.max(...allDates)) : new Date();
+        totalDays = getDaysBetween(overallStartDate, addDays(overallEndDate, 30));
+    }
 
         // --- Date & Scheduling ---
         const addDays = (date, days) => new Date(date.valueOf() + days * 864e5);
@@ -412,10 +453,11 @@
         }
 
         function populateFilterPanel() {
-            filterOptions.innerHTML = '';
-            const level1Items = projectData.children;
-            level1Items.forEach(item => {
-                if(item.level === 1) {
+    filterOptions.innerHTML = '';
+    if (!projectData || !projectData.children) return;
+    const level1Items = projectData.children;
+    level1Items.forEach(item => {
+        if(item.level === 1) {
                     const label = document.createElement('label');
                     label.className = 'flex items-center space-x-2 cursor-pointer';
                     label.innerHTML = `
@@ -505,15 +547,18 @@
                 const reader = new FileReader();
                 reader.onload = function(evt) {
                     const text = evt.target.result;
-                    const rows = parseCsv(text);
-                    processData(rows);
+const rows = parseCsv(text);
+processData(rows);
                 };
                 reader.readAsText(file);
             });
             processCsvBtn.addEventListener('click', () => {
-                if (!projectData) return;
-                showLoading();
-                setTimeout(() => {
+if (!projectData) return;
+showLoading();
+setTimeout(() => {
+    render();
+    populateFilterPanel();
+}, 100); // Allow loading indicator to render
                     render();
                     populateFilterPanel();
                 }, 100); // Allow loading indicator to render
