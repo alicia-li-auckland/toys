@@ -191,99 +191,30 @@
         lucide.createIcons();
 
         // --- Configuration ---
-        const dayWidth = 4; // Condensed width per day for monthly view
-        const today = new Date('2025-07-03T00:00:00Z'); // Fixed date for consistent highlighting
+        const config = {
+            dayWidth: 4, // Condensed width per day for monthly view
+            today: new Date('2025-07-03T00:00:00Z'), // Fixed date for consistent highlighting
+        };
 
-        // --- Data Generation ---
-        function generateProjectData() {
-            const rawData = [
-                {Task_ID: 'WES1A-001', Task_Name: 'Site Mobilization', Planned_Start_Date: '2025-01-06', Planned_Finish_Date: '2025-01-17', Actual_Start_Date: '2025-01-07', Actual_Finish_Date: '2025-01-17'},
-                {Task_ID: 'WES1A-002', Task_Name: 'Clear and Grub', Planned_Start_Date: '2025-01-20', Planned_Finish_Date: '2025-02-07', Actual_Start_Date: '2025-01-20', Actual_Finish_Date: '2025-02-07'},
-                {Task_ID: 'WES1A-003', Task_Name: 'Mass Earthwork & Grading', Planned_Start_Date: '2025-02-10', Planned_Finish_Date: '2025-04-11', Actual_Start_Date: '2025-02-10', Actual_Finish_Date: '2025-04-11'},
-                {Task_ID: 'WES1A-004', Task_Name: 'EYD 1 - Underground Utilities', Planned_Start_Date: '2025-04-14', Planned_Finish_Date: '2025-05-16', Actual_Start_Date: '2025-04-15', Actual_Finish_Date: '2025-05-20'},
-                {Task_ID: 'WES1A-005', Task_Name: 'EYD 1 - Gen Pad Foundations', Planned_Start_Date: '2025-05-19', Planned_Finish_Date: '2025-06-20', Actual_Start_Date: '2025-05-22', Actual_Finish_Date: ''},
-                {Task_ID: 'WES1A-006', Task_Name: 'EYD 1 - USS Foundations', Planned_Start_Date: '2025-06-23', Planned_Finish_Date: '2025-07-25', Actual_Start_Date: '2025-06-25', Actual_Finish_Date: ''},
-                {Task_ID: 'WES1A-007', Task_Name: 'EYD 1 - Generator Placement', Planned_Start_Date: '2025-07-28', Planned_Finish_Date: '2025-08-15', Actual_Start_Date: '', Actual_Finish_Date: ''},
-                {Task_ID: 'WES1A-008', Task_Name: 'EYD 1 - USS Placement', Planned_Start_Date: '2025-08-18', Planned_Finish_Date: '2025-09-05', Actual_Start_Date: '', Actual_Finish_Date: ''},
-                {Task_ID: 'WES1A-009', Task_Name: 'EYD 1 - Steel Erection', Planned_Start_Date: '2025-09-08', Planned_Finish_Date: '2025-10-03', Actual_Start_Date: '', Actual_Finish_Date: ''},
-                {Task_ID: 'WES1A-010', Task_Name: 'EYD 1 - Above-Ground Conduit', Planned_Start_Date: '2025-10-06', Planned_Finish_Date: '2025-11-14', Actual_Start_Date: '', Actual_Finish_Date: ''},
-                {Task_ID: 'WES1A-011', Task_Name: 'EYD 1 - Cable Pulling & Terminations', Planned_Start_Date: '2025-11-17', Planned_Finish_Date: '2026-01-09', Actual_Start_Date: '', Actual_Finish_Date: ''},
-                {Task_ID: 'WES1A-012', Task_Name: 'EYD 1 - Commissioning', Planned_Start_Date: '2026-01-12', Planned_Finish_Date: '2026-02-20', Actual_Start_Date: '', Actual_Finish_Date: ''},
-                {Task_ID: 'WES1A-013', Task_Name: 'EYD 2 - Underground Utilities', Planned_Start_Date: '2025-05-19', Planned_Finish_Date: '2025-06-20', Actual_Start_Date: '2025-05-20', Actual_Finish_Date: ''},
-                {Task_ID: 'WES1A-014', Task_Name: 'EYD 2 - Gen Pad Foundations', Planned_Start_Date: '2025-06-23', Planned_Finish_Date: '2025-07-25', Actual_Start_Date: '', Actual_Finish_Date: ''},
-                {Task_ID: 'WES1A-015', Task_Name: 'EYD 2 - USS Foundations', Planned_Start_Date: '2025-07-28', Planned_Finish_Date: '2025-08-29', Actual_Start_Date: '', Actual_Finish_Date: ''},
-                {Task_ID: 'WES1A-016', Task_Name: 'EYD 2 - Generator Placement', Planned_Start_Date: '2025-09-01', Planned_Finish_Date: '2025-09-19', Actual_Start_Date: '', Actual_Finish_Date: ''},
-                {Task_ID: 'WES1A-017', Task_Name: 'EYD 2 - USS Placement', Planned_Start_Date: '2025-09-22', Planned_Finish_Date: '2025-10-10', Actual_Start_Date: '', Actual_Finish_Date: ''},
-                {Task_ID: 'WES1A-018', Task_Name: 'EYD 2 - Steel Erection', Planned_Start_Date: '2025-10-13', Planned_Finish_Date: '2025-11-07', Actual_Start_Date: '', Actual_Finish_Date: ''},
-                {Task_ID: 'WES1A-019', Task_Name: 'EYD 2 - Above-Ground Conduit', Planned_Start_Date: '2025-11-10', Planned_Finish_Date: '2025-12-19', Actual_Start_Date: '', Actual_Finish_Date: ''},
-                {Task_ID: 'WES1A-020', Task_Name: 'EYD 2 - Cable Pulling & Terminations', Planned_Start_Date: '2025-12-22', Planned_Finish_Date: '2026-02-13', Actual_Start_Date: '', Actual_Finish_Date: ''},
-                {Task_ID: 'WES1A-021', Task_Name: 'EYD 2 - Commissioning', Planned_Start_Date: '2026-02-16', Planned_Finish_Date: '2026-03-27', Actual_Start_Date: '', Actual_Finish_Date: ''},
-                {Task_ID: 'WES1A-022', Task_Name: 'DCH 1 - Foundations', Planned_Start_Date: '2025-04-14', Planned_Finish_Date: '2025-05-23', Actual_Start_Date: '2025-04-14', Actual_Finish_Date: '2025-05-23'},
-                {Task_ID: 'WES1A-023', Task_Name: 'DCH 1 - Steel Erection', Planned_Start_Date: '2025-05-26', Planned_Finish_Date: '2025-06-27', Actual_Start_Date: '2025-05-26', Actual_Finish_Date: ''},
-                {Task_ID: 'WES1A-024', Task_Name: 'DCH 1 - SOG & Precast', Planned_Start_Date: '2025-06-30', Planned_Finish_Date: '2025-08-01', Actual_Start_Date: '', Actual_Finish_Date: ''},
-                {Task_ID: 'WES1A-025', Task_Name: 'DCH 1 - Roofing', Planned_Start_Date: '2025-08-04', Planned_Finish_Date: '2025-08-29', Actual_Start_Date: '', Actual_Finish_Date: ''},
-                {Task_ID: 'WES1A-026', Task_Name: 'DCH 1 - Interior Fitout', Planned_Start_Date: '2025-09-01', Planned_Finish_Date: '2025-11-21', Actual_Start_Date: '', Actual_Finish_Date: ''},
-                {Task_ID: 'WES1A-027', Task_Name: 'DCH 1 - Commissioning', Planned_Start_Date: '2025-11-24', Planned_Finish_Date: '2026-01-16', Actual_Start_Date: '', Actual_Finish_Date: ''},
-                {Task_ID: 'WES1A-028', Task_Name: 'DCH 2 - Foundations', Planned_Start_Date: '2025-06-23', Planned_Finish_Date: '2025-08-01', Actual_Start_Date: '2025-06-23', Actual_Finish_Date: ''},
-                {Task_ID: 'WES1A-029', Task_Name: 'DCH 2 - Steel Erection', Planned_Start_Date: '2025-08-04', Planned_Finish_Date: '2025-09-05', Actual_Start_Date: '', Actual_Finish_Date: ''},
-                {Task_ID: 'WES1A-030', Task_Name: 'DCH 2 - SOG & Precast', Planned_Start_Date: '2025-09-08', Planned_Finish_Date: '2025-10-10', Actual_Start_Date: '', Actual_Finish_Date: ''},
-                {Task_ID: 'WES1A-031', Task_Name: 'DCH 2 - Roofing', Planned_Start_Date: '2025-10-13', Planned_Finish_Date: '2025-11-07', Actual_Start_Date: '', Actual_Finish_Date: ''},
-                {Task_ID: 'WES1A-032', Task_Name: 'DCH 2 - Interior Fitout', Planned_Start_Date: '2025-11-10', Planned_Finish_Date: '2026-01-30', Actual_Start_Date: '', Actual_Finish_Date: ''},
-                {Task_ID: 'WES1A-033', Task_Name: 'DCH 2 - Commissioning', Planned_Start_Date: '2026-02-02', Planned_Finish_Date: '2026-03-20', Actual_Start_Date: '', Actual_Finish_Date: ''}
-            ];
-
-            const root = { id: 'root', name: 'Project', level: 0, children: [] };
-            const groups = {};
-
-            const filteredData = rawData.filter(task => 
-                !task.Task_Name.toLowerCase().includes('project closeout') && 
-                !task.Task_Name.toLowerCase().includes('commissioning')
-            );
-
-            filteredData.forEach(task => {
-                const parts = task.Task_Name.split(' - ');
-                const groupName = parts.length > 1 ? parts[0] : 'General';
-                const taskName = parts.length > 1 ? parts.slice(1).join(' - ') : task.Task_Name;
-
-                if (!groups[groupName]) {
-                    groups[groupName] = {
-                        id: groupName.toLowerCase().replace(/ /g, '-'),
-                        name: groupName,
-                        level: 1,
-                        children: []
-                    };
-                    root.children.push(groups[groupName]);
-                }
-
-                groups[groupName].children.push({
-                    id: task.Task_ID,
-                    name: taskName,
-                    level: 2,
-                    groupName: groupName, // Store parent name
-                    startDate: task.Planned_Start_Date,
-                    endDate: task.Planned_Finish_Date,
-                    actualStartDate: task.Actual_Start_Date,
-                    actualEndDate: task.Actual_Finish_Date
-                });
-            });
-
-            return root;
-        }
-
-        let projectData = generateProjectData();
+        // --- State ---
+        const state = {
+            projectData: { id: 'root', name: 'Project', level: 0, children: [] },
+            allDates: [],
+            uploadedCsvRows: [],
+            hideCardTimeout: null,
+        };
 
         // --- Date & Scheduling ---
         const addDays = (date, days) => new Date(date.valueOf() + days * 864e5);
         const getDaysBetween = (start, end) => Math.round((end - start) / 864e5);
 
-        const allDates = [];
         function collectDates(items) {
             items.forEach(item => {
                 item.visible = true; // Set visibility for filtering
-                if (item.startDate) allDates.push(new Date(item.startDate));
-                if (item.endDate) allDates.push(new Date(item.endDate));
-                if (item.actualStartDate) allDates.push(new Date(item.actualStartDate));
-                if (item.actualEndDate) allDates.push(new Date(item.actualEndDate));
+                if (item.startDate) state.allDates.push(new Date(item.startDate));
+                if (item.endDate) state.allDates.push(new Date(item.endDate));
+                if (item.actualStartDate) state.allDates.push(new Date(item.actualStartDate));
+                if (item.actualEndDate) state.allDates.push(new Date(item.actualEndDate));
 
                 if (item.startDate && !item.status) {
                     const plannedStart = new Date(item.startDate);
@@ -294,7 +225,7 @@
                         item.status = 'Complete';
                     } else if (actualStart) {
                         item.status = 'In Progress';
-                    } else if (plannedStart < today) {
+                    } else if (plannedStart < config.today) {
                         item.status = 'Behind Schedule';
                     } else {
                         item.status = 'Not Started';
@@ -303,10 +234,10 @@
                 if (item.children) collectDates(item.children);
             });
         }
-        collectDates([projectData]);
+        collectDates([state.projectData]);
 
-        const overallStartDate = new Date(Math.min(...allDates));
-        const overallEndDate = new Date(Math.max(...allDates));
+        const overallStartDate = new Date(Math.min(...state.allDates));
+        const overallEndDate = new Date(Math.max(...state.allDates));
         const totalDays = getDaysBetween(overallStartDate, addDays(overallEndDate, 30));
 
         // --- DOM Elements ---
@@ -320,27 +251,25 @@
         const filterOptions = document.getElementById('filter-options');
         const clearFilterBtn = document.getElementById('clear-filter-btn');
         const hoverCard = document.getElementById('hover-card');
-        let hideCardTimeout;
+        const csvUpload = document.getElementById('csv-upload');
+        const processCsvBtn = document.getElementById('process-csv-btn');
 
         // --- Rendering ---
-        function render() {
+        /**
+         * Renders the hierarchy (left pane) using the current projectData.
+         */
+        function renderHierarchy() {
             hierarchyBody.innerHTML = '';
-            timelineBody.innerHTML = '';
-            let rowIndex = 0;
-            let timelineBarsHtml = '';
             // Render header row
             const headerRow = document.createElement('div');
             headerRow.className = 'flex items-center h-10 border-b border-slate-300 text-xs font-bold bg-slate-100';
             headerRow.innerHTML = `
-                <div style="width: 120px; padding-left: 1.25rem;" class="flex-shrink-0">Location</div>
-                <div style="width: 120px;" class="flex-shrink-0">Activity ID</div>
-                <div style="flex:1;" class="flex-shrink-0">Activity Name</div>
-                <div style="width: 110px;" class="flex-shrink-0">Start Date</div>
-                <div style="width: 110px;" class="flex-shrink-0">Finish Date</div>
-                <div style="width: 80px;" class="flex-shrink-0">Duration</div>
+                <div style="width: 200px; padding-left: 1.25rem;" class="flex-shrink-0">Hierarchy</div>
+                <div style="flex:1;" class="flex-shrink-0"></div>
             `;
             hierarchyBody.appendChild(headerRow);
-            function renderRecursive(items, parentId = 'root', parentIsVisible = true) {
+            let rowIndex = 0;
+            function renderRecursive(items, parentId = 'root', parentIsVisible = true, level = 1) {
                 items.forEach(item => {
                     const hasChildren = item.children && item.children.length > 0;
                     const isExpanded = item.isExpanded === undefined ? true : item.isExpanded;
@@ -356,17 +285,30 @@
                             `<i data-lucide="chevron-right" class="w-4 h-4 mr-1 transition-transform ${isExpanded ? 'rotate-90' : ''}"></i>` : 
                             '<span class="w-5 mr-1"></span>';
                         row.innerHTML = `
-                            <div style="width: 120px; padding-left: 1.25rem;" class="flex items-center flex-shrink-0 cursor-pointer">${expanderIcon}<span>${item.name}</span></div>
-                            <div style="width: 120px;" class="flex-shrink-0"></div>
+                            <div style="width: 200px; padding-left: 1.25rem;" class="flex items-center flex-shrink-0 cursor-pointer">${expanderIcon}<span>${item.name}</span></div>
                             <div style="flex:1;" class="flex-shrink-0"></div>
-                            <div style="width: 110px;" class="flex-shrink-0"></div>
-                            <div style="width: 110px;" class="flex-shrink-0"></div>
-                            <div style="width: 80px;" class="flex-shrink-0"></div>
                         `;
                         hierarchyBody.appendChild(row);
                         if(isVisible) rowIndex++;
-                        if (hasChildren && isExpanded) renderRecursive(item.children, item.id, isVisible && isExpanded);
+                        if (hasChildren && isExpanded) renderRecursive(item.children, item.id, isVisible && isExpanded, 2);
                     } else if (item.level === 2) {
+                        // Trade row
+                        const row = document.createElement('div');
+                        row.id = `row-${item.id}`;
+                        row.dataset.id = item.id;
+                        row.dataset.parentId = parentId;
+                        row.className = `flex items-center h-10 border-b border-slate-200 text-sm font-bold text-slate-600 bg-slate-50 hover:bg-slate-100 ${!isVisible ? 'hidden' : ''}`;
+                        let expanderIcon = hasChildren ? 
+                            `<i data-lucide="chevron-right" class="w-4 h-4 mr-1 transition-transform ${isExpanded ? 'rotate-90' : ''}"></i>` : 
+                            '<span class="w-5 mr-1"></span>';
+                        row.innerHTML = `
+                            <div style="width: 200px; padding-left: 2.5rem;" class="flex items-center flex-shrink-0 cursor-pointer">${expanderIcon}<span>${item.name}</span></div>
+                            <div style="flex:1;" class="flex-shrink-0"></div>
+                        `;
+                        hierarchyBody.appendChild(row);
+                        if(isVisible) rowIndex++;
+                        if (hasChildren && isExpanded) renderRecursive(item.children, item.id, isVisible && isExpanded, 3);
+                    } else if (item.level === 3) {
                         // Activity row
                         const row = document.createElement('div');
                         row.id = `row-${item.id}`;
@@ -374,38 +316,53 @@
                         row.dataset.parentId = parentId;
                         row.className = `flex items-center h-10 border-b border-slate-200 text-sm text-slate-700 hover:bg-slate-50 ${!isVisible ? 'hidden' : ''}`;
                         row.innerHTML = `
-                            <div style="width: 120px; padding-left: 2.5rem;" class="flex-shrink-0">${item.location}</div>
-                            <div style="width: 120px;" class="flex-shrink-0">${item.activityId}</div>
-                            <div style="flex:1;" class="flex-shrink-0">${item.activityName}</div>
-                            <div style="width: 110px;" class="flex-shrink-0">${item.startDate}</div>
-                            <div style="width: 110px;" class="flex-shrink-0">${item.endDate}</div>
-                            <div style="width: 80px;" class="flex-shrink-0">${item.duration}</div>
+                            <div style="width: 200px; padding-left: 4rem;" class="flex-shrink-0 truncate" title="${item.activityName}"><span style="white-space:pre-line;">${item.activityName}</span></div>
+                            <div style="flex:1;" class="flex-shrink-0"></div>
                         `;
                         hierarchyBody.appendChild(row);
                         if(isVisible) rowIndex++;
-                        // Timeline bar for activity
-                        if (item.startDate && item.endDate && isVisible) {
-                            const plannedStart = new Date(item.startDate);
-                            const plannedEnd = new Date(item.endDate);
-                            const plannedOffsetDays = getDaysBetween(overallStartDate, plannedStart);
-                            const plannedDurationDays = Math.max(1, getDaysBetween(plannedStart, plannedEnd));
-                            const plannedLeft = plannedOffsetDays * dayWidth;
-                            const plannedWidth = plannedDurationDays * dayWidth;
-                            const outlineColor = 'border-blue-500';
-                            timelineBarsHtml += `
-                                <div class="absolute h-10 flex items-center" style="top: ${(rowIndex - 1) * 40}px; left: ${plannedLeft}px; width: ${plannedWidth}px;">
-                                    <div class="h-6 w-full rounded border-2 ${outlineColor}" title="${item.activityName} (Planned)"></div>
-                                </div>
-                            `;
-                        }
                     }
                 });
             }
-            renderRecursive(projectData.children);
-            const totalHeight = rowIndex * 40;
-            timelineBody.style.width = `${totalDays * dayWidth}px`;
-            timelineBody.style.height = `${totalHeight}px`;
-            hierarchyBody.style.height = `${totalHeight}px`;
+            renderRecursive(state.projectData.children);
+            return rowIndex;
+        }
+
+        /**
+         * Renders the timeline bars (right pane) using the current projectData and row count.
+         * @param {number} rowCount - The number of visible rows in the hierarchy.
+         */
+        function renderTimelineBars(rowCount) {
+            timelineBody.innerHTML = '';
+            let timelineBarsHtml = '';
+            let rowIndex = 0;
+            function renderBarsRecursive(items, parentIsVisible = true) {
+                items.forEach(item => {
+                    const hasChildren = item.children && item.children.length > 0;
+                    const isExpanded = item.isExpanded === undefined ? true : item.isExpanded;
+                    const isVisible = parentIsVisible && (item.level === 0 || item.level === 1 || item.visible !== false);
+                    if (item.level === 3 && item.startDate && item.endDate && isVisible) {
+                        const plannedStart = new Date(item.startDate);
+                        const plannedEnd = new Date(item.endDate);
+                        const plannedOffsetDays = getDaysBetween(overallStartDate, plannedStart);
+                        const plannedDurationDays = Math.max(1, getDaysBetween(plannedStart, plannedEnd));
+                        const plannedLeft = plannedOffsetDays * config.dayWidth;
+                        const plannedWidth = plannedDurationDays * config.dayWidth;
+                        const outlineColor = 'border-blue-500';
+                        timelineBarsHtml += `
+                            <div class="absolute h-10 flex items-center" style="top: ${rowIndex * 40}px; left: ${plannedLeft}px; width: ${plannedWidth}px;">
+                                <div class="h-6 w-full rounded border-2 ${outlineColor}" title="${item.activityName} (Planned)"></div>
+                            </div>
+                        `;
+                    }
+                    if (isVisible) rowIndex++;
+                    if (hasChildren && isExpanded) renderBarsRecursive(item.children, isVisible && isExpanded);
+                });
+            }
+            renderBarsRecursive(state.projectData.children);
+            timelineBody.style.width = `${totalDays * config.dayWidth}px`;
+            timelineBody.style.height = `${rowCount * 40}px`;
+            hierarchyBody.style.height = `${rowCount * 40}px`;
             let gridLinesHtml = '';
             const months = [];
             let tempDate = new Date(overallStartDate);
@@ -417,15 +374,40 @@
             months.forEach(monthDate => {
                 const startOffsetDays = getDaysBetween(overallStartDate, monthDate);
                 if (startOffsetDays > 0 && startOffsetDays < totalDays) {
-                    const left = startOffsetDays * dayWidth;
+                    const left = startOffsetDays * config.dayWidth;
                     gridLinesHtml += `<div class="absolute top-0 bottom-0 w-px bg-slate-200" style="left: ${left}px;"></div>`;
                 }
             });
-            const todayOffset = getDaysBetween(overallStartDate, today);
+            const todayOffset = getDaysBetween(overallStartDate, config.today);
             if (todayOffset >= 0 && todayOffset < totalDays) {
-                gridLinesHtml += `<div class="absolute top-0 bottom-0 w-0.5 bg-blue-500 z-10" style="left: ${todayOffset * dayWidth}px;"></div>`;
+                gridLinesHtml += `<div class="absolute top-0 bottom-0 w-0.5 bg-blue-500 z-10" style="left: ${todayOffset * config.dayWidth}px;"></div>`;
             }
             timelineBody.innerHTML = gridLinesHtml + timelineBarsHtml;
+        }
+
+        /**
+         * Renders an empty state message if there is no data.
+         */
+        function renderEmptyState() {
+            hierarchyBody.innerHTML = `
+                <div class="flex flex-col items-center justify-center h-40 text-slate-400 text-lg gap-2">
+                    <svg xmlns='http://www.w3.org/2000/svg' class='w-10 h-10 mb-2' fill='none' viewBox='0 0 24 24' stroke='currentColor'><path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M9 17v-2a4 4 0 018 0v2m-4-4v4m0 0v4m0-4H5a2 2 0 01-2-2V7a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5z'/></svg>
+                    <span>No data. Please upload a CSV file.</span>
+                </div>
+            `;
+            timelineBody.innerHTML = '';
+        }
+
+        /**
+         * Main render function: renders hierarchy and timeline bars, or empty state if no data.
+         */
+        function render() {
+            if (!state.projectData.children || state.projectData.children.length === 0) {
+                renderEmptyState();
+                return;
+            }
+            const rowCount = renderHierarchy();
+            renderTimelineBars(rowCount);
             renderTimelineHeader();
             lucide.createIcons();
         }
@@ -454,7 +436,7 @@
                 let yearWidth = 0;
                 months.filter(m => m.getFullYear() == year).forEach(m => {
                     const daysInMonth = new Date(m.getFullYear(), m.getMonth() + 1, 0).getDate();
-                    yearWidth += daysInMonth * dayWidth;
+                    yearWidth += daysInMonth * config.dayWidth;
                 });
                 yearGridTemplateColumns += `${yearWidth}px `;
                 yearRowHtml += `<div class="text-sm font-semibold text-slate-600 p-1 text-center border-r border-slate-200">${year}</div>`;
@@ -463,13 +445,13 @@
             let monthGridTemplateColumns = '';
             months.forEach(monthDate => {
                 const daysInMonth = new Date(monthDate.getFullYear(), monthDate.getMonth() + 1, 0).getDate();
-                const monthWidth = daysInMonth * dayWidth;
+                const monthWidth = daysInMonth * config.dayWidth;
                 monthGridTemplateColumns += `${monthWidth}px `;
                 const monthName = monthDate.toLocaleString('default', { month: 'short' }).toUpperCase();
                 monthRowHtml += `<div class="h-8 flex items-center justify-center border-l border-slate-200 text-xs text-slate-500">${monthName}</div>`;
             });
 
-            const totalWidth = totalDays * dayWidth;
+            const totalWidth = totalDays * config.dayWidth;
 
             timelineHeaderWrapper.innerHTML = `
                 <div style="width: ${totalWidth}px;">
@@ -505,13 +487,13 @@
                 return isAnyChildVisible;
             }
 
-            filterRecursive(projectData.children);
+            filterRecursive(state.projectData.children);
             render();
         }
 
         function populateFilterPanel() {
             filterOptions.innerHTML = '';
-            const level1Items = projectData.children;
+            const level1Items = state.projectData.children;
             level1Items.forEach(item => {
                 if(item.level === 1) {
                     const label = document.createElement('label');
@@ -525,7 +507,199 @@
             });
         }
 
+        // --- Utility Functions ---
+        function showLoading() {
+            // Simple loading indicator - can be enhanced later
+            console.log('Processing CSV data...');
+        }
+
         // --- Event Handling ---
+        /**
+         * Sets up all event listeners for the timeline UI.
+         */
+        function setupEventListeners() {
+            // Hierarchy expand/collapse
+            hierarchyBody.addEventListener('click', (e) => {
+                const row = e.target.closest('[data-id]');
+                if (!row) return;
+                const id = row.dataset.id;
+                const item = findDataItem(state.projectData.children, id);
+                if (item && item.children && item.children.length > 0) {
+                    item.isExpanded = item.isExpanded === undefined ? false : !item.isExpanded;
+                    render();
+                }
+            });
+
+            // Search
+            searchInput.addEventListener('input', applyFilters);
+
+            // Filter panel toggle
+            filterBtn.addEventListener('click', () => {
+                filterPanel.classList.toggle('hidden');
+            });
+            clearFilterBtn.addEventListener('click', () => {
+                filterOptions.querySelectorAll('input').forEach(input => input.checked = false);
+                applyFilters();
+            });
+            filterOptions.addEventListener('change', applyFilters);
+
+            // Hover card for timeline bars
+            timelineBody.addEventListener('mouseover', (e) => {
+                const target = e.target.closest('[data-task-id]');
+                if (!target) return;
+                clearTimeout(state.hideCardTimeout);
+                const taskId = target.dataset.taskId;
+                const task = findDataItem(state.projectData.children, taskId);
+                if (task) {
+                    showHoverCard(e, task);
+                }
+            });
+            timelineBody.addEventListener('mouseout', (e) => {
+                const target = e.target.closest('[data-task-id]');
+                if (target) {
+                    state.hideCardTimeout = setTimeout(hideHoverCard, 200);
+                }
+            });
+            hoverCard.addEventListener('mouseover', () => {
+                clearTimeout(state.hideCardTimeout);
+            });
+            hoverCard.addEventListener('mouseout', () => {
+                state.hideCardTimeout = setTimeout(hideHoverCard, 200);
+            });
+            document.body.addEventListener('mousemove', (e) => {
+                positionHoverCard(e);
+            });
+
+            // Sync scrolling between hierarchy and timeline
+            const gridWrapper = document.querySelector('.timeline-grid-wrapper');
+            gridWrapper.addEventListener('scroll', () => {
+                timelineHeaderWrapper.scrollLeft = gridWrapper.scrollLeft;
+                hierarchyBody.scrollTop = gridWrapper.scrollTop;
+            });
+
+            // CSV upload and processing
+            csvUpload.addEventListener('change', e => {
+                const file = e.target.files[0];
+                processCsvBtn.disabled = !file;
+                if (!file) return;
+                const reader = new FileReader();
+                reader.onload = function(evt) {
+                    const text = evt.target.result;
+                    state.uploadedCsvRows = parseCsv(text);
+                };
+                reader.readAsText(file);
+            });
+            processCsvBtn.addEventListener('click', () => {
+                if (!state.uploadedCsvRows.length) return;
+                showLoading();
+                setTimeout(() => {
+                    state.projectData = buildTreeFromCsv(state.uploadedCsvRows);
+                    collectDates([state.projectData]);
+                    render();
+                    populateFilterPanel();
+                }, 100); // Allow loading indicator to render
+            });
+        }
+
+        // Call once on load
+        setupEventListeners();
+
+        // --- Data Handling ---
+        /**
+         * Parses CSV text into an array of row objects, stripping quotes and trimming whitespace.
+         * @param {string} text - The CSV text.
+         * @returns {Array<Object>} Array of row objects.
+         */
+        function parseCsv(text) {
+            const lines = text.split(/\r?\n/).filter(line => line.trim());
+            const headers = lines[0].split(',').map(h => h.trim());
+            return lines.slice(1).map(line => {
+                const values = line.split(',').map(v => v.trim());
+                const row = {};
+                headers.forEach((h, i) => row[h] = values[i] || '');
+                return row;
+            });
+        }
+
+        /**
+         * Builds a Location → Trade → Activities tree from CSV rows.
+         * @param {Array<Object>} rows - Array of parsed CSV row objects.
+         * @returns {Object} Hierarchical tree root node.
+         */
+        function buildTreeFromCsv(rows) {
+            const root = { id: 'root', name: 'Project', level: 0, children: [] };
+            const locationMap = {};
+            rows.forEach(row => {
+                const location = row['Location'] || 'Unknown';
+                if (!locationMap[location]) {
+                    locationMap[location] = {
+                        id: location.replace(/\s+/g, '-').toLowerCase(),
+                        name: location,
+                        level: 1,
+                        children: {}, // trade groups as objects for easy lookup
+                    };
+                    root.children.push(locationMap[location]);
+                }
+                const trade = mapTrade(row['Activity Name'], row['Activity ID']);
+                if (!locationMap[location].children[trade]) {
+                    locationMap[location].children[trade] = {
+                        id: locationMap[location].id + '-' + trade.replace(/\s+/g, '-').toLowerCase(),
+                        name: trade,
+                        level: 2,
+                        children: [],
+                    };
+                }
+                // Add activity as leaf
+                locationMap[location].children[trade].children.push({
+                    id: row['Activity ID'] || row['Activity Name'],
+                    name: row['Activity Name'],
+                    level: 3,
+                    location: location,
+                    activityId: row['Activity ID'],
+                    activityName: row['Activity Name'],
+                    startDate: row['Start Date'],
+                    endDate: row['Finish Date'],
+                    duration: row['Duration']
+                });
+            });
+            // Convert trade objects to arrays for rendering
+            root.children.forEach(loc => {
+                loc.children = Object.values(loc.children);
+            });
+            return root;
+        }
+
+        // --- Trade Mapping Helpers ---
+        function mapTrade(activityName, activityId) {
+            const name = activityName.toLowerCase();
+            // Keyword-based mapping
+            if (/piling|drilled-pier|pile-cap|pad/.test(name)) return 'Foundations';
+            if (/slab-on-grade|pour|curing/.test(name)) return 'Concrete Slab';
+            if (/steel erection|framing|beam installation/.test(name)) return 'Structural Steel';
+            if (/roofing|cladding|weathertight-closure/.test(name)) return 'Envelope';
+            if (/piping|ductwork|hanger|hvac/.test(name)) return 'Mechanical';
+            if (/ductbank|cable pull|busway|breaker|mdc|termination/.test(name)) return 'Electrical';
+            if (/sprinkler|fire-alarm|aspirating-pipe/.test(name)) return 'Fire Protection';
+            if (/server-row|shiraz|valve skid|multitrade rack/.test(name)) return 'Equipment Installation';
+            if (/cx|handover|fit-out/.test(name)) return 'Commissioning & Fit-out';
+            if (/perun/.test(name)) return 'Substation (Perun)';
+            // Uniformat II Activity ID mapping
+            if (/^A/.test(activityId)) return 'Foundations';
+            if (/^B/.test(activityId)) return 'Envelope';
+            if (/^C/.test(activityId)) return 'Interiors';
+            if (/^D/.test(activityId)) return 'Services';
+            if (/^E/.test(activityId)) return 'Equipment Installation';
+            if (/^F/.test(activityId)) return 'Special Construction';
+            if (/^G/.test(activityId)) return 'Sitework';
+            return 'Other';
+        }
+
+        /**
+         * Finds a data item by id in a tree of items.
+         * @param {Array} items - The tree to search.
+         * @param {string} id - The id to find.
+         * @returns {Object|null} The found item or null.
+         */
         function findDataItem(items, id) {
             for (const item of items) {
                 if (item.id === id) return item;
@@ -537,64 +711,11 @@
             return null;
         }
 
-        hierarchyBody.addEventListener('click', (e) => {
-            const row = e.target.closest('[data-id]');
-            if (!row) return;
-
-            const id = row.dataset.id;
-            const item = findDataItem(projectData.children, id);
-
-            if (item && item.children && item.children.length > 0) {
-                item.isExpanded = item.isExpanded === undefined ? false : !item.isExpanded;
-                render();
-            }
-        });
-
-        searchInput.addEventListener('input', applyFilters);
-
-        filterBtn.addEventListener('click', () => {
-            filterPanel.classList.toggle('hidden');
-        });
-
-        clearFilterBtn.addEventListener('click', () => {
-            filterOptions.querySelectorAll('input').forEach(input => input.checked = false);
-            applyFilters();
-        });
-
-        filterOptions.addEventListener('change', applyFilters);
-
-        // --- Hover Card Logic ---
-        timelineBody.addEventListener('mouseover', (e) => {
-            const target = e.target.closest('[data-task-id]');
-            if (!target) return;
-
-            clearTimeout(hideCardTimeout);
-            const taskId = target.dataset.taskId;
-            const task = findDataItem(projectData.children, taskId);
-            if (task) {
-                showHoverCard(e, task);
-            }
-        });
-
-        timelineBody.addEventListener('mouseout', (e) => {
-            const target = e.target.closest('[data-task-id]');
-            if (target) {
-                hideCardTimeout = setTimeout(hideHoverCard, 200);
-            }
-        });
-
-        hoverCard.addEventListener('mouseover', () => {
-            clearTimeout(hideCardTimeout);
-        });
-
-        hoverCard.addEventListener('mouseout', () => {
-            hideCardTimeout = setTimeout(hideHoverCard, 200);
-        });
-
-        document.body.addEventListener('mousemove', (e) => {
-            positionHoverCard(e);
-        });
-
+        /**
+         * Shows the hover card for a timeline bar.
+         * @param {MouseEvent} event
+         * @param {Object} task
+         */
         function showHoverCard(event, task) {
             document.getElementById('hover-card-img').src = `https://placehold.co/600x400/a3a3a3/ffffff?text=${encodeURIComponent(task.activityName)}`;
             document.getElementById('hover-card-title').textContent = task.activityName;
@@ -602,90 +723,29 @@
             document.getElementById('hover-card-status').textContent = task.status;
             document.getElementById('hover-card-planned').textContent = `${task.startDate} to ${task.endDate}`;
             document.getElementById('hover-card-actual').textContent = `${task.actualStartDate} to ${task.actualEndDate || 'Present'}`;
-
             hoverCard.classList.remove('hidden');
             setTimeout(() => hoverCard.classList.remove('opacity-0'), 10); // Fade in
             positionHoverCard(event);
         }
 
+        /**
+         * Hides the hover card.
+         */
         function hideHoverCard() {
             hoverCard.classList.add('opacity-0');
             setTimeout(() => hoverCard.classList.add('hidden'), 200); // Wait for fade out
         }
 
+        /**
+         * Positions the hover card near the mouse.
+         * @param {MouseEvent} event
+         */
         function positionHoverCard(event) {
             const offsetX = 15;
             const offsetY = 15;
             hoverCard.style.left = `${event.clientX + offsetX}px`;
             hoverCard.style.top = `${event.clientY + offsetY}px`;
         }
-
-        // --- Sync Scrolling ---
-        const gridWrapper = document.querySelector('.timeline-grid-wrapper');
-        gridWrapper.addEventListener('scroll', () => {
-            timelineHeaderWrapper.scrollLeft = gridWrapper.scrollLeft;
-            hierarchyBody.scrollTop = gridWrapper.scrollTop;
-        });
-
-        // --- CSV Upload & Parsing ---
-        // Sample CSV:
-        // Location,Activity ID,Activity Name,Start Date,Finish Date,Duration
-        const csvUpload = document.getElementById('csv-upload');
-        const processCsvBtn = document.getElementById('process-csv-btn');
-        let uploadedCsvRows = [];
-        csvUpload.addEventListener('change', e => {
-            const file = e.target.files[0];
-            processCsvBtn.disabled = !file;
-            if (!file) return;
-            const reader = new FileReader();
-            reader.onload = function(evt) {
-                const text = evt.target.result;
-                uploadedCsvRows = parseCsv(text);
-            };
-            reader.readAsText(file);
-        });
-        processCsvBtn.addEventListener('click', () => {
-            if (!uploadedCsvRows.length) return;
-            projectData = buildTreeFromCsv(uploadedCsvRows);
-            collectDates([projectData]);
-            render();
-            populateFilterPanel();
-        });
-        function parseCsv(text) {
-            const lines = text.split(/\r?\n/).filter(line => line.trim());
-            const headers = lines[0].split(',').map(h => h.trim());
-            return lines.slice(1).map(line => {
-                const values = line.split(',').map(v => v.trim());
-                const row = {};
-                headers.forEach((h, i) => row[h] = values[i] || '');
-                return row;
-            });
-        }
-        function buildTreeFromCsv(rows) {
-            const root = { id: 'root', name: 'Project', level: 0, children: [] };
-            const locations = {};
-            rows.forEach(row => {
-                const loc = row['Location'];
-                if (!locations[loc]) {
-                    locations[loc] = { id: loc.replace(/\s+/g, '-').toLowerCase(), name: loc, level: 1, children: [] };
-                    root.children.push(locations[loc]);
-                }
-                const locationNode = locations[loc];
-                locationNode.children.push({
-                    id: row['Activity ID'],
-                    name: row['Activity Name'],
-                    level: 2,
-                    location: loc,
-                    activityId: row['Activity ID'],
-                    activityName: row['Activity Name'],
-                    startDate: row['Start Date'],
-                    endDate: row['Finish Date'],
-                    duration: row['Duration']
-                });
-            });
-            return root;
-        }
-
         // --- Initial Render ---
         render();
         populateFilterPanel();
