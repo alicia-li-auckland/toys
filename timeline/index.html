@@ -259,7 +259,11 @@
 
         // --- Rendering ---
         function render() {
-            if (!projectData) return;
+            console.log('projectData:', projectData);
+            if (!projectData || !Array.isArray(projectData.children)) {
+                console.error('No valid projectData.children to render:', projectData);
+                return;
+            }
             hierarchyBody.innerHTML = '';
             timelineBody.innerHTML = '';
             let rowIndex = 0;
