@@ -257,6 +257,32 @@
         const csvUpload = document.getElementById('csv-upload');
         const processCsvBtn = document.getElementById('process-csv-btn');
 
+        // Add Export CSV button to the header
+        const header = document.querySelector('header .flex.items-center.gap-4');
+        if (header) {
+            const exportBtn = document.createElement('button');
+            exportBtn.id = 'export-csv-btn';
+            exportBtn.className = 'flex items-center gap-2 px-4 py-2 text-sm font-medium text-slate-700 bg-white border border-slate-300 rounded-md hover:bg-slate-50';
+            exportBtn.innerHTML = '<i data-lucide="download" class="w-4 h-4"></i> Export CSV';
+            exportBtn.disabled = !projectData || !Array.isArray(projectData.children) || projectData.children.length === 0;
+            exportBtn.addEventListener('click', () => {
+                if (!projectData || !Array.isArray(projectData.children)) return;
+                // Flatten all activities (level 3) from the tree
+                const activities = [];
+                function collectActivities(items) {
+                    if (!Array.isArray(items)) return;
+                    items.forEach(item => {
+                        if (item.level === 3) activities.push(item);
+                        if (item.children) collectActivities(item.children);
+                    });
+                }
+                collectActivities(projectData.children);
+                exportCsv(activities);
+            });
+            header.appendChild(exportBtn);
+            lucide.createIcons();
+        }
+
         // --- Rendering ---
         function render() {
             console.log('projectData:', projectData);
@@ -598,6 +624,29 @@ processData(rows);
             hoverCard.style.left = `${event.clientX + offsetX}px`;
             hoverCard.style.top = `${event.clientY + offsetY}px`;
         }
+
+        function exportCsv(activities) {
+    const headers = ['Location','Activity ID','Activity Name','Start Date','Finish Date','Duration'];
+    const rows = [headers.join(',')];
+    activities.forEach(a => {
+        rows.push([
+            a.location || '',
+            a.activityId || a.id || '',
+            a.activityName || a.name || '',
+            a.startDate || '',
+            a.endDate || '',
+            a.duration || ''
+        ].join(','));
+    });
+    const blob = new Blob([rows.join('\n')], {type:'text/csv'});
+    const link = document.createElement('a');
+    link.href = URL.createObjectURL(blob);
+    link.download = 'filtered_schedule.csv';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    URL.revokeObjectURL(link.href);
+}
         // --- Initial Render ---
         render();
         populateFilterPanel();
