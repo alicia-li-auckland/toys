@@ -593,13 +593,29 @@
          */
         function parseCsv(text) {
             const lines = text.split(/\r?\n/).filter(line => line.trim());
-            const headers = lines[0].split(',').map(h => h.trim());
-            return lines.slice(1).map(line => {
+            if (lines.length < 2) return [];
+            // Normalize headers: trim and lowercase
+            const rawHeaders = lines[0].split(',').map(h => h.trim().toLowerCase());
+            // Map normalized headers to expected keys
+            const headerMap = {
+                'location': 'Location',
+                'activity id': 'Activity ID',
+                'activity name': 'Activity Name',
+                'start date': 'Start Date',
+                'finish date': 'Finish Date',
+                'duration': 'Duration'
+            };
+            const headers = rawHeaders.map(h => headerMap[h] || h);
+            const rows = lines.slice(1).map(line => {
                 const values = line.split(',').map(v => v.trim());
                 const row = {};
                 headers.forEach((h, i) => row[h] = values[i] || '');
                 return row;
             });
+            if (rows.length > 0) {
+                console.log('First parsed row:', rows[0]);
+            }
+            return rows;
         }
 
         /**
