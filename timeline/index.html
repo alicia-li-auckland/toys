@@ -247,7 +247,7 @@
         const root = { id: 'root', name: 'Project', level: 0, children: [] };
         const locationMap = {};
         rows.forEach(row => {
-            const location = row['Location'] || 'Unknown';
+            const location = row['location'] || 'Unknown';
             if (!locationMap[location]) {
                 locationMap[location] = {
                     id: location.replace(/\s+/g, '-').toLowerCase(),
@@ -258,15 +258,15 @@
                 root.children.push(locationMap[location]);
             }
             locationMap[location].children.push({
-                id: row['Activity ID'] || row['Activity Name'],
-                name: row['Activity Name'],
+                id: row['activity id'] || row['activity name'],
+                name: row['activity name'],
                 level: 2,
                 location: location,
-                activityId: row['Activity ID'],
-                activityName: row['Activity Name'],
-                startDate: row['Start Date'],
-                endDate: row['Finish Date'],
-                duration: row['Duration']
+                activityId: row['activity id'],
+                activityName: row['activity name'],
+                startDate: row['start date'],
+                endDate: row['finish date'],
+                duration: row['duration']
             });
         });
         return root;
