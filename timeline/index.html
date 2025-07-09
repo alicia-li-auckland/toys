@@ -265,6 +265,7 @@
             let rowIndex = 0;
             let timelineBarsHtml = '';
             function renderRecursive(items, parentId = 'root', parentIsVisible = true) {
+                if (!Array.isArray(items)) return;
                 items.forEach(item => {
                     const hasChildren = item.children && item.children.length > 0;
                     const isExpanded = item.isExpanded === undefined ? true : item.isExpanded;
