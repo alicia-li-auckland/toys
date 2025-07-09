@@ -243,6 +243,35 @@
         totalDays = getDaysBetween(overallStartDate, addDays(overallEndDate, 30));
     }
 
+    function buildTreeFromCsv(rows) {
+        const root = { id: 'root', name: 'Project', level: 0, children: [] };
+        const locationMap = {};
+        rows.forEach(row => {
+            const location = row['Location'] || 'Unknown';
+            if (!locationMap[location]) {
+                locationMap[location] = {
+                    id: location.replace(/\s+/g, '-').toLowerCase(),
+                    name: location,
+                    level: 1,
+                    children: [],
+                };
+                root.children.push(locationMap[location]);
+            }
+            locationMap[location].children.push({
+                id: row['Activity ID'] || row['Activity Name'],
+                name: row['Activity Name'],
+                level: 2,
+                location: location,
+                activityId: row['Activity ID'],
+                activityName: row['Activity Name'],
+                startDate: row['Start Date'],
+                endDate: row['Finish Date'],
+                duration: row['Duration']
+            });
+        });
+        return root;
+    }
+
         // --- DOM Elements ---
         const hierarchyBody = document.getElementById('hierarchy-body');
         const timelineHeaderWrapper = document.getElementById('timeline-header-wrapper');
@@ -537,8 +566,9 @@
                 const reader = new FileReader();
                 reader.onload = function(evt) {
                     const text = evt.target.result;
-const rows = parseCsv(text);
-processData(rows);
+                    const rows = parseCsv(text);
+                    const treeData = buildTreeFromCsv(rows);
+                    processData(treeData);
                 };
                 reader.readAsText(file);
             });
