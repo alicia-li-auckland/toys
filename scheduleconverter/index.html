@@ -9,6 +9,10 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   <script src="https://unpkg.com/lucide@latest"></script>
+  <!-- Add library for Microsoft Project files -->
+  <script src="https://cdn.jsdelivr.net/npm/msparser@1.0.0/dist/msparser.min.js"></script>
+  <!-- Alternative MPP parser -->
+  <script src="https://unpkg.com/mpp-parser@latest/dist/mpp-parser.min.js"></script>
   <style>
     body {
       font-family: 'Inter', sans-serif;
@@ -133,7 +137,7 @@
                   </div>
                   <div>
                     <h2 class="text-lg font-semibold text-slate-800">Upload Schedule File</h2>
-                    <p class="text-sm text-slate-600">Supported formats: XML, XER, CSV</p>
+                    <p class="text-sm text-slate-600">Supported formats: XML, XER, CSV, MPP, PP</p>
                   </div>
                 </div>
                 <!-- View Mode Toggle on the right -->
@@ -146,7 +150,7 @@
               </div>
               <div class="flex items-center gap-4">
                 <div class="relative flex-1">
-                  <input type="file" id="fileInput" accept=".xml,.xer,.csv" 
+                  <input type="file" id="fileInput" accept=".xml,.xer,.csv,.mpp,.pp" 
                          class="block w-full text-sm text-slate-500 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-medium file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100 transition-colors">
                 </div>
                 <button id="processBtn" class="px-4 py-2 rounded-lg bg-blue-600 text-white font-semibold text-sm flex items-center gap-2 disabled:bg-slate-300 disabled:cursor-not-allowed" disabled>Process</button>
@@ -384,6 +388,95 @@
         
         if (activities.length === 0) throw new Error('Could not parse any valid activity rows from the CSV file.');
         return activities;
+      }
+
+      function parseMPPData(arrayBuffer) {
+        try {
+          let project;
+          let parserUsed = '';
+          
+          // Try MSParser first
+          if (typeof MSParser !== 'undefined') {
+            try {
+              const msp = new MSParser(arrayBuffer);
+              project = msp.parse();
+              parserUsed = 'MSParser';
+            } catch (mspError) {
+              console.warn('MSParser failed:', mspError);
+            }
+          }
+          
+          // Try alternative parser if MSParser failed
+          if (!project && typeof MPPParser !== 'undefined') {
+            try {
+              const mppParser = new MPPParser();
+              project = mppParser.parse(arrayBuffer);
+              parserUsed = 'MPPParser';
+            } catch (mppError) {
+              console.warn('MPPParser failed:', mppError);
+            }
+          }
+          
+          // If both libraries failed, provide helpful error
+          if (!project) {
+            throw new Error('Unable to parse Microsoft Project file. Please ensure the file is not corrupted and try converting it to XML format first.');
+          }
+          
+          console.log(`Successfully parsed MPP file using ${parserUsed}`);
+          
+          if (!project.tasks || !Array.isArray(project.tasks)) {
+            throw new Error('No tasks found in Microsoft Project file.');
+          }
+          
+          return project.tasks.map((task, index) => {
+            // Skip summary tasks (tasks with subtasks)
+            if (task.subtasks && task.subtasks.length > 0) {
+              return null;
+            }
+            
+            // Convert Microsoft Project dates to our format
+            const startDate = task.start ? formatDate(new Date(task.start)) : '';
+            const finishDate = task.finish ? formatDate(new Date(task.finish)) : '';
+            
+            // Calculate duration in days
+            let duration = '0';
+            if (startDate && finishDate) {
+              const start = new Date(startDate);
+              const finish = new Date(finishDate);
+              const diffTime = Math.abs(finish - start);
+              const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+              duration = diffDays.toString();
+            }
+            
+            // Determine status based on percent complete
+            let status = 'Not Started';
+            if (task.percentComplete) {
+              const pct = parseFloat(task.percentComplete);
+              if (pct >= 100) status = 'Complete';
+              else if (pct > 0) status = 'In Progress';
+            }
+            
+            // Extract WBS from outline number or name
+            const wbs = task.outlineNumber || task.name || '';
+            
+            return {
+              id: task.id || task.uniqueID || `MPP-ACT-${index + 1}`,
+              name: task.name || 'Unnamed Activity',
+              startDate: startDate,
+              finishDate: finishDate,
+              duration: duration,
+              percentComplete: task.percentComplete || '0',
+              totalFloat: task.totalSlack || '0',
+              status: status,
+              wbs: wbs,
+              location: extractLocationFromWBS(task.name || '', wbs)
+            };
+          }).filter(task => task !== null); // Remove null entries (summary tasks)
+          
+        } catch (error) {
+          console.error('Error parsing MPP file:', error);
+          throw new Error(`Failed to parse Microsoft Project file: ${error.message}`);
+        }
       }
 
       // --- Trade Filter System (from TSX) ---
@@ -1025,7 +1118,12 @@
           if (ext === 'xml') activities = parseXMLData(content);
           else if (ext === 'xer') activities = parseXERData(content);
           else if (ext === 'csv') activities = parseCSVData(content);
-          else throw new Error('Unsupported file format. Please upload XML, XER, or CSV.');
+          else if (ext === 'mpp' || ext === 'pp') {
+            // MSParser expects a binary file for MPP/PP
+            const arrayBuffer = await selectedFile.arrayBuffer();
+            activities = parseMPPData(arrayBuffer);
+          }
+          else throw new Error('Unsupported file format. Please upload XML, XER, CSV, MPP, or PP.');
           allActivities = activities;
           searchInput.value = '';
           updateAllFilters();
