@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CSV Location Tagging Tool</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+    }
+    .table-container {
+      max-height: 60vh;
+      overflow-y: auto;
+    }
+    .tag-select {
+      min-width: 150px;
+    }
+    .dropdown-panel {
+      max-height: 250px;
+      overflow-y: auto;
+    }
+  </style>
+</head>
+<body class="bg-gray-100 text-gray-800">
+  <div class="container mx-auto p-4 md:p-8">
+    <header class="text-center mb-8">
+      <h1 class="text-3xl md:text-4xl font-bold text-gray-900">CSV Location Tagging Tool</h1>
+      <p class="text-gray-600 mt-2">Create location-based tags and apply them to your CSV data automatically.</p>
+    </header>
+
+    <main class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+      <!-- Column 1: Tag Management -->
+      <div class="lg:col-span-1 bg-white p-6 rounded-xl shadow-lg">
+        <h2 class="text-xl font-bold mb-4 border-b pb-2">1. Location Tag Management</h2>
+        
+        <div class="mb-6">
+          <h3 class="text-lg font-semibold mb-2">Create New Location Tag</h3>
+          <div class="flex gap-2">
+            <input type="text" id="newTagName" placeholder="Enter location name (e.g., DCH1)" 
+                   class="flex-grow w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+            <button id="createTagBtn" class="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 transition-colors">Create</button>
+          </div>
+        </div>
+
+        <div class="mb-6">
+          <h3 class="text-lg font-semibold mb-2">Define Tag Relationships</h3>
+          <div class="space-y-3">
+            <div class="relative">
+              <label class="block text-sm font-medium text-gray-700">Parent Location</label>
+              <button id="parentTagDropdownBtn" class="mt-1 bg-white text-left w-full border border-gray-300 rounded-md shadow-sm px-4 py-2 inline-flex justify-between items-center text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+                <span>Select Parent...</span>
+                <svg class="ml-2 -mr-1 h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                  <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
+                </svg>
+              </button>
+              <div id="parentTagDropdownPanel" class="dropdown-panel absolute z-10 mt-1 w-full bg-white shadow-lg border rounded-md hidden p-2 space-y-1">
+                <!-- Parent checkboxes will be injected here -->
+              </div>
+            </div>
+
+            <div class="relative">
+              <label class="block text-sm font-medium text-gray-700">Child Location</label>
+              <button id="childTagDropdownBtn" class="mt-1 bg-white text-left w-full border border-gray-300 rounded-md shadow-sm px-4 py-2 inline-flex justify-between items-center text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+                <span>Select Child...</span>
+                <svg class="ml-2 -mr-1 h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                  <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
+                </svg>
+              </button>
+              <div id="childTagDropdownPanel" class="dropdown-panel absolute z-10 mt-1 w-full bg-white shadow-lg border rounded-md hidden p-2 space-y-1">
+                <!-- Child checkboxes will be injected here -->
+              </div>
+            </div>
+
+            <button id="linkTagBtn" class="w-full bg-green-600 text-white px-4 py-2 rounded-md hover:bg-green-700 transition-colors">
+              Link Child to Parent
+            </button>
+          </div>
+        </div>
+
+        <div>
+          <h3 class="text-lg font-semibold mb-2">Location Hierarchy</h3>
+          <div id="tagStructure" class="p-3 bg-gray-50 border rounded-md min-h-[100px] text-sm space-y-2">
+            <p class="text-gray-500">Your location hierarchy will appear here...</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Column 2: CSV Operations -->
+      <div class="lg:col-span-2 bg-white p-6 rounded-xl shadow-lg">
+        <div class="flex flex-col md:flex-row justify-between md:items-center border-b pb-2 mb-4">
+          <h2 class="text-xl font-bold">2. CSV Data & Auto-Tagging</h2>
+          <div class="flex gap-4 mt-4 md:mt-0">
+            <div>
+              <label for="csvFileInput" class="bg-indigo-600 text-white px-4 py-2 rounded-md hover:bg-indigo-700 transition-colors cursor-pointer">
+                Upload CSV
+              </label>
+              <input type="file" id="csvFileInput" class="hidden" accept=".csv">
+            </div>
+            <button id="autoTagBtn" class="bg-green-600 text-white px-4 py-2 rounded-md hover:bg-green-700 transition-colors disabled:bg-gray-400" disabled>
+              Auto-Tag by Location
+            </button>
+            <button id="exportCsvBtn" class="bg-gray-700 text-white px-4 py-2 rounded-md hover:bg-gray-800 transition-colors disabled:bg-gray-400" disabled>
+              Export Tagged CSV
+            </button>
+          </div>
+        </div>
+
+        <div id="message-area" class="text-center p-4 my-4 hidden rounded-md"></div>
+
+        <div id="csv-display" class="table-container">
+          <div id="csv-placeholder" class="flex items-center justify-center h-64">
+            <p class="text-gray-500">Upload a CSV to see your data here.</p>
+          </div>
+          <table id="csvTable" class="hidden min-w-full divide-y divide-gray-200">
+            <thead id="csvThead" class="bg-gray-50"></thead>
+            <tbody id="csvTbody" class="bg-white divide-y divide-gray-200"></tbody>
+          </table>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/papaparse/5.3.2/papaparse.min.js"></script>
+  <script>
+    // --- STATE MANAGEMENT ---
+    const state = {
+      tags: {}, // { tagName: { parent: null, children: new Set() } }
+      csvData: [],
+      csvHeaders: [],
+      locationColumn: null
+    };
+
+    // --- DOM ELEMENTS ---
+    const createTagBtn = document.getElementById('createTagBtn');
+    const newTagNameInput = document.getElementById('newTagName');
+    const linkTagBtn = document.getElementById('linkTagBtn');
+    const tagStructureDiv = document.getElementById('tagStructure');
+    const csvFileInput = document.getElementById('csvFileInput');
+    const csvTable = document.getElementById('csvTable');
+    const csvThead = document.getElementById('csvThead');
+    const csvTbody = document.getElementById('csvTbody');
+    const csvPlaceholder = document.getElementById('csv-placeholder');
+    const exportCsvBtn = document.getElementById('exportCsvBtn');
+    const autoTagBtn = document.getElementById('autoTagBtn');
+    const messageArea = document.getElementById('message-area');
+
+    // Custom Dropdown Elements
+    const parentTagDropdownBtn = document.getElementById('parentTagDropdownBtn');
+    const parentTagDropdownPanel = document.getElementById('parentTagDropdownPanel');
+    const childTagDropdownBtn = document.getElementById('childTagDropdownBtn');
+    const childTagDropdownPanel = document.getElementById('childTagDropdownPanel');
+
+    // --- UTILITY FUNCTIONS ---
+    const showMessage = (text, type = 'info') => {
+      messageArea.textContent = text;
+      messageArea.className = 'text-center p-4 my-4 rounded-md';
+      if (type === 'success') messageArea.classList.add('bg-green-100', 'text-green-800');
+      else if (type === 'error') messageArea.classList.add('bg-red-100', 'text-red-800');
+      else messageArea.classList.add('bg-blue-100', 'text-blue-800');
+      messageArea.classList.remove('hidden');
+    };
+
+    // --- TAG MANAGEMENT LOGIC ---
+    const renderTagStructure = () => {
+      tagStructureDiv.innerHTML = '';
+      const parentTags = Object.keys(state.tags).filter(t => state.tags[t].parent === null);
+      
+      if (Object.keys(state.tags).length === 0) {
+        tagStructureDiv.innerHTML = '<p class="text-gray-500">Your location hierarchy will appear here...</p>';
+        return;
+      }
+      
+      parentTags.forEach(parent => {
+        const parentDiv = document.createElement('div');
+        let content = `<span class="font-bold bg-blue-200 px-2 py-1 rounded">${parent}</span>`;
+        const children = Array.from(state.tags[parent].children);
+        if (children.length > 0) {
+          content += ` <span class="text-gray-600">→</span> ${children.map(c => `<span class="bg-gray-200 px-2 py-1 rounded">${c}</span>`).join(' ')}`;
+        }
+        parentDiv.innerHTML = content;
+        tagStructureDiv.appendChild(parentDiv);
+      });
+    };
+
+    const updateTagSelects = () => {
+      const allTags = Object.keys(state.tags);
+      parentTagDropdownPanel.innerHTML = '';
+      childTagDropdownPanel.innerHTML = '';
+
+      if (allTags.length === 0) {
+        parentTagDropdownPanel.innerHTML = '<span class="text-gray-500 px-2">No tags created.</span>';
+        childTagDropdownPanel.innerHTML = '<span class="text-gray-500 px-2">No tags created.</span>';
+        return;
+      }
+
+      allTags.forEach(tag => {
+        const hasParent = state.tags[tag].parent !== null;
+        if (!hasParent) {
+          parentTagDropdownPanel.innerHTML += `
+            <label class="flex items-center space-x-2 p-1 hover:bg-gray-100 rounded-md cursor-pointer">
+              <input type="checkbox" data-type="parent" value="${tag}" class="h-4 w-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500">
+              <span>${tag}</span>
+            </label>`;
+        }
+        childTagDropdownPanel.innerHTML += `
+          <label class="flex items-center space-x-2 p-1 hover:bg-gray-100 rounded-md cursor-pointer">
+            <input type="checkbox" data-type="child" value="${tag}" class="h-4 w-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500">
+            <span>${tag} ${hasParent ? `<span class="text-xs text-gray-500">(child of ${state.tags[tag].parent})</span>` : ''}</span>
+          </label>`;
+      });
+      updateDropdownButtonText(parentTagDropdownBtn, 'parent');
+      updateDropdownButtonText(childTagDropdownBtn, 'child');
+    };
+
+    const handleCreateTag = () => {
+      const tagName = newTagNameInput.value.trim();
+      if (!tagName) {
+        alert('Please enter a location name.');
+        return;
+      }
+      if (state.tags[tagName]) {
+        alert('This location tag already exists.');
+        return;
+      }
+      state.tags[tagName] = { parent: null, children: new Set() };
+      newTagNameInput.value = '';
+      renderTagStructure();
+      updateTagSelects();
+      showMessage(`Location tag "${tagName}" created successfully.`, 'success');
+    };
+
+    const handleLinkTag = () => {
+      const selectedParents = Array.from(parentTagDropdownPanel.querySelectorAll('input:checked')).map(cb => cb.value);
+      const selectedChildren = Array.from(childTagDropdownPanel.querySelectorAll('input:checked')).map(cb => cb.value);
+
+      if (selectedParents.length === 0 || selectedChildren.length === 0) {
+        alert('Please select at least one parent and one child location.');
+        return;
+      }
+
+      let linksMade = 0;
+      selectedParents.forEach(parent => {
+        selectedChildren.forEach(child => {
+          if (parent === child) {
+            console.warn(`Skipping: A tag cannot be its own parent ('${parent}').`);
+            return;
+          }
+          if (state.tags[child].parent && state.tags[child].parent !== parent) {
+            alert(`Tag '${child}' already has a parent ('${state.tags[child].parent}'). A tag can only have one parent.`);
+            return;
+          }
+          if (state.tags[parent].parent === child) {
+            console.warn(`Skipping: Cannot create circular dependency between '${parent}' and '${child}'.`);
+            return;
+          }
+
+          state.tags[parent].children.add(child);
+          state.tags[child].parent = parent;
+          linksMade++;
+        });
+      });
+
+      if (linksMade > 0) {
+        showMessage(`${linksMade} link(s) created successfully.`, 'success');
+        renderTagStructure();
+        updateTagSelects();
+      }
+
+      // Close dropdowns after linking
+      parentTagDropdownPanel.classList.add('hidden');
+      childTagDropdownPanel.classList.add('hidden');
+    };
+
+    // --- CSV HANDLING LOGIC ---
+    const renderCsvTable = () => {
+      if (state.csvData.length === 0) {
+        csvTable.classList.add('hidden');
+        csvPlaceholder.classList.remove('hidden');
+        exportCsvBtn.disabled = true;
+        autoTagBtn.disabled = true;
+        return;
+      }
+      
+      csvPlaceholder.classList.add('hidden');
+      csvTable.classList.remove('hidden');
+      exportCsvBtn.disabled = false;
+      autoTagBtn.disabled = false;
+      
+      // Find location column
+      state.locationColumn = state.csvHeaders.find(h => 
+        h.toLowerCase().includes('location') || 
+        h.toLowerCase().includes('loc') ||
+        h.toLowerCase().includes('area')
+      );
+
+      csvThead.innerHTML = '';
+      const trHead = document.createElement('tr');
+      state.csvHeaders.forEach(header => {
+        const th = document.createElement('th');
+        th.className = 'px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider';
+        th.textContent = header;
+        trHead.appendChild(th);
+      });
+      
+      // Add tag columns
+      const parentTags = Object.keys(state.tags).filter(t => state.tags[t].parent === null);
+      parentTags.forEach(tag => {
+        const th = document.createElement('th');
+        th.className = 'px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider';
+        th.textContent = `Tag: ${tag}`;
+        trHead.appendChild(th);
+      });
+      
+      csvThead.appendChild(trHead);
+      csvTbody.innerHTML = '';
+      
+      state.csvData.forEach((row, rowIndex) => {
+        const trBody = document.createElement('tr');
+        state.csvHeaders.forEach(header => {
+          const td = document.createElement('td');
+          td.className = 'px-6 py-4 whitespace-nowrap text-sm text-gray-700';
+          td.textContent = row[header] || '';
+          trBody.appendChild(td);
+        });
+        
+        // Add tag columns
+        parentTags.forEach(tag => {
+          const td = document.createElement('td');
+          td.className = 'px-6 py-4 whitespace-nowrap text-sm';
+          const isTagged = row[tag] === 'TRUE';
+          td.innerHTML = `<span class="inline-flex px-2 py-1 text-xs font-medium rounded-full ${isTagged ? 'bg-green-100 text-green-800' : 'bg-gray-100 text-gray-800'}">${isTagged ? 'Tagged' : 'Not Tagged'}</span>`;
+          trBody.appendChild(td);
+        });
+        
+        csvTbody.appendChild(trBody);
+      });
+    };
+
+    const handleAutoTag = () => {
+      if (!state.locationColumn) {
+        showMessage('No location column found in CSV. Please ensure your CSV has a "Location" column.', 'error');
+        return;
+      }
+
+      const parentTags = Object.keys(state.tags).filter(t => state.tags[t].parent === null);
+      let taggedCount = 0;
+
+      state.csvData.forEach(row => {
+        const locationValue = (row[state.locationColumn] || '').toLowerCase();
+        
+        parentTags.forEach(parentTag => {
+          const parentTagLower = parentTag.toLowerCase();
+          if (locationValue.includes(parentTagLower)) {
+            row[parentTag] = 'TRUE';
+            // Also tag all children
+            const children = Array.from(state.tags[parentTag].children);
+            children.forEach(child => {
+              row[child] = 'TRUE';
+            });
+            taggedCount++;
+          }
+        });
+      });
+
+      renderCsvTable();
+      showMessage(`Auto-tagged ${taggedCount} rows based on location matching.`, 'success');
+    };
+
+    const handleFileUpload = (event) => {
+      const file = event.target.files[0];
+      if (!file) return;
+      
+      Papa.parse(file, {
+        header: true,
+        skipEmptyLines: true,
+        complete: (results) => {
+          state.csvData = results.data;
+          state.csvHeaders = results.meta.fields;
+          renderCsvTable();
+          showMessage(`Successfully loaded ${results.data.length} rows from ${file.name}.`, 'success');
+        },
+        error: (error) => showMessage(`Error parsing CSV: ${error.message}`, 'error')
+      });
+    };
+
+    const handleExportCsv = () => {
+      if (state.csvData.length === 0) {
+        alert('No data to export.');
+        return;
+      }
+      
+      const completeData = state.csvData.map(row => {
+        const newRow = {};
+        state.csvHeaders.forEach(header => {
+          newRow[header] = row[header] || '';
+        });
+        
+        // Add tag columns
+        const parentTags = Object.keys(state.tags).filter(t => state.tags[t].parent === null);
+        parentTags.forEach(tag => {
+          newRow[tag] = row[tag] || '';
+        });
+        
+        return newRow;
+      });
+      
+      const csvString = Papa.unparse(completeData);
+      const blob = new Blob([csvString], { type: 'text/csv;charset=utf-8;' });
+      const link = document.createElement('a');
+      const url = URL.createObjectURL(blob);
+      link.setAttribute('href', url);
+      link.setAttribute('download', 'location_tagged_export.csv');
+      link.style.visibility = 'hidden';
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      showMessage('CSV exported successfully!', 'success');
+    };
+
+    // --- CUSTOM DROPDOWN LOGIC ---
+    function setupDropdown(button, panel) {
+      button.addEventListener('click', (e) => {
+        e.stopPropagation();
+        if (panel.id.includes('parent')) childTagDropdownPanel.classList.add('hidden');
+        else parentTagDropdownPanel.classList.add('hidden');
+        panel.classList.toggle('hidden');
+      });
+    }
+
+    function updateDropdownButtonText(button, type) {
+      const panel = type === 'parent' ? parentTagDropdownPanel : childTagDropdownPanel;
+      const count = panel.querySelectorAll('input:checked').length;
+      const text = button.querySelector('span');
+      if (count === 0) {
+        text.textContent = `Select ${type.charAt(0).toUpperCase() + type.slice(1)}...`;
+      } else {
+        text.textContent = `${count} ${type}(s) selected`;
+      }
+    }
+
+    // --- EVENT LISTENERS ---
+    createTagBtn.addEventListener('click', handleCreateTag);
+    linkTagBtn.addEventListener('click', handleLinkTag);
+    csvFileInput.addEventListener('change', handleFileUpload);
+    exportCsvBtn.addEventListener('click', handleExportCsv);
+    autoTagBtn.addEventListener('click', handleAutoTag);
+    newTagNameInput.addEventListener('keypress', (e) => {
+      if (e.key === 'Enter') handleCreateTag();
+    });
+
+    setupDropdown(parentTagDropdownBtn, parentTagDropdownPanel);
+    setupDropdown(childTagDropdownBtn, childTagDropdownPanel);
+
+    parentTagDropdownPanel.addEventListener('click', (e) => e.stopPropagation());
+    childTagDropdownPanel.addEventListener('click', (e) => e.stopPropagation());
+
+    parentTagDropdownPanel.addEventListener('change', () => updateDropdownButtonText(parentTagDropdownBtn, 'parent'));
+    childTagDropdownPanel.addEventListener('change', () => updateDropdownButtonText(childTagDropdownBtn, 'child'));
+
+    window.addEventListener('click', (e) => {
+      if (!parentTagDropdownBtn.contains(e.target)) {
+        parentTagDropdownPanel.classList.add('hidden');
+      }
+      if (!childTagDropdownBtn.contains(e.target)) {
+        childTagDropdownPanel.classList.add('hidden');
+      }
+    });
+
+    // --- INITIALIZATION ---
+    renderTagStructure();
+    updateTagSelects();
+  </script>
+</body>
+</html>
