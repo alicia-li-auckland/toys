@@ -117,6 +117,9 @@
           </div>
         </div>
         <div class="flex items-center gap-3">
+          <button id="validationBtn" class="px-4 py-2 rounded-lg bg-blue-100 text-blue-700 font-semibold text-sm flex items-center gap-2" disabled>
+            <i data-lucide="check-circle" class="w-4 h-4"></i> Validation Report
+          </button>
           <button id="exportBtn" class="px-4 py-2 rounded-lg bg-slate-100 text-slate-500 font-semibold text-sm flex items-center gap-2" disabled>
             <i data-lucide="download" class="w-4 h-4"></i> Export CSV
           </button>
@@ -192,6 +195,7 @@
                       <th class="px-4 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider border-b border-slate-200">Total Float</th>
                       <th class="px-4 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider border-b border-slate-200">Status</th>
                       <th class="px-4 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider border-b border-slate-200">Trade/Area</th>
+                      <th class="px-4 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider border-b border-slate-200">Validation</th>
                     </tr>
                   </thead>
                   <tbody class="bg-white divide-y divide-slate-200"></tbody>
@@ -236,39 +240,26 @@
 
       function extractLocationFromWBS(name, wbs) {
         if (!name && !wbs) return '';
-        // Combine name and wbs for scanning, like in the TSX version
+        // Combine name and wbs for scanning
         const activityText = `${name || ''} ${wbs || ''}`.toLowerCase();
-        // Location keywords mapping from TSX version
+        
+        // Updated location keywords mapping based on TradesLocations.csv
         const locationKeywords = {
-          'DCH1': ['dch1'],
-          'DCH2': ['dch2'], 
-          'DCH3': ['dch3'],
-          'DCH4': ['dch4'],
-          'EYD1': ['eyd1'],
-          'EYD2': ['eyd2'],
-          'EYD3': ['eyd3'], 
-          'EYD4': ['eyd4'],
-          'FSA': ['fsa'],
-          'FUEL_STORAGE': ['fuel storage'],
-          'LOADING_BAY': ['loading bay'],
-          'MYD1_BLOCK_1': ['myd1 block 1', 'myd1 blk 1'],
-          'MYD1_BLOCK_2': ['myd1 block 2', 'myd1 blk 2'],
-          'MYD2': ['myd2'],
-          'MYD3': ['myd3'],
-          'MYD4': ['myd4'],
-          'NORTH_LAYDOWN': ['north laydown'],
-          'PERUN': ['perun'],
-          'WASTE_MANAGEMENT': ['waste management'],
-          // Add the codes you mentioned in the filter dropdown
-          'DCH': ['dch'],
-          'EYD': ['eyd'],
-          'MYD': ['myd'],
-          'GEN YARD': ['gen yard'],
-          'CONVEYANCE': ['conveyance'],
+          'DCH': ['dch', 'dch1', 'dch2', 'dch3', 'dch4'],
+          'EYD': ['eyd', 'eyd1', 'eyd2', 'eyd3', 'eyd4'],
+          'MYD': ['myd', 'myd1', 'myd2', 'myd3', 'myd4', 'myd1 block 1', 'myd1 blk 1', 'myd1 block 2', 'myd1 blk 2'],
+          'Conveyance': ['conveyance', 'conveyor'],
+          'DWTR': ['dwtr', 'water treatment'],
+          'Fire Pump House': ['fire pump house', 'fire pump', 'pump house'],
+          'GPS': ['gps'],
+          'SSS': ['sss'],
+          'GEN YARD': ['gen yard', 'gen yard-pad', 'gen yard pad'],
+          'USS YARD': ['uss yard', 'uss'],
           'MCP': ['mcp'],
-          'USS': ['uss']
+          'Loading Dock': ['loading dock', 'loading bay', 'dock']
         };
-        // Scan for matches like in TSX version
+        
+        // Scan for matches
         for (const [locationCode, keywords] of Object.entries(locationKeywords)) {
           if (keywords.some(keyword => activityText.includes(keyword))) {
             return locationCode;
@@ -290,18 +281,28 @@
           return el ? el.textContent : '';
         }
         
-        return activities.map((activity, i) => ({
-          id: getText(activity, 'Id') || getText(activity, 'ActivityId') || `ACT-${i+1}`,
-          name: getText(activity, 'Name') || getText(activity, 'ActivityName') || 'Unnamed Activity',
-          startDate: formatDate(getText(activity, 'PlannedStartDate') || getText(activity, 'StartDate')),
-          finishDate: formatDate(getText(activity, 'PlannedFinishDate') || getText(activity, 'FinishDate')),
-          duration: getText(activity, 'PlannedDuration') || getText(activity, 'Duration') || '0',
-          percentComplete: getText(activity, 'PercentComplete') || '0',
-          totalFloat: getText(activity, 'TotalFloat') || '0',
-          status: getText(activity, 'Status') || 'Not Started',
-          wbs: getText(activity, 'WBSName') || getText(activity, 'WBSCode') || '',
-          location: extractLocationFromWBS(getText(activity, 'Name') || getText(activity, 'ActivityName') || '', getText(activity, 'WBSName') || getText(activity, 'WBSCode') || '')
-        }));
+        return activities.map((activity, i) => {
+          const activityName = getText(activity, 'Name') || getText(activity, 'ActivityName') || 'Unnamed Activity';
+          const wbs = getText(activity, 'WBSName') || getText(activity, 'WBSCode') || '';
+          const location = extractLocationFromWBS(activityName, wbs);
+          const detectedTrade = detectTradeFromActivity(activityName);
+          const isValidTradeLocation = location && detectedTrade ? validateTradeLocation(detectedTrade, location) : null;
+          
+          return {
+            id: getText(activity, 'Id') || getText(activity, 'ActivityId') || `ACT-${i+1}`,
+            name: activityName,
+            startDate: formatDate(getText(activity, 'PlannedStartDate') || getText(activity, 'StartDate')),
+            finishDate: formatDate(getText(activity, 'PlannedFinishDate') || getText(activity, 'FinishDate')),
+            duration: getText(activity, 'PlannedDuration') || getText(activity, 'Duration') || '0',
+            percentComplete: getText(activity, 'PercentComplete') || '0',
+            totalFloat: getText(activity, 'TotalFloat') || '0',
+            status: getText(activity, 'Status') || 'Not Started',
+            wbs: wbs,
+            location: location,
+            detectedTrade: detectedTrade,
+            isValidTradeLocation: isValidTradeLocation
+          };
+        });
       }
 
       function parseXERData(xerContent) {
@@ -323,18 +324,28 @@
         
         if (taskData.length === 0) throw new Error('No TASK records found in the XER file.');
         
-        return taskData.map((a, i) => ({
-          id: a.task_code || `XER-ACT-${i+1}`,
-          name: a.task_name || 'Unnamed Activity',
-          startDate: formatDate(a.early_start_date),
-          finishDate: formatDate(a.early_end_date),
-          duration: a.target_drtn_hr_cnt || '0',
-          percentComplete: a.phys_complete_pct || '0',
-          totalFloat: a.total_float_hr_cnt || '0',
-          status: a.status_code || 'Not Started',
-          wbs: a.wbs_id || '',
-          location: extractLocationFromWBS(a.task_name || '', a.wbs_id || '')
-        }));
+        return taskData.map((a, i) => {
+          const activityName = a.task_name || 'Unnamed Activity';
+          const wbs = a.wbs_id || '';
+          const location = extractLocationFromWBS(activityName, wbs);
+          const detectedTrade = detectTradeFromActivity(activityName);
+          const isValidTradeLocation = location && detectedTrade ? validateTradeLocation(detectedTrade, location) : null;
+          
+          return {
+            id: a.task_code || `XER-ACT-${i+1}`,
+            name: activityName,
+            startDate: formatDate(a.early_start_date),
+            finishDate: formatDate(a.early_end_date),
+            duration: a.target_drtn_hr_cnt || '0',
+            percentComplete: a.phys_complete_pct || '0',
+            totalFloat: a.total_float_hr_cnt || '0',
+            status: a.status_code || 'Not Started',
+            wbs: wbs,
+            location: location,
+            detectedTrade: detectedTrade,
+            isValidTradeLocation: isValidTradeLocation
+          };
+        });
       }
 
       function parseCSVData(csvContent) {
@@ -372,17 +383,24 @@
           const values = parseRow(lines[i]);
           if (values.length < headers.length) continue;
           const wbs = values[wbsIdx] || '';
+          const activityName = values[nameIdx] || 'Unnamed Activity';
+          const location = extractLocationFromWBS(activityName, wbs);
+          const detectedTrade = detectTradeFromActivity(activityName);
+          const isValidTradeLocation = location && detectedTrade ? validateTradeLocation(detectedTrade, location) : null;
+          
           activities.push({
             id: values[idIdx] || `CSV-ACT-${i}`,
-            name: values[nameIdx] || 'Unnamed Activity',
+            name: activityName,
             startDate: formatDate(values[startIdx]),
             finishDate: formatDate(values[finishIdx]),
             duration: values[durIdx] || '0',
             percentComplete: values[pctIdx] || '0',
             totalFloat: values[floatIdx] || '0',
             status: values[statusIdx] || 'Not Started',
-            wbs,
-            location: extractLocationFromWBS(values[nameIdx] || '', wbs)
+            wbs: wbs,
+            location: location,
+            detectedTrade: detectedTrade,
+            isValidTradeLocation: isValidTradeLocation
           });
         }
         
@@ -458,10 +476,14 @@
             
             // Extract WBS from outline number or name
             const wbs = task.outlineNumber || task.name || '';
+            const activityName = task.name || 'Unnamed Activity';
+            const location = extractLocationFromWBS(activityName, wbs);
+            const detectedTrade = detectTradeFromActivity(activityName);
+            const isValidTradeLocation = location && detectedTrade ? validateTradeLocation(detectedTrade, location) : null;
             
             return {
               id: task.id || task.uniqueID || `MPP-ACT-${index + 1}`,
-              name: task.name || 'Unnamed Activity',
+              name: activityName,
               startDate: startDate,
               finishDate: finishDate,
               duration: duration,
@@ -469,7 +491,9 @@
               totalFloat: task.totalSlack || '0',
               status: status,
               wbs: wbs,
-              location: extractLocationFromWBS(task.name || '', wbs)
+              location: location,
+              detectedTrade: detectedTrade,
+              isValidTradeLocation: isValidTradeLocation
             };
           }).filter(task => task !== null); // Remove null entries (summary tasks)
           
@@ -479,43 +503,99 @@
         }
       }
 
-      // --- Trade Filter System (from TSX) ---
+      // --- Trade Filter System (Updated with TradesLocations.csv data) ---
       const tradeKeywords = {
-        excavation: ['excavat', 'dig', 'earth', 'soil', 'grade', 'cut', 'fill', 'trenching', 'backfill'],
-        utilities: ['utility', 'utilities', 'water', 'sewer', 'gas', 'electric service', 'storm', 'drain'],
-        structural_steel: ['steel', 'beam', 'column', 'frame', 'structural steel', 'erection', 'welding'],
-        roofing: ['roof', 'shingle', 'membrane', 'flashing', 'gutter', 'downspout', 'metal deck', 'roof deck'],
-        structural_piles: ['pile', 'piles', 'foundation', 'caisson', 'pier', 'deep foundation'],
+        backfill: ['backfill', 'fill', 'earth', 'soil'],
+        booster_pump_system: ['booster pump', 'pump system', 'booster pump system installation'],
+        concrete_formwork: ['formwork', 'form', 'shoring', 'falsework', 'scaffolding', 'concrete formwork'],
         concrete_pour: ['pour', 'concrete pour', 'placement', 'concrete placement', 'slab', 'footing'],
-        concrete_formwork: ['form', 'formwork', 'shoring', 'falsework', 'scaffolding'],
-        concrete_rebar: ['rebar', 'reinforc', 'steel reinforc', 'reinforcing', 'bar'],
-        masonry: ['masonry', 'brick', 'block', 'stone', 'mortar'],
-        electrical: ['electrical', 'electric', 'wiring', 'conduit', 'panel', 'lighting'],
-        plumbing: ['plumb', 'pipe', 'piping', 'fixture', 'valve'],
-        hvac: ['hvac', 'heating', 'cooling', 'ventilation', 'duct', 'air condition'],
-        insulation: ['insulat', 'thermal', 'vapor barrier', 'roofing insulation'],
-        drywall: ['drywall', 'gypsum', 'sheetrock', 'taping', 'finishing'],
-        flooring: ['floor', 'carpet', 'tile', 'hardwood', 'vinyl'],
-        painting: ['paint', 'coating', 'finish', 'primer'],
-        landscaping: ['landscape', 'plant', 'irrigation', 'lawn', 'tree'],
-        other_trades: ['trade', 'specialty', 'subcontractor']
+        concrete_rebar: ['rebar', 'reinforc', 'steel reinforc', 'reinforcing', 'bar', 'concrete rebar'],
+        conveyance: ['conveyance', 'conveyor', 'material handling'],
+        dwtr_installation: ['dwtr', 'dwtr installation', 'water treatment'],
+        electrical_conduit: ['electrical yard equipment conduit', 'conduit', 'electrical conduit'],
+        electrical_placement: ['electrical yard equipment placement', 'electrical equipment', 'electrical placement'],
+        generator_placement: ['generator placement', 'generator', 'gen'],
+        mwt_installation: ['mwt', 'mwt installation', 'water treatment'],
+        mechanical_placement: ['mechanical yard equipment placement', 'mechanical equipment', 'mechanical placement'],
+        roofing_flashing: ['roofing flashing', 'flashing', 'roof flashing'],
+        roofing_insulation: ['roofing insulation', 'insulation', 'roof insulation'],
+        roofing_membrane: ['roofing membrane', 'membrane', 'roof membrane'],
+        roofing_metal_deck: ['roofing metal deck', 'metal deck', 'roof deck'],
+        structural_piles: ['structural piles', 'piles', 'foundation', 'caisson', 'pier'],
+        structural_steel: ['structural steel', 'steel', 'beam', 'column', 'frame', 'erection', 'welding']
       };
 
       // Trade filter state
       let selectedTrades = {
-        excavation: false, utilities: false, structural_steel: false, roofing: false,
-        structural_piles: false, concrete_pour: false, concrete_formwork: false, concrete_rebar: false,
-        masonry: false, electrical: false, plumbing: false, hvac: false, insulation: false,
-        drywall: false, flooring: false, painting: false, landscaping: false, other_trades: false
+        backfill: false, booster_pump_system: false, concrete_formwork: false, concrete_pour: false,
+        concrete_rebar: false, conveyance: false, dwtr_installation: false, electrical_conduit: false,
+        electrical_placement: false, generator_placement: false, mwt_installation: false,
+        mechanical_placement: false, roofing_flashing: false, roofing_insulation: false,
+        roofing_membrane: false, roofing_metal_deck: false, structural_piles: false, structural_steel: false
       };
       let customKeywords = '';
       let excludeKeywords = ['rfp', 'rfi', 'approval', 'submittal', 'review', 'meeting', 'mobilization', 
                             'demobilization', 'permit', 'inspection', 'testing', 'close out', 'closeout',
                             'procurement', 'ordering', 'delivery', 'schedule', 'planning', 'coordination'];
 
-      // --- Location Multiselect Logic ---
+      // --- Trade-Location Validation Database ---
+      let tradesLocationsDB = {};
+      
+      // Load the TradesLocations.csv database
+      async function loadTradesLocationsDB() {
+        try {
+          const response = await fetch('../TradesLocations.csv');
+          const csvText = await response.text();
+          const lines = csvText.split('\n').filter(line => line.trim());
+          
+          if (lines.length < 2) {
+            console.warn('TradesLocations.csv not found or invalid, using fallback validation');
+            return;
+          }
+          
+          const headers = lines[0].split(',').map(h => h.trim());
+          const trades = headers.slice(1); // First column is Location
+          
+          for (let i = 1; i < lines.length; i++) {
+            const values = lines[i].split(',').map(v => v.trim());
+            const location = values[0];
+            tradesLocationsDB[location] = {};
+            
+            for (let j = 1; j < values.length; j++) {
+              const trade = trades[j - 1];
+              tradesLocationsDB[location][trade] = values[j] === 'Y';
+            }
+          }
+          
+          console.log('TradesLocations database loaded:', tradesLocationsDB);
+        } catch (error) {
+          console.warn('Could not load TradesLocations.csv:', error);
+        }
+      }
+
+      // Validate if a trade is allowed at a location
+      function validateTradeLocation(trade, location) {
+        if (!tradesLocationsDB[location] || !tradesLocationsDB[location][trade]) {
+          return false;
+        }
+        return tradesLocationsDB[location][trade];
+      }
+
+      // Detect trade from activity name
+      function detectTradeFromActivity(activityName) {
+        const activityText = activityName.toLowerCase();
+        
+        for (const [tradeKey, keywords] of Object.entries(tradeKeywords)) {
+          if (keywords.some(keyword => activityText.includes(keyword))) {
+            return tradeKey;
+          }
+        }
+        return null;
+      }
+
+      // --- Location Multiselect Logic (Updated with TradesLocations.csv data) ---
       const locationCodes = [
-        'DCH', 'EYD', 'MYD', 'FSA', 'GEN YARD', 'CONVEYANCE', 'MCP', 'USS', 'PERUN'
+        'DCH', 'EYD', 'MYD', 'Conveyance', 'DWTR', 'Fire Pump House', 'GPS', 'SSS', 'GEN YARD', 'USS YARD', 'MCP', 'Loading Dock'
       ];
       let selectedLocations = [...locationCodes]; // Default: all selected
 
@@ -604,12 +684,13 @@
       const addExcludeKeyword = document.getElementById('addExcludeKeyword');
       const clearExcludeKeywords = document.getElementById('clearExcludeKeywords');
       const zoneFilter = document.getElementById('zoneFilter');
-      const dataCentreCodes = ['DCH','EYD','MYD','FSA','GEN YARD','CONVEYANCE','MCP','USS','PERUN'];
+      const dataCentreCodes = ['DCH','EYD','MYD','Conveyance','DWTR','Fire Pump House','GPS','SSS','GEN YARD','USS YARD','MCP','Loading Dock'];
       let viewMode = 'standard'; // 'standard' or 'dataCentre'
       const standardViewBtn = document.getElementById('standardViewBtn');
       const dataCentreViewBtn = document.getElementById('dataCentreViewBtn');
       const dataCentreViewDiv = document.getElementById('dataCentreView');
       const processBtn = document.getElementById('processBtn');
+      const validationBtn = document.getElementById('validationBtn');
       let selectedFile = null;
 
       function showMessage(msg, type) {
@@ -845,6 +926,14 @@
               </span>
             </td>
             <td class="px-4 py-3 text-sm text-slate-600">${a.wbs}</td>
+            <td class="px-4 py-3">
+              ${a.isValidTradeLocation === null ? 
+                '<span class="inline-flex px-2 py-1 text-xs font-medium rounded-full bg-gray-100 text-gray-800">No Trade Detected</span>' :
+                a.isValidTradeLocation ? 
+                '<span class="inline-flex px-2 py-1 text-xs font-medium rounded-full bg-green-100 text-green-800">✓ Valid</span>' :
+                '<span class="inline-flex px-2 py-1 text-xs font-medium rounded-full bg-red-100 text-red-800">✗ Invalid</span>'
+              }
+            </td>
           `;
           tbody.appendChild(tr);
         });
@@ -1097,6 +1186,7 @@
         
         renderTable(filteredActivities);
         exportBtn.disabled = filteredActivities.length === 0;
+        validationBtn.disabled = filteredActivities.length === 0;
         if (viewMode === 'dataCentre') renderDataCentreView();
       }
 
@@ -1168,6 +1258,87 @@
         showMessage(`Exported ${filteredActivities.length} activities to CSV`, 'success');
       });
 
+      // Validation report functionality
+      validationBtn.addEventListener('click', () => {
+        if (!filteredActivities.length) return;
+        
+        const validationStats = {
+          total: filteredActivities.length,
+          valid: 0,
+          invalid: 0,
+          noTrade: 0,
+          noLocation: 0,
+          invalidCombinations: []
+        };
+        
+        filteredActivities.forEach(activity => {
+          if (!activity.location) {
+            validationStats.noLocation++;
+          } else if (activity.isValidTradeLocation === null) {
+            validationStats.noTrade++;
+          } else if (activity.isValidTradeLocation) {
+            validationStats.valid++;
+          } else {
+            validationStats.invalid++;
+            if (activity.detectedTrade && activity.location) {
+              validationStats.invalidCombinations.push({
+                activity: activity.name,
+                trade: activity.detectedTrade,
+                location: activity.location
+              });
+            }
+          }
+        });
+        
+        const report = `
+          <div class="bg-white border border-gray-200 rounded-lg shadow-lg p-6 max-w-2xl">
+            <h3 class="text-lg font-semibold text-gray-800 mb-4">Validation Report</h3>
+            <div class="grid grid-cols-2 gap-4 mb-4">
+              <div class="text-center p-3 bg-green-50 rounded-lg">
+                <div class="text-2xl font-bold text-green-600">${validationStats.valid}</div>
+                <div class="text-sm text-green-700">Valid</div>
+              </div>
+              <div class="text-center p-3 bg-red-50 rounded-lg">
+                <div class="text-2xl font-bold text-red-600">${validationStats.invalid}</div>
+                <div class="text-sm text-red-700">Invalid</div>
+              </div>
+              <div class="text-center p-3 bg-gray-50 rounded-lg">
+                <div class="text-2xl font-bold text-gray-600">${validationStats.noTrade}</div>
+                <div class="text-sm text-gray-700">No Trade Detected</div>
+              </div>
+              <div class="text-center p-3 bg-yellow-50 rounded-lg">
+                <div class="text-2xl font-bold text-yellow-600">${validationStats.noLocation}</div>
+                <div class="text-sm text-yellow-700">No Location</div>
+              </div>
+            </div>
+            ${validationStats.invalidCombinations.length > 0 ? `
+              <div class="mt-4">
+                <h4 class="font-medium text-gray-800 mb-2">Invalid Trade-Location Combinations:</h4>
+                <div class="max-h-40 overflow-y-auto">
+                  ${validationStats.invalidCombinations.map(item => 
+                    `<div class="text-sm text-red-600 mb-1">• ${item.activity} (${item.trade} at ${item.location})</div>`
+                  ).join('')}
+                </div>
+              </div>
+            ` : ''}
+          </div>
+        `;
+        
+        // Show as modal
+        const modal = document.createElement('div');
+        modal.className = 'fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50';
+        modal.innerHTML = `
+          <div class="relative">
+            ${report}
+            <button onclick="this.closest('.fixed').remove()" class="absolute top-2 right-2 text-gray-400 hover:text-gray-600">
+              <i data-lucide="x" class="w-6 h-6"></i>
+            </button>
+          </div>
+        `;
+        document.body.appendChild(modal);
+        lucide.createIcons();
+      });
+
       zoneFilter.addEventListener('change', filterActivities);
 
       // View mode toggle buttons
@@ -1179,6 +1350,9 @@
       
       // Initialize location filter
       initializeLocationFilter();
+      
+      // Load the trades-locations database
+      loadTradesLocationsDB();
       
       // Initial state
       filterActivities();
