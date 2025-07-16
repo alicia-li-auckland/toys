@@ -111,12 +111,20 @@
                         <!-- Legend -->
                         <div class="p-3 border-b border-slate-200 flex items-center gap-6 text-sm">
                             <div class="flex items-center gap-2">
-                                <div class="w-10 h-4 rounded border-2 border-slate-400"></div>
+                                <div class="w-10 h-4 rounded border-2 border-blue-500"></div>
                                 <span class="text-slate-600 font-medium">Planned Schedule</span>
                             </div>
                             <div class="flex items-center gap-2">
-                                <div class="w-10 h-4 rounded bg-slate-400"></div>
-                                <span class="text-slate-600 font-medium">Actual Progress</span>
+                                <div class="w-10 h-4 rounded bg-blue-500"></div>
+                                <span class="text-slate-600 font-medium">In Progress (50%)</span>
+                            </div>
+                            <div class="flex items-center gap-2">
+                                <div class="w-10 h-4 rounded bg-green-500"></div>
+                                <span class="text-slate-600 font-medium">Completed</span>
+                            </div>
+                            <div class="flex items-center gap-2">
+                                <div class="w-10 h-4 rounded border-2 border-red-500 bg-red-500"></div>
+                                <span class="text-slate-600 font-medium">Delayed</span>
                             </div>
                         </div>
 
@@ -147,7 +155,7 @@
                         <div class="p-3 border-b border-slate-200 flex items-center gap-4">
                             <input type="file" id="csv-upload" accept=".csv" class="block text-sm text-slate-500 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-medium file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100 transition-colors">
                             <button id="process-csv-btn" class="px-4 py-2 rounded-lg bg-blue-600 text-white font-semibold text-sm disabled:bg-slate-300 disabled:cursor-not-allowed" disabled>Process</button>
-                            <span class="text-xs text-slate-500">CSV format: Location,Activity ID,Activity Name,Start Date,Finish Date,Duration</span>
+                            <span class="text-xs text-slate-500">CSV format: Location,Trade,Status,Start Date,Finish Date,Duration (from Word to CSV converter)</span>
                         </div>
 
                         <!-- Timeline Grid -->
@@ -246,24 +254,93 @@
     function buildTreeFromCsv(rows) {
         const root = { id: 'root', name: 'Project', level: 0, children: [] };
         const locationMap = {};
+        
+        // Location matching function - attempts to match Word to CSV locations with timeline locations
+        function matchLocation(wordLocation) {
+            if (!wordLocation) return 'Unknown';
+            
+            const wordLoc = wordLocation.toLowerCase();
+            
+            // Direct matches
+            const directMatches = {
+                'dch': 'DCH',
+                'eyd': 'EYD', 
+                'myd': 'MYD',
+                'conveyance': 'Conveyance',
+                'dwtr': 'DWTR',
+                'fire pump house': 'Fire Pump House',
+                'gps': 'GPS',
+                'sss': 'SSS',
+                'gen yard': 'GEN YARD',
+                'uss yard': 'USS YARD',
+                'mcp': 'MCP',
+                'loading dock': 'Loading Dock'
+            };
+            
+            // Check for direct matches
+            for (const [key, value] of Object.entries(directMatches)) {
+                if (wordLoc.includes(key)) {
+                    return value;
+                }
+            }
+            
+            // Check for partial matches (e.g., DCH1-3 -> DCH)
+            const partialMatches = {
+                'dch': 'DCH',
+                'eyd': 'EYD',
+                'myd': 'MYD'
+            };
+            
+            for (const [key, value] of Object.entries(partialMatches)) {
+                if (wordLoc.includes(key)) {
+                    return value;
+                }
+            }
+            
+            // Check for number patterns (e.g., DCH1, DCH2, etc.)
+            const numberPatterns = [
+                { pattern: /dch\d+/i, match: 'DCH' },
+                { pattern: /eyd\d+/i, match: 'EYD' },
+                { pattern: /myd\d+/i, match: 'MYD' }
+            ];
+            
+            for (const { pattern, match } of numberPatterns) {
+                if (pattern.test(wordLoc)) {
+                    return match;
+                }
+            }
+            
+            return wordLocation; // Return original if no match found
+        }
+        
         rows.forEach(row => {
-            const location = row['location'] || 'Unknown';
-            if (!locationMap[location]) {
-                locationMap[location] = {
-                    id: location.replace(/\s+/g, '-').toLowerCase(),
-                    name: location,
+            const originalLocation = row['location'] || 'Unknown';
+            const matchedLocation = matchLocation(originalLocation);
+            
+            if (!locationMap[matchedLocation]) {
+                locationMap[matchedLocation] = {
+                    id: matchedLocation.replace(/\s+/g, '-').toLowerCase(),
+                    name: matchedLocation,
                     level: 1,
                     children: [],
                 };
-                root.children.push(locationMap[location]);
+                root.children.push(locationMap[matchedLocation]);
             }
-            locationMap[location].children.push({
-                id: row['activity id'] || row['activity name'],
-                name: row['activity name'],
+            
+            // Create activity name from trade and status
+            const trade = row['trade'] || 'Unknown Trade';
+            const status = row['status'] || 'Unknown Status';
+            const activityName = `${trade} - ${status}`;
+            
+            locationMap[matchedLocation].children.push({
+                id: `${matchedLocation}-${trade}-${status}`.replace(/\s+/g, '-').toLowerCase(),
+                name: activityName,
                 level: 3, // <-- set to 3 so bars are rendered
-                location: location,
-                activityId: row['activity id'],
-                activityName: row['activity name'],
+                location: matchedLocation,
+                originalLocation: originalLocation,
+                trade: trade,
+                status: status,
+                activityName: activityName,
                 startDate: row['start date'],
                 endDate: row['finish date'],
                 duration: row['duration']
@@ -355,7 +432,7 @@
                         `;
                         hierarchyBody.appendChild(row);
                         if(isVisible) rowIndex++;
-                        // Timeline bar
+                        // Timeline bar with status-based rendering
                         const plannedStart = parseDateSafe(item.startDate);
                         const plannedEnd = parseDateSafe(item.endDate);
                         if (plannedStart && plannedEnd && isVisible) {
@@ -363,8 +440,49 @@
                             const plannedDurationDays = Math.max(1, getDaysBetween(plannedStart, plannedEnd));
                             const plannedLeft = plannedOffsetDays * dayWidth;
                             const plannedWidth = plannedDurationDays * dayWidth;
-                            const outlineColor = 'border-blue-500';
-                            timelineBarsHtml += `<div class="absolute h-10 flex items-center" style="top: ${(rowIndex - 1) * 40}px; left: ${plannedLeft}px; width: ${plannedWidth}px;"><div class="h-6 w-full rounded border-2 ${outlineColor}" title="${item.activityName || item.name} (Planned)"></div></div>`;
+                            
+                            // Status-based rendering logic
+                            const status = item.status ? item.status.toLowerCase() : '';
+                            let fillWidth = 0;
+                            let fillColor = 'bg-transparent';
+                            let isDelayed = false;
+                            
+                            if (status.includes('not started')) {
+                                fillWidth = 0; // No fill
+                                fillColor = 'bg-transparent';
+                            } else if (status.includes('in progress')) {
+                                fillWidth = plannedWidth * 0.5; // 50% fill
+                                fillColor = 'bg-blue-500';
+                            } else if (status.includes('complete') || status.includes('completed')) {
+                                fillWidth = plannedWidth; // 100% fill
+                                fillColor = 'bg-green-500';
+                                
+                                // Check if completed date is over schedule date (delayed)
+                                const completedDate = parseDateSafe(item.endDate);
+                                if (completedDate && plannedEnd && completedDate > plannedEnd) {
+                                    isDelayed = true;
+                                    fillColor = 'bg-red-500';
+                                }
+                            } else if (status.includes('delayed') || status.includes('behind')) {
+                                fillWidth = plannedWidth * 0.3; // Show some progress but mark as delayed
+                                fillColor = 'bg-red-500';
+                                isDelayed = true;
+                            } else {
+                                // Default: show as not started
+                                fillWidth = 0;
+                                fillColor = 'bg-transparent';
+                            }
+                            
+                            const outlineColor = isDelayed ? 'border-red-500' : 'border-blue-500';
+                            const fillStyle = fillWidth > 0 ? `style="width: ${fillWidth}px;"` : '';
+                            
+                            timelineBarsHtml += `
+                                <div class="absolute h-10 flex items-center" style="top: ${(rowIndex - 1) * 40}px; left: ${plannedLeft}px; width: ${plannedWidth}px;">
+                                    <div class="h-6 w-full rounded border-2 ${outlineColor} relative overflow-hidden" title="${item.activityName || item.name} (${item.status || 'Unknown Status'})">
+                                        ${fillWidth > 0 ? `<div class="h-full ${fillColor} rounded" ${fillStyle}></div>` : ''}
+                                    </div>
+                                </div>
+                            `;
                         }
                     }
                 });
@@ -602,10 +720,11 @@
             // Map normalized headers to expected keys
             const headerMap = {
                 'location': 'location',
-                'activity id': 'activity id',
-                'activity name': 'activity name',
+                'trade': 'trade',
+                'status': 'status',
                 'start date': 'start date',
                 'finish date': 'finish date',
+                'end date': 'finish date', // Alternative header name
                 'duration': 'duration'
             };
             const headers = rawHeaders.map(h => headerMap[h] || h);
@@ -644,12 +763,12 @@
          * @param {Object} task
          */
         function showHoverCard(event, task) {
-            document.getElementById('hover-card-img').src = `https://placehold.co/600x400/a3a3a3/ffffff?text=${encodeURIComponent(task.activityName)}`;
-            document.getElementById('hover-card-title').textContent = task.activityName;
+            document.getElementById('hover-card-img').src = `https://placehold.co/600x400/a3a3a3/ffffff?text=${encodeURIComponent(task.trade || task.activityName)}`;
+            document.getElementById('hover-card-title').textContent = task.trade || task.activityName;
             document.getElementById('hover-card-group').textContent = task.location;
-            document.getElementById('hover-card-status').textContent = task.status;
-            document.getElementById('hover-card-planned').textContent = `${task.startDate} to ${task.endDate}`;
-            document.getElementById('hover-card-actual').textContent = `${task.actualStartDate} to ${task.actualEndDate || 'Present'}`;
+            document.getElementById('hover-card-status').textContent = task.status || 'Unknown';
+            document.getElementById('hover-card-planned').textContent = `${task.startDate || 'Not set'} to ${task.endDate || 'Not set'}`;
+            document.getElementById('hover-card-actual').textContent = task.originalLocation ? `Original: ${task.originalLocation}` : 'No original location';
             hoverCard.classList.remove('hidden');
             setTimeout(() => hoverCard.classList.remove('opacity-0'), 10); // Fade in
             positionHoverCard(event);
@@ -675,13 +794,13 @@
         }
 
         function exportCsv(activities) {
-    const headers = ['Location','Activity ID','Activity Name','Start Date','Finish Date','Duration'];
+    const headers = ['Location','Trade','Status','Start Date','Finish Date','Duration'];
     const rows = [headers.join(',')];
     activities.forEach(a => {
         rows.push([
             a.location || '',
-            a.activityId || a.id || '',
-            a.activityName || a.name || '',
+            a.trade || '',
+            a.status || '',
             a.startDate || '',
             a.endDate || '',
             a.duration || ''
@@ -690,7 +809,7 @@
     const blob = new Blob([rows.join('\n')], {type:'text/csv'});
     const link = document.createElement('a');
     link.href = URL.createObjectURL(blob);
-    link.download = 'filtered_schedule.csv';
+    link.download = 'timeline_export.csv';
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
