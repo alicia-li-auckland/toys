@@ -158,6 +158,44 @@
                             <span class="text-xs text-slate-500">CSV format: Location,Trade,Status,Start Date,Finish Date,Duration (from Word to CSV converter)</span>
                         </div>
 
+                        <!-- Schedule Upload UI -->
+                        <div class="p-3 border-b border-slate-200 flex items-center gap-4">
+                            <div class="flex items-center gap-2">
+                                <i data-lucide="calendar" class="w-4 h-4 text-green-600"></i>
+                                <span class="text-sm font-medium text-slate-700">Schedule:</span>
+                            </div>
+                            <input type="file" id="schedule-upload" accept=".csv,.xml,.xer,.mpp,.pp" class="block text-sm text-slate-500 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-medium file:bg-green-50 file:text-green-700 hover:file:bg-green-100 transition-colors">
+                            <button id="process-schedule-btn" class="px-4 py-2 rounded-lg bg-green-600 text-white font-semibold text-sm disabled:bg-slate-300 disabled:cursor-not-allowed" disabled>Load Schedule</button>
+                            <span class="text-xs text-slate-500">Upload schedule from Schedule Converter</span>
+                        </div>
+
+                        <!-- Actualized Work Upload UI -->
+                        <div class="p-3 border-b border-slate-200 flex items-center gap-4">
+                            <div class="flex items-center gap-2">
+                                <i data-lucide="check-circle" class="w-4 h-4 text-orange-600"></i>
+                                <span class="text-sm font-medium text-slate-700">Actualized Work:</span>
+                            </div>
+                            <input type="file" id="actualized-upload" accept=".csv" class="block text-sm text-slate-500 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-medium file:bg-orange-50 file:text-orange-700 hover:file:bg-orange-100 transition-colors">
+                            <button id="process-actualized-btn" class="px-4 py-2 rounded-lg bg-orange-600 text-white font-semibold text-sm disabled:bg-slate-300 disabled:cursor-not-allowed" disabled>Update Progress</button>
+                            <span class="text-xs text-slate-500">CSV format: Location,Trade,Status (matches with schedule using Location+Trade)</span>
+                            <div id="data-status" class="flex items-center gap-2 text-xs">
+                                <span id="schedule-status" class="px-2 py-1 rounded bg-slate-100 text-slate-600">No Schedule</span>
+                                <span id="actualized-status" class="px-2 py-1 rounded bg-slate-100 text-slate-600">No Actualized Data</span>
+                            </div>
+                        </div>
+
+                        <!-- Trades-Locations Mapping Upload UI -->
+                        <div class="p-3 border-b border-slate-200 flex items-center gap-4">
+                            <div class="flex items-center gap-2">
+                                <i data-lucide="map" class="w-4 h-4 text-purple-600"></i>
+                                <span class="text-sm font-medium text-slate-700">Trades-Locations Mapping:</span>
+                            </div>
+                            <input type="file" id="trades-locations-upload" accept=".csv" class="block text-sm text-slate-500 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-medium file:bg-purple-50 file:text-purple-700 hover:file:bg-purple-100 transition-colors">
+                            <button id="process-trades-locations-btn" class="px-4 py-2 rounded-lg bg-purple-600 text-white font-semibold text-sm disabled:bg-slate-300 disabled:cursor-not-allowed" disabled>Load Mapping</button>
+                            <span class="text-xs text-slate-500">CSV format: Location,Trade (validates location-trade combinations)</span>
+                            <span id="trades-locations-status" class="px-2 py-1 rounded bg-slate-100 text-slate-600 text-xs">No Mapping</span>
+                        </div>
+
                         <!-- Timeline Grid -->
                         <div class="timeline-grid-wrapper custom-scrollbar">
                             <!-- Corner block -->
@@ -208,6 +246,9 @@
     const dayWidth = 4; // Condensed width per day for monthly view
     let today = new Date('2025-07-03T00:00:00Z'); // Default date
     let projectData; // Global project data
+    let scheduleData; // Global schedule data from schedule converter
+    let actualizedWorkData; // Global actualized work data
+    let tradesLocationsMap; // Global trades per location mapping
     let overallStartDate, overallEndDate, totalDays;
     let hideCardTimeout;
 
@@ -349,6 +390,394 @@
         return root;
     }
 
+    // --- Schedule and Actualized Work Processing ---
+    
+    /**
+     * Processes schedule data from schedule converter
+     * @param {Array} rows - CSV rows from schedule converter
+     */
+    function processScheduleData(rows) {
+        scheduleData = rows;
+        console.log('Schedule data loaded:', scheduleData.length, 'activities');
+        
+        // Create a lookup map for quick matching
+        scheduleData.lookupMap = new Map();
+        scheduleData.forEach(row => {
+            const location = (row['location'] || '').toLowerCase().trim();
+            const trade = (row['trade'] || '').toLowerCase().trim();
+            const key = `${location}|${trade}`;
+            scheduleData.lookupMap.set(key, row);
+        });
+        
+        // Convert schedule data to project data structure for timeline
+        const treeData = buildTreeFromScheduleData(rows);
+        processData(treeData);
+        
+        // Update status indicator
+        scheduleStatus.textContent = `Schedule (${scheduleData.length} activities)`;
+        scheduleStatus.className = 'px-2 py-1 rounded bg-green-100 text-green-600 text-xs';
+        
+        showToast('Schedule loaded successfully', 'success');
+    }
+    
+    /**
+     * Builds timeline tree structure from schedule data
+     * @param {Array} rows - Schedule data rows
+     * @returns {Object} Tree structure for timeline
+     */
+    function buildTreeFromScheduleData(rows) {
+        const root = { id: 'root', name: 'Project', level: 0, children: [] };
+        const locationMap = {};
+        
+        // Location matching function - attempts to match schedule locations with timeline locations
+        function matchLocation(scheduleLocation) {
+            if (!scheduleLocation) return 'Unknown';
+            
+            const scheduleLoc = scheduleLocation.toLowerCase();
+            
+            // Direct matches
+            const directMatches = {
+                'dch': 'DCH',
+                'eyd': 'EYD', 
+                'myd': 'MYD',
+                'conveyance': 'Conveyance',
+                'dwtr': 'DWTR',
+                'fire pump house': 'Fire Pump House',
+                'gps': 'GPS',
+                'sss': 'SSS',
+                'gen yard': 'GEN YARD',
+                'uss yard': 'USS YARD',
+                'mcp': 'MCP',
+                'loading dock': 'Loading Dock',
+                'booster pump system': 'Booster Pump System'
+            };
+            
+            // Check for direct matches
+            for (const [key, value] of Object.entries(directMatches)) {
+                if (scheduleLoc.includes(key)) {
+                    return value;
+                }
+            }
+            
+            // Check for partial matches (e.g., DCH1-3 -> DCH)
+            const partialMatches = {
+                'dch': 'DCH',
+                'eyd': 'EYD',
+                'myd': 'MYD'
+            };
+            
+            for (const [key, value] of Object.entries(partialMatches)) {
+                if (scheduleLoc.includes(key)) {
+                    return value;
+                }
+            }
+            
+            // Check for number patterns (e.g., DCH1, DCH2, etc.)
+            const numberPatterns = [
+                { pattern: /dch\d+/i, match: 'DCH' },
+                { pattern: /eyd\d+/i, match: 'EYD' },
+                { pattern: /myd\d+/i, match: 'MYD' }
+            ];
+            
+            for (const { pattern, match } of numberPatterns) {
+                if (pattern.test(scheduleLoc)) {
+                    return match;
+                }
+            }
+            
+            return scheduleLocation; // Return original if no match found
+        }
+        
+        rows.forEach(row => {
+            const originalLocation = row['location'] || 'Unknown';
+            const matchedLocation = matchLocation(originalLocation);
+            const trade = row['trade'] || 'Unknown Trade';
+            const startDate = row['start date'] || row['start'] || '';
+            const endDate = row['finish date'] || row['end date'] || row['finish'] || row['end'] || '';
+            const duration = row['duration'] || '';
+            
+            if (!locationMap[matchedLocation]) {
+                locationMap[matchedLocation] = {
+                    id: matchedLocation.replace(/\s+/g, '-').toLowerCase(),
+                    name: matchedLocation,
+                    level: 1,
+                    children: [],
+                };
+                root.children.push(locationMap[matchedLocation]);
+            }
+            
+            // Create activity name from trade
+            const activityName = trade;
+            
+            // Validate location-trade combination if mapping is available
+            let validationStatus = 'unknown';
+            if (tradesLocationsMap) {
+                const isValid = isValidLocationTradeCombination(matchedLocation, trade);
+                validationStatus = isValid ? 'valid' : 'invalid';
+            }
+            
+            locationMap[matchedLocation].children.push({
+                id: `${matchedLocation}-${trade}`.replace(/\s+/g, '-').toLowerCase(),
+                name: activityName,
+                level: 3, // Set to 3 so bars are rendered
+                location: matchedLocation,
+                originalLocation: originalLocation,
+                trade: trade,
+                startDate: startDate,
+                endDate: endDate,
+                duration: duration,
+                validationStatus: validationStatus,
+                // Default status - will be updated by actualized work
+                status: 'Not Started'
+            });
+        });
+        
+        return root;
+    }
+    
+    /**
+     * Processes actualized work data and matches with schedule
+     * @param {Array} rows - CSV rows with Location, Trade, Status
+     */
+    function processActualizedWork(rows) {
+        actualizedWorkData = rows;
+        console.log('Actualized work data loaded:', actualizedWorkData.length, 'activities');
+        
+        if (!projectData || !Array.isArray(projectData.children)) {
+            showToast('Please load schedule data first', 'error');
+            return;
+        }
+        
+        // Match actualized work with schedule items
+        let matchedCount = 0;
+        let unmatchedCount = 0;
+        let invalidCombinations = 0;
+        let suggestions = [];
+        
+        actualizedWorkData.forEach(actualizedRow => {
+            const location = (actualizedRow['location'] || '').toLowerCase().trim();
+            const trade = (actualizedRow['trade'] || '').toLowerCase().trim();
+            const status = (actualizedRow['status'] || '').toLowerCase().trim();
+            const key = `${location}|${trade}`;
+            
+            // Validate location-trade combination if mapping is loaded
+            if (tradesLocationsMap && !isValidLocationTradeCombination(location, trade)) {
+                invalidCombinations++;
+                const suggestionsForThis = suggestSimilarTrades(location, trade);
+                if (suggestionsForThis.length > 0) {
+                    suggestions.push({
+                        location: actualizedRow['location'],
+                        trade: actualizedRow['trade'],
+                        suggestions: suggestionsForThis
+                    });
+                }
+            }
+            
+            // Find matching schedule item in project data
+            let foundItem = null;
+            function findInProjectData(items) {
+                if (!Array.isArray(items)) return;
+                items.forEach(item => {
+                    if (item.level === 3 && item.location && item.trade) {
+                        const itemLocation = item.location.toLowerCase().trim();
+                        const itemTrade = item.trade.toLowerCase().trim();
+                        if (itemLocation === location && itemTrade === trade) {
+                            foundItem = item;
+                        }
+                    }
+                    if (item.children) findInProjectData(item.children);
+                });
+            }
+            findInProjectData(projectData.children);
+            
+            if (foundItem) {
+                // Update project item with actualized status
+                foundItem.actualizedStatus = actualizedRow['status'];
+                foundItem.actualizedLocation = actualizedRow['location'];
+                foundItem.actualizedTrade = actualizedRow['trade'];
+                matchedCount++;
+                
+                // Parse completion date if provided in status
+                const completionDateMatch = status.match(/completed on (\d{4}-\d{2}-\d{2})/i);
+                if (completionDateMatch) {
+                    foundItem.actualCompletionDate = completionDateMatch[1];
+                }
+            } else {
+                unmatchedCount++;
+                console.log('No schedule match found for:', location, trade);
+            }
+        });
+        
+        // Update status indicator
+        let statusText = `Actualized (${matchedCount} matched, ${unmatchedCount} unmatched)`;
+        if (invalidCombinations > 0) {
+            statusText += `, ${invalidCombinations} invalid`;
+        }
+        actualizedStatus.textContent = statusText;
+        actualizedStatus.className = 'px-2 py-1 rounded bg-orange-100 text-orange-600 text-xs';
+        
+        // Show detailed feedback
+        let message = `Matched ${matchedCount} activities, ${unmatchedCount} unmatched`;
+        if (invalidCombinations > 0) {
+            message += `, ${invalidCombinations} invalid combinations`;
+        }
+        showToast(message, 'info');
+        
+        // Show suggestions if any
+        if (suggestions.length > 0) {
+            console.log('Suggestions for invalid combinations:', suggestions);
+            setTimeout(() => {
+                showToast(`${suggestions.length} suggestions available for invalid combinations`, 'info');
+            }, 1000);
+        }
+        
+        // Re-render the timeline to show updated bars
+        render();
+    }
+    
+    /**
+     * Shows a toast notification
+     */
+    function showToast(message, type = 'info') {
+        const toast = document.getElementById('toast');
+        const typeClasses = {
+            success: 'bg-green-500 text-white',
+            error: 'bg-red-500 text-white',
+            info: 'bg-blue-500 text-white'
+        };
+        
+        toast.className = `fixed bottom-4 right-4 z-50 px-4 py-2 rounded-lg shadow-lg ${typeClasses[type] || typeClasses.info}`;
+        toast.textContent = message;
+        toast.classList.remove('translate-y-full');
+        
+        setTimeout(() => {
+            toast.classList.add('translate-y-full');
+        }, 3000);
+    }
+    
+    /**
+     * Loads and processes trades-locations mapping
+     * @param {Array} rows - CSV rows with Location, Trade
+     */
+    function loadTradesLocationsMapping(rows) {
+        tradesLocationsMap = new Map();
+        
+        if (rows.length === 0) return;
+        
+        // Check if this is a matrix format (first row has trade names as headers)
+        const firstRow = rows[0];
+        const isMatrixFormat = Object.keys(firstRow).length > 2 && 
+                              Object.keys(firstRow).some(key => key.toLowerCase() !== 'location' && key.trim() !== '');
+        
+        if (isMatrixFormat) {
+            // Matrix format: Location is first column, trades are other columns with Y values
+            const tradeColumns = Object.keys(firstRow).filter(key => key.toLowerCase() !== 'location' && key.trim() !== '');
+            
+            rows.forEach(row => {
+                const location = (row['location'] || '').toLowerCase().trim();
+                if (!location) return;
+                
+                const validTrades = new Set();
+                tradeColumns.forEach(trade => {
+                    const value = (row[trade] || '').toString().toLowerCase().trim();
+                    if (value === 'y' || value === 'yes' || value === 'true' || value === '1') {
+                        validTrades.add(trade.toLowerCase().trim());
+                    }
+                });
+                
+                if (validTrades.size > 0) {
+                    tradesLocationsMap.set(location, validTrades);
+                }
+            });
+            
+            console.log('Matrix format detected. Loaded trades-locations mapping:', tradesLocationsMap.size, 'locations');
+        } else {
+            // Standard format: Location, Trade columns
+            rows.forEach(row => {
+                const location = (row['location'] || '').toLowerCase().trim();
+                const trade = (row['trade'] || '').toLowerCase().trim();
+                
+                if (location && trade) {
+                    if (!tradesLocationsMap.has(location)) {
+                        tradesLocationsMap.set(location, new Set());
+                    }
+                    tradesLocationsMap.get(location).add(trade);
+                }
+            });
+            
+            console.log('Standard format detected. Loaded trades-locations mapping:', tradesLocationsMap.size, 'locations');
+        }
+        
+        // Log some examples for debugging
+        console.log('Sample mappings:');
+        let count = 0;
+        for (const [location, trades] of tradesLocationsMap.entries()) {
+            if (count < 3) {
+                console.log(`${location}: ${Array.from(trades).slice(0, 5).join(', ')}${trades.size > 5 ? '...' : ''}`);
+                count++;
+            }
+        }
+        
+        showToast(`Trades-locations mapping loaded: ${tradesLocationsMap.size} locations`, 'success');
+    }
+    
+    /**
+     * Validates if a location-trade combination is valid
+     * @param {string} location - Location name
+     * @param {string} trade - Trade name
+     * @returns {boolean} True if valid combination
+     */
+    function isValidLocationTradeCombination(location, trade) {
+        if (!tradesLocationsMap) return true; // If no mapping loaded, accept all
+        
+        const locationKey = location.toLowerCase().trim();
+        const tradeKey = trade.toLowerCase().trim();
+        
+        const tradesForLocation = tradesLocationsMap.get(locationKey);
+        if (!tradesForLocation) return false;
+        
+        return tradesForLocation.has(tradeKey);
+    }
+    
+    /**
+     * Gets all valid trades for a location
+     * @param {string} location - Location name
+     * @returns {Array} Array of valid trades
+     */
+    function getValidTradesForLocation(location) {
+        if (!tradesLocationsMap) return [];
+        
+        const locationKey = location.toLowerCase().trim();
+        const tradesForLocation = tradesLocationsMap.get(locationKey);
+        
+        return tradesForLocation ? Array.from(tradesForLocation) : [];
+    }
+    
+    /**
+     * Suggests similar trades for a location if exact match not found
+     * @param {string} location - Location name
+     * @param {string} trade - Trade name
+     * @returns {Array} Array of suggested trades
+     */
+    function suggestSimilarTrades(location, trade) {
+        if (!tradesLocationsMap) return [];
+        
+        const locationKey = location.toLowerCase().trim();
+        const tradeKey = trade.toLowerCase().trim();
+        const tradesForLocation = tradesLocationsMap.get(locationKey);
+        
+        if (!tradesForLocation) return [];
+        
+        const suggestions = [];
+        tradesForLocation.forEach(validTrade => {
+            if (validTrade.includes(tradeKey) || tradeKey.includes(validTrade)) {
+                suggestions.push(validTrade);
+            }
+        });
+        
+        return suggestions;
+    }
+
         // --- DOM Elements ---
         const hierarchyBody = document.getElementById('hierarchy-body');
         const timelineHeaderWrapper = document.getElementById('timeline-header-wrapper');
@@ -362,6 +791,15 @@
         const hoverCard = document.getElementById('hover-card');
         const csvUpload = document.getElementById('csv-upload');
         const processCsvBtn = document.getElementById('process-csv-btn');
+        const scheduleUpload = document.getElementById('schedule-upload');
+        const processScheduleBtn = document.getElementById('process-schedule-btn');
+        const actualizedUpload = document.getElementById('actualized-upload');
+        const processActualizedBtn = document.getElementById('process-actualized-btn');
+        const scheduleStatus = document.getElementById('schedule-status');
+        const actualizedStatus = document.getElementById('actualized-status');
+        const tradesLocationsUpload = document.getElementById('trades-locations-upload');
+        const processTradesLocationsBtn = document.getElementById('process-trades-locations-btn');
+        const tradesLocationsStatus = document.getElementById('trades-locations-status');
 
         // Add Export CSV button to the header
         const header = document.querySelector('header .flex.items-center.gap-4');
@@ -441,44 +879,91 @@
                             const plannedLeft = plannedOffsetDays * dayWidth;
                             const plannedWidth = plannedDurationDays * dayWidth;
                             
-                            // Status-based rendering logic
-                            const status = item.status ? item.status.toLowerCase() : '';
+                            // Status-based rendering logic - prioritize actualized status over original status
                             let fillWidth = 0;
                             let fillColor = 'bg-transparent';
                             let isDelayed = false;
+                            let validationClass = '';
                             
-                            if (status.includes('not started')) {
-                                fillWidth = 0; // No fill
-                                fillColor = 'bg-transparent';
-                            } else if (status.includes('in progress')) {
-                                fillWidth = plannedWidth * 0.5; // 50% fill
-                                fillColor = 'bg-blue-500';
-                            } else if (status.includes('complete') || status.includes('completed')) {
-                                fillWidth = plannedWidth; // 100% fill
-                                fillColor = 'bg-green-500';
+                            // Add validation styling if trades-locations mapping is available
+                            if (item.validationStatus === 'invalid') {
+                                validationClass = 'border-dashed border-2 border-red-400';
+                            } else if (item.validationStatus === 'valid') {
+                                validationClass = 'border-solid border-2';
+                            }
+                            
+                            // Check if we have actualized status
+                            if (item.actualizedStatus) {
+                                const status = item.actualizedStatus.toLowerCase();
                                 
-                                // Check if completed date is over schedule date (delayed)
-                                const completedDate = parseDateSafe(item.endDate);
-                                if (completedDate && plannedEnd && completedDate > plannedEnd) {
-                                    isDelayed = true;
+                                if (status.includes('not started')) {
+                                    fillWidth = 0;
+                                    fillColor = 'bg-transparent';
+                                    isDelayed = false;
+                                } else if (status.includes('in progress')) {
+                                    fillWidth = plannedWidth * 0.5; // 50% fill
+                                    fillColor = 'bg-blue-500';
+                                    isDelayed = false;
+                                } else if (status.includes('completed')) {
+                                    fillWidth = plannedWidth; // 100% fill
+                                    fillColor = 'bg-green-500';
+                                    
+                                    // Check if delayed based on completion date
+                                    if (item.actualCompletionDate) {
+                                        const completionDate = parseDateSafe(item.actualCompletionDate);
+                                        if (completionDate && plannedEnd && completionDate > plannedEnd) {
+                                            isDelayed = true;
+                                            fillColor = 'bg-red-500';
+                                        }
+                                    }
+                                } else if (status.includes('delayed')) {
+                                    fillWidth = plannedWidth * 0.3; // Show some progress but mark as delayed
                                     fillColor = 'bg-red-500';
+                                    isDelayed = true;
                                 }
-                            } else if (status.includes('delayed') || status.includes('behind')) {
-                                fillWidth = plannedWidth * 0.3; // Show some progress but mark as delayed
-                                fillColor = 'bg-red-500';
-                                isDelayed = true;
                             } else {
-                                // Default: show as not started
-                                fillWidth = 0;
-                                fillColor = 'bg-transparent';
+                                // Fall back to original status logic
+                                const status = item.status ? item.status.toLowerCase() : '';
+                                
+                                if (status.includes('not started')) {
+                                    fillWidth = 0;
+                                    fillColor = 'bg-transparent';
+                                } else if (status.includes('in progress')) {
+                                    fillWidth = plannedWidth * 0.5;
+                                    fillColor = 'bg-blue-500';
+                                } else if (status.includes('complete') || status.includes('completed')) {
+                                    fillWidth = plannedWidth;
+                                    fillColor = 'bg-green-500';
+                                    
+                                    const completedDate = parseDateSafe(item.endDate);
+                                    if (completedDate && plannedEnd && completedDate > plannedEnd) {
+                                        isDelayed = true;
+                                        fillColor = 'bg-red-500';
+                                    }
+                                } else if (status.includes('delayed') || status.includes('behind')) {
+                                    fillWidth = plannedWidth * 0.3;
+                                    fillColor = 'bg-red-500';
+                                    isDelayed = true;
+                                } else {
+                                    fillWidth = 0;
+                                    fillColor = 'bg-transparent';
+                                }
                             }
                             
                             const outlineColor = isDelayed ? 'border-red-500' : 'border-blue-500';
                             const fillStyle = fillWidth > 0 ? `style="width: ${fillWidth}px;"` : '';
                             
+                            // Add data attributes for hover information
+                            const statusText = item.actualizedStatus || item.status || 'Unknown Status';
+                            const completionInfo = item.actualCompletionDate ? ` (Completed: ${item.actualCompletionDate})` : '';
+                            const validationInfo = item.validationStatus === 'invalid' ? ' [Invalid Location-Trade]' : 
+                                                  item.validationStatus === 'valid' ? ' [Valid Location-Trade]' : '';
+                            
                             timelineBarsHtml += `
                                 <div class="absolute h-10 flex items-center" style="top: ${(rowIndex - 1) * 40}px; left: ${plannedLeft}px; width: ${plannedWidth}px;">
-                                    <div class="h-6 w-full rounded border-2 ${outlineColor} relative overflow-hidden" title="${item.activityName || item.name} (${item.status || 'Unknown Status'})">
+                                    <div class="h-6 w-full rounded ${outlineColor} relative overflow-hidden ${validationClass}" 
+                                         title="${item.activityName || item.name} (${statusText})${completionInfo}${validationInfo}"
+                                         data-task-id="${item.id}">
                                         ${fillWidth > 0 ? `<div class="h-full ${fillColor} rounded" ${fillStyle}></div>` : ''}
                                     </div>
                                 </div>
@@ -698,6 +1183,99 @@
         populateFilterPanel();
     }, 100); // Allow loading indicator to render
 });
+
+            // Schedule upload and processing
+            scheduleUpload.addEventListener('change', e => {
+                const file = e.target.files[0];
+                processScheduleBtn.disabled = !file;
+                if (!file) return;
+                const reader = new FileReader();
+                reader.onload = function(evt) {
+                    const text = evt.target.result;
+                    const rows = parseCsv(text);
+                    processScheduleData(rows); // Call the new function
+                };
+                reader.readAsText(file);
+            });
+            processScheduleBtn.addEventListener('click', () => {
+                if (!projectData) return;
+                showLoading();
+                setTimeout(() => {
+                    // This button will trigger the actual schedule loading/merging logic
+                    // For now, it just re-renders the hierarchy and timeline
+                    // to reflect the current projectData structure.
+                    render();
+                    populateFilterPanel();
+                    scheduleStatus.textContent = 'Schedule Loaded';
+                    scheduleStatus.classList.remove('bg-slate-100', 'text-slate-600');
+                    scheduleStatus.classList.add('bg-green-100', 'text-green-600');
+                }, 100);
+            });
+
+            // Actualized work upload and processing
+            actualizedUpload.addEventListener('change', e => {
+                const file = e.target.files[0];
+                processActualizedBtn.disabled = !file;
+                if (!file) return;
+                const reader = new FileReader();
+                reader.onload = function(evt) {
+                    const text = evt.target.result;
+                    const rows = parseActualizedCsv(text);
+                    processActualizedWork(rows); // Call the new function
+                };
+                reader.readAsText(file);
+            });
+            processActualizedBtn.addEventListener('click', () => {
+                if (!projectData) return;
+                showLoading();
+                setTimeout(() => {
+                    // This button will trigger the actual actualized work loading/merging logic
+                    // For now, it just re-renders the hierarchy and timeline
+                    // to reflect the current projectData structure.
+                    render();
+                    populateFilterPanel();
+                    actualizedStatus.textContent = 'Actualized Data Loaded';
+                    actualizedStatus.classList.remove('bg-slate-100', 'text-slate-600');
+                    actualizedStatus.classList.add('bg-green-100', 'text-green-600');
+                }, 100);
+            });
+
+            // Trades-Locations Mapping Upload and Processing
+            tradesLocationsUpload.addEventListener('change', e => {
+                const file = e.target.files[0];
+                processTradesLocationsBtn.disabled = !file;
+                if (!file) return;
+                const reader = new FileReader();
+                reader.onload = function(evt) {
+                    const text = evt.target.result;
+                    const rows = parseCsv(text);
+                    loadTradesLocationsMapping(rows);
+                    
+                    // Update status indicator with detailed info
+                    const totalTrades = Array.from(tradesLocationsMap.values()).reduce((sum, trades) => sum + trades.size, 0);
+                    tradesLocationsStatus.textContent = `Mapping (${tradesLocationsMap.size} locations, ${totalTrades} trades)`;
+                    tradesLocationsStatus.classList.remove('bg-slate-100', 'text-slate-600');
+                    tradesLocationsStatus.classList.add('bg-purple-100', 'text-purple-600');
+                };
+                reader.readAsText(file);
+            });
+            processTradesLocationsBtn.addEventListener('click', () => {
+                if (!tradesLocationsMap) {
+                    showToast('Please load a trades-locations mapping file first', 'error');
+                    return;
+                }
+                showLoading();
+                setTimeout(() => {
+                    // This button will trigger the actual trades-locations mapping loading/merging logic
+                    // For now, it just re-renders the hierarchy and timeline
+                    // to reflect the current tradesLocationsMap structure.
+                    render();
+                    populateFilterPanel();
+                    tradesLocationsStatus.textContent = 'Mapping Loaded';
+                    tradesLocationsStatus.classList.remove('bg-slate-100', 'text-slate-600');
+                    tradesLocationsStatus.classList.add('bg-purple-100', 'text-purple-600');
+                }, 100);
+            });
         }
 
         // Call once on load
@@ -739,6 +1317,42 @@
             if (rows.length) console.log('First parsed row:', rows[0]);
             return rows;
         }
+        
+        /**
+         * Parses actualized work CSV with Location, Trade, Status format
+         * @param {string} text - The CSV text.
+         * @returns {Array<Object>} Array of row objects.
+         */
+        function parseActualizedCsv(text) {
+            function stripQuotes(str) {
+                return str.replace(/^"+|"+$/g, '').trim();
+            }
+            const lines = text.split(/\r?\n/).filter(line => line.trim());
+            if (lines.length < 2) return [];
+            
+            // Normalize headers: trim, lowercase, strip quotes
+            const rawHeaders = lines[0].split(',').map(h => stripQuotes(h).toLowerCase());
+            
+            // Map normalized headers to expected keys for actualized work
+            const headerMap = {
+                'location': 'location',
+                'trade': 'trade',
+                'status': 'status'
+            };
+            
+            const headers = rawHeaders.map(h => headerMap[h] || h);
+            const rows = lines.slice(1).map(line => {
+                const values = line.split(',').map(stripQuotes);
+                const obj = {};
+                headers.forEach((h, i) => {
+                    obj[h] = values[i] !== undefined ? values[i] : '';
+                });
+                return obj;
+            });
+            
+            if (rows.length) console.log('First actualized row:', rows[0]);
+            return rows;
+        }
 
         /**
          * Finds a data item by id in a tree of items.
@@ -766,9 +1380,58 @@
             document.getElementById('hover-card-img').src = `https://placehold.co/600x400/a3a3a3/ffffff?text=${encodeURIComponent(task.trade || task.activityName)}`;
             document.getElementById('hover-card-title').textContent = task.trade || task.activityName;
             document.getElementById('hover-card-group').textContent = task.location;
-            document.getElementById('hover-card-status').textContent = task.status || 'Unknown';
-            document.getElementById('hover-card-planned').textContent = `${task.startDate || 'Not set'} to ${task.endDate || 'Not set'}`;
-            document.getElementById('hover-card-actual').textContent = task.originalLocation ? `Original: ${task.originalLocation}` : 'No original location';
+            
+            // Show actualized status if available, otherwise fall back to original status
+            const statusText = task.actualizedStatus || task.status || 'Unknown';
+            document.getElementById('hover-card-status').textContent = statusText;
+            
+            // Show schedule dates
+            const scheduleInfo = `${task.startDate || 'Not set'} to ${task.endDate || 'Not set'}`;
+            if (task.duration) {
+                scheduleInfo += ` (${task.duration} days)`;
+            }
+            document.getElementById('hover-card-planned').textContent = scheduleInfo;
+            
+            // Show comprehensive actualized information
+            let actualInfo = 'No actualized data';
+            if (task.actualizedStatus) {
+                actualInfo = `Status: ${task.actualizedStatus}`;
+                if (task.actualCompletionDate) {
+                    actualInfo += ` (Completed: ${task.actualCompletionDate})`;
+                }
+                
+                // Add validation info if trades-locations mapping is available
+                if (tradesLocationsMap && task.location && task.trade) {
+                    const isValid = isValidLocationTradeCombination(task.location, task.trade);
+                    if (!isValid) {
+                        const suggestions = suggestSimilarTrades(task.location, task.trade);
+                        actualInfo += ` [Invalid combination]`;
+                        if (suggestions.length > 0) {
+                            actualInfo += ` Suggestions: ${suggestions.slice(0, 3).join(', ')}`;
+                        }
+                    } else {
+                        actualInfo += ` [Valid combination]`;
+                    }
+                }
+            } else if (task.originalLocation) {
+                actualInfo = `Original: ${task.originalLocation}`;
+                
+                // Add validation info for schedule items
+                if (tradesLocationsMap && task.location && task.trade) {
+                    const isValid = isValidLocationTradeCombination(task.location, task.trade);
+                    if (!isValid) {
+                        const suggestions = suggestSimilarTrades(task.location, task.trade);
+                        actualInfo += ` [Invalid combination]`;
+                        if (suggestions.length > 0) {
+                            actualInfo += ` Suggestions: ${suggestions.slice(0, 3).join(', ')}`;
+                        }
+                    } else {
+                        actualInfo += ` [Valid combination]`;
+                    }
+                }
+            }
+            document.getElementById('hover-card-actual').textContent = actualInfo;
+            
             hoverCard.classList.remove('hidden');
             setTimeout(() => hoverCard.classList.remove('opacity-0'), 10); // Fade in
             positionHoverCard(event);

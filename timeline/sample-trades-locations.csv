@@ -1,0 +1,33 @@
+Location,Trade
+DCH,Backfill
+DCH,Booster Pump System Installation
+DCH,Concrete Formwork
+DCH,Concrete Pour
+DCH,Concrete Rebar
+DCH,Conveyance
+DCH,DWTR Installation
+DCH,Electrical Yard Equipment Conduit
+DCH,Electrical Yard Equipment Placement
+DCH,Generator Placement
+DCH,MWT Installation
+DCH,Mechanical Yard Equipment Placement
+DCH,Roofing Flashing
+DCH,Roofing Insulation
+DCH,Roofing Membrane
+DCH,Roofing Metal Deck
+DCH,Structural Piles
+DCH,Structural Steel
+EYD,Electrical Yard Equipment Conduit
+EYD,Electrical Yard Equipment Placement
+EYD,Generator Placement
+MYD,Mechanical Yard Equipment Placement
+MYD,Booster Pump System Installation
+Conveyance,Conveyance
+DWTR,DWTR Installation
+Fire Pump House,Fire Pump System
+GPS,Generator Placement
+SSS,Structural Steel
+GEN YARD,Generator Placement
+USS YARD,Structural Steel
+MCP,Mechanical Equipment
+Loading Dock,Loading Equipment 
