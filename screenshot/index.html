@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>AI-Powered Screenshot Analyzer</title>
+  <title>Screenshot Grid Analyzer</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap">
   <style>
@@ -27,59 +27,108 @@
       0% { transform: rotate(0deg); }
       100% { transform: rotate(360deg); }
     }
+    .grid-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      pointer-events: none;
+    }
+    .detection-point {
+      position: absolute;
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      border: 2px solid white;
+      box-shadow: 0 0 4px rgba(0,0,0,0.5);
+    }
+    .detection-point.green {
+      background-color: #10b981;
+    }
+    .detection-point.red {
+      background-color: #ef4444;
+    }
   </style>
 </head>
 <body class="bg-gray-100">
   <div class="container mx-auto p-4 md:p-8">
     <header class="text-center mb-8">
-      <h1 class="text-4xl md:text-5xl font-bold text-gray-800">AI-Powered Screenshot Analyzer</h1>
-      <p class="text-gray-600 mt-2">Upload your trade tracking screenshot to get structured data.</p>
+      <h1 class="text-4xl md:text-5xl font-bold text-gray-800">Screenshot Grid Analyzer</h1>
+      <p class="text-gray-600 mt-2">Upload your trade tracking screenshot to automatically extract grid data.</p>
     </header>
 
-    <main class="bg-white p-6 md:p-10 rounded-2xl shadow-lg max-w-4xl mx-auto">
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+    <main class="bg-white p-6 md:p-10 rounded-2xl shadow-lg max-w-6xl mx-auto">
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
         <!-- Left Side: Image Upload and Preview -->
-        <div id="image-upload-box" class="flex flex-col items-center justify-center bg-gray-50 p-6 rounded-lg border-2 border-dashed border-gray-300 min-h-[300px]">
-          <input type="file" accept="image/*" class="hidden" id="file-input">
-          <div id="image-preview-container" class="hidden w-full">
-            <img id="image-preview" src="" alt="Screenshot preview" class="max-w-full h-auto rounded-lg shadow-md">
+        <div>
+          <div id="image-upload-box" class="flex flex-col items-center justify-center bg-gray-50 p-6 rounded-lg border-2 border-dashed border-gray-300 min-h-[300px]">
+            <input type="file" accept="image/*" class="hidden" id="file-input">
+            <div id="image-preview-container" class="hidden w-full relative">
+              <img id="image-preview" src="" alt="Screenshot preview" class="max-w-full h-auto rounded-lg shadow-md">
+              <div id="grid-overlay" class="grid-overlay"></div>
+            </div>
+            <div id="upload-placeholder" class="text-center">
+              <svg class="mx-auto h-12 w-12 text-gray-400" stroke="currentColor" fill="none" viewBox="0 0 48 48" aria-hidden="true">
+                <path d="M28 8H12a4 4 0 00-4 4v20m32-12v8m0 0v8a4 4 0 01-4 4H12a4 4 0 01-4-4v-4m32-4l-3.172-3.172a4 4 0 00-5.656 0L28 28M8 32l9.172-9.172a4 4 0 015.656 0L28 28m0 0l4 4m4-24h8m-4-4v8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+              </svg>
+              <p class="mt-2 text-sm text-gray-600">
+                <button type="button" id="upload-button" class="font-medium text-indigo-600 hover:text-indigo-500 focus:outline-none">
+                  Upload a file
+                </button>
+                or drag and drop
+              </p>
+              <p class="mt-1 text-xs text-gray-500">PNG, JPG, GIF up to 10MB</p>
+            </div>
           </div>
-          <div id="upload-placeholder" class="text-center">
-            <svg class="mx-auto h-12 w-12 text-gray-400" stroke="currentColor" fill="none" viewBox="0 0 48 48" aria-hidden="true">
-              <path d="M28 8H12a4 4 0 00-4 4v20m32-12v8m0 0v8a4 4 0 01-4 4H12a4 4 0 01-4-4v-4m32-4l-3.172-3.172a4 4 0 00-5.656 0L28 28M8 32l9.172-9.172a4 4 0 015.656 0L28 28m0 0l4 4m4-24h8m-4-4v8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-            </svg>
-            <p class="mt-2 text-sm text-gray-600">
-              <button type="button" id="upload-button" class="font-medium text-indigo-600 hover:text-indigo-500 focus:outline-none">
-                Upload a file
+          
+          <!-- Analysis Controls -->
+          <div class="mt-4 space-y-4">
+            <div class="flex items-center gap-4">
+              <button id="analyze-button" class="flex-1 bg-indigo-600 text-white font-bold py-3 px-4 rounded-lg hover:bg-indigo-700 transition-colors duration-300 shadow-md btn-disabled" disabled>
+                Analyze Grid
               </button>
-              or drag and drop
-            </p>
-            <p class="mt-1 text-xs text-gray-500">PNG, JPG, GIF up to 10MB</p>
+              <button id="clear-analysis" class="px-4 py-3 bg-gray-500 text-white font-bold rounded-lg hover:bg-gray-600 transition-colors duration-300 shadow-md" style="display: none;">
+                Clear Analysis
+              </button>
+            </div>
+            
+            <!-- Analysis Settings -->
+            <div class="bg-gray-50 p-4 rounded-lg">
+              <h3 class="font-semibold text-gray-700 mb-3">Analysis Settings</h3>
+              <div class="grid grid-cols-2 gap-4">
+                <div>
+                  <label class="block text-sm font-medium text-gray-700 mb-1">Dot Size (pixels)</label>
+                  <input type="range" id="dot-size" min="5" max="30" value="12" class="w-full">
+                  <span id="dot-size-value" class="text-sm text-gray-600">12px</span>
+                </div>
+                <div>
+                  <label class="block text-sm font-medium text-gray-700 mb-1">Color Sensitivity</label>
+                  <input type="range" id="color-sensitivity" min="10" max="100" value="50" class="w-full">
+                  <span id="color-sensitivity-value" class="text-sm text-gray-600">50%</span>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
 
-        <!-- Right Side: Controls and Extracted Text -->
+        <!-- Right Side: Extracted Data -->
         <div class="flex flex-col justify-between">
           <div>
             <h2 class="text-2xl font-semibold text-gray-700 mb-4">Extracted Data</h2>
             <div id="text-output" class="w-full h-64 bg-gray-50 p-4 border rounded-lg overflow-y-auto text-gray-800 flex items-center justify-center">Data will appear here...</div>
             <div id="progress-container" class="hidden text-center p-4">
               <div class="loader"></div>
-              <p class="text-gray-600">AI is analyzing the image...</p>
+              <p class="text-gray-600">Analyzing image...</p>
             </div>
             <p id="error-message" class="text-red-500 text-sm mt-2"></p>
           </div>
 
           <div class="mt-6">
-            <button id="convert-button" class="w-full bg-indigo-600 text-white font-bold py-3 px-4 rounded-lg hover:bg-indigo-700 transition-colors duration-300 shadow-md btn-disabled" disabled>
-              Analyze with AI
-            </button>
-            <div class="flex space-x-4 mt-4">
-              <button id="export-word-button" class="flex-1 bg-green-600 text-white font-bold py-3 px-4 rounded-lg hover:bg-green-700 transition-colors duration-300 shadow-md btn-disabled" disabled>
-                Export as .docx
-              </button>
+            <div class="flex space-x-4">
               <button id="export-csv-button" class="flex-1 bg-blue-600 text-white font-bold py-3 px-4 rounded-lg hover:bg-blue-700 transition-colors duration-300 shadow-md btn-disabled" disabled>
                 Export as .csv
+              </button>
+              <button id="export-json-button" class="flex-1 bg-green-600 text-white font-bold py-3 px-4 rounded-lg hover:bg-green-700 transition-colors duration-300 shadow-md btn-disabled" disabled>
+                Export as .json
               </button>
             </div>
           </div>
@@ -87,11 +136,6 @@
       </div>
     </main>
   </div>
-
-  <!-- External Libraries -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/pizzip/3.1.4/pizzip.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/docxtemplater/3.42.2/docxtemplater.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.0/FileSaver.min.js"></script>
 
   <script>
     // --- DOM Element References ---
@@ -101,31 +145,39 @@
     const imagePreviewContainer = document.getElementById('image-preview-container');
     const uploadPlaceholder = document.getElementById('upload-placeholder');
     const textOutput = document.getElementById('text-output');
-    const convertButton = document.getElementById('convert-button');
-    const exportWordButton = document.getElementById('export-word-button');
+    const analyzeButton = document.getElementById('analyze-button');
+    const clearAnalysisButton = document.getElementById('clear-analysis');
     const exportCsvButton = document.getElementById('export-csv-button');
+    const exportJsonButton = document.getElementById('export-json-button');
     const progressContainer = document.getElementById('progress-container');
     const errorMessage = document.getElementById('error-message');
+    const gridOverlay = document.getElementById('grid-overlay');
+    const dotSizeSlider = document.getElementById('dot-size');
+    const dotSizeValue = document.getElementById('dot-size-value');
+    const colorSensitivitySlider = document.getElementById('color-sensitivity');
+    const colorSensitivityValue = document.getElementById('color-sensitivity-value');
 
     // --- State Variables ---
     let imageDataUrl = null;
-    let structuredData = null; // Will hold the JSON from the AI
+    let structuredData = null;
     let csvData = '';
+    let jsonData = '';
     let isLoading = false;
+    let detectedDots = [];
 
     // --- UI Update Functions ---
     const setUIState = (loading) => {
       isLoading = loading;
-      convertButton.disabled = loading || !imageDataUrl;
-      exportWordButton.disabled = loading || !structuredData;
+      analyzeButton.disabled = loading || !imageDataUrl;
       exportCsvButton.disabled = loading || !structuredData;
-      [convertButton, exportWordButton, exportCsvButton].forEach(btn => {
+      exportJsonButton.disabled = loading || !structuredData;
+      [analyzeButton, exportCsvButton, exportJsonButton].forEach(btn => {
         btn.classList.toggle('btn-disabled', btn.disabled);
       });
 
       progressContainer.classList.toggle('hidden', !loading);
       textOutput.classList.toggle('hidden', loading);
-      convertButton.textContent = loading ? 'Analyzing...' : 'Analyze with AI';
+      analyzeButton.textContent = loading ? 'Analyzing...' : 'Analyze Grid';
     };
 
     const setError = (message) => {
@@ -135,9 +187,18 @@
     // --- Event Listeners ---
     uploadButton.addEventListener('click', () => fileInput.click());
     fileInput.addEventListener('change', handleImageChange);
-    convertButton.addEventListener('click', handleConvertClick);
-    exportWordButton.addEventListener('click', handleExportWord);
+    analyzeButton.addEventListener('click', handleAnalyzeClick);
+    clearAnalysisButton.addEventListener('click', clearAnalysis);
     exportCsvButton.addEventListener('click', handleExportCsv);
+    exportJsonButton.addEventListener('click', handleExportJson);
+    
+    dotSizeSlider.addEventListener('input', (e) => {
+      dotSizeValue.textContent = `${e.target.value}px`;
+    });
+    
+    colorSensitivitySlider.addEventListener('input', (e) => {
+      colorSensitivityValue.textContent = `${e.target.value}%`;
+    });
 
     // --- Core Logic Functions ---
     function handleImageChange(e) {
@@ -150,119 +211,256 @@
         imagePreview.src = imageDataUrl;
         imagePreviewContainer.classList.remove('hidden');
         uploadPlaceholder.classList.add('hidden');
-        structuredData = null;
-        csvData = '';
-        textOutput.innerHTML = 'Data will appear here...';
+        clearAnalysis();
         setError('');
         setUIState(false);
       };
       reader.readAsDataURL(file);
     }
 
-    async function handleConvertClick() {
+    function clearAnalysis() {
+      structuredData = null;
+      csvData = '';
+      jsonData = '';
+      detectedDots = [];
+      gridOverlay.innerHTML = '';
+      textOutput.innerHTML = 'Data will appear here...';
+      clearAnalysisButton.style.display = 'none';
+      setError('');
+      setUIState(false);
+    }
+
+    async function handleAnalyzeClick() {
       if (!imageDataUrl || isLoading) return;
       setUIState(true);
       setError('');
       textOutput.innerHTML = '';
 
-      // FIX: Dynamically determine the mime type from the data URL.
-      // A mismatch between the actual image type and the specified mimeType
-      // can cause API requests to fail with a 401 or other errors.
-      const mimeTypeMatch = imageDataUrl.match(/^data:(image\/\w+);base64,/);
-      if (!mimeTypeMatch) {
-        setError("Could not determine image type. Please upload a valid image file.");
-        setUIState(false);
-        return;
-      }
-      const mimeType = mimeTypeMatch[1];
-      const base64ImageData = imageDataUrl.split(',')[1];
-
-      const prompt = `
-Analyze the provided image which shows a grid of locations and trades. 
-
-The leftmost column lists the locations. The top row lists the trades.
-
-A green dot at the intersection of a location and a trade means the trade is TRACKED for that location.
-
-A red dot means the trade is NOT TRACKED.
-
-Extract this information.
-
-IMPORTANT: Respond ONLY with a valid JSON object in a string format. Do not include any other text, explanations, or markdown formatting like \`\`\`json.
-
-The JSON object should have a single key "locations", which is an array of objects. Each object should have a "name" (string) and "tracked_trades" (an array of strings for trades with a green dot).
-
-Example format: {"locations": [{"name": "Location A", "tracked_trades": ["Trade 1", "Trade 2"]}]}
-`;
-
-      const payload = {
-        contents: [{
-          role: "user",
-          parts: [
-            { text: prompt },
-            { inlineData: { mimeType: mimeType, data: base64ImageData } }
-          ]
-        }]
-      };
-
       try {
-        // Note: For demo purposes, the API key would need to be provided
-        // In a real deployment, this should be handled server-side
-        const apiKey = ""; // API key will be injected by the environment
-        const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;
+        // Create a canvas to analyze the image
+        const canvas = document.createElement('canvas');
+        const ctx = canvas.getContext('2d');
+        const img = new Image();
         
-        if (!apiKey) {
-          throw new Error("API key not configured. Please add your Gemini API key to use this feature.");
-        }
-        
-        const response = await fetch(apiUrl, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(payload)
+        await new Promise((resolve, reject) => {
+          img.onload = resolve;
+          img.onerror = reject;
+          img.src = imageDataUrl;
         });
 
-        if (!response.ok) {
-          const errorBody = await response.json().catch(() => ({ message: response.statusText }));
-          const detailedMessage = errorBody.error?.message || errorBody.message || `HTTP ${response.status}: ${response.statusText}`;
-          throw new Error(`API request failed: ${detailedMessage}`);
-        }
+        canvas.width = img.width;
+        canvas.height = img.height;
+        ctx.drawImage(img, 0, 0);
 
-        const data = await response.json();
-        if (!data.candidates || !data.candidates[0] || !data.candidates[0].content) {
-          throw new Error("No response generated by the AI model.");
-        }
-
-        const responseText = data.candidates[0].content.parts[0].text.trim();
+        // Analyze the image for colored dots
+        const dotSize = parseInt(dotSizeSlider.value);
+        const colorSensitivity = parseInt(colorSensitivitySlider.value) / 100;
         
-        try {
-          structuredData = JSON.parse(responseText);
-          displayStructuredData(structuredData);
-        } catch (parseError) {
-          setError(`Failed to parse AI response as JSON: ${parseError.message}`);
-          textOutput.innerHTML = `<pre class="whitespace-pre-wrap text-sm">${responseText}</pre>`;
+        const analysis = analyzeImageForDots(canvas, dotSize, colorSensitivity);
+        
+        if (analysis.dots.length === 0) {
+          throw new Error('No colored dots detected. Try adjusting the dot size or color sensitivity settings.');
         }
+
+        // Organize dots into a grid structure
+        const gridData = organizeDotsIntoGrid(analysis.dots, analysis.imageWidth, analysis.imageHeight);
+        
+        // Display results
+        displayAnalysisResults(gridData, analysis.dots);
+        
+        // Generate export data
+        generateExportData(gridData);
+        
+        clearAnalysisButton.style.display = 'block';
+        
       } catch (error) {
-        setError(`Error: ${error.message}`);
+        setError(`Analysis failed: ${error.message}`);
       } finally {
         setUIState(false);
       }
     }
 
-    function displayStructuredData(data) {
-      if (!data.locations || !Array.isArray(data.locations)) {
-        setError("Invalid data structure received from AI.");
-        return;
+    function analyzeImageForDots(canvas, dotSize, colorSensitivity) {
+      const ctx = canvas.getContext('2d');
+      const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+      const data = imageData.data;
+      const dots = [];
+      
+      // Sample the image at regular intervals to find colored dots
+      const step = Math.max(1, Math.floor(dotSize / 2));
+      
+      for (let y = step; y < canvas.height - step; y += step) {
+        for (let x = step; x < canvas.width - step; x += step) {
+          const idx = (y * canvas.width + x) * 4;
+          const r = data[idx];
+          const g = data[idx + 1];
+          const b = data[idx + 2];
+          
+          // Check if this pixel is part of a colored dot
+          const colorType = classifyPixelColor(r, g, b, colorSensitivity);
+          
+          if (colorType !== 'neutral') {
+            // Check if this is the center of a dot by sampling surrounding pixels
+            const isDotCenter = checkDotCenter(data, x, y, canvas.width, canvas.height, dotSize, colorType);
+            
+            if (isDotCenter) {
+              dots.push({
+                x: x,
+                y: y,
+                type: colorType,
+                color: `rgb(${r}, ${g}, ${b})`
+              });
+            }
+          }
+        }
       }
+      
+      return {
+        dots: dots,
+        imageWidth: canvas.width,
+        imageHeight: canvas.height
+      };
+    }
 
+    function classifyPixelColor(r, g, b, sensitivity) {
+      // Normalize RGB values
+      const total = r + g + b;
+      if (total === 0) return 'neutral';
+      
+      const rNorm = r / total;
+      const gNorm = g / total;
+      const bNorm = b / total;
+      
+      // Check for green dots (tracked trades)
+      if (gNorm > 0.4 && rNorm < 0.3 && bNorm < 0.3) {
+        return 'green';
+      }
+      
+      // Check for red dots (untracked trades)
+      if (rNorm > 0.4 && gNorm < 0.3 && bNorm < 0.3) {
+        return 'red';
+      }
+      
+      return 'neutral';
+    }
+
+    function checkDotCenter(data, centerX, centerY, width, height, dotSize, expectedColor) {
+      const radius = Math.floor(dotSize / 2);
+      let matchingPixels = 0;
+      let totalPixels = 0;
+      
+      for (let y = centerY - radius; y <= centerY + radius; y++) {
+        for (let x = centerX - radius; x <= centerX + radius; x++) {
+          if (x >= 0 && x < width && y >= 0 && y < height) {
+            const idx = (y * width + x) * 4;
+            const r = data[idx];
+            const g = data[idx + 1];
+            const b = data[idx + 2];
+            
+            const colorType = classifyPixelColor(r, g, b, 0.5);
+            if (colorType === expectedColor) {
+              matchingPixels++;
+            }
+            totalPixels++;
+          }
+        }
+      }
+      
+      // At least 60% of pixels in the dot area should match the expected color
+      return (matchingPixels / totalPixels) > 0.6;
+    }
+
+    function organizeDotsIntoGrid(dots, imageWidth, imageHeight) {
+      // Sort dots by Y position to find rows (locations)
+      const sortedByY = [...dots].sort((a, b) => a.y - b.y);
+      
+      // Group dots into rows based on Y position
+      const rowThreshold = 20; // pixels
+      const rows = [];
+      let currentRow = [sortedByY[0]];
+      
+      for (let i = 1; i < sortedByY.length; i++) {
+        const dot = sortedByY[i];
+        const lastDot = currentRow[currentRow.length - 1];
+        
+        if (Math.abs(dot.y - lastDot.y) <= rowThreshold) {
+          currentRow.push(dot);
+        } else {
+          if (currentRow.length > 0) {
+            rows.push([...currentRow]);
+          }
+          currentRow = [dot];
+        }
+      }
+      if (currentRow.length > 0) {
+        rows.push(currentRow);
+      }
+      
+      // Sort each row by X position to find columns (trades)
+      rows.forEach(row => row.sort((a, b) => a.x - b.x));
+      
+      // Extract unique trades (columns) from the first few rows
+      const trades = new Set();
+      rows.slice(0, Math.min(3, rows.length)).forEach(row => {
+        row.forEach(dot => {
+          if (dot.type === 'green') {
+            trades.add(`Trade ${dot.x}`);
+          }
+        });
+      });
+      
+      // Create structured data
+      const locations = rows.map((row, index) => {
+        const trackedTrades = row
+          .filter(dot => dot.type === 'green')
+          .map(dot => `Trade ${dot.x}`);
+        
+        return {
+          name: `Location ${index + 1}`,
+          tracked_trades: trackedTrades
+        };
+      });
+      
+      return {
+        locations: locations,
+        trades: Array.from(trades).sort(),
+        totalDots: dots.length,
+        greenDots: dots.filter(d => d.type === 'green').length,
+        redDots: dots.filter(d => d.type === 'red').length
+      };
+    }
+
+    function displayAnalysisResults(gridData, dots) {
+      // Show detected dots on the image
+      gridOverlay.innerHTML = '';
+      dots.forEach(dot => {
+        const dotElement = document.createElement('div');
+        dotElement.className = `detection-point ${dot.type}`;
+        dotElement.style.left = `${(dot.x / imagePreview.naturalWidth) * 100}%`;
+        dotElement.style.top = `${(dot.y / imagePreview.naturalHeight) * 100}%`;
+        gridOverlay.appendChild(dotElement);
+      });
+      
+      // Display structured data
       let html = '<div class="space-y-4">';
-      data.locations.forEach(location => {
+      html += `<div class="bg-blue-50 p-3 rounded-lg">
+        <p class="text-sm text-blue-800">
+          <strong>Analysis Summary:</strong> Detected ${gridData.totalDots} dots 
+          (${gridData.greenDots} green, ${gridData.redDots} red)
+        </p>
+      </div>`;
+      
+      gridData.locations.forEach(location => {
         html += `
           <div class="border border-gray-200 rounded-lg p-4">
             <h3 class="font-semibold text-lg text-gray-800 mb-2">${location.name}</h3>
             <div class="space-y-1">
-              ${location.tracked_trades.map(trade => `
-                <span class="inline-block bg-green-100 text-green-800 text-xs font-medium px-2.5 py-0.5 rounded">${trade}</span>
-              `).join('')}
+              ${location.tracked_trades.length > 0 ? 
+                location.tracked_trades.map(trade => `
+                  <span class="inline-block bg-green-100 text-green-800 text-xs font-medium px-2.5 py-0.5 rounded">${trade}</span>
+                `).join('') : 
+                '<span class="text-gray-500 text-sm">No tracked trades detected</span>'
+              }
             </div>
           </div>
         `;
@@ -270,51 +468,25 @@ Example format: {"locations": [{"name": "Location A", "tracked_trades": ["Trade 
       html += '</div>';
       
       textOutput.innerHTML = html;
-      
-      // Generate CSV data
-      generateCSVData(data);
     }
 
-    function generateCSVData(data) {
+    function generateExportData(gridData) {
+      // Generate CSV data
       const csvRows = [];
       csvRows.push(['Location', 'Tracked Trade']);
       
-      data.locations.forEach(location => {
+      gridData.locations.forEach(location => {
         location.tracked_trades.forEach(trade => {
           csvRows.push([location.name, trade]);
         });
       });
       
       csvData = csvRows.map(row => row.map(cell => `"${cell.replace(/"/g, '""')}"`).join(',')).join('\n');
-    }
-
-    function handleExportWord() {
-      if (!structuredData) return;
       
-      try {
-        // Create a simple document template
-        const template = `
-        <h1>Trade Tracking Analysis</h1>
-        ${structuredData.locations.map(location => `
-          <h2>${location.name}</h2>
-          <ul>
-            ${location.tracked_trades.map(trade => `<li>${trade}</li>`).join('')}
-          </ul>
-        `).join('')}
-        `;
-        
-        const blob = new Blob([template], { type: 'text/html' });
-        const link = document.createElement('a');
-        link.href = URL.createObjectURL(blob);
-        link.download = 'trade_tracking_analysis.html';
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
-        URL.revokeObjectURL(link.href);
-        
-      } catch (error) {
-        setError(`Export failed: ${error.message}`);
-      }
+      // Generate JSON data
+      jsonData = JSON.stringify(gridData, null, 2);
+      
+      structuredData = gridData;
     }
 
     function handleExportCsv() {
@@ -323,7 +495,20 @@ Example format: {"locations": [{"name": "Location A", "tracked_trades": ["Trade 
       const blob = new Blob([csvData], { type: 'text/csv;charset=utf-8;' });
       const link = document.createElement('a');
       link.href = URL.createObjectURL(blob);
-      link.download = 'trade_tracking_data.csv';
+      link.download = 'grid_analysis_data.csv';
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      URL.revokeObjectURL(link.href);
+    }
+
+    function handleExportJson() {
+      if (!jsonData) return;
+      
+      const blob = new Blob([jsonData], { type: 'application/json' });
+      const link = document.createElement('a');
+      link.href = URL.createObjectURL(blob);
+      link.download = 'grid_analysis_data.json';
       document.body.appendChild(link);
       link.click();
       document.body.removeChild(link);
