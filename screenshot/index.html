@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI-Powered Screenshot Analyzer</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap">
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+    }
+    .btn-disabled {
+      cursor: not-allowed;
+      opacity: 0.5;
+    }
+    .loader {
+      border: 4px solid #f3f3f3;
+      border-top: 4px solid #3498db;
+      border-radius: 50%;
+      width: 40px;
+      height: 40px;
+      animation: spin 1s linear infinite;
+      margin: 20px auto;
+    }
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+  </style>
+</head>
+<body class="bg-gray-100">
+  <div class="container mx-auto p-4 md:p-8">
+    <header class="text-center mb-8">
+      <h1 class="text-4xl md:text-5xl font-bold text-gray-800">AI-Powered Screenshot Analyzer</h1>
+      <p class="text-gray-600 mt-2">Upload your trade tracking screenshot to get structured data.</p>
+    </header>
+
+    <main class="bg-white p-6 md:p-10 rounded-2xl shadow-lg max-w-4xl mx-auto">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <!-- Left Side: Image Upload and Preview -->
+        <div id="image-upload-box" class="flex flex-col items-center justify-center bg-gray-50 p-6 rounded-lg border-2 border-dashed border-gray-300 min-h-[300px]">
+          <input type="file" accept="image/*" class="hidden" id="file-input">
+          <div id="image-preview-container" class="hidden w-full">
+            <img id="image-preview" src="" alt="Screenshot preview" class="max-w-full h-auto rounded-lg shadow-md">
+          </div>
+          <div id="upload-placeholder" class="text-center">
+            <svg class="mx-auto h-12 w-12 text-gray-400" stroke="currentColor" fill="none" viewBox="0 0 48 48" aria-hidden="true">
+              <path d="M28 8H12a4 4 0 00-4 4v20m32-12v8m0 0v8a4 4 0 01-4 4H12a4 4 0 01-4-4v-4m32-4l-3.172-3.172a4 4 0 00-5.656 0L28 28M8 32l9.172-9.172a4 4 0 015.656 0L28 28m0 0l4 4m4-24h8m-4-4v8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
+            <p class="mt-2 text-sm text-gray-600">
+              <button type="button" id="upload-button" class="font-medium text-indigo-600 hover:text-indigo-500 focus:outline-none">
+                Upload a file
+              </button>
+              or drag and drop
+            </p>
+            <p class="mt-1 text-xs text-gray-500">PNG, JPG, GIF up to 10MB</p>
+          </div>
+        </div>
+
+        <!-- Right Side: Controls and Extracted Text -->
+        <div class="flex flex-col justify-between">
+          <div>
+            <h2 class="text-2xl font-semibold text-gray-700 mb-4">Extracted Data</h2>
+            <div id="text-output" class="w-full h-64 bg-gray-50 p-4 border rounded-lg overflow-y-auto text-gray-800 flex items-center justify-center">Data will appear here...</div>
+            <div id="progress-container" class="hidden text-center p-4">
+              <div class="loader"></div>
+              <p class="text-gray-600">AI is analyzing the image...</p>
+            </div>
+            <p id="error-message" class="text-red-500 text-sm mt-2"></p>
+          </div>
+
+          <div class="mt-6">
+            <button id="convert-button" class="w-full bg-indigo-600 text-white font-bold py-3 px-4 rounded-lg hover:bg-indigo-700 transition-colors duration-300 shadow-md btn-disabled" disabled>
+              Analyze with AI
+            </button>
+            <div class="flex space-x-4 mt-4">
+              <button id="export-word-button" class="flex-1 bg-green-600 text-white font-bold py-3 px-4 rounded-lg hover:bg-green-700 transition-colors duration-300 shadow-md btn-disabled" disabled>
+                Export as .docx
+              </button>
+              <button id="export-csv-button" class="flex-1 bg-blue-600 text-white font-bold py-3 px-4 rounded-lg hover:bg-blue-700 transition-colors duration-300 shadow-md btn-disabled" disabled>
+                Export as .csv
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <!-- External Libraries -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pizzip/3.1.4/pizzip.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/docxtemplater/3.42.2/docxtemplater.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.0/FileSaver.min.js"></script>
+
+  <script>
+    // --- DOM Element References ---
+    const fileInput = document.getElementById('file-input');
+    const uploadButton = document.getElementById('upload-button');
+    const imagePreview = document.getElementById('image-preview');
+    const imagePreviewContainer = document.getElementById('image-preview-container');
+    const uploadPlaceholder = document.getElementById('upload-placeholder');
+    const textOutput = document.getElementById('text-output');
+    const convertButton = document.getElementById('convert-button');
+    const exportWordButton = document.getElementById('export-word-button');
+    const exportCsvButton = document.getElementById('export-csv-button');
+    const progressContainer = document.getElementById('progress-container');
+    const errorMessage = document.getElementById('error-message');
+
+    // --- State Variables ---
+    let imageDataUrl = null;
+    let structuredData = null; // Will hold the JSON from the AI
+    let csvData = '';
+    let isLoading = false;
+
+    // --- UI Update Functions ---
+    const setUIState = (loading) => {
+      isLoading = loading;
+      convertButton.disabled = loading || !imageDataUrl;
+      exportWordButton.disabled = loading || !structuredData;
+      exportCsvButton.disabled = loading || !structuredData;
+      [convertButton, exportWordButton, exportCsvButton].forEach(btn => {
+        btn.classList.toggle('btn-disabled', btn.disabled);
+      });
+
+      progressContainer.classList.toggle('hidden', !loading);
+      textOutput.classList.toggle('hidden', loading);
+      convertButton.textContent = loading ? 'Analyzing...' : 'Analyze with AI';
+    };
+
+    const setError = (message) => {
+      errorMessage.textContent = message;
+    };
+
+    // --- Event Listeners ---
+    uploadButton.addEventListener('click', () => fileInput.click());
+    fileInput.addEventListener('change', handleImageChange);
+    convertButton.addEventListener('click', handleConvertClick);
+    exportWordButton.addEventListener('click', handleExportWord);
+    exportCsvButton.addEventListener('click', handleExportCsv);
+
+    // --- Core Logic Functions ---
+    function handleImageChange(e) {
+      const file = e.target.files[0];
+      if (!file) return;
+
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        imageDataUrl = reader.result;
+        imagePreview.src = imageDataUrl;
+        imagePreviewContainer.classList.remove('hidden');
+        uploadPlaceholder.classList.add('hidden');
+        structuredData = null;
+        csvData = '';
+        textOutput.innerHTML = 'Data will appear here...';
+        setError('');
+        setUIState(false);
+      };
+      reader.readAsDataURL(file);
+    }
+
+    async function handleConvertClick() {
+      if (!imageDataUrl || isLoading) return;
+      setUIState(true);
+      setError('');
+      textOutput.innerHTML = '';
+
+      // FIX: Dynamically determine the mime type from the data URL.
+      // A mismatch between the actual image type and the specified mimeType
+      // can cause API requests to fail with a 401 or other errors.
+      const mimeTypeMatch = imageDataUrl.match(/^data:(image\/\w+);base64,/);
+      if (!mimeTypeMatch) {
+        setError("Could not determine image type. Please upload a valid image file.");
+        setUIState(false);
+        return;
+      }
+      const mimeType = mimeTypeMatch[1];
+      const base64ImageData = imageDataUrl.split(',')[1];
+
+      const prompt = `
+Analyze the provided image which shows a grid of locations and trades. 
+
+The leftmost column lists the locations. The top row lists the trades.
+
+A green dot at the intersection of a location and a trade means the trade is TRACKED for that location.
+
+A red dot means the trade is NOT TRACKED.
+
+Extract this information.
+
+IMPORTANT: Respond ONLY with a valid JSON object in a string format. Do not include any other text, explanations, or markdown formatting like \`\`\`json.
+
+The JSON object should have a single key "locations", which is an array of objects. Each object should have a "name" (string) and "tracked_trades" (an array of strings for trades with a green dot).
+
+Example format: {"locations": [{"name": "Location A", "tracked_trades": ["Trade 1", "Trade 2"]}]}
+`;
+
+      const payload = {
+        contents: [{
+          role: "user",
+          parts: [
+            { text: prompt },
+            { inlineData: { mimeType: mimeType, data: base64ImageData } }
+          ]
+        }]
+      };
+
+      try {
+        // Note: For demo purposes, the API key would need to be provided
+        // In a real deployment, this should be handled server-side
+        const apiKey = ""; // API key will be injected by the environment
+        const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;
+        
+        if (!apiKey) {
+          throw new Error("API key not configured. Please add your Gemini API key to use this feature.");
+        }
+        
+        const response = await fetch(apiUrl, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        });
+
+        if (!response.ok) {
+          const errorBody = await response.json().catch(() => ({ message: response.statusText }));
+          const detailedMessage = errorBody.error?.message || errorBody.message || `HTTP ${response.status}: ${response.statusText}`;
+          throw new Error(`API request failed: ${detailedMessage}`);
+        }
+
+        const data = await response.json();
+        if (!data.candidates || !data.candidates[0] || !data.candidates[0].content) {
+          throw new Error("No response generated by the AI model.");
+        }
+
+        const responseText = data.candidates[0].content.parts[0].text.trim();
+        
+        try {
+          structuredData = JSON.parse(responseText);
+          displayStructuredData(structuredData);
+        } catch (parseError) {
+          setError(`Failed to parse AI response as JSON: ${parseError.message}`);
+          textOutput.innerHTML = `<pre class="whitespace-pre-wrap text-sm">${responseText}</pre>`;
+        }
+      } catch (error) {
+        setError(`Error: ${error.message}`);
+      } finally {
+        setUIState(false);
+      }
+    }
+
+    function displayStructuredData(data) {
+      if (!data.locations || !Array.isArray(data.locations)) {
+        setError("Invalid data structure received from AI.");
+        return;
+      }
+
+      let html = '<div class="space-y-4">';
+      data.locations.forEach(location => {
+        html += `
+          <div class="border border-gray-200 rounded-lg p-4">
+            <h3 class="font-semibold text-lg text-gray-800 mb-2">${location.name}</h3>
+            <div class="space-y-1">
+              ${location.tracked_trades.map(trade => `
+                <span class="inline-block bg-green-100 text-green-800 text-xs font-medium px-2.5 py-0.5 rounded">${trade}</span>
+              `).join('')}
+            </div>
+          </div>
+        `;
+      });
+      html += '</div>';
+      
+      textOutput.innerHTML = html;
+      
+      // Generate CSV data
+      generateCSVData(data);
+    }
+
+    function generateCSVData(data) {
+      const csvRows = [];
+      csvRows.push(['Location', 'Tracked Trade']);
+      
+      data.locations.forEach(location => {
+        location.tracked_trades.forEach(trade => {
+          csvRows.push([location.name, trade]);
+        });
+      });
+      
+      csvData = csvRows.map(row => row.map(cell => `"${cell.replace(/"/g, '""')}"`).join(',')).join('\n');
+    }
+
+    function handleExportWord() {
+      if (!structuredData) return;
+      
+      try {
+        // Create a simple document template
+        const template = `
+        <h1>Trade Tracking Analysis</h1>
+        ${structuredData.locations.map(location => `
+          <h2>${location.name}</h2>
+          <ul>
+            ${location.tracked_trades.map(trade => `<li>${trade}</li>`).join('')}
+          </ul>
+        `).join('')}
+        `;
+        
+        const blob = new Blob([template], { type: 'text/html' });
+        const link = document.createElement('a');
+        link.href = URL.createObjectURL(blob);
+        link.download = 'trade_tracking_analysis.html';
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        URL.revokeObjectURL(link.href);
+        
+      } catch (error) {
+        setError(`Export failed: ${error.message}`);
+      }
+    }
+
+    function handleExportCsv() {
+      if (!csvData) return;
+      
+      const blob = new Blob([csvData], { type: 'text/csv;charset=utf-8;' });
+      const link = document.createElement('a');
+      link.href = URL.createObjectURL(blob);
+      link.download = 'trade_tracking_data.csv';
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      URL.revokeObjectURL(link.href);
+    }
+
+    // Initialize UI
+    setUIState(false);
+  </script>
+</body>
+</html>
