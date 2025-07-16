@@ -65,6 +65,7 @@
                 <input id="file-upload" name="file-upload" type="file" class="sr-only" accept=".docx">
                 <div class="bg-blue-50 border-l-4 border-blue-500 text-blue-700 p-4 rounded-md" role="alert">
                     <p class="font-bold">Word Doc Format</p>
+
                     <p class="text-sm">Your document should contain comma-separated data like `DCH1-3,Roofing Flashing,not started,2024-01-15,2024-01-20,5`. Each record should be on a separate line.</p>
                     <p class="text-xs mt-2"><strong>Status Options:</strong> "not started", "in progress", "completed", "delayed"</p>
                     <p class="text-xs"><strong>Date Format:</strong> YYYY-MM-DD (e.g., 2024-01-15)</p>
@@ -129,7 +130,9 @@
 
         let parsedData = [];
         let rawTextContent = '';
-        const CSV_HEADERS = ["Location", "Trade", "Status", "Start Date", "Finish Date", "Duration"];
+
+        const CSV_HEADERS = ["Location", "Trade", "Status"];
+
 
         // --- Event Listeners ---
         fileUpload.addEventListener('change', handleFileSelect, false);
@@ -211,15 +214,16 @@
                 // Split by comma and trim whitespace
                 const values = line.split(',').map(value => value.trim());
                 
-                // Check if we have at least the minimum required values (Location, Trade, Status)
+
+                // Check if we have the expected number of values
+
                 if (values.length >= 3) {
                     const record = {
                         'Location': values[0] || '',
                         'Trade': values[1] || '',
-                        'Status': values[2] || '',
-                        'Start Date': values[3] || '',
-                        'Finish Date': values[4] || '',
-                        'Duration': values[5] || ''
+
+                        'Status': values[2] || ''
+
                     };
                     
                     // Only add the record if it has at least a location
