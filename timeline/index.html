@@ -39,6 +39,7 @@
             grid-template-columns: 300px 1fr;
             overflow: auto;
             height: calc(100vh - 225px); /* Adjust based on header/legend/filter height */
+            min-height: 300px; /* Minimum height for the entire timeline area */
         }
 
         .sticky-header {
@@ -67,6 +68,18 @@
             text-overflow: ellipsis;
             white-space: nowrap;
         }
+
+        .day-container {
+            width: 20px;
+            height: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 4px;
+            margin-right: 4px;
+            font-size: 10px;
+            font-weight: 500;
+        }
     </style>
 </head>
 <body class="bg-slate-100 text-slate-800 min-h-screen">
@@ -77,10 +90,50 @@
             <!-- Top Header -->
             <header class="bg-white border-b border-slate-200 flex-shrink-0">
                 <div class="flex items-center justify-between p-4">
-                    <div class="flex items-center gap-3">
-                        <i data-lucide="calendar" class="w-7 h-7 text-blue-600"></i>
-                        <span class="text-xl font-bold text-slate-800">Timeline Creator</span>
+                    <div class="flex items-center gap-6">
+                        <div class="flex items-center gap-3">
+                            <i data-lucide="calendar" class="w-7 h-7 text-blue-600"></i>
+                            <span class="text-xl font-bold text-slate-800">Timeline Creator</span>
+                        </div>
+                        
+                        <!-- Search Box -->
+                        <div class="relative w-64">
+                            <i data-lucide="search" class="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400"></i>
+                            <input type="text" id="search-input" placeholder="Search hierarchy..." class="w-full pl-9 pr-4 py-2 text-sm border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none">
+                        </div>
+                        
+                        <!-- Filter Zones Button -->
+                        <div class="relative">
+                            <button id="filter-btn" class="flex items-center gap-2 px-3 py-2 text-sm font-medium text-slate-700 bg-white border border-slate-300 rounded-lg hover:bg-slate-50">
+                                <i data-lucide="filter" class="w-4 h-4"></i>
+                                <span>Filter Zones</span>
+                            </button>
+                            <div id="filter-panel" class="hidden absolute top-full left-0 mt-2 w-72 bg-white border border-slate-200 rounded-lg shadow-lg z-40">
+                                <div class="p-3 border-b flex justify-between items-center">
+                                    <h4 class="font-semibold text-sm">Filter by Zone</h4>
+                                    <button id="clear-filter-btn" class="text-xs text-blue-600 hover:underline">Clear all</button>
+                                </div>
+                                <div id="filter-options" class="p-3 max-h-60 overflow-y-auto custom-scrollbar space-y-2">
+                                    <!-- Checkboxes will be generated here -->
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- View Toggle -->
+                        <div class="flex items-center gap-2">
+                            <div class="flex bg-white rounded-lg border border-slate-300 p-1">
+                                <button id="chronologicalViewBtn" class="px-4 py-2 text-sm font-medium rounded-md transition-colors bg-blue-600 text-white shadow-sm">Chronological</button>
+                                <button id="zoneViewBtn" class="px-4 py-2 text-sm font-medium rounded-md transition-colors text-slate-700 hover:bg-slate-100">By Zone</button>
+                            </div>
+                        </div>
+                        
+                        <!-- File Upload -->
+                        <div class="flex items-center gap-3">
+                            <input type="file" id="csv-upload" accept=".csv" class="block text-sm text-slate-500 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-medium file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100 transition-colors">
+                            <button id="process-csv-btn" class="px-4 py-2 rounded-lg bg-blue-600 text-white font-semibold text-sm disabled:bg-slate-300 disabled:cursor-not-allowed" disabled>Process</button>
+                        </div>
                     </div>
+                    
                     <div class="flex items-center gap-3">
                         <div class="w-9 h-9 rounded-full bg-slate-200 flex items-center justify-center text-slate-600 font-bold">U</div>
                     </div>
@@ -103,35 +156,7 @@
                             </div>
                         </div>
 
-                        <!-- Search and Filter Controls -->
-                        <div class="p-3 border-b border-slate-200 flex items-center justify-between gap-4">
-                            <div class="relative flex-grow max-w-xs">
-                                <i data-lucide="search" class="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400"></i>
-                                <input type="text" id="search-input" placeholder="Search hierarchy..." class="w-full pl-9 pr-4 py-1.5 text-sm border border-slate-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:outline-none">
-                            </div>
-                            <div class="relative">
-                                <button id="filter-btn" class="flex items-center gap-2 px-3 py-1.5 text-sm font-medium text-slate-700 bg-white border border-slate-300 rounded-md hover:bg-slate-50">
-                                    <i data-lucide="filter" class="w-4 h-4"></i>
-                                    <span>Filter Zones</span>
-                                </button>
-                                <div id="filter-panel" class="hidden absolute top-full right-0 mt-2 w-72 bg-white border border-slate-200 rounded-lg shadow-lg z-40">
-                                    <div class="p-3 border-b flex justify-between items-center">
-                                        <h4 class="font-semibold text-sm">Filter by Zone</h4>
-                                        <button id="clear-filter-btn" class="text-xs text-blue-600 hover:underline">Clear all</button>
-                                    </div>
-                                    <div id="filter-options" class="p-3 max-h-60 overflow-y-auto custom-scrollbar space-y-2">
-                                        <!-- Checkboxes will be generated here -->
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
 
-                        <!-- CSV Upload UI -->
-                        <div class="p-3 border-b border-slate-200 flex items-center gap-4">
-                            <input type="file" id="csv-upload" accept=".csv" class="block text-sm text-slate-500 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-medium file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100 transition-colors">
-                            <button id="process-csv-btn" class="px-4 py-2 rounded-lg bg-blue-600 text-white font-semibold text-sm disabled:bg-slate-300 disabled:cursor-not-allowed" disabled>Process</button>
-                            <span class="text-xs text-slate-500">CSV format: Location,Activity ID,Activity Name,Start Date,Finish Date,Duration</span>
-                        </div>
 
                         <!-- Timeline Grid -->
                         <div class="timeline-grid-wrapper custom-scrollbar">
@@ -180,11 +205,12 @@
     lucide.createIcons();
 
     // --- Configuration ---
-    const dayWidth = 4; // Condensed width per day for monthly view
+    const dayWidth = 24; // 20px container + 4px spacing for each day
     let today = new Date('2025-07-03T00:00:00Z'); // Default date
     let projectData; // Global project data
     let overallStartDate, overallEndDate, totalDays;
     let hideCardTimeout;
+    let currentView = 'chronological'; // 'chronological' or 'zone'
 
     // --- Date & Scheduling ---
     const addDays = (date, days) => new Date(date.valueOf() + days * 864e5);
@@ -268,6 +294,8 @@
         const hoverCard = document.getElementById('hover-card');
         const csvUpload = document.getElementById('csv-upload');
         const processCsvBtn = document.getElementById('process-csv-btn');
+        const chronologicalViewBtn = document.getElementById('chronologicalViewBtn');
+        const zoneViewBtn = document.getElementById('zoneViewBtn');
 
         // Add Export CSV button to the header
         const header = document.querySelector('header .flex.items-center.gap-4');
@@ -295,6 +323,57 @@
             lucide.createIcons();
         }
 
+        // --- View Management ---
+        function setView(view) {
+            currentView = view;
+            
+            // Update button states
+            if (view === 'chronological') {
+                chronologicalViewBtn.className = 'px-4 py-2 text-sm font-medium rounded-md transition-colors bg-blue-600 text-white shadow-sm';
+                zoneViewBtn.className = 'px-4 py-2 text-sm font-medium rounded-md transition-colors text-slate-700 hover:bg-slate-100';
+            } else {
+                chronologicalViewBtn.className = 'px-4 py-2 text-sm font-medium rounded-md transition-colors text-slate-700 hover:bg-slate-100';
+                zoneViewBtn.className = 'px-4 py-2 text-sm font-medium rounded-md transition-colors bg-blue-600 text-white shadow-sm';
+            }
+            
+            // Re-render with new view
+            if (projectData) {
+                render();
+            }
+        }
+
+        function sortItemsByStartDate(items) {
+            if (!Array.isArray(items)) return items;
+            
+            // Flatten all activities into a single array for chronological view
+            let allActivities = [];
+            
+            function flattenActivities(items) {
+                items.forEach(item => {
+                    if (item.children && item.children.length > 0) {
+                        flattenActivities(item.children);
+                    } else if (item.level === 3) {
+                        // Only include actual activities (level 3), not group headers
+                        allActivities.push(item);
+                    }
+                });
+            }
+            
+            flattenActivities(items);
+            
+            // Sort by start date
+            return allActivities.sort((a, b) => {
+                const aStart = parseDateSafe(a.startDate);
+                const bStart = parseDateSafe(b.startDate);
+                
+                if (!aStart && !bStart) return 0;
+                if (!aStart) return 1;
+                if (!bStart) return -1;
+                
+                return aStart - bStart;
+            });
+        }
+
         // --- Rendering ---
         function render() {
             console.log('projectData:', projectData);
@@ -302,6 +381,13 @@
                 console.error('No valid projectData.children to render:', projectData);
                 return;
             }
+            
+            // Sort items based on current view
+            let itemsToRender = [...projectData.children];
+            if (currentView === 'chronological') {
+                itemsToRender = sortItemsByStartDate(itemsToRender);
+            }
+            
             hierarchyBody.innerHTML = '';
             timelineBody.innerHTML = '';
             let rowIndex = 0;
@@ -312,48 +398,82 @@
                     const hasChildren = item.children && item.children.length > 0;
                     const isExpanded = item.isExpanded === undefined ? true : item.isExpanded;
                     const isVisible = parentIsVisible && item.visible;
-                    if (item.level === 1 || item.level === 2) {
-                        const row = document.createElement('div');
-                        row.id = `row-${item.id}`;
-                        row.dataset.id = item.id;
-                        row.dataset.parentId = parentId;
-                        row.className = `flex items-center h-10 border-b border-slate-200 text-sm font-bold text-slate-700 bg-slate-50 hover:bg-slate-100 ${!isVisible ? 'hidden' : ''}`;
-                        let expanderIcon = hasChildren ? `<i data-lucide="chevron-right" class="w-4 h-4 mr-1 transition-transform ${isExpanded ? 'rotate-90' : ''}"></i>` : '<span class="w-5 mr-1"></span>';
-                        row.innerHTML = `
-                            <div style="width: 300px; padding-left: ${item.level === 1 ? '1.25rem' : '2.5rem'};" class="flex items-center flex-shrink-0 cursor-pointer truncate-ellipsis">${expanderIcon}<span>${item.name}</span></div>
-                            <div style="flex:1;" class="flex-shrink-0"></div>
-                        `;
-                        hierarchyBody.appendChild(row);
-                        if(isVisible) rowIndex++;
-                        if (hasChildren && isExpanded) renderRecursive(item.children, item.id, isVisible && isExpanded);
-                    } else if (item.level === 3) {
-                        const row = document.createElement('div');
-                        row.id = `row-${item.id}`;
-                        row.dataset.id = item.id;
-                        row.dataset.parentId = parentId;
-                        row.className = `flex items-center h-10 border-b border-slate-200 text-sm text-slate-700 hover:bg-slate-50 ${!isVisible ? 'hidden' : ''}`;
-                        row.innerHTML = `
-                            <div style="width: 300px; padding-left: 4rem;" class="flex-shrink-0 truncate-ellipsis" title="${item.activityName || item.name}"><span>${item.activityName || item.name}</span></div>
-                            <div style="flex:1;" class="flex-shrink-0"></div>
-                        `;
-                        hierarchyBody.appendChild(row);
-                        if(isVisible) rowIndex++;
-                        // Timeline bar
-                        const plannedStart = parseDateSafe(item.startDate);
-                        const plannedEnd = parseDateSafe(item.endDate);
-                        if (plannedStart && plannedEnd && isVisible) {
-                            const plannedOffsetDays = getDaysBetween(overallStartDate, plannedStart);
-                            const plannedDurationDays = Math.max(1, getDaysBetween(plannedStart, plannedEnd));
-                            const plannedLeft = plannedOffsetDays * dayWidth;
-                            const plannedWidth = plannedDurationDays * dayWidth;
-                            const outlineColor = 'border-blue-500';
-                            timelineBarsHtml += `<div class="absolute h-10 flex items-center" style="top: ${(rowIndex - 1) * 40}px; left: ${plannedLeft}px; width: ${plannedWidth}px;"><div class="h-6 w-full rounded border-2 ${outlineColor}" title="${item.activityName || item.name} (Planned)"></div></div>`;
+                    
+                    if (currentView === 'chronological') {
+                        // For chronological view, only render level 3 activities (no groups)
+                        if (item.level === 3) {
+                            const row = document.createElement('div');
+                            row.id = `row-${item.id}`;
+                            row.dataset.id = item.id;
+                            row.dataset.parentId = parentId;
+                            row.className = `flex items-center h-10 border-b border-slate-200 text-sm text-slate-700 hover:bg-slate-50 ${!isVisible ? 'hidden' : ''}`;
+                            row.innerHTML = `
+                                <div style="width: 300px; padding-left: 1.25rem;" class="flex-shrink-0 truncate-ellipsis" title="${item.activityName || item.name}">
+                                    <span class="text-xs text-slate-500 mr-2">${item.location || ''}</span>
+                                    <span>${item.activityName || item.name}</span>
+                                </div>
+                                <div style="flex:1;" class="flex-shrink-0"></div>
+                            `;
+                            hierarchyBody.appendChild(row);
+                            if(isVisible) rowIndex++;
+                            // Timeline bar
+                            const plannedStart = parseDateSafe(item.startDate);
+                            const plannedEnd = parseDateSafe(item.endDate);
+                            if (plannedStart && plannedEnd && isVisible) {
+                                const plannedOffsetDays = getDaysBetween(overallStartDate, plannedStart);
+                                const plannedDurationDays = Math.max(1, getDaysBetween(plannedStart, plannedEnd));
+                                const plannedLeft = plannedOffsetDays * dayWidth;
+                                const plannedWidth = plannedDurationDays * dayWidth;
+                                const outlineColor = 'border-blue-500';
+                                timelineBarsHtml += `<div class="absolute h-10 flex items-center" style="top: ${(rowIndex - 1) * 40}px; left: ${plannedLeft}px; width: ${plannedWidth}px;"><div class="h-6 w-full rounded border-2 ${outlineColor}" title="${item.activityName || item.name} (Planned)"></div></div>`;
+                            }
+                        }
+                    } else {
+                        // For zone view, keep the original hierarchical structure
+                        if (item.level === 1 || item.level === 2) {
+                            const row = document.createElement('div');
+                            row.id = `row-${item.id}`;
+                            row.dataset.id = item.id;
+                            row.dataset.parentId = parentId;
+                            row.className = `flex items-center h-10 border-b border-slate-200 text-sm font-bold text-slate-700 bg-slate-50 hover:bg-slate-100 ${!isVisible ? 'hidden' : ''}`;
+                            let expanderIcon = hasChildren ? `<i data-lucide="chevron-right" class="w-4 h-4 mr-1 transition-transform ${isExpanded ? 'rotate-90' : ''}"></i>` : '<span class="w-5 mr-1"></span>';
+                            row.innerHTML = `
+                                <div style="width: 300px; padding-left: ${item.level === 1 ? '1.25rem' : '2.5rem'};" class="flex items-center flex-shrink-0 cursor-pointer truncate-ellipsis">${expanderIcon}<span>${item.name}</span></div>
+                                <div style="flex:1;" class="flex-shrink-0"></div>
+                            `;
+                            hierarchyBody.appendChild(row);
+                            if(isVisible) rowIndex++;
+                            if (hasChildren && isExpanded) renderRecursive(item.children, item.id, isVisible && isExpanded);
+                        } else if (item.level === 3) {
+                            const row = document.createElement('div');
+                            row.id = `row-${item.id}`;
+                            row.dataset.id = item.id;
+                            row.dataset.parentId = parentId;
+                            row.className = `flex items-center h-10 border-b border-slate-200 text-sm text-slate-700 hover:bg-slate-50 ${!isVisible ? 'hidden' : ''}`;
+                            row.innerHTML = `
+                                <div style="width: 300px; padding-left: 4rem;" class="flex-shrink-0 truncate-ellipsis" title="${item.activityName || item.name}"><span>${item.activityName || item.name}</span></div>
+                                <div style="flex:1;" class="flex-shrink-0"></div>
+                            `;
+                            hierarchyBody.appendChild(row);
+                            if(isVisible) rowIndex++;
+                            // Timeline bar
+                            const plannedStart = parseDateSafe(item.startDate);
+                            const plannedEnd = parseDateSafe(item.endDate);
+                            if (plannedStart && plannedEnd && isVisible) {
+                                const plannedOffsetDays = getDaysBetween(overallStartDate, plannedStart);
+                                const plannedDurationDays = Math.max(1, getDaysBetween(plannedStart, plannedEnd));
+                                const plannedLeft = plannedOffsetDays * dayWidth;
+                                const plannedWidth = plannedDurationDays * dayWidth;
+                                const outlineColor = 'border-blue-500';
+                                timelineBarsHtml += `<div class="absolute h-10 flex items-center" style="top: ${(rowIndex - 1) * 40}px; left: ${plannedLeft}px; width: ${plannedWidth}px;"><div class="h-6 w-full rounded border-2 ${outlineColor}" title="${item.activityName || item.name} (Planned)"></div></div>`;
+                            }
                         }
                     }
                 });
             }
-            renderRecursive(projectData.children);
-            const totalHeight = rowIndex * 40;
+            renderRecursive(itemsToRender);
+            const calculatedHeight = rowIndex * 40;
+            const totalHeight = calculatedHeight;
             timelineBody.style.width = `${totalDays * dayWidth}px`;
             timelineBody.style.height = `${totalHeight}px`;
             hierarchyBody.style.height = `${totalHeight}px`;
@@ -384,6 +504,7 @@
         function renderTimelineHeader() {
             let yearRowHtml = '';
             let monthRowHtml = '';
+            let dayRowHtml = '';
             const months = [];
             let tempDate = new Date(overallStartDate);
             tempDate.setDate(1);
@@ -408,12 +529,23 @@
                 yearRowHtml += `<div class="text-sm font-semibold text-slate-600 p-1 text-center border-r border-slate-200">${year}</div>`;
             }
             let monthGridTemplateColumns = '';
+            let dayGridTemplateColumns = '';
             months.forEach(monthDate => {
                 const daysInMonth = new Date(monthDate.getFullYear(), monthDate.getMonth() + 1, 0).getDate();
                 const monthWidth = daysInMonth * dayWidth;
                 monthGridTemplateColumns += `${monthWidth}px `;
                 const monthName = monthDate.toLocaleString('default', { month: 'short' }).toUpperCase();
-                monthRowHtml += `<div class="h-8 flex items-center justify-center border-l border-slate-200 text-xs text-slate-500">${monthName}</div>`;
+                monthRowHtml += `<div class="h-6 flex items-center justify-center border-l border-slate-200 text-xs text-slate-500">${monthName}</div>`;
+                
+                // Add individual days for this month
+                for (let day = 1; day <= daysInMonth; day++) {
+                    dayGridTemplateColumns += `${dayWidth}px `;
+                    const isToday = monthDate.getFullYear() === today.getFullYear() && 
+                                   monthDate.getMonth() === today.getMonth() && 
+                                   day === today.getDate();
+                    const dayClass = isToday ? 'bg-blue-100 text-blue-700' : 'bg-slate-50 text-slate-600';
+                    dayRowHtml += `<div class="day-container ${dayClass}">${day}</div>`;
+                }
             });
             const totalWidth = totalDays * dayWidth;
             timelineHeaderWrapper.innerHTML = `
@@ -423,6 +555,9 @@
                     </div>
                     <div class="grid border-t border-slate-200" style="grid-template-columns: ${monthGridTemplateColumns.trim()};">
                         ${monthRowHtml}
+                    </div>
+                    <div class="grid border-t border-slate-200" style="grid-template-columns: ${dayGridTemplateColumns.trim()};">
+                        ${dayRowHtml}
                     </div>
                 </div>
             `;
@@ -563,6 +698,10 @@
         populateFilterPanel();
     }, 100); // Allow loading indicator to render
 });
+
+            // View toggle buttons
+            chronologicalViewBtn.addEventListener('click', () => setView('chronological'));
+            zoneViewBtn.addEventListener('click', () => setView('zone'));
         }
 
         // Call once on load
