@@ -67,9 +67,15 @@
                 <div class="bg-blue-50 border-l-4 border-blue-500 text-blue-700 p-4 rounded-md" role="alert">
                     <p class="font-bold">Word Doc Format</p>
 
-                    <p class="text-sm">Your document should contain comma-separated data like `DCH1-3,Roofing Flashing,not started,2024-01-15,2024-01-20,5`. Each record should be on a separate line.</p>
-                    <p class="text-xs mt-2"><strong>Status Options:</strong> "not started", "in progress", "completed", "delayed"</p>
-                    <p class="text-xs"><strong>Date Format:</strong> YYYY-MM-DD (e.g., 2024-01-15)</p>
+                    <p class="text-sm">Your document should contain comma-separated data with 4 columns: Location, Trade Name, Start Date, Finish Date</p>
+                    <p class="text-sm">Example: <code>DCH1-3,Install Roofing Flashing,2025-01-15,2025-01-20,Roofing Flashing</code></p>
+                    <p class="text-xs mt-2"><strong>Date Formats:</strong></p>
+                    <ul class="text-xs list-disc list-inside ml-2">
+                        <li>YYYY-MM-DD (e.g., 2025-01-15)</li>
+                        <li>"started on January 15" → 2025-01-15</li>
+                        <li>"completed on March 20" → 2025-03-20</li>
+                    </ul>
+                    <p class="text-xs mt-2"><strong>Note:</strong> Each record should be on a separate line</p>
                 </div>
             </div>
 
@@ -132,7 +138,7 @@
         let parsedData = [];
         let rawTextContent = '';
 
-        const CSV_HEADERS = ["Location", "Trade", "Status"];
+        const CSV_HEADERS = ["Location", "Trade Name", "Start Date", "Finish Date"];
 
 
         // --- Event Listeners ---
@@ -141,6 +147,44 @@
         downloadBtn.addEventListener('click', downloadCsv, false);
 
         // --- Core Functions ---
+
+        /**
+         * Converts a date string like "January 15" to "2025-01-15" format
+         * @param {string} dateStr - Date string like "January 15" or "Jan 15"
+         * @returns {string} Formatted date string in YYYY-MM-DD format
+         */
+        function formatDateToYYYYMMDD(dateStr) {
+            const monthMap = {
+                'january': '01', 'jan': '01',
+                'february': '02', 'feb': '02',
+                'march': '03', 'mar': '03',
+                'april': '04', 'apr': '04',
+                'may': '05',
+                'june': '06', 'jun': '06',
+                'july': '07', 'jul': '07',
+                'august': '08', 'aug': '08',
+                'september': '09', 'sep': '09', 'sept': '09',
+                'october': '10', 'oct': '10',
+                'november': '11', 'nov': '11',
+                'december': '12', 'dec': '12'
+            };
+
+            // Extract month and day from the date string
+            const parts = dateStr.trim().toLowerCase().split(/\s+/);
+            if (parts.length >= 2) {
+                const month = monthMap[parts[0]];
+                const day = parts[1].replace(/\D/g, ''); // Remove any non-digit characters
+                
+                if (month && day) {
+                    // Pad day with leading zero if needed
+                    const paddedDay = day.padStart(2, '0');
+                    return `2025-${month}-${paddedDay}`;
+                }
+            }
+            
+            // Return original string if parsing fails
+            return dateStr;
+        }
 
         /**
          * Handles file selection, reads the .docx, and stores the raw text.
@@ -215,16 +259,68 @@
                 // Split by comma and trim whitespace
                 const values = line.split(',').map(value => value.trim());
                 
-
-                // Check if we have the expected number of values
-
-                if (values.length >= 3) {
+                // Check if we have at least a location (first column)
+                if (values.length >= 1 && values[0]) {
+                    let startDate = values[2] || '';
+                    let finishDate = values[3] || '';
+                    
+                    // Process each value to look for "started on" and "completed on" patterns
+                    values.forEach((value, index) => {
+                        const lowerValue = value.toLowerCase();
+                        
+                        // Check for "started on" pattern - only apply to start date column (index 2)
+                        if (lowerValue.includes('started on') && index === 2) {
+                            const dateMatch = value.match(/started on\s+(\w+\s+\d+)/i);
+                            if (dateMatch) {
+                                startDate = formatDateToYYYYMMDD(dateMatch[1]);
+                            }
+                        }
+                        
+                        // Check for "completed on" pattern - only apply to finish date column (index 3)
+                        if (lowerValue.includes('completed on') && index === 3) {
+                            const dateMatch = value.match(/completed on\s+(\w+\s+\d+)/i);
+                            if (dateMatch) {
+                                finishDate = formatDateToYYYYMMDD(dateMatch[1]);
+                            }
+                        }
+                        
+                        // If "completed on" is found in start date column, extract date and clear start date
+                        if (lowerValue.includes('completed on') && index === 2) {
+                            const dateMatch = value.match(/completed on\s+(\w+\s+\d+)/i);
+                            if (dateMatch) {
+                                finishDate = formatDateToYYYYMMDD(dateMatch[1]);
+                            }
+                            startDate = '';
+                        }
+                        
+                        // If "started on" is found in finish date column, extract date and clear finish date
+                        if (lowerValue.includes('started on') && index === 3) {
+                            const dateMatch = value.match(/started on\s+(\w+\s+\d+)/i);
+                            if (dateMatch) {
+                                startDate = formatDateToYYYYMMDD(dateMatch[1]);
+                            }
+                            finishDate = '';
+                        }
+                    });
+                    
+                    // Also check for "completed on" anywhere in the line and extract the date
+                    const fullLine = values.join(',');
+                    const completedMatch = fullLine.match(/completed on\s+(\w+\s+\d+)/i);
+                    if (completedMatch && !finishDate) {
+                        finishDate = formatDateToYYYYMMDD(completedMatch[1]);
+                    }
+                    
+                    // Remove matching content between start and finish dates
+                    if (startDate && finishDate && startDate === finishDate) {
+                        // If dates are identical, keep only in start date and clear finish date
+                        finishDate = '';
+                    }
+                    
                     const record = {
                         'Location': values[0] || '',
-                        'Trade': values[1] || '',
-
-                        'Status': values[2] || ''
-
+                        'Trade Name': (values[1] || '') + (values[4] ? ' - ' + values[4] : ''),
+                        'Start Date': startDate,
+                        'Finish Date': finishDate
                     };
                     
                     // Only add the record if it has at least a location
