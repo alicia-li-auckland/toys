@@ -89,11 +89,49 @@
             <!-- Top Header -->
             <header class="bg-white border-b border-slate-200 flex-shrink-0">
                 <div class="flex items-center justify-between p-4">
-                    <div class="flex items-center gap-3">
-                        <i data-lucide="calendar" class="w-7 h-7 text-blue-600"></i>
-                        <span class="text-xl font-bold text-slate-800">Timeline Creator</span>
+                    <div class="flex items-center gap-6">
+                        <div class="flex items-center gap-3">
+                            <i data-lucide="calendar" class="w-7 h-7 text-blue-600"></i>
+                            <span class="text-xl font-bold text-slate-800">Timeline Creator</span>
+                        </div>
+                        
+                        <!-- File Upload -->
+                        <div class="flex items-center gap-3">
+                            <button id="choose-file-btn" class="px-4 py-2 rounded-lg bg-blue-600 text-white font-semibold text-sm hover:bg-blue-700">Choose File</button>
+                            <button id="process-csv-btn" class="px-4 py-2 rounded-lg bg-blue-600 text-white font-semibold text-sm disabled:bg-slate-300 disabled:cursor-not-allowed" disabled>Process</button>
+                        </div>
                     </div>
-                    <div class="flex items-center gap-3">
+                    
+                    <div class="flex items-center gap-4">
+                        <!-- Search Box -->
+                        <div class="relative w-64">
+                            <i data-lucide="search" class="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400"></i>
+                            <input type="text" id="search-input" placeholder="Search hierarchy..." class="w-full pl-9 pr-4 py-2 text-sm border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none">
+                        </div>
+                        
+                        <!-- Filter Zones Button -->
+                        <div class="relative">
+                            <button id="filter-btn" class="flex items-center gap-2 px-3 py-2 text-sm font-medium text-slate-700 bg-white border border-slate-300 rounded-lg hover:bg-slate-50">
+                                <i data-lucide="filter" class="w-4 h-4"></i>
+                                <span>Filter Zones</span>
+                            </button>
+                            <div id="filter-panel" class="hidden absolute top-full right-0 mt-2 w-72 bg-white border border-slate-200 rounded-lg shadow-lg z-40">
+                                <div class="p-3 border-b flex justify-between items-center">
+                                    <h4 class="font-semibold text-sm">Filter by Zone</h4>
+                                    <button id="clear-filter-btn" class="text-xs text-blue-600 hover:underline">Clear all</button>
+                                </div>
+                                <div id="filter-options" class="p-3 max-h-60 overflow-y-auto custom-scrollbar space-y-2">
+                                    <!-- Checkboxes will be generated here -->
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- View Toggle -->
+                        <div class="flex bg-white rounded-lg border border-slate-300 p-1">
+                            <button id="chronological-view-btn" class="px-3 py-1.5 text-sm font-medium rounded-md transition-colors bg-blue-600 text-white shadow-sm">Chronological</button>
+                            <button id="zone-view-btn" class="px-3 py-1.5 text-sm font-medium rounded-md transition-colors text-slate-700 hover:bg-slate-100">By Zone</button>
+                        </div>
+                        
                         <div class="w-9 h-9 rounded-full bg-slate-200 flex items-center justify-center text-slate-600 font-bold">U</div>
                     </div>
                 </div>
@@ -104,46 +142,27 @@
                 <div class="p-4 lg:p-6 h-full">
                     <div class="bg-white rounded-xl shadow-sm h-full flex flex-col">
                         <!-- Legend -->
-                        <div class="p-3 border-b border-slate-200 flex items-center gap-6 text-sm">
-                            <div class="flex items-center gap-2">
-                                <div class="w-10 h-4 rounded border-2 border-slate-400"></div>
-                                <span class="text-slate-600 font-medium">Planned Schedule</span>
-                            </div>
-                            <div class="flex items-center gap-2">
-                                <div class="w-10 h-4 rounded bg-slate-400"></div>
-                                <span class="text-slate-600 font-medium">Actual Progress</span>
-                            </div>
-                        </div>
-
-                        <!-- Search and Filter Controls -->
-                        <div class="p-3 border-b border-slate-200 flex items-center justify-between gap-4">
-                            <div class="relative flex-grow max-w-xs">
-                                <i data-lucide="search" class="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400"></i>
-                                <input type="text" id="search-input" placeholder="Search hierarchy..." class="w-full pl-9 pr-4 py-1.5 text-sm border border-slate-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:outline-none">
-                            </div>
-                            <div class="relative">
-                                <button id="filter-btn" class="flex items-center gap-2 px-3 py-1.5 text-sm font-medium text-slate-700 bg-white border border-slate-300 rounded-md hover:bg-slate-50">
-                                    <i data-lucide="filter" class="w-4 h-4"></i>
-                                    <span>Filter Zones</span>
-                                </button>
-                                <div id="filter-panel" class="hidden absolute top-full right-0 mt-2 w-72 bg-white border border-slate-200 rounded-lg shadow-lg z-40">
-                                    <div class="p-3 border-b flex justify-between items-center">
-                                        <h4 class="font-semibold text-sm">Filter by Zone</h4>
-                                        <button id="clear-filter-btn" class="text-xs text-blue-600 hover:underline">Clear all</button>
-                                    </div>
-                                    <div id="filter-options" class="p-3 max-h-60 overflow-y-auto custom-scrollbar space-y-2">
-                                        <!-- Checkboxes will be generated here -->
-                                    </div>
+                        <div class="p-3 border-b border-slate-200 flex items-center justify-between text-sm">
+                            <div class="flex items-center gap-6">
+                                <div class="flex items-center gap-2">
+                                    <div class="w-10 h-4 rounded border-2 border-slate-400"></div>
+                                    <span class="text-slate-600 font-medium">Planned Schedule</span>
+                                </div>
+                                <div class="flex items-center gap-2">
+                                    <div class="w-10 h-4 rounded bg-slate-400"></div>
+                                    <span class="text-slate-600 font-medium">Actual Progress</span>
                                 </div>
                             </div>
+                            <div class="flex items-center gap-4">
+                                <label class="flex items-center gap-2 cursor-pointer">
+                                    <input type="checkbox" id="show-matched-only" class="w-4 h-4 text-green-600 border-slate-300 rounded focus:ring-green-500">
+                                    <span class="text-sm font-medium text-slate-700">Show Matched Items Only</span>
+                                </label>
+                                <span id="match-count" class="text-xs text-slate-500 bg-slate-100 px-2 py-1 rounded-full"></span>
+                            </div>
                         </div>
 
-                        <!-- CSV Upload UI -->
-                        <div class="p-3 border-b border-slate-200 flex items-center gap-4">
-                            <input type="file" id="csv-upload" accept=".csv" class="block text-sm text-slate-500 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-medium file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100 transition-colors">
-                            <button id="process-csv-btn" class="px-4 py-2 rounded-lg bg-blue-600 text-white font-semibold text-sm disabled:bg-slate-300 disabled:cursor-not-allowed" disabled>Process</button>
-                            <span class="text-xs text-slate-500">CSV format: Location,Activity ID,Activity Name,Start Date,Finish Date,Duration</span>
-                        </div>
+
 
                         <!-- Timeline Grid -->
                         <div class="timeline-grid-wrapper custom-scrollbar">
@@ -175,6 +194,42 @@
         </div>
     </div>
 
+    <!-- File Type Selection Modal -->
+    <div id="file-type-modal" class="hidden fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center">
+        <div class="bg-white rounded-lg shadow-xl p-6 w-96">
+            <div class="flex items-center justify-between mb-4">
+                <h3 class="text-lg font-semibold text-slate-800">Choose File Type</h3>
+                <button id="close-modal" class="text-slate-400 hover:text-slate-600">
+                    <i data-lucide="x" class="w-5 h-5"></i>
+                </button>
+            </div>
+            <div class="space-y-4">
+                <div class="border border-slate-200 rounded-lg p-4 hover:bg-slate-50 cursor-pointer" id="schedule-option">
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-4 rounded border-2 border-slate-400"></div>
+                        <div>
+                            <h4 class="font-medium text-slate-800">Schedule</h4>
+                            <p class="text-sm text-slate-500">Upload planned schedule data</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="border border-slate-200 rounded-lg p-4 hover:bg-slate-50 cursor-pointer" id="actualized-option">
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-4 rounded bg-slate-400"></div>
+                        <div>
+                            <h4 class="font-medium text-slate-800">Actualized Work</h4>
+                            <p class="text-sm text-slate-500">Upload actual progress data</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Hidden file inputs -->
+    <input type="file" id="schedule-csv-upload" accept=".csv" style="display: none;">
+    <input type="file" id="actualized-csv-upload" accept=".csv" style="display: none;">
+
     <!-- Hover Card -->
     <div id="hover-card" class="hidden absolute z-50 p-3 bg-white rounded-lg shadow-xl w-64 border border-slate-200 pointer-events-none opacity-0">
         <img id="hover-card-img" src="" class="w-full h-32 object-cover rounded-md mb-2 bg-slate-200" alt="Task Image">
@@ -195,8 +250,11 @@
             const dayWidth = 24; // 20px container + 4px spacing for each day
     let today = new Date('2025-07-03T00:00:00Z'); // Default date
     let projectData; // Global project data
+    let actualizedData = []; // Actual progress data
     let overallStartDate, overallEndDate, totalDays;
     let hideCardTimeout;
+            let viewMode = 'chronological'; // 'chronological' or 'zone'
+        let showMatchedOnly = false; // Filter to show only items with actualized data
 
     // --- Date & Scheduling ---
     const addDays = (date, days) => new Date(date.valueOf() + days * 864e5);
@@ -278,8 +336,14 @@
         const filterOptions = document.getElementById('filter-options');
         const clearFilterBtn = document.getElementById('clear-filter-btn');
         const hoverCard = document.getElementById('hover-card');
-        const csvUpload = document.getElementById('csv-upload');
+        const chooseFileBtn = document.getElementById('choose-file-btn');
         const processCsvBtn = document.getElementById('process-csv-btn');
+        const fileTypeModal = document.getElementById('file-type-modal');
+        const closeModal = document.getElementById('close-modal');
+        const scheduleOption = document.getElementById('schedule-option');
+        const actualizedOption = document.getElementById('actualized-option');
+        const scheduleCsvUpload = document.getElementById('schedule-csv-upload');
+        const actualizedCsvUpload = document.getElementById('actualized-csv-upload');
 
         // Add Export CSV button to the header
         const header = document.querySelector('header .flex.items-center.gap-4');
@@ -307,6 +371,47 @@
             lucide.createIcons();
         }
 
+        /**
+         * Flattens the hierarchical data into a single chronological list for chronological view.
+         * @param {Array} items - The hierarchical data to flatten.
+         * @returns {Array} - Flattened array of activities sorted by start date.
+         */
+        function flattenDataForChronologicalView(items) {
+            const flattened = [];
+            
+            function collectActivities(items) {
+                if (!Array.isArray(items)) return;
+                items.forEach(item => {
+                    if (item.level === 3) {
+                        // This is an activity, add it to the flattened list
+                        flattened.push({
+                            ...item,
+                            level: 3, // Keep as level 3 for rendering
+                            isVisible: true,
+                            isExpanded: true
+                        });
+                    } else if (item.children && item.children.length > 0) {
+                        // Recursively collect activities from children
+                        collectActivities(item.children);
+                    }
+                });
+            }
+            
+            collectActivities(items);
+            
+            // Sort by start date
+            flattened.sort((a, b) => {
+                const dateA = parseDateSafe(a.startDate);
+                const dateB = parseDateSafe(b.startDate);
+                if (!dateA && !dateB) return 0;
+                if (!dateA) return 1;
+                if (!dateB) return -1;
+                return dateA - dateB;
+            });
+            
+            return flattened;
+        }
+
         // --- Rendering ---
         function render() {
             console.log('projectData:', projectData);
@@ -314,16 +419,38 @@
                 console.error('No valid projectData.children to render:', projectData);
                 return;
             }
+            
+            // Prepare data based on view mode
+            let dataToRender;
+            if (viewMode === 'chronological') {
+                dataToRender = flattenDataForChronologicalView(projectData.children);
+            } else {
+                dataToRender = projectData.children;
+            }
+            
             hierarchyBody.innerHTML = '';
             timelineBody.innerHTML = '';
             let rowIndex = 0;
             let timelineBarsHtml = '';
+            
             function renderRecursive(items, parentId = 'root', parentIsVisible = true) {
                 if (!Array.isArray(items)) return;
                 items.forEach(item => {
                     const hasChildren = item.children && item.children.length > 0;
                     const isExpanded = item.isExpanded === undefined ? true : item.isExpanded;
                     const isVisible = parentIsVisible && item.visible;
+                    
+                    // Apply matched-only filter
+                    if (showMatchedOnly && item.level === 3 && !item.hasActualData) {
+                        return; // Skip this item if it doesn't have actualized data
+                    }
+                    
+                    // In chronological view, skip location headers and only show activities
+                    if (viewMode === 'chronological' && item.level !== 3) {
+                        if (hasChildren && isExpanded) renderRecursive(item.children, item.id, isVisible && isExpanded);
+                        return;
+                    }
+                    
                     if (item.level === 1 || item.level === 2) {
                         const row = document.createElement('div');
                         row.id = `row-${item.id}`;
@@ -344,27 +471,48 @@
                         row.dataset.id = item.id;
                         row.dataset.parentId = parentId;
                         row.className = `flex items-center h-10 border-b border-slate-200 text-sm text-slate-700 hover:bg-slate-50 ${!isVisible ? 'hidden' : ''}`;
+                        
+                        // In chronological view, show location in the activity name
+                        let displayName = item.activityName || item.name;
+                        if (viewMode === 'chronological' && item.location) {
+                            displayName = `${item.location} - ${displayName}`;
+                        }
+                        
                         row.innerHTML = `
-                            <div style="width: 300px; padding-left: 4rem;" class="flex-shrink-0 truncate-ellipsis" title="${item.activityName || item.name}"><span>${item.activityName || item.name}</span></div>
+                            <div style="width: 300px; padding-left: ${viewMode === 'chronological' ? '1.25rem' : '4rem'};" class="flex-shrink-0 truncate-ellipsis" title="${displayName}"><span>${displayName}</span></div>
                             <div style="flex:1;" class="flex-shrink-0"></div>
                         `;
                         hierarchyBody.appendChild(row);
                         if(isVisible) rowIndex++;
-                        // Timeline bar
+                        // Timeline bars
                         const plannedStart = parseDateSafe(item.startDate);
                         const plannedEnd = parseDateSafe(item.endDate);
+                        const actualStart = parseDateSafe(item.actualStartDate);
+                        const actualEnd = parseDateSafe(item.actualEndDate);
+
                         if (plannedStart && plannedEnd && isVisible) {
                             const plannedOffsetDays = getDaysBetween(overallStartDate, plannedStart);
                             const plannedDurationDays = Math.max(1, getDaysBetween(plannedStart, plannedEnd));
                             const plannedLeft = plannedOffsetDays * dayWidth;
                             const plannedWidth = plannedDurationDays * dayWidth;
-                            const outlineColor = 'border-blue-500';
-                            timelineBarsHtml += `<div class="absolute h-10 flex items-center" style="top: ${(rowIndex - 1) * 40}px; left: ${plannedLeft}px; width: ${plannedWidth}px;"><div class="h-6 w-full rounded border-2 ${outlineColor}" title="${item.activityName || item.name} (Planned)"></div></div>`;
+                            
+                            // Planned bar (outline)
+                            timelineBarsHtml += `<div class="absolute h-10 flex items-center" style="top: ${(rowIndex - 1) * 40}px; left: ${plannedLeft}px; width: ${plannedWidth}px;"><div class="h-6 w-full rounded border-2 border-blue-500" title="${item.activityName || item.name} (Planned)"></div></div>`;
+                            
+                            // Actual bar (filled) if available
+                            if (actualStart && actualEnd && item.hasActualData) {
+                                const actualOffsetDays = getDaysBetween(overallStartDate, actualStart);
+                                const actualDurationDays = Math.max(1, getDaysBetween(actualStart, actualEnd));
+                                const actualLeft = actualOffsetDays * dayWidth;
+                                const actualWidth = actualDurationDays * dayWidth;
+                                
+                                timelineBarsHtml += `<div class="absolute h-10 flex items-center" style="top: ${(rowIndex - 1) * 40}px; left: ${actualLeft}px; width: ${actualWidth}px;"><div class="h-6 w-full rounded bg-slate-400" title="${item.activityName || item.name} (Actual)"></div></div>`;
+                            }
                         }
                     }
                 });
             }
-            renderRecursive(projectData.children);
+            renderRecursive(dataToRender);
             const totalHeight = rowIndex * 40;
             timelineBody.style.width = `${totalDays * dayWidth}px`;
             timelineBody.style.height = `${totalHeight}px`;
@@ -391,6 +539,7 @@
             timelineBody.innerHTML = gridLinesHtml + timelineBarsHtml;
             renderTimelineHeader();
             lucide.createIcons();
+            updateMatchCount();
         }
 
         function renderTimelineHeader() {
@@ -481,6 +630,180 @@
             render();
         }
 
+        function matchActualizedData() {
+            if (!projectData || !actualizedData.length) return;
+
+            let totalScheduledItems = 0;
+            let matchedItems = 0;
+            const matchStats = {
+                exact_id: 0,
+                exact_name: 0,
+                location: 0,
+                partial_name: 0,
+                duration_similar: 0,
+                date_similar: 0
+            };
+
+            function matchRecursive(items) {
+                items.forEach(item => {
+                    if (item.level === 3) {
+                        totalScheduledItems++;
+                        // Enhanced tag-based matching with multiple strategies
+                        const match = findBestMatch(item, actualizedData);
+
+                        if (match) {
+                            matchedItems++;
+                            item.actualStartDate = match['start date'];
+                            item.actualEndDate = match['finish date'];
+                            item.actualDuration = match['duration'];
+                            item.hasActualData = true;
+                            
+                            // Track match statistics
+                            match.matchDetails.forEach(detail => {
+                                if (detail.startsWith('common_words:')) {
+                                    // Skip common_words details for stats
+                                } else if (matchStats.hasOwnProperty(detail)) {
+                                    matchStats[detail]++;
+                                }
+                            });
+                            
+                            console.log(`✅ Matched: "${item.activityName}" with "${match['activity name']}" (score: ${match.matchScore}, methods: ${match.matchDetails.join(', ')})`);
+                        } else {
+                            console.log(`❌ No match found for: "${item.activityName}"`);
+                        }
+                    }
+                    if (item.children) {
+                        matchRecursive(item.children);
+                    }
+                });
+            }
+
+            matchRecursive(projectData.children);
+            
+            // Display matching statistics
+            console.log(`\n📊 Matching Statistics:`);
+            console.log(`Total scheduled items: ${totalScheduledItems}`);
+            console.log(`Successfully matched: ${matchedItems} (${Math.round(matchedItems/totalScheduledItems*100)}%)`);
+            console.log(`Match methods used:`);
+            Object.entries(matchStats).forEach(([method, count]) => {
+                if (count > 0) {
+                    console.log(`  - ${method}: ${count} items`);
+                }
+            });
+            
+            // Show user-friendly message
+            if (matchedItems > 0) {
+                showMessage(`Successfully matched ${matchedItems} out of ${totalScheduledItems} scheduled items with actualized work data`, 'success');
+            } else {
+                showMessage('No matches found between schedule and actualized work data. Check that the data formats are compatible.', 'error');
+            }
+            
+            // Update match count display
+            updateMatchCount();
+        }
+
+        /**
+         * Enhanced matching function that uses multiple strategies to find the best match
+         * @param {Object} scheduledItem - The scheduled activity to match
+         * @param {Array} actualizedData - Array of actualized work items
+         * @returns {Object|null} - The best matching actualized item or null
+         */
+        function findBestMatch(scheduledItem, actualizedData) {
+            let bestMatch = null;
+            let bestScore = 0;
+
+            actualizedData.forEach(actual => {
+                let score = 0;
+                const matchDetails = [];
+
+                // Strategy 1: Exact ID match (highest priority)
+                if (actual['activity id'] && scheduledItem.activityId && 
+                    actual['activity id'].toString().trim() === scheduledItem.activityId.toString().trim()) {
+                    score += 100;
+                    matchDetails.push('exact_id');
+                }
+
+                // Strategy 2: Exact name match
+                if (actual['activity name'] && scheduledItem.activityName && 
+                    actual['activity name'].toString().trim().toLowerCase() === scheduledItem.activityName.toString().trim().toLowerCase()) {
+                    score += 90;
+                    matchDetails.push('exact_name');
+                }
+
+                // Strategy 3: Location match (if available in both)
+                if (actual['location'] && scheduledItem.location && 
+                    actual['location'].toString().trim().toLowerCase() === scheduledItem.location.toString().trim().toLowerCase()) {
+                    score += 30;
+                    matchDetails.push('location');
+                }
+
+                // Strategy 4: Partial name match (fuzzy matching)
+                if (actual['activity name'] && scheduledItem.activityName) {
+                    const actualName = actual['activity name'].toString().trim().toLowerCase();
+                    const scheduledName = scheduledItem.activityName.toString().trim().toLowerCase();
+                    
+                    // Check if one contains the other
+                    if (actualName.includes(scheduledName) || scheduledName.includes(actualName)) {
+                        score += 50;
+                        matchDetails.push('partial_name');
+                    }
+                    
+                    // Check for common keywords
+                    const actualWords = actualName.split(/\s+/);
+                    const scheduledWords = scheduledName.split(/\s+/);
+                    const commonWords = actualWords.filter(word => 
+                        scheduledWords.some(scheduledWord => 
+                            word.length > 3 && scheduledWord.length > 3 && 
+                            (word.includes(scheduledWord) || scheduledWord.includes(word))
+                        )
+                    );
+                    if (commonWords.length > 0) {
+                        score += commonWords.length * 10;
+                        matchDetails.push(`common_words:${commonWords.join(',')}`);
+                    }
+                }
+
+                // Strategy 5: Duration similarity (if both have duration)
+                if (actual['duration'] && scheduledItem.duration) {
+                    const actualDur = parseFloat(actual['duration']) || 0;
+                    const scheduledDur = parseFloat(scheduledItem.duration) || 0;
+                    if (actualDur > 0 && scheduledDur > 0) {
+                        const durationDiff = Math.abs(actualDur - scheduledDur) / Math.max(actualDur, scheduledDur);
+                        if (durationDiff < 0.2) { // Within 20% difference
+                            score += 20;
+                            matchDetails.push('duration_similar');
+                        }
+                    }
+                }
+
+                // Strategy 6: Date range overlap (if dates are available)
+                if (actual['start date'] && scheduledItem.startDate) {
+                    const actualStart = parseDateSafe(actual['start date']);
+                    const scheduledStart = parseDateSafe(scheduledItem.startDate);
+                    if (actualStart && scheduledStart) {
+                        const daysDiff = Math.abs(getDaysBetween(actualStart, scheduledStart));
+                        if (daysDiff <= 7) { // Within 7 days
+                            score += 15;
+                            matchDetails.push('date_similar');
+                        }
+                    }
+                }
+
+                // Update best match if this score is higher
+                if (score > bestScore) {
+                    bestScore = score;
+                    bestMatch = { ...actual, matchScore: score, matchDetails };
+                }
+            });
+
+            // Only return match if score is above threshold
+            if (bestScore >= 30) {
+                return bestMatch;
+            }
+
+            return null;
+        }
+
         function populateFilterPanel() {
     filterOptions.innerHTML = '';
     if (!projectData || !projectData.children) return;
@@ -568,8 +891,61 @@
                 hierarchyBody.scrollTop = gridWrapper.scrollTop;
             });
 
-            // CSV upload and processing
-            csvUpload.addEventListener('change', e => {
+            // View toggle functionality
+            const chronologicalViewBtn = document.getElementById('chronological-view-btn');
+            const zoneViewBtn = document.getElementById('zone-view-btn');
+            
+            chronologicalViewBtn.addEventListener('click', () => {
+                viewMode = 'chronological';
+                updateViewToggleButtons();
+                render();
+            });
+            
+            zoneViewBtn.addEventListener('click', () => {
+                viewMode = 'zone';
+                updateViewToggleButtons();
+                render();
+            });
+
+            // Matched items filter
+            const showMatchedOnlyCheckbox = document.getElementById('show-matched-only');
+            showMatchedOnlyCheckbox.addEventListener('change', (e) => {
+                showMatchedOnly = e.target.checked;
+                updateMatchCount();
+                render();
+            });
+
+            // Modal functionality
+            chooseFileBtn.addEventListener('click', () => {
+                fileTypeModal.classList.remove('hidden');
+                lucide.createIcons();
+            });
+
+            closeModal.addEventListener('click', () => {
+                fileTypeModal.classList.add('hidden');
+            });
+
+            // Close modal when clicking outside
+            fileTypeModal.addEventListener('click', (e) => {
+                if (e.target === fileTypeModal) {
+                    fileTypeModal.classList.add('hidden');
+                }
+            });
+
+            // Schedule option
+            scheduleOption.addEventListener('click', () => {
+                fileTypeModal.classList.add('hidden');
+                scheduleCsvUpload.click();
+            });
+
+            // Actualized option
+            actualizedOption.addEventListener('click', () => {
+                fileTypeModal.classList.add('hidden');
+                actualizedCsvUpload.click();
+            });
+
+            // Schedule CSV upload and processing
+            scheduleCsvUpload.addEventListener('change', e => {
                 const file = e.target.files[0];
                 processCsvBtn.disabled = !file;
                 if (!file) return;
@@ -582,6 +958,24 @@
                 };
                 reader.readAsText(file);
             });
+
+            // Actualized CSV upload and processing
+            actualizedCsvUpload.addEventListener('change', e => {
+                const file = e.target.files[0];
+                if (!file) return;
+                const reader = new FileReader();
+                reader.onload = function(evt) {
+                    const text = evt.target.result;
+                    const rows = parseCsv(text);
+                    actualizedData = rows;
+                    if (projectData) {
+                        matchActualizedData();
+                        render();
+                    }
+                };
+                reader.readAsText(file);
+            });
+
             processCsvBtn.addEventListener('click', () => {
     if (!projectData) return;
     showLoading();
@@ -649,6 +1043,58 @@
         }
 
         /**
+         * Updates the match count display.
+         */
+        function updateMatchCount() {
+            if (!projectData || !Array.isArray(projectData.children)) {
+                document.getElementById('match-count').textContent = '';
+                return;
+            }
+
+            let totalItems = 0;
+            let matchedItems = 0;
+
+            function countRecursive(items) {
+                items.forEach(item => {
+                    if (item.level === 3) {
+                        totalItems++;
+                        if (item.hasActualData) {
+                            matchedItems++;
+                        }
+                    }
+                    if (item.children) {
+                        countRecursive(item.children);
+                    }
+                });
+            }
+
+            countRecursive(projectData.children);
+            
+            const matchCountElement = document.getElementById('match-count');
+            if (matchedItems > 0) {
+                matchCountElement.textContent = `${matchedItems}/${totalItems} matched`;
+            } else {
+                matchCountElement.textContent = '';
+            }
+        }
+
+        /**
+         * Updates the view toggle button states.
+         */
+        function updateViewToggleButtons() {
+            const chronologicalViewBtn = document.getElementById('chronological-view-btn');
+            const zoneViewBtn = document.getElementById('zone-view-btn');
+            
+            if (viewMode === 'chronological') {
+                chronologicalViewBtn.className = 'px-3 py-1.5 text-sm font-medium rounded-md transition-colors bg-blue-600 text-white shadow-sm';
+                zoneViewBtn.className = 'px-3 py-1.5 text-sm font-medium rounded-md transition-colors text-slate-700 hover:bg-slate-100';
+            } else {
+                chronologicalViewBtn.className = 'px-3 py-1.5 text-sm font-medium rounded-md transition-colors text-slate-700 hover:bg-slate-100';
+                zoneViewBtn.className = 'px-3 py-1.5 text-sm font-medium rounded-md transition-colors bg-blue-600 text-white shadow-sm';
+            }
+        }
+
+        /**
          * Shows the hover card for a timeline bar.
          * @param {MouseEvent} event
          * @param {Object} task
@@ -709,6 +1155,7 @@
         // --- Initial Render ---
         render();
         populateFilterPanel();
+        updateViewToggleButtons();
     </script>
 
     <!-- Global Sidebar Script -->
