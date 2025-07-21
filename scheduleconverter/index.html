@@ -91,6 +91,13 @@
             </select>
           </div>
           <div class="relative w-48">
+            <select id="completionFilter" class="w-full px-3 py-2 text-sm border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none bg-white">
+              <option value="exclude-complete">Exclude 100% Complete</option>
+              <option value="all">All Completion Rates</option>
+              <option value="in-progress">In Progress Only</option>
+            </select>
+          </div>
+          <div class="relative w-48">
             <button id="tradeFilterBtn" class="w-full px-3 py-2 text-sm border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none bg-white text-left flex items-center justify-between">
               <span id="tradeFilterText">All Trades/Areas</span>
               <i data-lucide="chevron-down" class="w-4 h-4 text-slate-400"></i>
@@ -1361,6 +1368,7 @@
         const zone = zoneFilter.value;
         const locations = selectedLocations;
         const durationFilterValue = durationFilter.value;
+        const completionFilterValue = completionFilter.value;
         
         // Trade filtering logic from TSX version
         const anyTradeSelected = Object.values(selectedTrades).some(isSelected => isSelected);
@@ -1382,6 +1390,15 @@
             matchesDuration = true;
           }
           
+          // Completion filter
+          const percentComplete = parseFloat(a.percentComplete) || 0;
+          let matchesCompletion = true;
+          if (completionFilterValue === 'exclude-complete') {
+            matchesCompletion = percentComplete < 100;
+          } else if (completionFilterValue === 'in-progress') {
+            matchesCompletion = percentComplete > 0 && percentComplete < 100;
+          }
+          
           // Trade filtering (from TSX logic)
           const activityText = `${a.name || ''} ${a.wbs || ''}`.toLowerCase();
           
@@ -1390,7 +1407,7 @@
           
           // If no trade filters are active, show all activities
           if (!anyTradeSelected && !hasCustomKeywords) {
-            return matchesSearch && matchesZone && matchesLocation && matchesDuration;
+            return matchesSearch && matchesZone && matchesLocation && matchesDuration && matchesCompletion;
           }
           
           // Check trade matches
@@ -1401,7 +1418,7 @@
           // Check custom keywords
           const matchesCustom = hasCustomKeywords && customKeywords.toLowerCase().split(',').map(k => k.trim()).filter(Boolean).some(k => activityText.includes(k));
           
-          return matchesSearch && matchesZone && matchesLocation && matchesDuration && (matchesTrade || matchesCustom);
+          return matchesSearch && matchesZone && matchesLocation && matchesDuration && matchesCompletion && (matchesTrade || matchesCustom);
         });
         
         // Apply sorting
@@ -1534,6 +1551,7 @@
 
       searchInput.addEventListener('input', filterActivities);
       durationFilter.addEventListener('change', filterActivities);
+      completionFilter.addEventListener('change', filterActivities);
 
       // Add sorting event listeners to table headers
       document.querySelectorAll('[data-sort]').forEach(header => {
