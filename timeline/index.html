@@ -67,6 +67,18 @@
             text-overflow: ellipsis;
             white-space: nowrap;
         }
+
+        .day-container {
+            width: 20px;
+            height: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 4px;
+            margin-right: 4px;
+            font-size: 10px;
+            font-weight: 500;
+        }
     </style>
 </head>
 <body class="bg-slate-100 text-slate-800 min-h-screen">
@@ -180,7 +192,7 @@
     lucide.createIcons();
 
     // --- Configuration ---
-    const dayWidth = 4; // Condensed width per day for monthly view
+            const dayWidth = 24; // 20px container + 4px spacing for each day
     let today = new Date('2025-07-03T00:00:00Z'); // Default date
     let projectData; // Global project data
     let overallStartDate, overallEndDate, totalDays;
@@ -384,6 +396,7 @@
         function renderTimelineHeader() {
             let yearRowHtml = '';
             let monthRowHtml = '';
+            let dayRowHtml = '';
             const months = [];
             let tempDate = new Date(overallStartDate);
             tempDate.setDate(1);
@@ -408,12 +421,23 @@
                 yearRowHtml += `<div class="text-sm font-semibold text-slate-600 p-1 text-center border-r border-slate-200">${year}</div>`;
             }
             let monthGridTemplateColumns = '';
+            let dayGridTemplateColumns = '';
             months.forEach(monthDate => {
                 const daysInMonth = new Date(monthDate.getFullYear(), monthDate.getMonth() + 1, 0).getDate();
                 const monthWidth = daysInMonth * dayWidth;
                 monthGridTemplateColumns += `${monthWidth}px `;
                 const monthName = monthDate.toLocaleString('default', { month: 'short' }).toUpperCase();
-                monthRowHtml += `<div class="h-8 flex items-center justify-center border-l border-slate-200 text-xs text-slate-500">${monthName}</div>`;
+                monthRowHtml += `<div class="h-6 flex items-center justify-center border-l border-slate-200 text-xs text-slate-500">${monthName}</div>`;
+                
+                // Add individual days for this month
+                for (let day = 1; day <= daysInMonth; day++) {
+                    dayGridTemplateColumns += `${dayWidth}px `;
+                    const isToday = monthDate.getFullYear() === today.getFullYear() && 
+                                   monthDate.getMonth() === today.getMonth() && 
+                                   day === today.getDate();
+                    const dayClass = isToday ? 'bg-blue-100 text-blue-700' : 'bg-slate-50 text-slate-600';
+                    dayRowHtml += `<div class="day-container ${dayClass}">${day}</div>`;
+                }
             });
             const totalWidth = totalDays * dayWidth;
             timelineHeaderWrapper.innerHTML = `
@@ -423,6 +447,9 @@
                     </div>
                     <div class="grid border-t border-slate-200" style="grid-template-columns: ${monthGridTemplateColumns.trim()};">
                         ${monthRowHtml}
+                    </div>
+                    <div class="grid border-t border-slate-200" style="grid-template-columns: ${dayGridTemplateColumns.trim()};">
+                        ${dayRowHtml}
                     </div>
                 </div>
             `;
