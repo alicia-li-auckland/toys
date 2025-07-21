@@ -71,16 +71,11 @@
 </head>
 <body class="bg-slate-100 text-slate-800">
     <div class="flex h-screen">
-        <!-- Collapsed Sidebar (Frozen) -->
-        <aside class="bg-white w-16 flex flex-col items-center py-4 space-y-6 border-r border-slate-200 flex-shrink-0">
-            <div class="p-2 rounded-lg bg-slate-100">
-                <i data-lucide="layout-dashboard" class="text-slate-600"></i>
-            </div>
-            <i data-lucide="bar-chart-3" class="text-slate-500 hover:text-slate-800 cursor-pointer"></i>
-            <i data-lucide="folder" class="text-slate-500 hover:text-slate-800 cursor-pointer"></i>
-            <i data-lucide="map-pin" class="text-slate-500 hover:text-slate-800 cursor-pointer"></i>
-            <i data-lucide="users" class="text-slate-500 hover:text-slate-800 cursor-pointer"></i>
-            <i data-lucide="settings" class="text-slate-500 hover:text-slate-800 cursor-pointer mt-auto"></i>
+        <!-- Home Sidebar -->
+        <aside class="bg-white w-16 flex flex-col items-center py-4 border-r border-slate-200 flex-shrink-0">
+            <a href="../" class="p-2 rounded-lg bg-slate-100 hover:bg-slate-200 transition-colors" title="Go Home">
+                <i data-lucide="home" class="text-slate-600"></i>
+            </a>
         </aside>
 
         <!-- Main Content -->
