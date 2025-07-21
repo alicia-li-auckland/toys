@@ -94,6 +94,13 @@
             </select>
           </div>
           <div class="relative w-48">
+            <select id="durationFilter" class="w-full px-3 py-2 text-sm border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none bg-white">
+              <option value="exclude-zero">Exclude 0 Duration</option>
+              <option value="all">All Durations</option>
+              <option value="custom">Custom Range</option>
+            </select>
+          </div>
+          <div class="relative w-48">
             <button id="tradeFilterBtn" class="w-full px-3 py-2 text-sm border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none bg-white text-left flex items-center justify-between">
               <span id="tradeFilterText">All Trades/Areas</span>
               <i data-lucide="chevron-down" class="w-4 h-4 text-slate-400"></i>
@@ -117,9 +124,6 @@
           </div>
         </div>
         <div class="flex items-center gap-3">
-          <button id="validationBtn" class="px-4 py-2 rounded-lg bg-blue-100 text-blue-700 font-semibold text-sm flex items-center gap-2" disabled>
-            <i data-lucide="check-circle" class="w-4 h-4"></i> Validation Report
-          </button>
           <button id="exportBtn" class="px-4 py-2 rounded-lg bg-slate-100 text-slate-500 font-semibold text-sm flex items-center gap-2" disabled>
             <i data-lucide="download" class="w-4 h-4"></i> Export CSV
           </button>
@@ -148,6 +152,11 @@
                   <div class="flex bg-white rounded-lg border border-slate-300 p-1">
                     <button id="standardViewBtn" class="px-4 py-2 text-sm font-medium rounded-md transition-colors bg-blue-600 text-white shadow-sm">Standard View</button>
                     <button id="dataCentreViewBtn" class="px-4 py-2 text-sm font-medium rounded-md transition-colors text-slate-700 hover:bg-slate-100">Data Centre View</button>
+                  </div>
+                  <!-- Data Centre View Toggle (only visible when in Data Centre View) -->
+                  <div id="dataCentreToggle" class="flex bg-white rounded-lg border border-slate-300 p-1" style="display: none;">
+                    <button id="groupedViewBtn" class="px-4 py-2 text-sm font-medium rounded-md transition-colors bg-blue-600 text-white shadow-sm">Grouped View</button>
+                    <button id="tableViewBtn" class="px-4 py-2 text-sm font-medium rounded-md transition-colors text-slate-700 hover:bg-slate-100">Table View</button>
                   </div>
                 </div>
               </div>
@@ -181,21 +190,129 @@
             <!-- Table Section -->
             <div class="flex-1 overflow-hidden">
               <div id="dataCentreView" style="display:none;" class="h-full overflow-y-auto custom-scrollbar"></div>
+              <div id="dataCentreTableView" style="display:none;" class="table-container custom-scrollbar">
+                <table id="dataCentreTable" class="w-full">
+                  <thead class="bg-slate-50 sticky top-0 z-10">
+                    <tr>
+                      <th class="px-4 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider border-b border-slate-200 cursor-pointer hover:bg-slate-100" data-sort="id">
+                        Activity ID
+                        <i data-lucide="chevron-up" class="w-3 h-3 inline ml-1 sort-icon" style="display: none;"></i>
+                        <i data-lucide="chevron-down" class="w-3 h-3 inline ml-1 sort-icon" style="display: none;"></i>
+                      </th>
+                      <th class="px-4 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider border-b border-slate-200 cursor-pointer hover:bg-slate-100" data-sort="location">
+                        Location
+                        <i data-lucide="chevron-up" class="w-3 h-3 inline ml-1 sort-icon" style="display: none;"></i>
+                        <i data-lucide="chevron-down" class="w-3 h-3 inline ml-1 sort-icon" style="display: none;"></i>
+                      </th>
+                      <th class="px-4 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider border-b border-slate-200 cursor-pointer hover:bg-slate-100" data-sort="name">
+                        Name
+                        <i data-lucide="chevron-up" class="w-3 h-3 inline ml-1 sort-icon" style="display: none;"></i>
+                        <i data-lucide="chevron-down" class="w-3 h-3 inline ml-1 sort-icon" style="display: none;"></i>
+                      </th>
+                      <th class="px-4 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider border-b border-slate-200 cursor-pointer hover:bg-slate-100" data-sort="startDate">
+                        Start
+                        <i data-lucide="chevron-up" class="w-3 h-3 inline ml-1 sort-icon" style="display: none;"></i>
+                        <i data-lucide="chevron-down" class="w-3 h-3 inline ml-1 sort-icon" style="display: none;"></i>
+                      </th>
+                      <th class="px-4 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider border-b border-slate-200 cursor-pointer hover:bg-slate-100" data-sort="finishDate">
+                        Finish
+                        <i data-lucide="chevron-up" class="w-3 h-3 inline ml-1 sort-icon" style="display: none;"></i>
+                        <i data-lucide="chevron-down" class="w-3 h-3 inline ml-1 sort-icon" style="display: none;"></i>
+                      </th>
+                      <th class="px-4 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider border-b border-slate-200 cursor-pointer hover:bg-slate-100" data-sort="duration">
+                        Duration
+                        <i data-lucide="chevron-up" class="w-3 h-3 inline ml-1 sort-icon" style="display: none;"></i>
+                        <i data-lucide="chevron-down" class="w-3 h-3 inline ml-1 sort-icon" style="display: none;"></i>
+                      </th>
+                      <th class="px-4 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider border-b border-slate-200 cursor-pointer hover:bg-slate-100" data-sort="percentComplete">
+                        % Complete
+                        <i data-lucide="chevron-up" class="w-3 h-3 inline ml-1 sort-icon" style="display: none;"></i>
+                        <i data-lucide="chevron-down" class="w-3 h-3 inline ml-1 sort-icon" style="display: none;"></i>
+                      </th>
+                      <th class="px-4 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider border-b border-slate-200 cursor-pointer hover:bg-slate-100" data-sort="totalFloat">
+                        Total Float
+                        <i data-lucide="chevron-up" class="w-3 h-3 inline ml-1 sort-icon" style="display: none;"></i>
+                        <i data-lucide="chevron-down" class="w-3 h-3 inline ml-1 sort-icon" style="display: none;"></i>
+                      </th>
+                      <th class="px-4 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider border-b border-slate-200 cursor-pointer hover:bg-slate-100" data-sort="status">
+                        Status
+                        <i data-lucide="chevron-up" class="w-3 h-3 inline ml-1 sort-icon" style="display: none;"></i>
+                        <i data-lucide="chevron-down" class="w-3 h-3 inline ml-1 sort-icon" style="display: none;"></i>
+                      </th>
+                      <th class="px-4 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider border-b border-slate-200 cursor-pointer hover:bg-slate-100" data-sort="wbs">
+                        Trade/Area
+                        <i data-lucide="chevron-up" class="w-3 h-3 inline ml-1 sort-icon" style="display: none;"></i>
+                        <i data-lucide="chevron-down" class="w-3 h-3 inline ml-1 sort-icon" style="display: none;"></i>
+                      </th>
+                      <th class="px-4 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider border-b border-slate-200 cursor-pointer hover:bg-slate-100" data-sort="tradeName">
+                        Trade Name
+                        <i data-lucide="chevron-up" class="w-3 h-3 inline ml-1 sort-icon" style="display: none;"></i>
+                        <i data-lucide="chevron-down" class="w-3 h-3 inline ml-1 sort-icon" style="display: none;"></i>
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody class="bg-white divide-y divide-slate-200"></tbody>
+                </table>
+              </div>
               <div class="table-container custom-scrollbar">
                 <table id="activitiesTable" class="w-full" style="display:none;">
                   <thead class="bg-slate-50 sticky top-0 z-10">
                     <tr>
-                      <th class="px-4 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider border-b border-slate-200">Activity ID</th>
-                      <th class="px-4 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider border-b border-slate-200">Location</th>
-                      <th class="px-4 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider border-b border-slate-200">Name</th>
-                      <th class="px-4 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider border-b border-slate-200">Start</th>
-                      <th class="px-4 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider border-b border-slate-200">Finish</th>
-                      <th class="px-4 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider border-b border-slate-200">Duration</th>
-                      <th class="px-4 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider border-b border-slate-200">% Complete</th>
-                      <th class="px-4 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider border-b border-slate-200">Total Float</th>
-                      <th class="px-4 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider border-b border-slate-200">Status</th>
-                      <th class="px-4 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider border-b border-slate-200">Trade/Area</th>
-                      <th class="px-4 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider border-b border-slate-200">Validation</th>
+                      <th class="px-4 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider border-b border-slate-200 cursor-pointer hover:bg-slate-100" data-sort="id">
+                        Activity ID
+                        <i data-lucide="chevron-up" class="w-3 h-3 inline ml-1 sort-icon" style="display: none;"></i>
+                        <i data-lucide="chevron-down" class="w-3 h-3 inline ml-1 sort-icon" style="display: none;"></i>
+                      </th>
+                      <th class="px-4 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider border-b border-slate-200 cursor-pointer hover:bg-slate-100" data-sort="location">
+                        Location
+                        <i data-lucide="chevron-up" class="w-3 h-3 inline ml-1 sort-icon" style="display: none;"></i>
+                        <i data-lucide="chevron-down" class="w-3 h-3 inline ml-1 sort-icon" style="display: none;"></i>
+                      </th>
+                      <th class="px-4 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider border-b border-slate-200 cursor-pointer hover:bg-slate-100" data-sort="name">
+                        Name
+                        <i data-lucide="chevron-up" class="w-3 h-3 inline ml-1 sort-icon" style="display: none;"></i>
+                        <i data-lucide="chevron-down" class="w-3 h-3 inline ml-1 sort-icon" style="display: none;"></i>
+                      </th>
+                      <th class="px-4 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider border-b border-slate-200 cursor-pointer hover:bg-slate-100" data-sort="startDate">
+                        Start
+                        <i data-lucide="chevron-up" class="w-3 h-3 inline ml-1 sort-icon" style="display: none;"></i>
+                        <i data-lucide="chevron-down" class="w-3 h-3 inline ml-1 sort-icon" style="display: none;"></i>
+                      </th>
+                      <th class="px-4 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider border-b border-slate-200 cursor-pointer hover:bg-slate-100" data-sort="finishDate">
+                        Finish
+                        <i data-lucide="chevron-up" class="w-3 h-3 inline ml-1 sort-icon" style="display: none;"></i>
+                        <i data-lucide="chevron-down" class="w-3 h-3 inline ml-1 sort-icon" style="display: none;"></i>
+                      </th>
+                      <th class="px-4 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider border-b border-slate-200 cursor-pointer hover:bg-slate-100" data-sort="duration">
+                        Duration
+                        <i data-lucide="chevron-up" class="w-3 h-3 inline ml-1 sort-icon" style="display: none;"></i>
+                        <i data-lucide="chevron-down" class="w-3 h-3 inline ml-1 sort-icon" style="display: none;"></i>
+                      </th>
+                      <th class="px-4 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider border-b border-slate-200 cursor-pointer hover:bg-slate-100" data-sort="percentComplete">
+                        % Complete
+                        <i data-lucide="chevron-up" class="w-3 h-3 inline ml-1 sort-icon" style="display: none;"></i>
+                        <i data-lucide="chevron-down" class="w-3 h-3 inline ml-1 sort-icon" style="display: none;"></i>
+                      </th>
+                      <th class="px-4 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider border-b border-slate-200 cursor-pointer hover:bg-slate-100" data-sort="totalFloat">
+                        Total Float
+                        <i data-lucide="chevron-up" class="w-3 h-3 inline ml-1 sort-icon" style="display: none;"></i>
+                        <i data-lucide="chevron-down" class="w-3 h-3 inline ml-1 sort-icon" style="display: none;"></i>
+                      </th>
+                      <th class="px-4 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider border-b border-slate-200 cursor-pointer hover:bg-slate-100" data-sort="status">
+                        Status
+                        <i data-lucide="chevron-up" class="w-3 h-3 inline ml-1 sort-icon" style="display: none;"></i>
+                        <i data-lucide="chevron-down" class="w-3 h-3 inline ml-1 sort-icon" style="display: none;"></i>
+                      </th>
+                      <th class="px-4 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider border-b border-slate-200 cursor-pointer hover:bg-slate-100" data-sort="wbs">
+                        Trade/Area
+                        <i data-lucide="chevron-up" class="w-3 h-3 inline ml-1 sort-icon" style="display: none;"></i>
+                        <i data-lucide="chevron-down" class="w-3 h-3 inline ml-1 sort-icon" style="display: none;"></i>
+                      </th>
+                      <th class="px-4 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider border-b border-slate-200 cursor-pointer hover:bg-slate-100" data-sort="tradeName">
+                        Trade Name
+                        <i data-lucide="chevron-up" class="w-3 h-3 inline ml-1 sort-icon" style="display: none;"></i>
+                        <i data-lucide="chevron-down" class="w-3 h-3 inline ml-1 sort-icon" style="display: none;"></i>
+                      </th>
                     </tr>
                   </thead>
                   <tbody class="bg-white divide-y divide-slate-200"></tbody>
@@ -286,7 +403,7 @@
           const wbs = getText(activity, 'WBSName') || getText(activity, 'WBSCode') || '';
           const location = extractLocationFromWBS(activityName, wbs);
           const detectedTrade = detectTradeFromActivity(activityName);
-          const isValidTradeLocation = location && detectedTrade ? validateTradeLocation(detectedTrade, location) : null;
+          const tradeName = detectedTrade ? getTradeName(detectedTrade) : '';
           
           return {
             id: getText(activity, 'Id') || getText(activity, 'ActivityId') || `ACT-${i+1}`,
@@ -300,7 +417,7 @@
             wbs: wbs,
             location: location,
             detectedTrade: detectedTrade,
-            isValidTradeLocation: isValidTradeLocation
+            tradeName: tradeName
           };
         });
       }
@@ -329,7 +446,7 @@
           const wbs = a.wbs_id || '';
           const location = extractLocationFromWBS(activityName, wbs);
           const detectedTrade = detectTradeFromActivity(activityName);
-          const isValidTradeLocation = location && detectedTrade ? validateTradeLocation(detectedTrade, location) : null;
+          const tradeName = detectedTrade ? getTradeName(detectedTrade) : '';
           
           return {
             id: a.task_code || `XER-ACT-${i+1}`,
@@ -343,7 +460,7 @@
             wbs: wbs,
             location: location,
             detectedTrade: detectedTrade,
-            isValidTradeLocation: isValidTradeLocation
+            tradeName: tradeName
           };
         });
       }
@@ -386,7 +503,7 @@
           const activityName = values[nameIdx] || 'Unnamed Activity';
           const location = extractLocationFromWBS(activityName, wbs);
           const detectedTrade = detectTradeFromActivity(activityName);
-          const isValidTradeLocation = location && detectedTrade ? validateTradeLocation(detectedTrade, location) : null;
+          const tradeName = detectedTrade ? getTradeName(detectedTrade) : '';
           
           activities.push({
             id: values[idIdx] || `CSV-ACT-${i}`,
@@ -400,7 +517,7 @@
             wbs: wbs,
             location: location,
             detectedTrade: detectedTrade,
-            isValidTradeLocation: isValidTradeLocation
+            tradeName: tradeName
           });
         }
         
@@ -479,7 +596,7 @@
             const activityName = task.name || 'Unnamed Activity';
             const location = extractLocationFromWBS(activityName, wbs);
             const detectedTrade = detectTradeFromActivity(activityName);
-            const isValidTradeLocation = location && detectedTrade ? validateTradeLocation(detectedTrade, location) : null;
+            const tradeName = detectedTrade ? getTradeName(detectedTrade) : '';
             
             return {
               id: task.id || task.uniqueID || `MPP-ACT-${index + 1}`,
@@ -493,7 +610,7 @@
               wbs: wbs,
               location: location,
               detectedTrade: detectedTrade,
-              isValidTradeLocation: isValidTradeLocation
+              tradeName: tradeName
             };
           }).filter(task => task !== null); // Remove null entries (summary tasks)
           
@@ -573,13 +690,7 @@
         }
       }
 
-      // Validate if a trade is allowed at a location
-      function validateTradeLocation(trade, location) {
-        if (!tradesLocationsDB[location] || !tradesLocationsDB[location][trade]) {
-          return false;
-        }
-        return tradesLocationsDB[location][trade];
-      }
+
 
       // Detect trade from activity name
       function detectTradeFromActivity(activityName) {
@@ -591,6 +702,32 @@
           }
         }
         return null;
+      }
+
+      // Translate trade codes to common language names
+      function getTradeName(tradeCode) {
+        const tradeNameMap = {
+          'backfill': 'Backfill',
+          'booster_pump_system': 'Booster Pump System Installation',
+          'concrete_formwork': 'Concrete Formwork',
+          'concrete_pour': 'Concrete Pour',
+          'concrete_rebar': 'Concrete Rebar',
+          'conveyance': 'Conveyance',
+          'dwtr_installation': 'DWTR Installation',
+          'electrical_conduit': 'Electrical Yard Equipment Conduit',
+          'electrical_placement': 'Electrical Yard Equipment Placement',
+          'generator_placement': 'Generator Placement',
+          'mwt_installation': 'MWT Installation',
+          'mechanical_placement': 'Mechanical Yard Equipment Placement',
+          'roofing_flashing': 'Roofing Flashing',
+          'roofing_insulation': 'Roofing Insulation',
+          'roofing_membrane': 'Roofing Membrane',
+          'roofing_metal_deck': 'Roofing Metal Deck',
+          'structural_piles': 'Structural Piles',
+          'structural_steel': 'Structural Steel'
+        };
+        
+        return tradeNameMap[tradeCode] || tradeCode;
       }
 
       // --- Location Multiselect Logic (Updated with TradesLocations.csv data) ---
@@ -684,14 +821,22 @@
       const addExcludeKeyword = document.getElementById('addExcludeKeyword');
       const clearExcludeKeywords = document.getElementById('clearExcludeKeywords');
       const zoneFilter = document.getElementById('zoneFilter');
+      const durationFilter = document.getElementById('durationFilter');
       const dataCentreCodes = ['DCH','EYD','MYD','Conveyance','DWTR','Fire Pump House','GPS','SSS','GEN YARD','USS YARD','MCP','Loading Dock'];
       let viewMode = 'standard'; // 'standard' or 'dataCentre'
+      let currentSort = { field: 'startDate', direction: 'asc' }; // Default sort by start date ascending
       const standardViewBtn = document.getElementById('standardViewBtn');
       const dataCentreViewBtn = document.getElementById('dataCentreViewBtn');
       const dataCentreViewDiv = document.getElementById('dataCentreView');
+      const dataCentreTableViewDiv = document.getElementById('dataCentreTableView');
+      const dataCentreTable = document.getElementById('dataCentreTable');
+      const dataCentreTableTbody = dataCentreTable.querySelector('tbody');
+      const dataCentreToggle = document.getElementById('dataCentreToggle');
+      const groupedViewBtn = document.getElementById('groupedViewBtn');
+      const tableViewBtn = document.getElementById('tableViewBtn');
       const processBtn = document.getElementById('processBtn');
-      const validationBtn = document.getElementById('validationBtn');
       let selectedFile = null;
+      let dataCentreViewMode = 'grouped'; // 'grouped' or 'table'
 
       function showMessage(msg, type) {
         const bgColor = type === 'error' ? 'bg-red-50 border-red-200 text-red-800' : 'bg-green-50 border-green-200 text-green-800';
@@ -749,12 +894,15 @@
           standardViewBtn.className = 'px-4 py-2 text-sm font-medium rounded-md transition-colors bg-blue-600 text-white shadow-sm';
           dataCentreViewBtn.className = 'px-4 py-2 text-sm font-medium rounded-md transition-colors text-slate-700 hover:bg-slate-100';
           dataCentreViewDiv.style.display = 'none';
+          dataCentreTableViewDiv.style.display = 'none';
+          dataCentreToggle.style.display = 'none';
           table.style.display = 'table';
         } else {
           standardViewBtn.className = 'px-4 py-2 text-sm font-medium rounded-md transition-colors text-slate-700 hover:bg-slate-100';
           dataCentreViewBtn.className = 'px-4 py-2 text-sm font-medium rounded-md transition-colors bg-blue-600 text-white shadow-sm';
-          dataCentreViewDiv.style.display = 'block';
+          dataCentreToggle.style.display = 'flex';
           table.style.display = 'none';
+          setDataCentreViewMode(dataCentreViewMode);
         }
         
         // Re-render based on current view
@@ -763,6 +911,31 @@
             renderDataCentreView();
           } else {
             renderTable(filteredActivities);
+          }
+        }
+      }
+
+      function setDataCentreViewMode(mode) {
+        dataCentreViewMode = mode;
+        
+        if (mode === 'grouped') {
+          groupedViewBtn.className = 'px-4 py-2 text-sm font-medium rounded-md transition-colors bg-blue-600 text-white shadow-sm';
+          tableViewBtn.className = 'px-4 py-2 text-sm font-medium rounded-md transition-colors text-slate-700 hover:bg-slate-100';
+          dataCentreViewDiv.style.display = 'block';
+          dataCentreTableViewDiv.style.display = 'none';
+        } else {
+          groupedViewBtn.className = 'px-4 py-2 text-sm font-medium rounded-md transition-colors text-slate-700 hover:bg-slate-100';
+          tableViewBtn.className = 'px-4 py-2 text-sm font-medium rounded-md transition-colors bg-blue-600 text-white shadow-sm';
+          dataCentreViewDiv.style.display = 'none';
+          dataCentreTableViewDiv.style.display = 'block';
+        }
+        
+        // Re-render based on current view
+        if (allActivities.length > 0 && viewMode === 'dataCentre') {
+          if (mode === 'grouped') {
+            renderDataCentreView();
+          } else {
+            renderDataCentreTable();
           }
         }
       }
@@ -926,17 +1099,62 @@
               </span>
             </td>
             <td class="px-4 py-3 text-sm text-slate-600">${a.wbs}</td>
-            <td class="px-4 py-3">
-              ${a.isValidTradeLocation === null ? 
-                '<span class="inline-flex px-2 py-1 text-xs font-medium rounded-full bg-gray-100 text-gray-800">No Trade Detected</span>' :
-                a.isValidTradeLocation ? 
-                '<span class="inline-flex px-2 py-1 text-xs font-medium rounded-full bg-green-100 text-green-800">✓ Valid</span>' :
-                '<span class="inline-flex px-2 py-1 text-xs font-medium rounded-full bg-red-100 text-red-800">✗ Invalid</span>'
-              }
-            </td>
+            <td class="px-4 py-3 text-sm text-slate-600">${a.tradeName || ''}</td>
           `;
           tbody.appendChild(tr);
         });
+        
+        // Update sort icons after rendering
+        updateSortIcons();
+      }
+
+      function renderDataCentreTable() {
+        // Filter activities to only include those with trade names
+        const tradeFilteredActivities = filteredActivities.filter(a => a.tradeName && a.tradeName.trim() !== '');
+        
+        dataCentreTableTbody.innerHTML = '';
+        if (!tradeFilteredActivities.length) { 
+          dataCentreTable.style.display = 'none';
+          return; 
+        }
+        
+        dataCentreTable.style.display = 'table';
+        
+        tradeFilteredActivities.forEach((a, index) => {
+          const tr = document.createElement('tr');
+          tr.className = 'hover:bg-slate-50 transition-colors fade-in';
+          tr.style.animationDelay = `${index * 0.05}s`;
+          
+          const getStatusColor = (status) => {
+            const statusLower = status.toLowerCase();
+            if (statusLower.includes('complete')) return 'bg-green-100 text-green-800';
+            if (statusLower.includes('progress')) return 'bg-blue-100 text-blue-800';
+            if (statusLower.includes('not started')) return 'bg-slate-100 text-slate-800';
+            return 'bg-yellow-100 text-yellow-800';
+          };
+
+          tr.innerHTML = `
+            <td class="px-4 py-3 text-sm font-medium text-slate-900">${a.id}</td>
+            <td class="px-4 py-3 text-sm text-slate-600">${a.location || ''}</td>
+            <td class="px-4 py-3 text-sm text-slate-900">${a.name}</td>
+            <td class="px-4 py-3 text-sm text-slate-600">${a.startDate}</td>
+            <td class="px-4 py-3 text-sm text-slate-600">${a.finishDate}</td>
+            <td class="px-4 py-3 text-sm text-slate-600">${a.duration}</td>
+            <td class="px-4 py-3 text-sm text-slate-600">${a.percentComplete}%</td>
+            <td class="px-4 py-3 text-sm text-slate-600">${a.totalFloat}</td>
+            <td class="px-4 py-3">
+              <span class="inline-flex px-2 py-1 text-xs font-medium rounded-full ${getStatusColor(a.status)}">
+                ${a.status}
+              </span>
+            </td>
+            <td class="px-4 py-3 text-sm text-slate-600">${a.wbs}</td>
+            <td class="px-4 py-3 text-sm text-slate-600">${a.tradeName || ''}</td>
+          `;
+          dataCentreTableTbody.appendChild(tr);
+        });
+        
+        // Update sort icons for data centre table
+        updateSortIcons();
       }
 
       function extractZone(trade) {
@@ -976,7 +1194,7 @@
         const groups = {};
         dataCentreCodes.forEach(code => { groups[code] = []; });
         activities.forEach(a => {
-          if (a.location) {
+          if (a.location && a.tradeName) { // Only include activities with both location and trade name
             // Check if the location matches any of our data centre codes
             const found = dataCentreCodes.find(code => a.location.toUpperCase().includes(code.toUpperCase()));
             if (found) groups[found].push(a);
@@ -1151,6 +1369,7 @@
         const q = searchInput.value.trim().toLowerCase();
         const zone = zoneFilter.value;
         const locations = selectedLocations;
+        const durationFilterValue = durationFilter.value;
         
         // Trade filtering logic from TSX version
         const anyTradeSelected = Object.values(selectedTrades).some(isSelected => isSelected);
@@ -1162,6 +1381,16 @@
           const matchesZone = !zone || (a.wbs && extractZone(a.wbs) === zone);
           const matchesLocation = locations.length === 0 || (a.location && locations.includes(a.location));
           
+          // Duration filter
+          const duration = parseFloat(a.duration) || 0;
+          let matchesDuration = true;
+          if (durationFilterValue === 'exclude-zero') {
+            matchesDuration = duration > 0;
+          } else if (durationFilterValue === 'custom') {
+            // For now, keep all - could be expanded with custom range inputs
+            matchesDuration = true;
+          }
+          
           // Trade filtering (from TSX logic)
           const activityText = `${a.name || ''} ${a.wbs || ''}`.toLowerCase();
           
@@ -1170,7 +1399,7 @@
           
           // If no trade filters are active, show all activities
           if (!anyTradeSelected && !hasCustomKeywords) {
-            return matchesSearch && matchesZone && matchesLocation;
+            return matchesSearch && matchesZone && matchesLocation && matchesDuration;
           }
           
           // Check trade matches
@@ -1181,13 +1410,98 @@
           // Check custom keywords
           const matchesCustom = hasCustomKeywords && customKeywords.toLowerCase().split(',').map(k => k.trim()).filter(Boolean).some(k => activityText.includes(k));
           
-          return matchesSearch && matchesZone && matchesLocation && (matchesTrade || matchesCustom);
+          return matchesSearch && matchesZone && matchesLocation && matchesDuration && (matchesTrade || matchesCustom);
         });
+        
+        // Apply sorting
+        sortActivities();
         
         renderTable(filteredActivities);
         exportBtn.disabled = filteredActivities.length === 0;
-        validationBtn.disabled = filteredActivities.length === 0;
-        if (viewMode === 'dataCentre') renderDataCentreView();
+        if (viewMode === 'dataCentre') {
+          if (dataCentreViewMode === 'grouped') {
+            renderDataCentreView();
+          } else {
+            renderDataCentreTable();
+          }
+        }
+      }
+
+      function sortActivities() {
+        filteredActivities.sort((a, b) => {
+          let aVal, bVal;
+          
+          switch (currentSort.field) {
+            case 'id':
+              aVal = a.id || '';
+              bVal = b.id || '';
+              break;
+            case 'location':
+              aVal = a.location || '';
+              bVal = b.location || '';
+              break;
+            case 'name':
+              aVal = a.name || '';
+              bVal = b.name || '';
+              break;
+            case 'startDate':
+              aVal = a.startDate ? new Date(a.startDate) : new Date(0);
+              bVal = b.startDate ? new Date(b.startDate) : new Date(0);
+              break;
+            case 'finishDate':
+              aVal = a.finishDate ? new Date(a.finishDate) : new Date(0);
+              bVal = b.finishDate ? new Date(b.finishDate) : new Date(0);
+              break;
+            case 'duration':
+              aVal = parseFloat(a.duration) || 0;
+              bVal = parseFloat(b.duration) || 0;
+              break;
+            case 'percentComplete':
+              aVal = parseFloat(a.percentComplete) || 0;
+              bVal = parseFloat(b.percentComplete) || 0;
+              break;
+            case 'totalFloat':
+              aVal = parseFloat(a.totalFloat) || 0;
+              bVal = parseFloat(b.totalFloat) || 0;
+              break;
+            case 'status':
+              aVal = a.status || '';
+              bVal = b.status || '';
+              break;
+            case 'wbs':
+              aVal = a.wbs || '';
+              bVal = b.wbs || '';
+              break;
+            case 'tradeName':
+              aVal = a.tradeName || '';
+              bVal = b.tradeName || '';
+              break;
+            default:
+              return 0;
+          }
+          
+          if (aVal < bVal) return currentSort.direction === 'asc' ? -1 : 1;
+          if (aVal > bVal) return currentSort.direction === 'asc' ? 1 : -1;
+          return 0;
+        });
+      }
+
+      function updateSortIcons() {
+        // Clear all sort icons
+        document.querySelectorAll('.sort-icon').forEach(icon => {
+          icon.style.display = 'none';
+        });
+        
+        // Show the current sort icon
+        const currentHeader = document.querySelector(`[data-sort="${currentSort.field}"]`);
+        if (currentHeader) {
+          const icons = currentHeader.querySelectorAll('.sort-icon');
+          if (currentSort.direction === 'asc') {
+            icons[0].style.display = 'inline'; // chevron-up
+          } else {
+            icons[1].style.display = 'inline'; // chevron-down
+          }
+        }
       }
 
       // Event Listeners
@@ -1227,6 +1541,24 @@
       });
 
       searchInput.addEventListener('input', filterActivities);
+      durationFilter.addEventListener('change', filterActivities);
+
+      // Add sorting event listeners to table headers
+      document.querySelectorAll('[data-sort]').forEach(header => {
+        header.addEventListener('click', () => {
+          const sortField = header.getAttribute('data-sort');
+          if (currentSort.field === sortField) {
+            // Toggle direction if same field
+            currentSort.direction = currentSort.direction === 'asc' ? 'desc' : 'asc';
+          } else {
+            // New field, default to ascending
+            currentSort.field = sortField;
+            currentSort.direction = 'asc';
+          }
+          updateSortIcons();
+          filterActivities(); // This will apply the new sort
+        });
+      });
 
       exportBtn.addEventListener('click', () => {
         if (!filteredActivities.length) return;
@@ -1258,92 +1590,15 @@
         showMessage(`Exported ${filteredActivities.length} activities to CSV`, 'success');
       });
 
-      // Validation report functionality
-      validationBtn.addEventListener('click', () => {
-        if (!filteredActivities.length) return;
-        
-        const validationStats = {
-          total: filteredActivities.length,
-          valid: 0,
-          invalid: 0,
-          noTrade: 0,
-          noLocation: 0,
-          invalidCombinations: []
-        };
-        
-        filteredActivities.forEach(activity => {
-          if (!activity.location) {
-            validationStats.noLocation++;
-          } else if (activity.isValidTradeLocation === null) {
-            validationStats.noTrade++;
-          } else if (activity.isValidTradeLocation) {
-            validationStats.valid++;
-          } else {
-            validationStats.invalid++;
-            if (activity.detectedTrade && activity.location) {
-              validationStats.invalidCombinations.push({
-                activity: activity.name,
-                trade: activity.detectedTrade,
-                location: activity.location
-              });
-            }
-          }
-        });
-        
-        const report = `
-          <div class="bg-white border border-gray-200 rounded-lg shadow-lg p-6 max-w-2xl">
-            <h3 class="text-lg font-semibold text-gray-800 mb-4">Validation Report</h3>
-            <div class="grid grid-cols-2 gap-4 mb-4">
-              <div class="text-center p-3 bg-green-50 rounded-lg">
-                <div class="text-2xl font-bold text-green-600">${validationStats.valid}</div>
-                <div class="text-sm text-green-700">Valid</div>
-              </div>
-              <div class="text-center p-3 bg-red-50 rounded-lg">
-                <div class="text-2xl font-bold text-red-600">${validationStats.invalid}</div>
-                <div class="text-sm text-red-700">Invalid</div>
-              </div>
-              <div class="text-center p-3 bg-gray-50 rounded-lg">
-                <div class="text-2xl font-bold text-gray-600">${validationStats.noTrade}</div>
-                <div class="text-sm text-gray-700">No Trade Detected</div>
-              </div>
-              <div class="text-center p-3 bg-yellow-50 rounded-lg">
-                <div class="text-2xl font-bold text-yellow-600">${validationStats.noLocation}</div>
-                <div class="text-sm text-yellow-700">No Location</div>
-              </div>
-            </div>
-            ${validationStats.invalidCombinations.length > 0 ? `
-              <div class="mt-4">
-                <h4 class="font-medium text-gray-800 mb-2">Invalid Trade-Location Combinations:</h4>
-                <div class="max-h-40 overflow-y-auto">
-                  ${validationStats.invalidCombinations.map(item => 
-                    `<div class="text-sm text-red-600 mb-1">• ${item.activity} (${item.trade} at ${item.location})</div>`
-                  ).join('')}
-                </div>
-              </div>
-            ` : ''}
-          </div>
-        `;
-        
-        // Show as modal
-        const modal = document.createElement('div');
-        modal.className = 'fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50';
-        modal.innerHTML = `
-          <div class="relative">
-            ${report}
-            <button onclick="this.closest('.fixed').remove()" class="absolute top-2 right-2 text-gray-400 hover:text-gray-600">
-              <i data-lucide="x" class="w-6 h-6"></i>
-            </button>
-          </div>
-        `;
-        document.body.appendChild(modal);
-        lucide.createIcons();
-      });
-
       zoneFilter.addEventListener('change', filterActivities);
 
       // View mode toggle buttons
       standardViewBtn.addEventListener('click', () => setViewMode('standard'));
       dataCentreViewBtn.addEventListener('click', () => setViewMode('dataCentre'));
+      
+      // Data centre view mode toggle buttons
+      groupedViewBtn.addEventListener('click', () => setDataCentreViewMode('grouped'));
+      tableViewBtn.addEventListener('click', () => setDataCentreViewMode('table'));
 
       // Initialize trade filter system
       initializeTradeFilter();
@@ -1355,7 +1610,11 @@
       loadTradesLocationsDB();
       
       // Initial state
+      updateSortIcons(); // Set default sort icon
       filterActivities();
+      
+      // Initialize data centre table sorting
+      lucide.createIcons();
 
       // Expose toggleGroup, handleGroupSelect, and handleItemSelect as global functions
       window.toggleGroup = toggleGroup;
