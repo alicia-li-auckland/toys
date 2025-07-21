@@ -643,7 +643,8 @@
       let customKeywords = '';
       let excludeKeywords = ['rfp', 'rfi', 'approval', 'submittal', 'review', 'meeting', 'mobilization', 
                             'demobilization', 'permit', 'inspection', 'testing', 'close out', 'closeout',
-                            'procurement', 'ordering', 'delivery', 'schedule', 'planning', 'coordination'];
+                            'procurement', 'ordering', 'delivery', 'schedule', 'planning', 'coordination',
+                            'procure', 'po', 'design', 'lead time', 'inventory'];
 
       // --- Trade-Location Validation Database ---
       let tradesLocationsDB = {};
@@ -1406,7 +1407,6 @@
         // Apply sorting
         sortActivities();
         
-        renderTable(filteredActivities);
         exportBtn.disabled = filteredActivities.length === 0;
         if (viewMode === 'dataCentre') {
           if (dataCentreViewMode === 'grouped') {
@@ -1414,6 +1414,8 @@
           } else {
             renderDataCentreTable();
           }
+        } else {
+          renderTable(filteredActivities);
         }
       }
 
