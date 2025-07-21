@@ -7,7 +7,7 @@ class GlobalSidebar {
 
     getCurrentPage() {
         const path = window.location.pathname;
-        if (path === '/' || path === '/index.html') return 'homepage';
+        if (path === '/' || path === '/index.html' || path === '/toys/' || path === '/toys/index.html') return 'homepage';
         if (path.includes('scheduleconverter')) return 'schedule-converter';
         if (path.includes('wordtocsv')) return 'word-to-csv';
         if (path.includes('tags')) return 'tags';
@@ -17,11 +17,11 @@ class GlobalSidebar {
 
     createSidebarHTML() {
         const navItems = [
-            { id: 'homepage', name: 'Homepage', icon: 'home', url: '/' },
-            { id: 'schedule-converter', name: 'Schedule Converter', icon: 'layout-dashboard', url: '/scheduleconverter/' },
-            { id: 'word-to-csv', name: 'Word to CSV', icon: 'file-text', url: '/wordtocsv/' },
-            { id: 'tags', name: 'Tags Page', icon: 'tag', url: '/tags/' },
-            { id: 'timeline', name: 'Timeline Creator', icon: 'calendar', url: '/timeline/' }
+            { id: 'homepage', name: 'Homepage', icon: 'home', url: '/toys/' },
+            { id: 'schedule-converter', name: 'Schedule Converter', icon: 'layout-dashboard', url: '/toys/scheduleconverter/' },
+            { id: 'word-to-csv', name: 'Word to CSV', icon: 'file-text', url: '/toys/wordtocsv/' },
+            { id: 'tags', name: 'Tags Page', icon: 'tag', url: '/toys/tags/' },
+            { id: 'timeline', name: 'Timeline Creator', icon: 'calendar', url: '/toys/timeline/' }
         ];
 
         const sidebarItems = navItems.map(item => {
