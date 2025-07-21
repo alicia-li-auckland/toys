@@ -96,6 +96,14 @@
                             <span class="text-xl font-bold text-slate-800">Timeline Creator</span>
                         </div>
                         
+                        <!-- File Upload -->
+                        <div class="flex items-center gap-3">
+                            <input type="file" id="csv-upload" accept=".csv" class="block text-sm text-slate-500 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-medium file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100 transition-colors">
+                            <button id="process-csv-btn" class="px-4 py-2 rounded-lg bg-blue-600 text-white font-semibold text-sm disabled:bg-slate-300 disabled:cursor-not-allowed" disabled>Process</button>
+                        </div>
+                    </div>
+                    
+                    <div class="flex items-center gap-4">
                         <!-- Search Box -->
                         <div class="relative w-64">
                             <i data-lucide="search" class="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400"></i>
@@ -108,7 +116,7 @@
                                 <i data-lucide="filter" class="w-4 h-4"></i>
                                 <span>Filter Zones</span>
                             </button>
-                            <div id="filter-panel" class="hidden absolute top-full left-0 mt-2 w-72 bg-white border border-slate-200 rounded-lg shadow-lg z-40">
+                            <div id="filter-panel" class="hidden absolute top-full right-0 mt-2 w-72 bg-white border border-slate-200 rounded-lg shadow-lg z-40">
                                 <div class="p-3 border-b flex justify-between items-center">
                                     <h4 class="font-semibold text-sm">Filter by Zone</h4>
                                     <button id="clear-filter-btn" class="text-xs text-blue-600 hover:underline">Clear all</button>
@@ -127,14 +135,6 @@
                             </div>
                         </div>
                         
-                        <!-- File Upload -->
-                        <div class="flex items-center gap-3">
-                            <input type="file" id="csv-upload" accept=".csv" class="block text-sm text-slate-500 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-medium file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100 transition-colors">
-                            <button id="process-csv-btn" class="px-4 py-2 rounded-lg bg-blue-600 text-white font-semibold text-sm disabled:bg-slate-300 disabled:cursor-not-allowed" disabled>Process</button>
-                        </div>
-                    </div>
-                    
-                    <div class="flex items-center gap-3">
                         <div class="w-9 h-9 rounded-full bg-slate-200 flex items-center justify-center text-slate-600 font-bold">U</div>
                     </div>
                 </div>
