@@ -70,21 +70,10 @@
     </style>
 </head>
 <body class="bg-slate-100 text-slate-800">
-    <div class="flex h-screen">
-        <!-- Collapsed Sidebar (Frozen) -->
-        <aside class="bg-white w-16 flex flex-col items-center py-4 space-y-6 border-r border-slate-200 flex-shrink-0">
-            <div class="p-2 rounded-lg bg-slate-100">
-                <i data-lucide="layout-dashboard" class="text-slate-600"></i>
-            </div>
-            <i data-lucide="bar-chart-3" class="text-slate-500 hover:text-slate-800 cursor-pointer"></i>
-            <i data-lucide="folder" class="text-slate-500 hover:text-slate-800 cursor-pointer"></i>
-            <i data-lucide="map-pin" class="text-slate-500 hover:text-slate-800 cursor-pointer"></i>
-            <i data-lucide="users" class="text-slate-500 hover:text-slate-800 cursor-pointer"></i>
-            <i data-lucide="settings" class="text-slate-500 hover:text-slate-800 cursor-pointer mt-auto"></i>
-        </aside>
+    <!-- Global Sidebar will be injected here -->
 
-        <!-- Main Content -->
-        <div class="flex-1 flex flex-col overflow-hidden">
+    <!-- Main Content -->
+    <div class="flex-1 flex flex-col overflow-hidden">
             <!-- Top Header (Frozen) -->
             <header class="bg-white border-b border-slate-200 flex-shrink-0">
                 <div class="flex items-center justify-between p-4">
@@ -1481,6 +1470,13 @@
         // --- Initial Render ---
         render();
         populateFilterPanel();
+    </script>
+
+    <!-- Global Sidebar Script -->
+    <script src="../global-sidebar.js"></script>
+    <script>
+        // Initialize Lucide icons
+        lucide.createIcons();
     </script>
 </body>
 </html> 

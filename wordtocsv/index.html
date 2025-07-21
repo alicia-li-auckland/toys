@@ -8,6 +8,7 @@
     <!-- Include mammoth.js for reading .docx files -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/mammoth/1.6.0/mammoth.browser.min.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
     <style>
         body {
             font-family: 'Inter', sans-serif;
@@ -41,8 +42,8 @@
         }
     </style>
 </head>
-<body class="bg-gray-100 text-gray-800 flex items-center justify-center min-h-screen p-4">
-    <div class="w-full max-w-6xl bg-white rounded-xl shadow-lg p-6 md:p-8">
+<body class="bg-gray-100 text-gray-800 min-h-screen p-4">
+    <div class="w-full max-w-6xl bg-white rounded-xl shadow-lg p-6 md:p-8 mx-auto">
         
         <!-- Header -->
         <div class="text-center mb-8">
@@ -340,6 +341,13 @@
         // Initial state setup
         convertBtn.disabled = true;
         downloadBtn.disabled = true;
+    </script>
+
+    <!-- Global Sidebar Script -->
+    <script src="../global-sidebar.js"></script>
+    <script>
+        // Initialize Lucide icons
+        lucide.createIcons();
     </script>
 </body>
 </html> 
