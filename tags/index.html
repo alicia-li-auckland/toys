@@ -6,6 +6,7 @@
   <title>CSV Location Tagging Tool</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/lucide@latest"></script>
   <style>
     body {
       font-family: 'Inter', sans-serif;
@@ -45,7 +46,7 @@
   </style>
 </head>
 <body class="bg-gray-100 text-gray-800">
-  <div class="container mx-auto p-4 md:p-8">
+  <div class="container mx-auto p-4 md:p-8 max-w-7xl">
     <header class="text-center mb-8">
       <h1 class="text-3xl md:text-4xl font-bold text-gray-900">CSV Location Tagging Tool</h1>
       <p class="text-gray-600 mt-2">Create location-based tags and apply them to your CSV data automatically.</p>
@@ -640,6 +641,13 @@
     renderTagStructure();
     updateTagSelects();
     updateDefaultTagsStatus();
+  </script>
+
+  <!-- Global Sidebar Script -->
+  <script src="../global-sidebar.js"></script>
+  <script>
+    // Initialize Lucide icons
+    lucide.createIcons();
   </script>
 </body>
 </html>
