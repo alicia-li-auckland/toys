@@ -382,6 +382,62 @@
         return '';
       }
 
+      // --- Trade Code Dictionary ---
+      let tradeCodeDictionary = {};
+      
+      // Load the trade code dictionary
+      async function loadTradeCodeDictionary() {
+        try {
+          const response = await fetch('../trade_area_code_to_name.csv');
+          const csvText = await response.text();
+          const lines = csvText.split('\n').filter(line => line.trim());
+          
+          if (lines.length < 2) {
+            console.warn('trade_area_code_to_name.csv not found or invalid');
+            return;
+          }
+          
+          // Skip header row
+          for (let i = 1; i < lines.length; i++) {
+            const values = lines[i].split(',').map(v => v.trim());
+            if (values.length >= 2) {
+              const code = values[0];
+              const tradeName = values[1];
+              
+              if (!tradeCodeDictionary[code]) {
+                tradeCodeDictionary[code] = [];
+              }
+              tradeCodeDictionary[code].push(tradeName);
+            }
+          }
+          
+          console.log('Trade code dictionary loaded:', tradeCodeDictionary);
+        } catch (error) {
+          console.warn('Could not load trade_area_code_to_name.csv:', error);
+        }
+      }
+      
+      // Function to get trade names from WBS code
+      function getTradeNamesFromCode(wbsCode) {
+        if (!wbsCode || !tradeCodeDictionary[wbsCode]) {
+          return [];
+        }
+        return tradeCodeDictionary[wbsCode];
+      }
+      
+      // Enhanced function to get trade name with dictionary lookup
+      function getTradeNameFromWBS(wbsCode, activityName) {
+        // First try to get trade names from the dictionary
+        const dictionaryTradeNames = getTradeNamesFromCode(wbsCode);
+        if (dictionaryTradeNames.length > 0) {
+          return dictionaryTradeNames.join('; '); // Multiple trades separated by semicolon
+        }
+        
+        // Fallback to keyword-based detection
+        const detectedTrade = detectTradeFromActivity(activityName);
+        return detectedTrade ? getTradeName(detectedTrade) : '';
+      }
+
       // --- Parsing Functions ---
       function parseXMLData(xmlContent) {
         const parser = new DOMParser();
@@ -399,8 +455,7 @@
           const activityName = getText(activity, 'Name') || getText(activity, 'ActivityName') || 'Unnamed Activity';
           const wbs = getText(activity, 'WBSName') || getText(activity, 'WBSCode') || '';
           const location = extractLocationFromWBS(activityName, wbs);
-          const detectedTrade = detectTradeFromActivity(activityName);
-          const tradeName = detectedTrade ? getTradeName(detectedTrade) : '';
+          const tradeName = getTradeNameFromWBS(wbs, activityName); // Use new function
           
           return {
             id: getText(activity, 'Id') || getText(activity, 'ActivityId') || `ACT-${i+1}`,
@@ -413,7 +468,6 @@
             status: getText(activity, 'Status') || 'Not Started',
             wbs: wbs,
             location: location,
-            detectedTrade: detectedTrade,
             tradeName: tradeName
           };
         });
@@ -442,8 +496,7 @@
           const activityName = a.task_name || 'Unnamed Activity';
           const wbs = a.wbs_id || '';
           const location = extractLocationFromWBS(activityName, wbs);
-          const detectedTrade = detectTradeFromActivity(activityName);
-          const tradeName = detectedTrade ? getTradeName(detectedTrade) : '';
+          const tradeName = getTradeNameFromWBS(wbs, activityName); // Use new function
           
           return {
             id: a.task_code || `XER-ACT-${i+1}`,
@@ -456,7 +509,6 @@
             status: a.status_code || 'Not Started',
             wbs: wbs,
             location: location,
-            detectedTrade: detectedTrade,
             tradeName: tradeName
           };
         });
@@ -499,8 +551,7 @@
           const wbs = values[wbsIdx] || '';
           const activityName = values[nameIdx] || 'Unnamed Activity';
           const location = extractLocationFromWBS(activityName, wbs);
-          const detectedTrade = detectTradeFromActivity(activityName);
-          const tradeName = detectedTrade ? getTradeName(detectedTrade) : '';
+          const tradeName = getTradeNameFromWBS(wbs, activityName); // Use new function
           
           activities.push({
             id: values[idIdx] || `CSV-ACT-${i}`,
@@ -513,7 +564,6 @@
             status: values[statusIdx] || 'Not Started',
             wbs: wbs,
             location: location,
-            detectedTrade: detectedTrade,
             tradeName: tradeName
           });
         }
@@ -592,8 +642,7 @@
             const wbs = task.outlineNumber || task.name || '';
             const activityName = task.name || 'Unnamed Activity';
             const location = extractLocationFromWBS(activityName, wbs);
-            const detectedTrade = detectTradeFromActivity(activityName);
-            const tradeName = detectedTrade ? getTradeName(detectedTrade) : '';
+            const tradeName = getTradeNameFromWBS(wbs, activityName); // Use new function
             
             return {
               id: task.id || task.uniqueID || `MPP-ACT-${index + 1}`,
@@ -606,7 +655,6 @@
               status: status,
               wbs: wbs,
               location: location,
-              detectedTrade: detectedTrade,
               tradeName: tradeName
             };
           }).filter(task => task !== null); // Remove null entries (summary tasks)
