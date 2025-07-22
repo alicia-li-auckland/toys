@@ -1,0 +1,850 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Fuzzy Match - Schedule vs Actualized Work</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+    }
+    .table-container {
+      max-height: 60vh;
+      overflow-y: auto;
+    }
+    .match-score-high { background-color: #dcfce7; }
+    .match-score-medium { background-color: #fef3c7; }
+    .match-score-low { background-color: #fee2e2; }
+    .match-score-none { background-color: #f3f4f6; }
+    .fade-in {
+      animation: fadeIn 0.3s ease-in;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body class="bg-gray-100 text-gray-800">
+  <div class="container mx-auto p-4 md:p-8 max-w-7xl">
+    <header class="text-center mb-8">
+      <h1 class="text-3xl md:text-4xl font-bold text-gray-900">Fuzzy Match</h1>
+      <p class="text-gray-600 mt-2">Intelligently match scheduled work with actualized work using multiple criteria</p>
+    </header>
+
+    <main class="space-y-8">
+      <!-- File Upload Section -->
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+        <!-- Scheduled Work Upload -->
+        <div class="bg-white p-6 rounded-xl shadow-lg">
+          <h2 class="text-xl font-bold mb-4 border-b pb-2 flex items-center gap-2">
+            <i data-lucide="calendar" class="w-5 h-5 text-blue-600"></i>
+            Scheduled Work
+          </h2>
+          
+          <div class="space-y-4">
+            <div>
+              <label for="scheduledFileInput" class="block text-sm font-medium text-gray-700 mb-2">
+                Upload Scheduled Work CSV
+              </label>
+              <input type="file" id="scheduledFileInput" accept=".csv" 
+                     class="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-medium file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100 transition-colors">
+            </div>
+            
+            <div id="scheduledFileInfo" class="text-sm text-gray-600 hidden">
+              <p><strong>File:</strong> <span id="scheduledFileName"></span></p>
+              <p><strong>Rows:</strong> <span id="scheduledRowCount"></span></p>
+              <p><strong>Columns:</strong> <span id="scheduledColumnCount"></span></p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Actualized Work Upload -->
+        <div class="bg-white p-6 rounded-xl shadow-lg">
+          <h2 class="text-xl font-bold mb-4 border-b pb-2 flex items-center gap-2">
+            <i data-lucide="check-circle" class="w-5 h-5 text-green-600"></i>
+            Actualized Work
+          </h2>
+          
+          <div class="space-y-4">
+            <div>
+              <label for="actualizedFileInput" class="block text-sm font-medium text-gray-700 mb-2">
+                Upload Actualized Work CSV
+              </label>
+              <input type="file" id="actualizedFileInput" accept=".csv" 
+                     class="block w-full text-sm text-gray-500 file:mr-4 file:px-4 file:py-2 file:rounded-lg file:border-0 file:text-sm file:font-medium file:bg-green-50 file:text-green-700 hover:file:bg-green-100 transition-colors">
+            </div>
+            
+            <div id="actualizedFileInfo" class="text-sm text-gray-600 hidden">
+              <p><strong>File:</strong> <span id="actualizedFileName"></span></p>
+              <p><strong>Rows:</strong> <span id="actualizedRowCount"></span></p>
+              <p><strong>Columns:</strong> <span id="actualizedColumnCount"></span></p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Action Buttons -->
+      <div class="bg-white p-6 rounded-xl shadow-lg">
+        <h2 class="text-xl font-bold mb-4 border-b pb-2 flex items-center gap-2">
+          <i data-lucide="play" class="w-5 h-5 text-blue-600"></i> Actions
+        </h2>
+        <div class="space-y-3">
+          <button id="runMatchBtn" class="w-full bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 transition-colors disabled:bg-gray-400" disabled>
+            <i data-lucide="play" class="w-4 h-4 inline mr-2"></i>
+            Run Fuzzy Match
+          </button>
+          <button id="exportMatchesBtn" class="w-full bg-green-600 text-white px-4 py-2 rounded-md hover:bg-green-700 transition-colors disabled:bg-gray-400" disabled>
+            <i data-lucide="download" class="w-4 h-4 inline mr-2"></i>
+            Export Matches
+          </button>
+          <button id="clearDataBtn" class="w-full bg-red-600 text-white px-4 py-2 rounded-md hover:bg-red-700 transition-colors">
+            <i data-lucide="trash-2" class="w-4 h-4 inline mr-2"></i>
+            Clear All Data
+          </button>
+        </div>
+      </div>
+
+      <!-- Matching Results -->
+      <div class="bg-white p-6 rounded-xl shadow-lg">
+        <h2 class="text-xl font-bold mb-4 border-b pb-2 flex items-center gap-2">
+          <i data-lucide="bar-chart-3" class="w-5 h-5 text-indigo-600"></i>
+          Matching Results
+        </h2>
+        
+        <!-- Statistics -->
+        <div id="matchStats" class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6 hidden">
+          <div class="bg-green-50 p-4 rounded-lg text-center">
+            <div class="text-2xl font-bold text-green-600" id="highMatchCount">0</div>
+            <div class="text-sm text-green-700">High Matches</div>
+          </div>
+          <div class="bg-yellow-50 p-4 rounded-lg text-center">
+            <div class="text-2xl font-bold text-yellow-600" id="mediumMatchCount">0</div>
+            <div class="text-sm text-yellow-700">Medium Matches</div>
+          </div>
+          <div class="bg-red-50 p-4 rounded-lg text-center">
+            <div class="text-2xl font-bold text-red-600" id="lowMatchCount">0</div>
+            <div class="text-sm text-red-700">Low Matches</div>
+          </div>
+          <div class="bg-gray-50 p-4 rounded-lg text-center">
+            <div class="text-2xl font-bold text-gray-600" id="noMatchCount">0</div>
+            <div class="text-sm text-gray-700">No Matches</div>
+          </div>
+        </div>
+
+        <!-- Results Table -->
+        <div id="resultsContainer" class="hidden">
+          <div class="table-container">
+            <table id="resultsTable" class="min-w-full divide-y divide-gray-200">
+              <thead class="bg-gray-50 sticky top-0 z-10">
+                <tr>
+                  <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Match Score</th>
+                  <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Scheduled Work</th>
+                  <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actualized Work</th>
+                  <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Match Details</th>
+                  <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
+                </tr>
+              </thead>
+              <tbody id="resultsTbody" class="bg-white divide-y divide-gray-200">
+                <!-- Results will be populated here -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- No Results Message -->
+        <div id="noResultsMessage" class="text-center py-12">
+          <i data-lucide="search" class="w-12 h-12 text-gray-400 mx-auto mb-4"></i>
+          <p class="text-gray-500">Upload both CSV files and run the fuzzy match to see results.</p>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <!-- Message Display -->
+  <div id="messageArea" class="fixed bottom-4 right-4 z-50 hidden">
+    <div class="bg-white border rounded-lg shadow-lg p-4 max-w-md">
+      <div class="flex items-center gap-3">
+        <i id="messageIcon" class="w-5 h-5"></i>
+        <span id="messageText" class="text-sm font-medium"></span>
+        <button onclick="hideMessage()" class="ml-auto text-gray-400 hover:text-gray-600">
+          <i data-lucide="x" class="w-4 h-4"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Initialize Lucide Icons
+    lucide.createIcons();
+
+    // --- STATE MANAGEMENT ---
+    const state = {
+      scheduledData: [],
+      actualizedData: [],
+      matches: [],
+      thresholds: {
+        high: 80,
+        medium: 60,
+        low: 40
+      }
+    };
+
+    // --- DOM ELEMENTS ---
+    const scheduledFileInput = document.getElementById('scheduledFileInput');
+    const actualizedFileInput = document.getElementById('actualizedFileInput');
+    const uniformatFileInput = document.getElementById('uniformatFileInput');
+    const runMatchBtn = document.getElementById('runMatchBtn');
+    const exportMatchesBtn = document.getElementById('exportMatchesBtn');
+    const clearDataBtn = document.getElementById('clearDataBtn');
+    const resultsContainer = document.getElementById('resultsContainer');
+    const noResultsMessage = document.getElementById('noResultsMessage');
+    const resultsTbody = document.getElementById('resultsTbody');
+
+    // --- UTILITY FUNCTIONS ---
+    function showMessage(text, type = 'info') {
+      const messageArea = document.getElementById('messageArea');
+      const messageText = document.getElementById('messageText');
+      const messageIcon = document.getElementById('messageIcon');
+      
+      messageText.textContent = text;
+      
+      // Set icon and colors based on type
+      const iconMap = {
+        success: 'check-circle',
+        error: 'alert-circle',
+        warning: 'alert-triangle',
+        info: 'info'
+      };
+      
+      messageIcon.setAttribute('data-lucide', iconMap[type] || 'info');
+      messageArea.className = `fixed bottom-4 right-4 z-50 ${type === 'error' ? 'text-red-600' : type === 'success' ? 'text-green-600' : type === 'warning' ? 'text-yellow-600' : 'text-blue-600'}`;
+      
+      messageArea.classList.remove('hidden');
+      lucide.createIcons();
+      
+      // Auto-hide after 5 seconds
+      setTimeout(() => {
+        messageArea.classList.add('hidden');
+      }, 5000);
+    }
+
+    function hideMessage() {
+      document.getElementById('messageArea').classList.add('hidden');
+    }
+
+    // --- FILE HANDLING ---
+    function handleScheduledFileUpload(event) {
+      const file = event.target.files[0];
+      if (!file) return;
+      
+      Papa.parse(file, {
+        header: true,
+        skipEmptyLines: true,
+        complete: (results) => {
+          state.scheduledData = results.data;
+          console.log('Scheduled file columns:', results.meta.fields);
+          console.log('Scheduled data sample:', results.data.slice(0, 2));
+          updateFileInfo('scheduled', file.name, results.data.length, results.meta.fields.length);
+          checkReadyState();
+          showMessage(`Loaded ${results.data.length} scheduled work items`, 'success');
+        },
+        error: (error) => showMessage(`Error parsing scheduled CSV: ${error.message}`, 'error')
+      });
+    }
+
+    function handleActualizedFileUpload(event) {
+      const file = event.target.files[0];
+      if (!file) return;
+      Papa.parse(file, {
+        header: true,
+        skipEmptyLines: true,
+        complete: (results) => {
+          state.actualizedData = results.data;
+          console.log('Actualized file columns:', results.meta.fields);
+          console.log('Actualized data sample:', results.data.slice(0, 2));
+          updateFileInfo('actualized', file.name, results.data.length, results.meta.fields.length);
+          checkReadyState();
+          showMessage(`Loaded ${results.data.length} actualized work items`, 'success');
+        },
+        error: (error) => showMessage(`Error parsing actualized CSV: ${error.message}`, 'error')
+      });
+    }
+
+    function updateFileInfo(type, fileName, rowCount, columnCount) {
+      const fileInfo = document.getElementById(`${type}FileInfo`);
+      const fileNameSpan = document.getElementById(`${type}FileName`);
+      const rowCountSpan = document.getElementById(`${type}RowCount`);
+      const columnCountSpan = document.getElementById(`${type}ColumnCount`);
+      
+      fileNameSpan.textContent = fileName;
+      rowCountSpan.textContent = rowCount;
+      columnCountSpan.textContent = columnCount;
+      fileInfo.classList.remove('hidden');
+    }
+
+    function checkReadyState() {
+      const hasScheduled = state.scheduledData.length > 0;
+      const hasActualized = state.actualizedData.length > 0;
+      runMatchBtn.disabled = !(hasScheduled && hasActualized);
+    }
+
+    // --- MATCHING LOGIC ---
+    function runFuzzyMatch() {
+      if (state.scheduledData.length === 0 || state.actualizedData.length === 0) {
+        showMessage('Please upload both scheduled and actualized work files', 'error');
+        return;
+      }
+
+      showMessage('Running fuzzy match...', 'info');
+      runMatchBtn.disabled = true;
+
+      // Simulate processing time
+      setTimeout(() => {
+        state.matches = performFuzzyMatching();
+        renderResults();
+        updateMatchStats();
+        runMatchBtn.disabled = false;
+        exportMatchesBtn.disabled = false;
+        showMessage(`Found ${state.matches.length} potential matches`, 'success');
+      }, 1000);
+    }
+
+    function performFuzzyMatching() {
+      const matches = [];
+      
+      // Step 1: Build trade name mapping (similar to Python's get_close_matches approach)
+      const tradeMapping = buildTradeMapping();
+      
+      // Step 2: Apply mapping to scheduled data (like Python's step 4)
+      const scheduledWithMappedTrades = state.scheduledData.map(scheduled => {
+        const scheduledTrade = scheduled['Trade'] || scheduled['Trade Name'] || scheduled['Activity Name'] || '';
+        const mappedTrade = tradeMapping[scheduledTrade.toLowerCase().trim()];
+        return {
+          ...scheduled,
+          'Matched Trade Name': mappedTrade || scheduledTrade
+        };
+      });
+      
+      // Step 3: Merge on Location + Matched Trade Name (like Python's step 5)
+      console.log('Starting merge process...');
+      console.log('Scheduled data sample:', scheduledWithMappedTrades.slice(0, 2));
+      console.log('Actualized data sample:', state.actualizedData.slice(0, 2));
+      
+      // Debug: Check what columns we have
+      if (scheduledWithMappedTrades.length > 0) {
+        console.log('Scheduled columns:', Object.keys(scheduledWithMappedTrades[0]));
+      }
+      if (state.actualizedData.length > 0) {
+        console.log('Actualized columns:', Object.keys(state.actualizedData[0]));
+      }
+      
+      scheduledWithMappedTrades.forEach((scheduled, index) => {
+        const scheduledLocation = scheduled.location || scheduled.Location || '';
+        const mappedTradeName = scheduled['Matched Trade Name'];
+        
+        console.log(`Processing scheduled item ${index}:`, {
+          location: scheduledLocation,
+          originalTrade: scheduled['Trade'] || scheduled['Trade Name'] || scheduled['Activity Name'],
+          mappedTrade: mappedTradeName
+        });
+        
+        // Find matching actualized items
+        const matchingActualized = state.actualizedData.filter(actualized => {
+          const actualizedLocation = actualized.location || actualized.Location || '';
+          const actualizedTrade = actualized['Trade'] || actualized['Trade Name'] || actualized['Activity Name'] || '';
+          
+          console.log(`  Checking actualized item:`, {
+            location: actualizedLocation,
+            trade: actualizedTrade,
+            scheduledLocation: scheduledLocation,
+            mappedTradeName: mappedTradeName
+          });
+          
+          // Location must match (using fuzzy matching for different formats)
+          const locationMatch = matchLocationFuzzy(scheduledLocation, actualizedLocation);
+          if (!locationMatch) {
+            console.log(`    Location mismatch: "${scheduledLocation}" vs "${actualizedLocation}"`);
+            return false;
+          }
+          console.log(`    Location match: "${scheduledLocation}" vs "${actualizedLocation}"`);
+          
+          // Trade name must match (either exact or mapped)
+          if (mappedTradeName && actualizedTrade) {
+            const match = mappedTradeName.toLowerCase().trim() === actualizedTrade.toLowerCase().trim();
+            console.log(`    Trade comparison: "${mappedTradeName}" vs "${actualizedTrade}" = ${match}`);
+            return match;
+          }
+          
+          console.log(`    Missing trade data`);
+          return false;
+        });
+        
+        console.log(`Found ${matchingActualized.length} matches for scheduled item ${index}`);
+        
+        // If we found matches, create match objects
+        matchingActualized.forEach(actualized => {
+          const score = calculateMatchScore(scheduled, actualized, tradeMapping);
+          matches.push({
+            scheduled,
+            actualized,
+            score,
+            details: getMatchDetails(scheduled, actualized, tradeMapping),
+            tradeMapping: tradeMapping
+          });
+        });
+      });
+      
+      console.log(`Total matches found: ${matches.length}`);
+      
+      return matches;
+    }
+
+    function buildTradeMapping() {
+      // Extract unique trade names from both datasets
+      const scheduledTrades = new Set();
+      const actualizedTrades = new Set();
+      
+      state.scheduledData.forEach(row => {
+        const trade = row['Trade'] || row['Trade Name'] || row['Activity Name'] || '';
+        if (trade) scheduledTrades.add(trade.toLowerCase().trim());
+      });
+      
+      state.actualizedData.forEach(row => {
+        const trade = row['Trade'] || row['Trade Name'] || row['Activity Name'] || '';
+        if (trade) actualizedTrades.add(trade.toLowerCase().trim());
+      });
+      
+      const scheduledTradesList = Array.from(scheduledTrades);
+      const actualizedTradesList = Array.from(actualizedTrades);
+      
+      // Build mapping: for each scheduled trade, find closest actualized trade
+      const mapping = {};
+      const threshold = 0.6; // Same as Python example
+      
+      scheduledTradesList.forEach(scheduledTrade => {
+        let bestMatch = null;
+        let bestScore = 0;
+        
+        actualizedTradesList.forEach(actualizedTrade => {
+          const similarity = calculateStringSimilarity(scheduledTrade, actualizedTrade);
+          if (similarity >= threshold && similarity > bestScore) {
+            bestScore = similarity;
+            bestMatch = actualizedTrade;
+          }
+        });
+        
+        mapping[scheduledTrade] = bestMatch;
+      });
+      
+      console.log('Trade mapping built:', mapping);
+      return mapping;
+    }
+
+    function calculateMatchScore(scheduled, actualized, tradeMapping = null) {
+      // Since we're using the Python approach (location + trade matching),
+      // we give a high base score for successful matches and add bonus points
+      let baseScore = 80; // High base score for location + trade match
+      const details = {};
+      
+      // Location matching (should be 100% since we filter by location)
+      const locationScore = matchLocation(scheduled, actualized);
+      details.location = locationScore;
+      
+      // Name matching (should be high since we match by mapped trade names)
+      const nameScore = matchName(scheduled, actualized, tradeMapping);
+      details.name = nameScore;
+      
+      // Duration matching (bonus points)
+      const durationScore = matchDuration(scheduled, actualized);
+      details.duration = durationScore;
+      
+      // Date matching (bonus points)
+      const dateScore = matchDate(scheduled, actualized);
+      details.date = dateScore;
+      
+      // Tag matching (bonus points)
+      const tagScore = matchTags(scheduled, actualized);
+      details.tags = tagScore;
+      
+      // Calculate bonus from other criteria
+      const bonus = Math.round((durationScore + dateScore + tagScore) / 3);
+      
+      return Math.min(100, baseScore + bonus);
+    }
+
+    function matchLocation(scheduled, actualized) {
+      // Simple location matching - can be enhanced
+      const sLoc = (scheduled.location || scheduled.Location || '').toLowerCase();
+      const aLoc = (actualized.location || actualized.Location || '').toLowerCase();
+      
+      if (sLoc === aLoc) return 100;
+      if (sLoc.includes(aLoc) || aLoc.includes(sLoc)) return 80;
+      if (sLoc && aLoc && sLoc.length > 2 && aLoc.length > 2) {
+        const sWords = sLoc.split(/\s+/);
+        const aWords = aLoc.split(/\s+/);
+        const commonWords = sWords.filter(word => aWords.includes(word));
+        if (commonWords.length > 0) return 60;
+      }
+      return 0;
+    }
+
+    function matchLocationFuzzy(scheduledLocation, actualizedLocation) {
+      const sLoc = scheduledLocation.toLowerCase().trim();
+      const aLoc = actualizedLocation.toLowerCase().trim();
+      
+      // Exact match
+      if (sLoc === aLoc) return true;
+      
+      // Simple letter matching: look for scheduled location letters in actualized location
+      // E.g., "DCH" should match "Zone 1 DCH" or "DCH 1" or "DCH-Equipment"
+      if (aLoc.includes(sLoc)) return true;
+      
+      // Also check for location with numbers (e.g., "DCH 1", "DCH-1")
+      const locationWithNumber = new RegExp(`${sLoc}\\s*\\d+`, 'i');
+      if (locationWithNumber.test(aLoc)) return true;
+      
+      // Check if actualized location is contained in scheduled location
+      if (sLoc.includes(aLoc)) return true;
+      
+      return false;
+    }
+
+    function matchName(scheduled, actualized, tradeMapping = null) {
+      // Enhanced fuzzy matching for trade names using similar logic to Python's get_close_matches
+      const scheduledName = (scheduled['Activity Name'] || scheduled['Trade'] || scheduled['Trade Name'] || scheduled.name || scheduled.Name || '').toLowerCase().trim();
+      const actualizedName = (actualized['Activity Name'] || actualized['Trade'] || actualized['Trade Name'] || actualized.name || actualized.Name || '').toLowerCase().trim();
+      
+      if (!scheduledName || !actualizedName) return 0;
+      
+      // Exact match
+      if (scheduledName === actualizedName) return 100;
+      
+      // Check if there's a pre-computed mapping for this trade
+      if (tradeMapping && tradeMapping[scheduledName] === actualizedName) {
+        return 95; // High score for mapped trades
+      }
+      
+      // Contains match
+      if (scheduledName.includes(actualizedName) || actualizedName.includes(scheduledName)) {
+        return 85;
+      }
+      
+      // Fuzzy match using similarity ratio
+      const similarity = calculateStringSimilarity(scheduledName, actualizedName);
+      const threshold = 0.6; // Same as Python example
+      
+      if (similarity >= threshold) {
+        return Math.round(similarity * 100);
+      }
+      
+      return 0;
+    }
+
+    function calculateStringSimilarity(str1, str2) {
+      // Implementation similar to Python's difflib.SequenceMatcher
+      if (str1 === str2) return 1.0;
+      if (str1.length === 0 || str2.length === 0) return 0.0;
+      
+      // Use a simplified Jaro-Winkler distance for similarity
+      return jaroWinklerDistance(str1, str2);
+    }
+
+    function jaroWinklerDistance(str1, str2) {
+      if (str1 === str2) return 1.0;
+      
+      const len1 = str1.length;
+      const len2 = str2.length;
+      
+      if (len1 === 0 || len2 === 0) return 0.0;
+      
+      const matchDistance = Math.floor(Math.max(len1, len2) / 2) - 1;
+      if (matchDistance < 0) return 0.0;
+      
+      const str1Matches = new Array(len1).fill(false);
+      const str2Matches = new Array(len2).fill(false);
+      
+      let matches = 0;
+      let transpositions = 0;
+      
+      // Find matches
+      for (let i = 0; i < len1; i++) {
+        const start = Math.max(0, i - matchDistance);
+        const end = Math.min(i + matchDistance + 1, len2);
+        
+        for (let j = start; j < end; j++) {
+          if (str2Matches[j] || str1[i] !== str2[j]) continue;
+          str1Matches[i] = true;
+          str2Matches[j] = true;
+          matches++;
+          break;
+        }
+      }
+      
+      if (matches === 0) return 0.0;
+      
+      // Find transpositions
+      let k = 0;
+      for (let i = 0; i < len1; i++) {
+        if (!str1Matches[i]) continue;
+        while (!str2Matches[k]) k++;
+        if (str1[i] !== str2[k]) transpositions++;
+        k++;
+      }
+      
+      const jaroDistance = (matches / len1 + matches / len2 + (matches - transpositions / 2) / matches) / 3;
+      
+      // Winkler modification
+      let prefix = 0;
+      for (let i = 0; i < Math.min(4, Math.min(len1, len2)); i++) {
+        if (str1[i] === str2[i]) prefix++;
+        else break;
+      }
+      
+      return jaroDistance + 0.1 * prefix * (1 - jaroDistance);
+    }
+
+    function matchDuration(scheduled, actualized) {
+      const sDur = parseFloat(scheduled.duration || scheduled.Duration || 0);
+      const aDur = parseFloat(actualized.duration || actualized.Duration || 0);
+      
+      if (sDur === 0 || aDur === 0) return 0;
+      
+      const diff = Math.abs(sDur - aDur) / Math.max(sDur, aDur);
+      if (diff < 0.1) return 100;
+      if (diff < 0.2) return 80;
+      if (diff < 0.3) return 60;
+      if (diff < 0.5) return 40;
+      return 0;
+    }
+
+    function matchDate(scheduled, actualized) {
+      const sStart = new Date(scheduled['start date'] || scheduled['Start Date'] || '');
+      const aStart = new Date(actualized['start date'] || actualized['Start Date'] || '');
+      
+      if (isNaN(sStart.getTime()) || isNaN(aStart.getTime())) return 0;
+      
+      const daysDiff = Math.abs(sStart - aStart) / (1000 * 60 * 60 * 24);
+      if (daysDiff <= 1) return 100;
+      if (daysDiff <= 7) return 80;
+      if (daysDiff <= 14) return 60;
+      if (daysDiff <= 30) return 40;
+      return 0;
+    }
+
+    function matchUniformat(scheduled, actualized) {
+      // Placeholder for UNIFORMAT matching
+      // This would be enhanced with actual UNIFORMAT knowledge
+      return 0;
+    }
+
+    function matchTags(scheduled, actualized) {
+      // Get all possible tag columns from both datasets
+      const allColumns = new Set([
+        ...Object.keys(scheduled),
+        ...Object.keys(actualized)
+      ]);
+      
+      // Filter for tag columns (columns that might contain 'TRUE' values)
+      const tagColumns = Array.from(allColumns).filter(col => {
+        const sValue = scheduled[col];
+        const aValue = actualized[col];
+        return (sValue === 'TRUE' || aValue === 'TRUE') && 
+               col.toLowerCase().includes('tag') || 
+               col.toLowerCase().includes('trade') ||
+               col.toLowerCase().includes('category');
+      });
+      
+      if (tagColumns.length === 0) return 0;
+      
+      let matchingTags = 0;
+      let totalRelevantTags = 0;
+      
+      tagColumns.forEach(col => {
+        const sValue = scheduled[col];
+        const aValue = actualized[col];
+        
+        // If either has a TRUE value, it's relevant
+        if (sValue === 'TRUE' || aValue === 'TRUE') {
+          totalRelevantTags++;
+          
+          // If both have TRUE, it's a match
+          if (sValue === 'TRUE' && aValue === 'TRUE') {
+            matchingTags++;
+          }
+        }
+      });
+      
+      if (totalRelevantTags === 0) return 0;
+      
+      // Calculate percentage of matching tags
+      return Math.round((matchingTags / totalRelevantTags) * 100);
+    }
+
+    function getMatchDetails(scheduled, actualized, tradeMapping = null) {
+      return {
+        location: matchLocation(scheduled, actualized),
+        name: matchName(scheduled, actualized, tradeMapping),
+        duration: matchDuration(scheduled, actualized),
+        date: matchDate(scheduled, actualized),
+        uniformat: matchUniformat(scheduled, actualized),
+        tags: matchTags(scheduled, actualized)
+      };
+    }
+
+    // --- RENDERING ---
+    function renderResults() {
+      if (state.matches.length === 0) {
+        resultsContainer.classList.add('hidden');
+        noResultsMessage.classList.remove('hidden');
+        return;
+      }
+
+      resultsContainer.classList.remove('hidden');
+      noResultsMessage.classList.add('hidden');
+      
+      resultsTbody.innerHTML = '';
+      
+      state.matches.forEach((match, index) => {
+        const row = document.createElement('tr');
+        row.className = `fade-in ${getScoreClass(match.score)}`;
+        row.style.animationDelay = `${index * 0.1}s`;
+        
+        row.innerHTML = `
+          <td class="px-6 py-4 whitespace-nowrap">
+            <div class="flex items-center">
+              <div class="w-16 h-2 bg-gray-200 rounded-full mr-2">
+                <div class="h-2 bg-blue-600 rounded-full" style="width: ${match.score}%"></div>
+              </div>
+              <span class="text-sm font-medium">${match.score}%</span>
+            </div>
+          </td>
+          <td class="px-6 py-4">
+            <div class="text-sm font-medium text-gray-900">${match.scheduled.name || match.scheduled.Name || match.scheduled['Activity Name'] || 'N/A'}</div>
+            <div class="text-sm text-gray-500">${match.scheduled.location || match.scheduled.Location || 'N/A'}</div>
+          </td>
+          <td class="px-6 py-4">
+            <div class="text-sm font-medium text-gray-900">${match.actualized.name || match.actualized.Name || match.actualized['Activity Name'] || 'N/A'}</div>
+            <div class="text-sm text-gray-500">${match.actualized.location || match.actualized.Location || 'N/A'}</div>
+          </td>
+          <td class="px-6 py-4">
+            <div class="text-xs space-y-1">
+              <div>Location: ${match.details.location}%</div>
+              <div>Name: ${match.details.name}%</div>
+              <div>Duration: ${match.details.duration}%</div>
+              <div>Date: ${match.details.date}%</div>
+              <div>Tags: ${match.details.tags}%</div>
+            </div>
+          </td>
+          <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
+            <button class="text-blue-600 hover:text-blue-900 mr-2">View</button>
+            <button class="text-green-600 hover:text-green-900">Accept</button>
+          </td>
+        `;
+        
+        resultsTbody.appendChild(row);
+      });
+    }
+
+    function getScoreClass(score) {
+      if (score >= state.thresholds.high) return 'match-score-high';
+      if (score >= state.thresholds.medium) return 'match-score-medium';
+      if (score >= state.thresholds.low) return 'match-score-low';
+      return 'match-score-none';
+    }
+
+    function updateMatchStats() {
+      const stats = {
+        high: 0,
+        medium: 0,
+        low: 0,
+        none: 0
+      };
+      
+      state.matches.forEach(match => {
+        if (match.score >= state.thresholds.high) stats.high++;
+        else if (match.score >= state.thresholds.medium) stats.medium++;
+        else if (match.score >= state.thresholds.low) stats.low++;
+        else stats.none++;
+      });
+      
+      document.getElementById('highMatchCount').textContent = stats.high;
+      document.getElementById('mediumMatchCount').textContent = stats.medium;
+      document.getElementById('lowMatchCount').textContent = stats.low;
+      document.getElementById('noMatchCount').textContent = stats.none;
+      document.getElementById('matchStats').classList.remove('hidden');
+    }
+
+    // --- EVENT LISTENERS ---
+    scheduledFileInput.addEventListener('change', handleScheduledFileUpload);
+    actualizedFileInput.addEventListener('change', handleActualizedFileUpload);
+    runMatchBtn.addEventListener('click', runFuzzyMatch);
+    clearDataBtn.addEventListener('click', () => {
+      state.scheduledData = [];
+      state.actualizedData = [];
+      state.matches = [];
+      resultsContainer.classList.add('hidden');
+      noResultsMessage.classList.remove('hidden');
+      document.getElementById('matchStats').classList.add('hidden');
+      document.getElementById('scheduledFileInfo').classList.add('hidden');
+      document.getElementById('actualizedFileInfo').classList.add('hidden');
+      runMatchBtn.disabled = true;
+      exportMatchesBtn.disabled = true;
+      showMessage('All data cleared', 'success');
+    });
+
+
+
+    function exportMatches() {
+      if (state.matches.length === 0) {
+        showMessage('No matches to export', 'warning');
+        return;
+      }
+
+      // Create CSV data with specified column order
+      const csvData = state.matches.map(match => {
+        const scheduled = match.scheduled;
+        const actualized = match.actualized;
+        
+        return {
+          'Location': scheduled.location || scheduled.Location || actualized.location || actualized.Location || 'N/A',
+          'Schedule Activity ID': scheduled.id || scheduled.ID || scheduled['Activity ID'] || 'N/A',
+          'Schedule Activity Name': scheduled.name || scheduled.Name || scheduled['Activity Name'] || scheduled['Trade'] || scheduled['Trade Name'] || 'N/A',
+          'Matched Trade Name': actualized.name || actualized.Name || actualized['Activity Name'] || actualized['Trade'] || actualized['Trade Name'] || 'N/A',
+          'Scheduled Start Date': scheduled['start date'] || scheduled['Start Date'] || scheduled['scheduled start'] || 'N/A',
+          'Scheduled Finish Date': scheduled['finish date'] || scheduled['Finish Date'] || scheduled['scheduled finish'] || scheduled['end date'] || scheduled['End Date'] || 'N/A',
+          'Actual Start Date': actualized['start date'] || actualized['Start Date'] || actualized['actual start'] || 'N/A',
+          'Actual End Date': actualized['end date'] || actualized['End Date'] || actualized['actual end'] || actualized['finish date'] || actualized['Finish Date'] || 'N/A',
+          'Confidence Level': `${match.score}%`
+        };
+      });
+
+      // Convert to CSV using Papa Parse
+      const csv = Papa.unparse(csvData);
+      
+      // Create and download file
+      const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+      const link = document.createElement('a');
+      const url = URL.createObjectURL(blob);
+      link.setAttribute('href', url);
+      link.setAttribute('download', `fuzzy_matches_${new Date().toISOString().split('T')[0]}.csv`);
+      link.style.visibility = 'hidden';
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      
+      showMessage(`Exported ${state.matches.length} matches to CSV`, 'success');
+    }
+
+    // Add event listener for export button
+    exportMatchesBtn.addEventListener('click', exportMatches);
+
+    // Make hideMessage globally available
+    window.hideMessage = hideMessage;
+  </script>
+</body>
+</html> 
