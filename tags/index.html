@@ -471,12 +471,12 @@
         trHead.appendChild(th);
       });
       
-      // Add tag columns
-      const parentTags = Object.keys(state.tags).filter(t => state.tags[t].parent === null);
-      parentTags.forEach(tag => {
+      // Add tag columns (both parent and child tags)
+      Object.keys(state.tags).forEach(tag => {
         const th = document.createElement('th');
         th.className = 'px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider';
-        th.textContent = `Tag: ${tag}`;
+        const isParent = state.tags[tag].parent === null;
+        th.textContent = isParent ? `Location: ${tag}` : `Trade: ${tag}`;
         trHead.appendChild(th);
       });
       
@@ -492,12 +492,21 @@
           trBody.appendChild(td);
         });
         
-        // Add tag columns
-        parentTags.forEach(tag => {
+        // Add tag columns (both parent and child tags)
+        Object.keys(state.tags).forEach(tag => {
           const td = document.createElement('td');
           td.className = 'px-6 py-4 whitespace-nowrap text-sm';
-          const isTagged = row[tag] === 'TRUE';
-          td.innerHTML = `<span class="inline-flex px-2 py-1 text-xs font-medium rounded-full ${isTagged ? 'bg-green-100 text-green-800' : 'bg-gray-100 text-gray-800'}">${isTagged ? 'Tagged' : 'Not Tagged'}</span>`;
+          const tagValue = row[tag] || '';
+          const isParent = state.tags[tag].parent === null;
+          
+          if (tagValue === 'TRUE') {
+            // Show "Tagged" for TRUE values
+            const bgColor = isParent ? 'bg-blue-100 text-blue-800' : 'bg-green-100 text-green-800';
+            td.innerHTML = `<span class="inline-flex px-2 py-1 text-xs font-medium rounded-full ${bgColor}">Tagged</span>`;
+          } else {
+            // Show "Not Tagged" for empty values
+            td.innerHTML = `<span class="inline-flex px-2 py-1 text-xs font-medium rounded-full bg-gray-100 text-gray-800">Not Tagged</span>`;
+          }
           trBody.appendChild(td);
         });
         
@@ -513,6 +522,7 @@
 
       const parentTags = Object.keys(state.tags).filter(t => state.tags[t].parent === null);
       let taggedCount = 0;
+      let appliedTags = new Set();
 
       state.csvData.forEach(row => {
         const locationValue = (row[state.locationColumn] || '').toLowerCase();
@@ -520,11 +530,14 @@
         parentTags.forEach(parentTag => {
           const parentTagLower = parentTag.toLowerCase();
           if (locationValue.includes(parentTagLower)) {
+            // Apply the parent location tag as TRUE
             row[parentTag] = 'TRUE';
-            // Also tag all children
+            
+            // Apply all child trade tags as TRUE
             const children = Array.from(state.tags[parentTag].children);
             children.forEach(child => {
-              row[child] = 'TRUE';
+              row[child] = 'TRUE'; // Use 'TRUE' for individual tag columns
+              appliedTags.add(child);
             });
             taggedCount++;
           }
@@ -532,7 +545,14 @@
       });
 
       renderCsvTable();
-      showMessage(`Auto-tagged ${taggedCount} rows based on location matching.`, 'success');
+      
+      // Show detailed success message with applied tags
+      const appliedTagsList = Array.from(appliedTags).join(', ');
+      if (appliedTags.size > 0) {
+        showMessage(`Auto-tagged ${taggedCount} rows. Applied trade tags: ${appliedTagsList}`, 'success');
+      } else {
+        showMessage(`Auto-tagged ${taggedCount} rows based on location matching.`, 'success');
+      }
     };
 
     const handleFileUpload = (event) => {
@@ -564,11 +584,44 @@
           newRow[header] = row[header] || '';
         });
         
-        // Add tag columns
-        const parentTags = Object.keys(state.tags).filter(t => state.tags[t].parent === null);
-        parentTags.forEach(tag => {
+        // Add all tag columns (both parent and child tags)
+        Object.keys(state.tags).forEach(tag => {
           newRow[tag] = row[tag] || '';
         });
+        
+        // Create Location_Trades_Hierarchy column for chatbot-friendly format
+        const locationTradesHierarchy = [];
+        
+        // Find the primary location for this row
+        const parentTags = Object.keys(state.tags).filter(t => state.tags[t].parent === null);
+        let primaryLocation = '';
+        
+        parentTags.forEach(parentTag => {
+          if (row[parentTag]) {
+            primaryLocation = parentTag;
+            const childTrades = Array.from(state.tags[parentTag].children);
+            const applicableTrades = childTrades.filter(trade => row[trade]).map(trade => trade.replace(/_/g, ' '));
+            
+            if (applicableTrades.length > 0) {
+              locationTradesHierarchy.push(`${parentTag}: ${applicableTrades.join(', ')}`);
+            } else {
+              locationTradesHierarchy.push(`${parentTag}: no_trades_applicable`);
+            }
+          }
+        });
+        
+        // If no location found, check if there are any trade tags applied
+        if (locationTradesHierarchy.length === 0) {
+          const appliedTrades = Object.keys(state.tags)
+            .filter(tag => state.tags[tag].parent !== null && row[tag])
+            .map(trade => trade.replace(/_/g, ' '));
+          
+          if (appliedTrades.length > 0) {
+            locationTradesHierarchy.push(`unknown_location: ${appliedTrades.join(', ')}`);
+          }
+        }
+        
+        newRow['Location_Trades_Hierarchy'] = locationTradesHierarchy.join('; ');
         
         return newRow;
       });
