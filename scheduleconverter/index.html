@@ -1377,25 +1377,44 @@
       function exportDataCentreCSV() {
         const groups = groupByDataCentre(filteredActivities);
         const csvRows = [];
-        const headers = ['Location', 'Activity ID', 'Activity Name', 'Start Date', 'Finish Date', 'Duration'];
-        csvRows.push(headers.join(','));
+        
+        // Use the same 11 columns as the main export function
+        const headers = [
+          'ACTIVITY ID',
+          'LOCATION', 
+          'NAME',
+          'START',
+          'FINISH', 
+          'DURATION',
+          '% COMPLETE',
+          'TOTAL FLOAT',
+          'STATUS',
+          'TRADE/AREA',
+          'TRADE NAME'
+        ];
+        csvRows.push(headers.map(escapeCSV).join(','));
         
         const sortedLocationKeys = Object.keys(groups).sort();
         
         for (const locationKey of sortedLocationKeys) {
           const location = groups[locationKey];
-          const locationName = locationKey;
           
           for (const activity of location) {
+            // Use the same data structure as the main export function
             const row = [
-              `"${locationName}"`,
-              `"${activity.id}"`,
-              `"${activity.name.replace(/"/g, '""')}"`,
-              `"${activity.startDate || ''}"`,
-              `"${activity.finishDate || ''}"`,
-              `"${activity.duration || '0'}"`
+              activity.id,
+              activity.location || '',
+              activity.name,
+              activity.startDate || '',
+              activity.finishDate || '',
+              activity.duration || '',
+              activity.percentComplete || '',
+              activity.totalFloat || '',
+              activity.status || '',
+              activity.wbs || '',
+              activity.tradeName || ''
             ];
-            csvRows.push(row.join(','));
+            csvRows.push(row.map(escapeCSV).join(','));
           }
         }
         
