@@ -1573,25 +1573,42 @@
       exportBtn.addEventListener('click', () => {
         if (!filteredActivities.length) return;
         
-        // Only export the columns required by the timeline, in the correct order
-        const headers = ['Location','Activity ID','Activity Name','Start Date','Finish Date','Duration'];
+        // Export all columns in order from Activity ID to Trade Name
+        const headers = [
+          'Activity ID',
+          'Location', 
+          'Activity Name',
+          'Start Date',
+          'Finish Date', 
+          'Duration',
+          'Percent Complete',
+          'Total Float',
+          'Status',
+          'WBS',
+          'Trade Name'
+        ];
         const rows = [headers.map(escapeCSV).join(',')];
         
         filteredActivities.forEach(a => {
           rows.push([
-            a.location || '',
             a.id,
+            a.location || '',
             a.name,
-            a.startDate,
-            a.finishDate,
-            a.duration
+            a.startDate || '',
+            a.finishDate || '',
+            a.duration || '',
+            a.percentComplete || '',
+            a.totalFloat || '',
+            a.status || '',
+            a.wbs || '',
+            a.tradeName || ''
           ].map(escapeCSV).join(','));
         });
         
         const blob = new Blob([rows.join('\n')], {type:'text/csv'});
         const link = document.createElement('a');
         link.href = URL.createObjectURL(blob);
-        link.download = 'filtered_schedule.csv';
+        link.download = `schedule_export_${new Date().toISOString().split('T')[0]}.csv`;
         document.body.appendChild(link);
         link.click();
         document.body.removeChild(link);
