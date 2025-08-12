@@ -1,0 +1,30 @@
+location,trade,state,start_date,complete_date,capture_date,building,level
+DCH-L1,Structural Steel,complete,2024-01-15,2024-02-10,2024-08-01,DCH,1
+DCH-L1,Electrical,in-progress,2024-02-15,,2024-08-01,DCH,1
+DCH-L1,Plumbing,not-started,,,2024-08-01,DCH,1
+DCH-L2,Structural Steel,complete,2024-01-20,2024-02-15,2024-08-01,DCH,2
+DCH-L2,Electrical,complete,2024-02-20,2024-03-10,2024-08-01,DCH,2
+DCH-L2,Plumbing,complete,2024-03-15,2024-04-05,2024-08-01,DCH,2
+DCH-L2,Drywall,complete,2024-04-10,2024-05-01,2024-08-01,DCH,2
+DCH-L3,Structural Steel,in-progress,2024-01-25,,2024-08-01,DCH,3
+DCH-L3,Electrical,not-started,,,2024-08-01,DCH,3
+EYD-L1,Structural Steel,complete,2024-02-01,2024-02-25,2024-08-01,EYD,1
+EYD-L1,Electrical,in-progress,2024-03-01,,2024-08-01,EYD,1
+EYD-L2,Structural Steel,not-started,,,2024-08-01,EYD,2
+EYD-L2,Electrical,not-started,,,2024-08-01,EYD,2
+MYD-L1,Structural Steel,complete,2024-01-10,2024-02-05,2024-08-01,MYD,1
+MYD-L1,Electrical,in-progress,2024-01-05,,2024-08-01,MYD,1
+MYD-L1,Plumbing,in-progress,2024-01-08,,2024-08-01,MYD,1
+MYD-L1,Mechanical,in-progress,2024-01-10,,2024-08-01,MYD,1
+MYD-L2,Structural Steel,complete,2024-01-15,2024-01-20,2024-07-15,MYD,2
+MYD-L2,Electrical,complete,2024-01-25,2024-01-30,2024-07-15,MYD,2
+MYD-L2,Plumbing,in-progress,2024-01-30,,2024-07-15,MYD,2
+GPS-L1,Structural Steel,complete,2024-02-10,2024-03-05,2024-08-01,GPS,1
+GPS-L1,Electrical,not-started,,,2024-08-01,GPS,1
+GPS-L2,Structural Steel,complete,2024-02-15,2024-03-10,2024-08-01,GPS,2
+GPS-L2,Electrical,complete,2024-03-15,2024-04-01,2024-08-01,GPS,2
+GPS-L2,Plumbing,complete,2024-04-05,2024-04-20,2024-08-01,GPS,2
+GPS-L2,Drywall,in-progress,2024-04-25,,2024-08-01,GPS,2
+SSS-L1,Structural Steel,in-progress,2023-12-01,,2024-08-01,SSS,1
+SSS-L1,Electrical,not-started,,,2024-08-01,SSS,1
+SSS-L2,Structural Steel,not-started,,,2024-08-01,SSS,2
