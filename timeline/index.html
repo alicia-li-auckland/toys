@@ -38,7 +38,7 @@
             display: grid;
             grid-template-columns: 300px 1fr;
             overflow: auto;
-            height: calc(100vh - 225px); /* Adjust based on header/legend/filter height */
+            height: calc(600px - 60px); /* Fixed height minus legend */
             min-height: 300px; /* Minimum height for the entire timeline area */
         }
 
@@ -85,8 +85,8 @@
 <body class="bg-slate-100 text-slate-800 min-h-screen">
   <!-- Global Sidebar will be injected here -->
 
-  <!-- Main Content -->
-  <div class="flex-1 flex flex-col overflow-hidden">
+        <!-- Main Content -->
+        <div class="flex-1 flex flex-col overflow-hidden">
             <!-- Top Header -->
             <header class="bg-white border-b border-slate-200 flex-shrink-0">
                 <div class="flex items-center justify-between p-4">
@@ -115,7 +115,7 @@
                             <button id="filter-btn" class="flex items-center gap-2 px-3 py-2 text-sm font-medium text-slate-700 bg-white border border-slate-300 rounded-lg hover:bg-slate-50">
                                 <i data-lucide="filter" class="w-4 h-4"></i>
                                 <span>Filter Zones</span>
-                            </button>
+                        </button>
                             <div id="filter-panel" class="hidden absolute top-full right-0 mt-2 w-72 bg-white border border-slate-200 rounded-lg shadow-lg z-40">
                                 <div class="p-3 border-b flex justify-between items-center">
                                     <h4 class="font-semibold text-sm">Filter by Zone</h4>
@@ -141,9 +141,10 @@
             </header>
 
             <!-- Main dashboard area -->
-            <main class="flex-1 overflow-hidden">
-                <div class="p-4 lg:p-6 h-full">
-                    <div class="bg-white rounded-xl shadow-sm h-full flex flex-col">
+            <main class="flex-1 overflow-auto">
+                <!-- Timeline Section -->
+                <div class="p-4 lg:p-6">
+                    <div class="bg-white rounded-xl shadow-sm flex flex-col" style="height: 600px;">
                         <!-- Legend -->
                         <div class="p-3 border-b border-slate-200 flex items-center gap-6 text-sm">
                             <div class="flex items-center gap-2">
@@ -155,8 +156,6 @@
                                 <span class="text-slate-600 font-medium">Actual Progress</span>
                             </div>
                         </div>
-
-
 
                         <!-- Timeline Grid -->
                         <div class="timeline-grid-wrapper custom-scrollbar">
@@ -184,6 +183,239 @@
                         </div>
                     </div>
                 </div>
+
+                <!-- Trade Anomalies Section -->
+                <div class="p-4 lg:p-6">
+                    <div class="bg-white rounded-xl shadow-sm">
+                        <!-- Section Header -->
+                        <div class="p-6 border-b border-slate-200">
+                            <div class="flex items-center gap-3">
+                                <i data-lucide="alert-triangle" class="w-7 h-7 text-red-600"></i>
+                                <h2 class="text-2xl font-bold text-slate-800">Trade Anomalies</h2>
+                                <span class="text-sm text-slate-500">Detecting irregularities and unusual patterns</span>
+                            </div>
+                        </div>
+
+                        <!-- Anomaly Type Tiles -->
+                        <div class="p-6">
+                            <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4 mb-8">
+                                <!-- Price Anomalies -->
+                                <div class="anomaly-tile cursor-pointer bg-gradient-to-br from-red-50 to-red-100 border border-red-200 rounded-lg p-4 hover:shadow-lg transition-all duration-200" data-anomaly="price">
+                                    <div class="flex flex-col items-center text-center">
+                                        <i data-lucide="trending-up" class="w-8 h-8 text-red-600 mb-2"></i>
+                                        <h3 class="font-semibold text-red-800 text-sm">Price Anomalies</h3>
+                                        <p class="text-xs text-red-600 mt-1">Unusual price movements</p>
+                                        <div class="mt-2 bg-red-600 text-white text-xs px-2 py-1 rounded">24 detected</div>
+                                    </div>
+                                </div>
+
+                                <!-- Volume Anomalies -->
+                                <div class="anomaly-tile cursor-pointer bg-gradient-to-br from-blue-50 to-blue-100 border border-blue-200 rounded-lg p-4 hover:shadow-lg transition-all duration-200" data-anomaly="volume">
+                                    <div class="flex flex-col items-center text-center">
+                                        <i data-lucide="bar-chart-3" class="w-8 h-8 text-blue-600 mb-2"></i>
+                                        <h3 class="font-semibold text-blue-800 text-sm">Volume Anomalies</h3>
+                                        <p class="text-xs text-blue-600 mt-1">Unusual trading volumes</p>
+                                        <div class="mt-2 bg-blue-600 text-white text-xs px-2 py-1 rounded">18 detected</div>
+                                    </div>
+                                </div>
+
+                                <!-- Time Anomalies -->
+                                <div class="anomaly-tile cursor-pointer bg-gradient-to-br from-green-50 to-green-100 border border-green-200 rounded-lg p-4 hover:shadow-lg transition-all duration-200" data-anomaly="time">
+                                    <div class="flex flex-col items-center text-center">
+                                        <i data-lucide="clock" class="w-8 h-8 text-green-600 mb-2"></i>
+                                        <h3 class="font-semibold text-green-800 text-sm">Time Anomalies</h3>
+                                        <p class="text-xs text-green-600 mt-1">Off-hours trading</p>
+                                        <div class="mt-2 bg-green-600 text-white text-xs px-2 py-1 rounded">12 detected</div>
+                                    </div>
+                                </div>
+
+                                <!-- Frequency Anomalies -->
+                                <div class="anomaly-tile cursor-pointer bg-gradient-to-br from-purple-50 to-purple-100 border border-purple-200 rounded-lg p-4 hover:shadow-lg transition-all duration-200" data-anomaly="frequency">
+                                    <div class="flex flex-col items-center text-center">
+                                        <i data-lucide="zap" class="w-8 h-8 text-purple-600 mb-2"></i>
+                                        <h3 class="font-semibold text-purple-800 text-sm">Frequency Anomalies</h3>
+                                        <p class="text-xs text-purple-600 mt-1">Rapid-fire trades</p>
+                                        <div class="mt-2 bg-purple-600 text-white text-xs px-2 py-1 rounded">31 detected</div>
+                                    </div>
+                                </div>
+
+                                <!-- Geographic Anomalies -->
+                                <div class="anomaly-tile cursor-pointer bg-gradient-to-br from-orange-50 to-orange-100 border border-orange-200 rounded-lg p-4 hover:shadow-lg transition-all duration-200" data-anomaly="geographic">
+                                    <div class="flex flex-col items-center text-center">
+                                        <i data-lucide="map-pin" class="w-8 h-8 text-orange-600 mb-2"></i>
+                                        <h3 class="font-semibold text-orange-800 text-sm">Geographic Anomalies</h3>
+                                        <p class="text-xs text-orange-600 mt-1">Unusual locations</p>
+                                        <div class="mt-2 bg-orange-600 text-white text-xs px-2 py-1 rounded">8 detected</div>
+                                    </div>
+                                </div>
+
+                                <!-- Pattern Anomalies -->
+                                <div class="anomaly-tile cursor-pointer bg-gradient-to-br from-yellow-50 to-yellow-100 border border-yellow-200 rounded-lg p-4 hover:shadow-lg transition-all duration-200" data-anomaly="pattern">
+                                    <div class="flex flex-col items-center text-center">
+                                        <i data-lucide="activity" class="w-8 h-8 text-yellow-600 mb-2"></i>
+                                        <h3 class="font-semibold text-yellow-800 text-sm">Pattern Anomalies</h3>
+                                        <p class="text-xs text-yellow-600 mt-1">Unusual behavior patterns</p>
+                                        <div class="mt-2 bg-yellow-600 text-white text-xs px-2 py-1 rounded">15 detected</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Chart Container -->
+                            <div id="anomaly-chart-container" class="mt-8">
+                                <div id="anomaly-chart-placeholder" class="bg-slate-50 border-2 border-dashed border-slate-300 rounded-lg p-12 text-center">
+                                    <i data-lucide="bar-chart-2" class="w-16 h-16 text-slate-400 mx-auto mb-4"></i>
+                                    <h3 class="text-lg font-semibold text-slate-600 mb-2">Select an Anomaly Type</h3>
+                                    <p class="text-slate-500">Click on one of the tiles above to view detailed analysis and charts for that anomaly type.</p>
+                                </div>
+                                
+                                <!-- Individual Chart Containers (initially hidden) -->
+                                <div id="price-chart" class="anomaly-chart hidden">
+                                    <h3 class="text-xl font-bold text-red-800 mb-4">Price Anomalies Analysis</h3>
+                                    <div class="grid md:grid-cols-2 gap-6">
+                                        <div class="bg-white border rounded-lg p-4">
+                                            <h4 class="font-semibold text-slate-700 mb-3">Price Spike Detection</h4>
+                                            <div class="h-64 bg-gradient-to-br from-red-50 to-red-100 rounded flex items-center justify-center">
+                                                <div class="text-center">
+                                                    <i data-lucide="trending-up" class="w-12 h-12 text-red-500 mx-auto mb-2"></i>
+                                                    <p class="text-red-700">Time series chart showing price spikes</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="bg-white border rounded-lg p-4">
+                                            <h4 class="font-semibold text-slate-700 mb-3">Distribution Analysis</h4>
+                                            <div class="h-64 bg-gradient-to-br from-red-50 to-red-100 rounded flex items-center justify-center">
+                                                <div class="text-center">
+                                                    <i data-lucide="bar-chart" class="w-12 h-12 text-red-500 mx-auto mb-2"></i>
+                                                    <p class="text-red-700">Histogram of price anomalies</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div id="volume-chart" class="anomaly-chart hidden">
+                                    <h3 class="text-xl font-bold text-blue-800 mb-4">Volume Anomalies Analysis</h3>
+                                    <div class="grid md:grid-cols-2 gap-6">
+                                        <div class="bg-white border rounded-lg p-4">
+                                            <h4 class="font-semibold text-slate-700 mb-3">Volume Spikes Over Time</h4>
+                                            <div class="h-64 bg-gradient-to-br from-blue-50 to-blue-100 rounded flex items-center justify-center">
+                                                <div class="text-center">
+                                                    <i data-lucide="activity" class="w-12 h-12 text-blue-500 mx-auto mb-2"></i>
+                                                    <p class="text-blue-700">Volume anomaly timeline</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="bg-white border rounded-lg p-4">
+                                            <h4 class="font-semibold text-slate-700 mb-3">Volume vs Average</h4>
+                                            <div class="h-64 bg-gradient-to-br from-blue-50 to-blue-100 rounded flex items-center justify-center">
+                                                <div class="text-center">
+                                                    <i data-lucide="bar-chart-3" class="w-12 h-12 text-blue-500 mx-auto mb-2"></i>
+                                                    <p class="text-blue-700">Comparison chart</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div id="time-chart" class="anomaly-chart hidden">
+                                    <h3 class="text-xl font-bold text-green-800 mb-4">Time Anomalies Analysis</h3>
+                                    <div class="grid md:grid-cols-2 gap-6">
+                                        <div class="bg-white border rounded-lg p-4">
+                                            <h4 class="font-semibold text-slate-700 mb-3">Off-Hours Trading Patterns</h4>
+                                            <div class="h-64 bg-gradient-to-br from-green-50 to-green-100 rounded flex items-center justify-center">
+                                                <div class="text-center">
+                                                    <i data-lucide="clock" class="w-12 h-12 text-green-500 mx-auto mb-2"></i>
+                                                    <p class="text-green-700">24-hour heatmap</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="bg-white border rounded-lg p-4">
+                                            <h4 class="font-semibold text-slate-700 mb-3">Weekend Activity</h4>
+                                            <div class="h-64 bg-gradient-to-br from-green-50 to-green-100 rounded flex items-center justify-center">
+                                                <div class="text-center">
+                                                    <i data-lucide="calendar" class="w-12 h-12 text-green-500 mx-auto mb-2"></i>
+                                                    <p class="text-green-700">Weekly pattern analysis</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div id="frequency-chart" class="anomaly-chart hidden">
+                                    <h3 class="text-xl font-bold text-purple-800 mb-4">Frequency Anomalies Analysis</h3>
+                                    <div class="grid md:grid-cols-2 gap-6">
+                                        <div class="bg-white border rounded-lg p-4">
+                                            <h4 class="font-semibold text-slate-700 mb-3">Trade Frequency Distribution</h4>
+                                            <div class="h-64 bg-gradient-to-br from-purple-50 to-purple-100 rounded flex items-center justify-center">
+                                                <div class="text-center">
+                                                    <i data-lucide="zap" class="w-12 h-12 text-purple-500 mx-auto mb-2"></i>
+                                                    <p class="text-purple-700">Rapid trading detection</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="bg-white border rounded-lg p-4">
+                                            <h4 class="font-semibold text-slate-700 mb-3">Burst Detection</h4>
+                                            <div class="h-64 bg-gradient-to-br from-purple-50 to-purple-100 rounded flex items-center justify-center">
+                                                <div class="text-center">
+                                                    <i data-lucide="trending-up" class="w-12 h-12 text-purple-500 mx-auto mb-2"></i>
+                                                    <p class="text-purple-700">Trading burst timeline</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div id="geographic-chart" class="anomaly-chart hidden">
+                                    <h3 class="text-xl font-bold text-orange-800 mb-4">Geographic Anomalies Analysis</h3>
+                                    <div class="grid md:grid-cols-2 gap-6">
+                                        <div class="bg-white border rounded-lg p-4">
+                                            <h4 class="font-semibold text-slate-700 mb-3">Location Heatmap</h4>
+                                            <div class="h-64 bg-gradient-to-br from-orange-50 to-orange-100 rounded flex items-center justify-center">
+                                                <div class="text-center">
+                                                    <i data-lucide="map" class="w-12 h-12 text-orange-500 mx-auto mb-2"></i>
+                                                    <p class="text-orange-700">Global trading locations</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="bg-white border rounded-lg p-4">
+                                            <h4 class="font-semibold text-slate-700 mb-3">Unusual Jurisdictions</h4>
+                                            <div class="h-64 bg-gradient-to-br from-orange-50 to-orange-100 rounded flex items-center justify-center">
+                                                <div class="text-center">
+                                                    <i data-lucide="map-pin" class="w-12 h-12 text-orange-500 mx-auto mb-2"></i>
+                                                    <p class="text-orange-700">Risk jurisdiction analysis</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div id="pattern-chart" class="anomaly-chart hidden">
+                                    <h3 class="text-xl font-bold text-yellow-800 mb-4">Pattern Anomalies Analysis</h3>
+                                    <div class="grid md:grid-cols-2 gap-6">
+                                        <div class="bg-white border rounded-lg p-4">
+                                            <h4 class="font-semibold text-slate-700 mb-3">Behavioral Patterns</h4>
+                                            <div class="h-64 bg-gradient-to-br from-yellow-50 to-yellow-100 rounded flex items-center justify-center">
+                                                <div class="text-center">
+                                                    <i data-lucide="activity" class="w-12 h-12 text-yellow-600 mx-auto mb-2"></i>
+                                                    <p class="text-yellow-700">Pattern deviation analysis</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="bg-white border rounded-lg p-4">
+                                            <h4 class="font-semibold text-slate-700 mb-3">Anomaly Clustering</h4>
+                                            <div class="h-64 bg-gradient-to-br from-yellow-50 to-yellow-100 rounded flex items-center justify-center">
+                                                <div class="text-center">
+                                                    <i data-lucide="scatter-chart" class="w-12 h-12 text-yellow-600 mx-auto mb-2"></i>
+                                                    <p class="text-yellow-700">Cluster analysis</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </main>
         </div>
     </div>
@@ -201,10 +433,10 @@
     </div>
 
     <script>
-    // Initialize Lucide Icons
-    lucide.createIcons();
+        // Initialize Lucide Icons
+        lucide.createIcons();
 
-    // --- Configuration ---
+        // --- Configuration ---
 
             const dayWidth = 24; // 20px container + 4px spacing for each day
 
@@ -214,9 +446,9 @@
     let hideCardTimeout;
     let currentView = 'chronological'; // 'chronological' or 'zone'
 
-    // --- Date & Scheduling ---
-    const addDays = (date, days) => new Date(date.valueOf() + days * 864e5);
-    const getDaysBetween = (start, end) => Math.round((end - start) / 864e5);
+        // --- Date & Scheduling ---
+        const addDays = (date, days) => new Date(date.valueOf() + days * 864e5);
+        const getDaysBetween = (start, end) => Math.round((end - start) / 864e5);
     function parseDateSafe(dateStr) {
         if (!dateStr) return null;
         const d = new Date(dateStr);
@@ -404,20 +636,20 @@
                     if (currentView === 'chronological') {
                         // For chronological view, only render level 3 activities (no groups)
                         if (item.level === 3) {
-                            const row = document.createElement('div');
-                            row.id = `row-${item.id}`;
-                            row.dataset.id = item.id;
-                            row.dataset.parentId = parentId;
+                        const row = document.createElement('div');
+                        row.id = `row-${item.id}`;
+                        row.dataset.id = item.id;
+                        row.dataset.parentId = parentId;
                             row.className = `flex items-center h-10 border-b border-slate-200 text-sm text-slate-700 hover:bg-slate-50 ${!isVisible ? 'hidden' : ''}`;
-                            row.innerHTML = `
+                        row.innerHTML = `
                                 <div style="width: 300px; padding-left: 1.25rem;" class="flex-shrink-0 truncate-ellipsis" title="${item.activityName || item.name}">
                                     <span class="text-xs text-slate-500 mr-2">${item.location || ''}</span>
                                     <span>${item.activityName || item.name}</span>
                                 </div>
-                                <div style="flex:1;" class="flex-shrink-0"></div>
-                            `;
-                            hierarchyBody.appendChild(row);
-                            if(isVisible) rowIndex++;
+                            <div style="flex:1;" class="flex-shrink-0"></div>
+                        `;
+                        hierarchyBody.appendChild(row);
+                        if(isVisible) rowIndex++;
                             // Timeline bar
                             const plannedStart = parseDateSafe(item.startDate);
                             const plannedEnd = parseDateSafe(item.endDate);
@@ -433,40 +665,40 @@
                     } else {
                         // For zone view, keep the original hierarchical structure
                         if (item.level === 1 || item.level === 2) {
-                            const row = document.createElement('div');
-                            row.id = `row-${item.id}`;
-                            row.dataset.id = item.id;
-                            row.dataset.parentId = parentId;
+                        const row = document.createElement('div');
+                        row.id = `row-${item.id}`;
+                        row.dataset.id = item.id;
+                        row.dataset.parentId = parentId;
                             row.className = `flex items-center h-10 border-b border-slate-200 text-sm font-bold text-slate-700 bg-slate-50 hover:bg-slate-100 ${!isVisible ? 'hidden' : ''}`;
                             let expanderIcon = hasChildren ? `<i data-lucide="chevron-right" class="w-4 h-4 mr-1 transition-transform ${isExpanded ? 'rotate-90' : ''}"></i>` : '<span class="w-5 mr-1"></span>';
-                            row.innerHTML = `
+                        row.innerHTML = `
                                 <div style="width: 300px; padding-left: ${item.level === 1 ? '1.25rem' : '2.5rem'};" class="flex items-center flex-shrink-0 cursor-pointer truncate-ellipsis">${expanderIcon}<span>${item.name}</span></div>
-                                <div style="flex:1;" class="flex-shrink-0"></div>
-                            `;
-                            hierarchyBody.appendChild(row);
-                            if(isVisible) rowIndex++;
+                            <div style="flex:1;" class="flex-shrink-0"></div>
+                        `;
+                        hierarchyBody.appendChild(row);
+                        if(isVisible) rowIndex++;
                             if (hasChildren && isExpanded) renderRecursive(item.children, item.id, isVisible && isExpanded);
-                        } else if (item.level === 3) {
-                            const row = document.createElement('div');
-                            row.id = `row-${item.id}`;
-                            row.dataset.id = item.id;
-                            row.dataset.parentId = parentId;
-                            row.className = `flex items-center h-10 border-b border-slate-200 text-sm text-slate-700 hover:bg-slate-50 ${!isVisible ? 'hidden' : ''}`;
-                            row.innerHTML = `
+                    } else if (item.level === 3) {
+                        const row = document.createElement('div');
+                        row.id = `row-${item.id}`;
+                        row.dataset.id = item.id;
+                        row.dataset.parentId = parentId;
+                        row.className = `flex items-center h-10 border-b border-slate-200 text-sm text-slate-700 hover:bg-slate-50 ${!isVisible ? 'hidden' : ''}`;
+                        row.innerHTML = `
                                 <div style="width: 300px; padding-left: 4rem;" class="flex-shrink-0 truncate-ellipsis" title="${item.activityName || item.name}"><span>${item.activityName || item.name}</span></div>
-                                <div style="flex:1;" class="flex-shrink-0"></div>
-                            `;
-                            hierarchyBody.appendChild(row);
-                            if(isVisible) rowIndex++;
+                            <div style="flex:1;" class="flex-shrink-0"></div>
+                        `;
+                        hierarchyBody.appendChild(row);
+                        if(isVisible) rowIndex++;
                             // Timeline bar
                             const plannedStart = parseDateSafe(item.startDate);
                             const plannedEnd = parseDateSafe(item.endDate);
                             if (plannedStart && plannedEnd && isVisible) {
-                                const plannedOffsetDays = getDaysBetween(overallStartDate, plannedStart);
-                                const plannedDurationDays = Math.max(1, getDaysBetween(plannedStart, plannedEnd));
+                        const plannedOffsetDays = getDaysBetween(overallStartDate, plannedStart);
+                        const plannedDurationDays = Math.max(1, getDaysBetween(plannedStart, plannedEnd));
                                 const plannedLeft = plannedOffsetDays * dayWidth;
                                 const plannedWidth = plannedDurationDays * dayWidth;
-                                const outlineColor = 'border-blue-500';
+                        const outlineColor = 'border-blue-500';
                                 timelineBarsHtml += `<div class="absolute h-10 flex items-center" style="top: ${(rowIndex - 1) * 40}px; left: ${plannedLeft}px; width: ${plannedWidth}px;"><div class="h-6 w-full rounded border-2 ${outlineColor}" title="${item.activityName || item.name} (Planned)"></div></div>`;
                             }
                         }
@@ -592,11 +824,11 @@
         }
 
         function populateFilterPanel() {
-    filterOptions.innerHTML = '';
+            filterOptions.innerHTML = '';
     if (!projectData || !projectData.children) return;
     const level1Items = projectData.children;
-    level1Items.forEach(item => {
-        if(item.level === 1) {
+            level1Items.forEach(item => {
+                if(item.level === 1) {
                     const label = document.createElement('label');
                     label.className = 'flex items-center space-x-2 cursor-pointer';
                     label.innerHTML = `
@@ -694,12 +926,12 @@
             });
             processCsvBtn.addEventListener('click', () => {
     if (!projectData) return;
-    showLoading();
-    setTimeout(() => {
-        render();
-        populateFilterPanel();
-    }, 100); // Allow loading indicator to render
-});
+                showLoading();
+                setTimeout(() => {
+                    render();
+                    populateFilterPanel();
+                }, 100); // Allow loading indicator to render
+            });
 
             // View toggle buttons
             chronologicalViewBtn.addEventListener('click', () => setView('chronological'));
@@ -708,6 +940,49 @@
 
         // Call once on load
         setupEventListeners();
+
+        // --- Trade Anomalies Functionality ---
+        function setupAnomalyTileListeners() {
+            const anomalyTiles = document.querySelectorAll('.anomaly-tile');
+            const chartContainers = document.querySelectorAll('.anomaly-chart');
+            const placeholder = document.getElementById('anomaly-chart-placeholder');
+
+            anomalyTiles.forEach(tile => {
+                tile.addEventListener('click', () => {
+                    const anomalyType = tile.dataset.anomaly;
+                    
+                    // Remove active state from all tiles
+                    anomalyTiles.forEach(t => {
+                        t.classList.remove('ring-2', 'ring-blue-500', 'ring-offset-2');
+                    });
+                    
+                    // Add active state to clicked tile
+                    tile.classList.add('ring-2', 'ring-blue-500', 'ring-offset-2');
+                    
+                    // Hide placeholder and all charts
+                    placeholder.classList.add('hidden');
+                    chartContainers.forEach(chart => {
+                        chart.classList.add('hidden');
+                    });
+                    
+                    // Show selected chart
+                    const selectedChart = document.getElementById(`${anomalyType}-chart`);
+                    if (selectedChart) {
+                        selectedChart.classList.remove('hidden');
+                        // Scroll to chart
+                        selectedChart.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    }
+                    
+                    // Re-initialize icons for any new elements
+                    setTimeout(() => {
+                        lucide.createIcons();
+                    }, 100);
+                });
+            });
+        }
+
+        // Initialize anomaly functionality
+        setupAnomalyTileListeners();
 
         // --- Data Handling ---
         /**
