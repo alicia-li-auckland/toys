@@ -1,0 +1,1029 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Construction Intelligence Assistant</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        .chat-container {
+            height: 100vh;
+            display: flex;
+        }
+        .chat-panel {
+            width: 50%;
+            border-right: 1px solid #e5e7eb;
+        }
+        .chart-panel {
+            width: 50%;
+            background-color: #f9fafb;
+        }
+        .chat-history {
+            height: calc(100vh - 80px);
+            overflow-y: auto;
+            padding: 1rem;
+        }
+        .tile-hover:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+        .animate-pulse {
+            animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+        }
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: .5; }
+        }
+    </style>
+</head>
+<body>
+    <div id="loading" class="h-screen flex items-center justify-center hidden">
+        <div class="animate-pulse text-center">
+            <svg class="w-12 h-12 text-gray-400 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/>
+            </svg>
+            <p class="text-gray-500">Analyzing your construction data...</p>
+        </div>
+    </div>
+
+    <!-- CSV Upload Section -->
+    <div id="upload-section" class="h-screen flex items-center justify-center bg-gray-50">
+        <div class="max-w-md w-full bg-white p-8 rounded-lg shadow-lg">
+            <div class="text-center mb-6">
+                <svg class="w-12 h-12 text-blue-500 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/>
+                </svg>
+                <h2 class="text-2xl font-bold text-gray-900 mb-2">Construction Intelligence Assistant</h2>
+                <p class="text-gray-600">Upload your construction CSV data to get AI-powered insights</p>
+            </div>
+
+            <!-- Upload Area -->
+            <div id="dropzone" class="border-2 border-dashed border-gray-300 rounded-lg p-6 text-center hover:border-blue-400 transition-colors cursor-pointer">
+                <svg class="w-8 h-8 text-gray-400 mx-auto mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"/>
+                </svg>
+                <p class="text-sm text-gray-600 mb-2">
+                    <span class="font-medium text-blue-600">Click to upload</span> or drag and drop
+                </p>
+                <p class="text-xs text-gray-500">CSV files only</p>
+            </div>
+
+            <input type="file" id="csvFile" accept=".csv" class="hidden">
+
+            <!-- Sample Data Button -->
+            <div class="mt-4">
+                <button id="use-sample-data" class="w-full bg-gray-100 text-gray-700 py-2 px-4 rounded-lg hover:bg-gray-200 transition-colors text-sm">
+                    Use Sample Data Instead
+                </button>
+            </div>
+
+            <!-- Progress/Error Display -->
+            <div id="upload-progress" class="mt-4 hidden">
+                <div class="bg-blue-50 border border-blue-200 rounded p-3">
+                    <p class="text-sm text-blue-800" id="progress-message">Processing your data...</p>
+                </div>
+            </div>
+
+            <div id="upload-error" class="mt-4 hidden">
+                <div class="bg-red-50 border border-red-200 rounded p-3">
+                    <p class="text-sm text-red-800" id="error-message">Error processing file</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="chat-app" class="chat-container hidden">
+        <!-- Left Panel - Chat Interface -->
+        <div class="chat-panel">
+            <div class="h-full flex flex-col">
+                <!-- Header -->
+                <div class="border-b border-gray-200 p-4">
+                    <div class="flex items-center justify-between">
+                        <h2 class="text-lg font-semibold text-gray-900 flex items-center gap-2">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/>
+                            </svg>
+                            Construction Intelligence Assistant
+                        </h2>
+                        <button onclick="reloadData()" class="text-sm text-blue-600 hover:text-blue-800">
+                            Upload New Data
+                        </button>
+                    </div>
+                    <div class="mt-2">
+                        <p class="text-sm text-gray-600" id="data-stats">No data loaded</p>
+                    </div>
+                </div>
+
+                <!-- Chat Messages -->
+                <div class="chat-history space-y-4" id="chat-history">
+                    <!-- Messages will be populated by JavaScript -->
+                </div>
+            </div>
+        </div>
+
+        <!-- Right Panel - Charts -->
+        <div class="chart-panel" id="chart-panel">
+            <div class="h-full flex items-center justify-center" id="default-chart-view">
+                <div class="text-center">
+                    <svg class="w-16 h-16 text-gray-400 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/>
+                    </svg>
+                    <h3 class="text-lg font-semibold text-gray-900 mb-2">Click an Insight to See Details</h3>
+                    <p class="text-gray-600">Select any clickable insight from the chat to view detailed charts and analysis.</p>
+                </div>
+            </div>
+
+            <!-- Chart containers (hidden by default) -->
+            <div id="trade-progress-chart" class="h-full overflow-y-auto hidden"></div>
+            <div id="level-comparison-chart" class="h-full overflow-y-auto hidden"></div>
+            <div id="velocity-trend-chart" class="h-full overflow-y-auto hidden"></div>
+        </div>
+    </div>
+
+    <script>
+        // Sample data - will be replaced with CSV loading
+        const sampleData = [
+            { trade: 'Overhead Duct Rough In', location: 'Room 101', state: 'in-progress', 'level / floor': '1', section: 'A', capture_date: '2024-01-15', complete_date: null },
+            { trade: 'Overhead Plumbing', location: 'Room 101', state: 'complete', 'level / floor': '1', section: 'A', capture_date: '2024-01-10', complete_date: '2024-01-20' },
+            { trade: 'Wall Drywall', location: 'Room 102', state: 'complete', 'level / floor': '1', section: 'A', capture_date: '2024-01-05', complete_date: '2024-01-25' },
+            { trade: 'Wall Drywall', location: 'Room 201', state: 'in-progress', 'level / floor': '2', section: 'B', capture_date: '2024-01-20', complete_date: null },
+            { trade: 'Wall Prime Paint', location: 'Room 101', state: 'complete', 'level / floor': '1', section: 'A', capture_date: '2024-01-25', complete_date: '2024-02-01' },
+            { trade: 'In Wall Insulation', location: 'Room 103', state: 'complete', 'level / floor': '1', section: 'A', capture_date: '2024-01-12', complete_date: '2024-01-22' }
+        ];
+
+        let dashboardData = null;
+        let chatHistory = [];
+        let selectedInsight = null;
+        let activeChart = null;
+        let currentData = [];
+
+        // Initialize the application
+        document.addEventListener('DOMContentLoaded', function() {
+            initUpload();
+        });
+
+        // Initialize upload functionality
+        function initUpload() {
+            const dropzone = document.getElementById('dropzone');
+            const csvFile = document.getElementById('csvFile');
+            const useSampleDataBtn = document.getElementById('use-sample-data');
+
+            // Dropzone click handler
+            dropzone.addEventListener('click', () => {
+                csvFile.click();
+            });
+
+            // Drag and drop handlers
+            dropzone.addEventListener('dragover', (e) => {
+                e.preventDefault();
+                dropzone.classList.add('border-blue-400', 'bg-blue-50');
+            });
+
+            dropzone.addEventListener('dragleave', () => {
+                dropzone.classList.remove('border-blue-400', 'bg-blue-50');
+            });
+
+            dropzone.addEventListener('drop', (e) => {
+                e.preventDefault();
+                dropzone.classList.remove('border-blue-400', 'bg-blue-50');
+                
+                const files = e.dataTransfer.files;
+                if (files.length > 0 && files[0].type === 'text/csv') {
+                    handleFileUpload(files[0]);
+                }
+            });
+
+            // File selection handler
+            csvFile.addEventListener('change', (e) => {
+                if (e.target.files.length > 0) {
+                    handleFileUpload(e.target.files[0]);
+                }
+            });
+
+            // Sample data button
+            useSampleDataBtn.addEventListener('click', () => {
+                loadSampleData();
+            });
+        }
+
+        function handleFileUpload(file) {
+            showProgress('Reading CSV file...');
+            
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                try {
+                    const csvContent = e.target.result;
+                    parseCSV(csvContent);
+                } catch (error) {
+                    showError('Error reading file: ' + error.message);
+                }
+            };
+            reader.readAsText(file);
+        }
+
+        function parseCSV(csvContent) {
+            showProgress('Parsing CSV data...');
+            
+            try {
+                const lines = csvContent.trim().split('\n');
+                if (lines.length < 2) {
+                    throw new Error('CSV file must have at least a header and one data row');
+                }
+
+                const headers = lines[0].split(',').map(h => h.replace(/"/g, '').trim());
+                const data = [];
+
+                for (let i = 1; i < lines.length; i++) {
+                    const values = lines[i].split(',').map(v => v.replace(/"/g, '').trim());
+                    if (values.length === headers.length && values.some(v => v !== '')) {
+                        const row = {};
+                        headers.forEach((header, index) => {
+                            // Handle flexible column mapping
+                            const normalizedHeader = header.toLowerCase();
+                            if (normalizedHeader.includes('level') || normalizedHeader.includes('floor')) {
+                                row['level / floor'] = values[index] || null;
+                            } else if (normalizedHeader.includes('state') || normalizedHeader.includes('status')) {
+                                row.state = values[index] || null;
+                            } else if (normalizedHeader.includes('capture') && normalizedHeader.includes('date')) {
+                                row.capture_date = values[index] || null;
+                            } else if (normalizedHeader.includes('complete') && normalizedHeader.includes('date')) {
+                                row.complete_date = values[index] || null;
+                            } else {
+                                row[header] = values[index] || null;
+                            }
+                        });
+                        data.push(row);
+                    }
+                }
+
+                if (data.length === 0) {
+                    throw new Error('No valid data rows found in CSV');
+                }
+
+                // Validate required columns
+                const requiredFields = ['trade', 'location'];
+                const missingFields = requiredFields.filter(field => 
+                    !data[0].hasOwnProperty(field) || data.every(row => !row[field])
+                );
+
+                if (missingFields.length > 0) {
+                    throw new Error(`Missing required columns: ${missingFields.join(', ')}`);
+                }
+
+                currentData = data;
+                showProgress('Analyzing data...');
+                
+                setTimeout(() => {
+                    loadAndAnalyzeData();
+                }, 500);
+
+            } catch (error) {
+                showError('Error parsing CSV: ' + error.message);
+            }
+        }
+
+        function loadSampleData() {
+            showProgress('Loading sample data...');
+            currentData = sampleData;
+            
+            setTimeout(() => {
+                loadAndAnalyzeData();
+            }, 500);
+        }
+
+        function showProgress(message) {
+            document.getElementById('upload-progress').classList.remove('hidden');
+            document.getElementById('upload-error').classList.add('hidden');
+            document.getElementById('progress-message').textContent = message;
+        }
+
+        function showError(message) {
+            document.getElementById('upload-error').classList.remove('hidden');
+            document.getElementById('upload-progress').classList.add('hidden');
+            document.getElementById('error-message').textContent = message;
+        }
+
+        function reloadData() {
+            // Reset everything and go back to upload screen
+            chatHistory = [];
+            selectedInsight = null;
+            activeChart = null;
+            dashboardData = null;
+            currentData = [];
+            
+            document.getElementById('chat-app').classList.add('hidden');
+            document.getElementById('upload-section').classList.remove('hidden');
+            document.getElementById('upload-progress').classList.add('hidden');
+            document.getElementById('upload-error').classList.add('hidden');
+        }
+
+        async function loadAndAnalyzeData() {
+            try {
+                // Use uploaded data
+                const analysis = analyzeData(currentData);
+                dashboardData = analysis;
+                
+                // Update data statistics display
+                updateDataStats();
+                
+                // Reset chat history and generate new insights
+                chatHistory = [];
+                generateInitialInsights(analysis);
+                
+                // Hide upload/loading and show chat
+                document.getElementById('upload-section').classList.add('hidden');
+                document.getElementById('loading').classList.add('hidden');
+                document.getElementById('chat-app').classList.remove('hidden');
+            } catch (error) {
+                console.error('Error loading data:', error);
+                showError('Error analyzing data: ' + error.message);
+            }
+        }
+
+        function updateDataStats() {
+            const totalTasks = currentData.length;
+            const uniqueTrades = [...new Set(currentData.map(row => row.trade))].length;
+            const uniqueLocations = [...new Set(currentData.map(row => row.location))].length;
+            
+            document.getElementById('data-stats').textContent = 
+                `${totalTasks} tasks • ${uniqueTrades} trades • ${uniqueLocations} locations`;
+        }
+
+        function analyzeData(data) {
+            const totalTasks = data.length;
+            const completedTasks = data.filter(item => item.state === 'complete').length;
+            const inProgressTasks = data.filter(item => item.state === 'in-progress').length;
+            const overallCompletion = ((completedTasks / totalTasks) * 100).toFixed(1);
+
+            // Level analysis
+            const levelGroups = data.reduce((acc, item) => {
+                const level = item['level / floor'] || 'Unknown';
+                if (!acc[level]) acc[level] = { total: 0, completed: 0 };
+                acc[level].total++;
+                if (item.state === 'complete') acc[level].completed++;
+                return acc;
+            }, {});
+
+            // Trade analysis
+            const tradeGroups = data.reduce((acc, item) => {
+                if (!acc[item.trade]) {
+                    acc[item.trade] = { total: 0, completed: 0, inProgress: 0, items: [] };
+                }
+                acc[item.trade].total++;
+                acc[item.trade].items.push(item);
+                if (item.state === 'complete') {
+                    acc[item.trade].completed++;
+                } else if (item.state === 'in-progress') {
+                    acc[item.trade].inProgress++;
+                }
+                return acc;
+            }, {});
+
+            const tradeAnalysis = Object.entries(tradeGroups).map(([trade, tradeData]) => {
+                const completionRate = (tradeData.completed / tradeData.total) * 100;
+                return {
+                    trade,
+                    completionRate: completionRate.toFixed(1),
+                    completed: tradeData.completed,
+                    inProgress: tradeData.inProgress,
+                    total: tradeData.total,
+                    alertLevel: completionRate < 15 ? 'red' : completionRate < 30 ? 'yellow' : 'green'
+                };
+            }).sort((a, b) => parseFloat(a.completionRate) - parseFloat(b.completionRate));
+
+            // Velocity analysis
+            const completedWork = data.filter(item => item.complete_date && item.state === 'complete');
+            const velocityData = {};
+            
+            completedWork.forEach(item => {
+                const date = item.complete_date;
+                const trade = item.trade;
+                
+                if (!velocityData[date]) {
+                    velocityData[date] = {};
+                }
+                if (!velocityData[date][trade]) {
+                    velocityData[date][trade] = 0;
+                }
+                velocityData[date][trade]++;
+            });
+
+            const timeSeriesData = Object.entries(velocityData)
+                .map(([date, trades]) => ({
+                    date: new Date(date),
+                    dateStr: date,
+                    ...trades
+                }))
+                .sort((a, b) => a.date - b.date);
+
+            const allTrades = [...new Set(tradeAnalysis.map(t => t.trade))];
+
+            return {
+                overview: { totalTasks, completedTasks, inProgressTasks, overallCompletion },
+                tradeAnalysis,
+                levelAnalysis: levelGroups,
+                velocityData: timeSeriesData,
+                allTrades
+            };
+        }
+
+        function generateInitialInsights(data) {
+            // Welcome message
+            addChatMessage("assistant", "Good morning! I've analyzed your latest construction data. Here's your project status and key insights:");
+
+            // Overall status
+            const statusMessage = `Your project is ${data.overview.overallCompletion}% complete with ${data.overview.completedTasks} tasks finished and ${data.overview.inProgressTasks} currently in progress.`;
+            addChatMessage("assistant", statusMessage);
+
+            // Critical issues
+            const criticalTrades = data.tradeAnalysis.filter(t => parseFloat(t.completionRate) < 15);
+            if (criticalTrades.length > 0) {
+                const criticalMessage = `🚨 I've identified ${criticalTrades.length} critical bottlenecks that need immediate attention:`;
+                addChatMessage("assistant", criticalMessage);
+                
+                criticalTrades.forEach(trade => {
+                    const tileData = {
+                        id: `critical-${trade.trade}`,
+                        type: 'critical-trade',
+                        title: `${trade.trade}: ${trade.completionRate}% Complete`,
+                        description: `Only ${trade.completed} of ${trade.total} tasks done - major bottleneck`,
+                        severity: 'critical',
+                        data: trade,
+                        chartType: 'trade-progress'
+                    };
+                    addClickableTile("assistant", tileData);
+                });
+            }
+
+            // Level analysis
+            if (data.levelAnalysis && data.levelAnalysis['1'] && data.levelAnalysis['2']) {
+                const level1Rate = (data.levelAnalysis['1'].completed / data.levelAnalysis['1'].total * 100).toFixed(1);
+                const level2Rate = (data.levelAnalysis['2'].completed / data.levelAnalysis['2'].total * 100).toFixed(1);
+                const gap = Math.abs(parseFloat(level1Rate) - parseFloat(level2Rate));
+                
+                if (gap > 25) {
+                    const levelMessage = `📊 Significant vertical imbalance detected between floors:`;
+                    addChatMessage("assistant", levelMessage);
+                    
+                    const levelTileData = {
+                        id: 'level-imbalance',
+                        type: 'level-analysis',
+                        title: `Level Imbalance: ${gap.toFixed(1)}% Gap`,
+                        description: `Level 1: ${level1Rate}% vs Level 2: ${level2Rate}%`,
+                        severity: 'warning',
+                        data: { level1Rate, level2Rate, gap },
+                        chartType: 'level-comparison'
+                    };
+                    addClickableTile("assistant", levelTileData);
+                }
+            }
+
+            // Top performer
+            const topPerformer = data.tradeAnalysis[data.tradeAnalysis.length - 1];
+            const performanceMessage = `✅ Best performing trade: ${topPerformer.trade} at ${topPerformer.completionRate}% completion.`;
+            addChatMessage("assistant", performanceMessage);
+
+            const performanceTileData = {
+                id: 'top-performer',
+                type: 'performance',
+                title: `${topPerformer.trade}: ${topPerformer.completionRate}%`,
+                description: `${topPerformer.completed}/${topPerformer.total} tasks complete - on track`,
+                severity: 'good',
+                data: topPerformer,
+                chartType: 'trade-progress'
+            };
+            addClickableTile("assistant", performanceTileData);
+
+            // Velocity analysis
+            const trendMessage = `📈 Based on current data, here's your project velocity and trend analysis:`;
+            addChatMessage("assistant", trendMessage);
+
+            const velocityTileData = {
+                id: 'project-velocity',
+                type: 'velocity',
+                title: 'Project Velocity: Daily Trade Completions',
+                description: 'Task completion trends over time by trade',
+                severity: 'warning',
+                data: { 
+                    velocityData: data.velocityData, 
+                    allTrades: data.allTrades,
+                    totalCompleted: data.overview.completedTasks 
+                },
+                chartType: 'velocity-trend'
+            };
+            addClickableTile("assistant", velocityTileData);
+
+            // End with action items
+            const actionMessage = `💡 Click any of the insights above to see detailed charts and analysis. What would you like to investigate first?`;
+            addChatMessage("assistant", actionMessage);
+        }
+
+        function addChatMessage(sender, message) {
+            chatHistory.push({ 
+                sender, 
+                message, 
+                timestamp: new Date(),
+                type: 'message'
+            });
+            renderChatHistory();
+        }
+
+        function addClickableTile(sender, tileData) {
+            chatHistory.push({ 
+                sender, 
+                type: 'tile',
+                tileData,
+                timestamp: new Date()
+            });
+            renderChatHistory();
+        }
+
+        function renderChatHistory() {
+            const container = document.getElementById('chat-history');
+            container.innerHTML = '';
+
+            chatHistory.forEach((msg, index) => {
+                const messageDiv = document.createElement('div');
+                messageDiv.className = 'flex justify-start';
+
+                if (msg.type === 'message') {
+                    messageDiv.innerHTML = `
+                        <div class="max-w-full">
+                            <div class="px-4 py-2 rounded-lg bg-gray-100 text-gray-900">
+                                <p class="text-sm">${msg.message}</p>
+                            </div>
+                        </div>
+                    `;
+                } else if (msg.type === 'tile') {
+                    const severityClasses = {
+                        critical: 'border-red-500 bg-red-50 hover:bg-red-100',
+                        warning: 'border-yellow-500 bg-yellow-50 hover:bg-yellow-100',
+                        good: 'border-green-500 bg-green-50 hover:bg-green-100'
+                    };
+
+                    const severityLabels = {
+                        critical: 'Critical',
+                        warning: 'Action Needed',
+                        good: 'On Track'
+                    };
+
+                    const severityBadgeClasses = {
+                        critical: 'bg-red-100 text-red-800',
+                        warning: 'bg-yellow-100 text-yellow-800',
+                        good: 'bg-green-100 text-green-800'
+                    };
+
+                    messageDiv.innerHTML = `
+                        <div class="max-w-full">
+                            <div class="mt-2 p-3 rounded-lg border-l-4 cursor-pointer transition-all tile-hover ${severityClasses[msg.tileData.severity]}" 
+                                 onclick="handleTileClick(${index})">
+                                <h4 class="font-semibold text-gray-900 text-sm">${msg.tileData.title}</h4>
+                                <p class="text-xs text-gray-600 mt-1">${msg.tileData.description}</p>
+                                <div class="flex items-center justify-between mt-2">
+                                    <span class="px-2 py-1 text-xs rounded-full ${severityBadgeClasses[msg.tileData.severity]}">
+                                        ${severityLabels[msg.tileData.severity]}
+                                    </span>
+                                    <span class="text-xs text-gray-500">Click to analyze →</span>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                }
+
+                container.appendChild(messageDiv);
+            });
+
+            // Scroll to bottom
+            container.scrollTop = container.scrollHeight;
+        }
+
+        function handleTileClick(index) {
+            const msg = chatHistory[index];
+            selectedInsight = msg.tileData;
+            activeChart = msg.tileData.chartType;
+            
+            // Hide default view
+            document.getElementById('default-chart-view').classList.add('hidden');
+            
+            // Hide all chart views
+            document.getElementById('trade-progress-chart').classList.add('hidden');
+            document.getElementById('level-comparison-chart').classList.add('hidden');
+            document.getElementById('velocity-trend-chart').classList.add('hidden');
+            
+            // Show appropriate chart
+            renderChart();
+            
+            // Add response message
+            const responseMessage = `Analyzing ${msg.tileData.title}... Here's the detailed breakdown:`;
+            addChatMessage("assistant", responseMessage);
+        }
+
+        function renderChart() {
+            switch (activeChart) {
+                case 'trade-progress':
+                    renderTradeProgressChart();
+                    break;
+                case 'level-comparison':
+                    renderLevelComparisonChart();
+                    break;
+                case 'velocity-trend':
+                    renderVelocityTrendChart();
+                    break;
+                default:
+                    document.getElementById('default-chart-view').classList.remove('hidden');
+            }
+        }
+
+        function renderTradeProgressChart() {
+            const container = document.getElementById('trade-progress-chart');
+            container.classList.remove('hidden');
+            
+            const data = selectedInsight.data;
+            const remaining = data.total - data.completed - data.inProgress;
+            
+            container.innerHTML = `
+                <div class="p-6 space-y-6">
+                    <div class="border-b border-gray-200 pb-4">
+                        <h1 class="text-xl font-bold text-gray-900">${data.trade} Progress Analysis</h1>
+                        <p class="text-gray-600">Detailed breakdown of completion status and bottlenecks</p>
+                    </div>
+
+                    <!-- Progress Overview -->
+                    <div class="grid grid-cols-3 gap-4">
+                        <div class="bg-green-50 p-4 rounded-lg border border-green-200">
+                            <div class="text-center">
+                                <p class="text-sm font-medium text-green-800">Completed</p>
+                                <p class="text-2xl font-bold text-green-600">${data.completed}</p>
+                                <p class="text-xs text-green-700">${data.completionRate}% of total</p>
+                            </div>
+                        </div>
+                        <div class="bg-blue-50 p-4 rounded-lg border border-blue-200">
+                            <div class="text-center">
+                                <p class="text-sm font-medium text-blue-800">In Progress</p>
+                                <p class="text-2xl font-bold text-blue-600">${data.inProgress}</p>
+                                <p class="text-xs text-blue-700">Active work items</p>
+                            </div>
+                        </div>
+                        <div class="bg-gray-50 p-4 rounded-lg border border-gray-200">
+                            <div class="text-center">
+                                <p class="text-sm font-medium text-gray-600">Remaining</p>
+                                <p class="text-2xl font-bold text-gray-900">${remaining}</p>
+                                <p class="text-xs text-gray-500">Not started</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Visual Progress Bar -->
+                    <div class="bg-white p-6 rounded-lg border border-gray-200">
+                        <h3 class="text-lg font-semibold text-gray-900 mb-4">Progress Visualization</h3>
+                        <div class="space-y-3">
+                            <div class="flex justify-between text-sm font-medium text-gray-700">
+                                <span>Overall Progress</span>
+                                <span>${data.completionRate}%</span>
+                            </div>
+                            <div class="w-full bg-gray-200 rounded-full h-4">
+                                <div 
+                                    class="h-4 rounded-full transition-all duration-500 ${
+                                        parseFloat(data.completionRate) < 15 ? 'bg-red-500' :
+                                        parseFloat(data.completionRate) < 30 ? 'bg-yellow-500' : 'bg-green-500'
+                                    }"
+                                    style="width: ${data.completionRate}%">
+                                </div>
+                            </div>
+                            <div class="flex justify-between text-xs text-gray-500">
+                                <span>0%</span>
+                                <span>Target: 85%</span>
+                                <span>100%</span>
+                            </div>
+                        </div>
+
+                        <!-- Recommendations -->
+                        <div class="mt-6">
+                            <h4 class="font-semibold text-gray-900 mb-2">Recommendations</h4>
+                            ${parseFloat(data.completionRate) < 15 ? `
+                                <div class="bg-red-50 border border-red-200 rounded p-3">
+                                    <p class="text-sm text-red-800">
+                                        <strong>Critical Action Required:</strong> This trade is significantly behind schedule. 
+                                        Consider adding additional crews, reviewing material availability, and implementing daily progress reviews.
+                                    </p>
+                                </div>
+                            ` : parseFloat(data.completionRate) < 30 ? `
+                                <div class="bg-yellow-50 border border-yellow-200 rounded p-3">
+                                    <p class="text-sm text-yellow-800">
+                                        <strong>Monitor Closely:</strong> This trade needs attention. Schedule check-ins and consider resource reallocation if no improvement in 48 hours.
+                                    </p>
+                                </div>
+                            ` : `
+                                <div class="bg-green-50 border border-green-200 rounded p-3">
+                                    <p class="text-sm text-green-800">
+                                        <strong>On Track:</strong> This trade is performing well. Continue monitoring and consider using excess capacity to support struggling trades.
+                                    </p>
+                                </div>
+                            `}
+                        </div>
+                    </div>
+
+                    <!-- Chart Container -->
+                    <div class="bg-white p-6 rounded-lg border border-gray-200">
+                        <h3 class="text-lg font-semibold text-gray-900 mb-4">Completion Status Breakdown</h3>
+                        <div class="h-64">
+                            <canvas id="tradeProgressChartCanvas"></canvas>
+                        </div>
+                    </div>
+                </div>
+            `;
+
+            // Create doughnut chart
+            setTimeout(() => {
+                const ctx = document.getElementById('tradeProgressChartCanvas');
+                if (ctx) {
+                    new Chart(ctx, {
+                        type: 'doughnut',
+                        data: {
+                            labels: ['Completed', 'In Progress', 'Not Started'],
+                            datasets: [{
+                                data: [data.completed, data.inProgress, remaining],
+                                backgroundColor: ['#10b981', '#3b82f6', '#6b7280'],
+                                borderWidth: 2
+                            }]
+                        },
+                        options: {
+                            responsive: true,
+                            maintainAspectRatio: false,
+                            plugins: {
+                                legend: {
+                                    position: 'bottom'
+                                }
+                            }
+                        }
+                    });
+                }
+            }, 100);
+        }
+
+        function renderLevelComparisonChart() {
+            const container = document.getElementById('level-comparison-chart');
+            container.classList.remove('hidden');
+            
+            const data = selectedInsight.data;
+            
+            container.innerHTML = `
+                <div class="p-6 space-y-6">
+                    <div class="border-b border-gray-200 pb-4">
+                        <h1 class="text-xl font-bold text-gray-900">Level Completion Analysis</h1>
+                        <p class="text-gray-600">Vertical progress comparison and resource allocation insights</p>
+                    </div>
+
+                    <div class="grid grid-cols-2 gap-6">
+                        <div class="bg-blue-50 p-6 rounded-lg border border-blue-200">
+                            <h3 class="text-lg font-semibold text-blue-900 mb-2">Level 1</h3>
+                            <div class="text-center mb-4">
+                                <div class="text-4xl font-bold text-blue-600">${data.level1Rate}%</div>
+                                <p class="text-blue-700">Completion Rate</p>
+                            </div>
+                            <div class="w-full bg-blue-200 rounded-full h-3">
+                                <div 
+                                    class="h-3 bg-blue-600 rounded-full transition-all duration-500"
+                                    style="width: ${data.level1Rate}%">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="bg-red-50 p-6 rounded-lg border border-red-200">
+                            <h3 class="text-lg font-semibold text-red-900 mb-2">Level 2</h3>
+                            <div class="text-center mb-4">
+                                <div class="text-4xl font-bold text-red-600">${data.level2Rate}%</div>
+                                <p class="text-red-700">Completion Rate</p>
+                            </div>
+                            <div class="w-full bg-red-200 rounded-full h-3">
+                                <div 
+                                    class="h-3 bg-red-600 rounded-full transition-all duration-500"
+                                    style="width: ${data.level2Rate}%">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-yellow-50 border border-yellow-200 rounded-lg p-6">
+                        <h3 class="text-lg font-semibold text-yellow-900 mb-4">⚠️ Resource Reallocation Needed</h3>
+                        <p class="text-yellow-800 mb-4">
+                            The ${data.gap.toFixed(1)}% completion gap between levels indicates inefficient resource distribution.
+                        </p>
+                        <div class="space-y-2 text-sm text-yellow-800">
+                            <p>• <strong>Immediate Action:</strong> Move 30% of Level 1 crews to Level 2</p>
+                            <p>• <strong>Expected Impact:</strong> Could accelerate Level 2 by 2-3 weeks</p>
+                            <p>• <strong>Risk Mitigation:</strong> Maintain minimum crews on Level 1 for completion tasks</p>
+                        </div>
+                    </div>
+
+                    <!-- Chart Container -->
+                    <div class="bg-white p-6 rounded-lg border border-gray-200">
+                        <h3 class="text-lg font-semibold text-gray-900 mb-4">Level Comparison Chart</h3>
+                        <div class="h-64">
+                            <canvas id="levelComparisonChartCanvas"></canvas>
+                        </div>
+                    </div>
+                </div>
+            `;
+
+            // Create bar chart
+            setTimeout(() => {
+                const ctx = document.getElementById('levelComparisonChartCanvas');
+                if (ctx) {
+                    new Chart(ctx, {
+                        type: 'bar',
+                        data: {
+                            labels: ['Level 1', 'Level 2'],
+                            datasets: [{
+                                label: 'Completion Rate (%)',
+                                data: [parseFloat(data.level1Rate), parseFloat(data.level2Rate)],
+                                backgroundColor: ['#3b82f6', '#ef4444'],
+                                borderWidth: 1
+                            }]
+                        },
+                        options: {
+                            responsive: true,
+                            maintainAspectRatio: false,
+                            scales: {
+                                y: {
+                                    beginAtZero: true,
+                                    max: 100,
+                                    title: {
+                                        display: true,
+                                        text: 'Completion Percentage'
+                                    }
+                                }
+                            },
+                            plugins: {
+                                legend: {
+                                    display: false
+                                }
+                            }
+                        }
+                    });
+                }
+            }, 100);
+        }
+
+        function renderVelocityTrendChart() {
+            const container = document.getElementById('velocity-trend-chart');
+            container.classList.remove('hidden');
+            
+            const data = selectedInsight.data;
+            
+            if (!data.velocityData || data.velocityData.length === 0) {
+                container.innerHTML = `
+                    <div class="p-6">
+                        <div class="text-center">
+                            <p class="text-gray-500">No velocity data available - completion dates missing from data</p>
+                        </div>
+                    </div>
+                `;
+                return;
+            }
+
+            const topCompletionDays = data.velocityData
+                .map(day => ({
+                    ...day,
+                    total: data.allTrades.reduce((sum, trade) => sum + (day[trade] || 0), 0)
+                }))
+                .sort((a, b) => b.total - a.total)
+                .slice(0, 10)
+                .sort((a, b) => a.date - b.date);
+
+            const peakDay = Math.max(...data.velocityData.map(d => 
+                data.allTrades.reduce((sum, trade) => sum + (d[trade] || 0), 0)
+            ));
+
+            const avgDaily = (data.totalCompleted / data.velocityData.length).toFixed(0);
+
+            container.innerHTML = `
+                <div class="p-6 space-y-6">
+                    <div class="border-b border-gray-200 pb-4">
+                        <h1 class="text-xl font-bold text-gray-900">Project Velocity Analysis</h1>
+                        <p class="text-gray-600">Daily task completions by trade over time</p>
+                    </div>
+
+                    <!-- Summary Stats -->
+                    <div class="grid grid-cols-4 gap-4">
+                        <div class="bg-blue-50 p-4 rounded-lg border border-blue-200">
+                            <div class="text-center">
+                                <p class="text-sm font-medium text-blue-800">Total Completed</p>
+                                <p class="text-2xl font-bold text-blue-600">${data.totalCompleted}</p>
+                                <p class="text-xs text-blue-700">tasks finished</p>
+                            </div>
+                        </div>
+                        <div class="bg-green-50 p-4 rounded-lg border border-green-200">
+                            <div class="text-center">
+                                <p class="text-sm font-medium text-green-800">Peak Day</p>
+                                <p class="text-2xl font-bold text-green-600">${peakDay}</p>
+                                <p class="text-xs text-green-700">tasks in one day</p>
+                            </div>
+                        </div>
+                        <div class="bg-purple-50 p-4 rounded-lg border border-purple-200">
+                            <div class="text-center">
+                                <p class="text-sm font-medium text-purple-800">Active Period</p>
+                                <p class="text-2xl font-bold text-purple-600">${data.velocityData.length}</p>
+                                <p class="text-xs text-purple-700">working days</p>
+                            </div>
+                        </div>
+                        <div class="bg-yellow-50 p-4 rounded-lg border border-yellow-200">
+                            <div class="text-center">
+                                <p class="text-sm font-medium text-yellow-800">Avg Daily Rate</p>
+                                <p class="text-2xl font-bold text-yellow-600">${avgDaily}</p>
+                                <p class="text-xs text-yellow-700">tasks per day</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Chart Container -->
+                    <div class="bg-white p-6 rounded-lg border border-gray-200">
+                        <h3 class="text-lg font-semibold text-gray-900 mb-4">Daily Completions Trend</h3>
+                        <div class="h-80">
+                            <canvas id="velocityTrendChartCanvas"></canvas>
+                        </div>
+                    </div>
+
+                    <!-- Top Performance Days -->
+                    <div class="bg-green-50 border border-green-200 rounded-lg p-6">
+                        <h3 class="text-lg font-semibold text-green-900 mb-4">🏆 Top Performance Days</h3>
+                        <div class="space-y-2">
+                            ${data.velocityData
+                                .map(day => ({
+                                    ...day,
+                                    total: data.allTrades.reduce((sum, trade) => sum + (day[trade] || 0), 0)
+                                }))
+                                .sort((a, b) => b.total - a.total)
+                                .slice(0, 5)
+                                .map(day => `
+                                    <div class="flex items-center justify-between bg-white p-3 rounded">
+                                        <span class="text-sm font-medium">${day.dateStr}</span>
+                                        <span class="text-lg font-bold text-green-600">${day.total} tasks</span>
+                                    </div>
+                                `).join('')}
+                        </div>
+                    </div>
+                </div>
+            `;
+
+            // Create line chart
+            setTimeout(() => {
+                const ctx = document.getElementById('velocityTrendChartCanvas');
+                if (ctx) {
+                    const tradeColors = {
+                        'Wall Drywall': '#10b981',
+                        'Wall Drywall Finish': '#06b6d4', 
+                        'In Wall Insulation': '#8b5cf6',
+                        'Wall Prime Paint': '#f59e0b',
+                        'Overhead Duct Insulation': '#ef4444',
+                        'Overhead Plumbing': '#ec4899',
+                        'Overhead Duct Rough In': '#6366f1'
+                    };
+
+                    const datasets = data.allTrades.map(trade => ({
+                        label: trade,
+                        data: data.velocityData.map(day => day[trade] || 0),
+                        borderColor: tradeColors[trade] || '#6b7280',
+                        backgroundColor: (tradeColors[trade] || '#6b7280') + '20',
+                        tension: 0.4,
+                        fill: false
+                    }));
+
+                    new Chart(ctx, {
+                        type: 'line',
+                        data: {
+                            labels: data.velocityData.map(day => day.dateStr),
+                            datasets: datasets
+                        },
+                        options: {
+                            responsive: true,
+                            maintainAspectRatio: false,
+                            scales: {
+                                y: {
+                                    beginAtZero: true,
+                                    title: {
+                                        display: true,
+                                        text: 'Tasks Completed'
+                                    }
+                                },
+                                x: {
+                                    title: {
+                                        display: true,
+                                        text: 'Date'
+                                    }
+                                }
+                            },
+                            plugins: {
+                                legend: {
+                                    position: 'bottom'
+                                }
+                            }
+                        }
+                    });
+                }
+            }, 100);
+        }
+    </script>
+</body>
+</html>
