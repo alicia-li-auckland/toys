@@ -273,6 +273,21 @@
                             <!-- Tiles will be populated by JavaScript -->
                         </div>
 
+                        <!-- Anomaly Detail Chart -->
+                        <div id="anomaly-chart-container" class="bg-white p-6 rounded-lg shadow-sm border border-gray-200 hidden">
+                            <div class="flex items-center justify-between mb-4">
+                                <h3 class="text-lg font-semibold text-gray-900" id="anomaly-chart-title">Anomaly Analysis</h3>
+                                <button onclick="closeAnomalyChart()" class="text-gray-400 hover:text-gray-600">
+                                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+                                    </svg>
+                                </button>
+                            </div>
+                            <div class="h-80">
+                                <canvas id="anomalyChart"></canvas>
+                            </div>
+                        </div>
+
                         <!-- Summary Stats -->
                         <div class="bg-white p-6 rounded-lg shadow-sm border border-gray-200">
                             <h3 class="text-lg font-semibold text-gray-900 mb-4">Anomaly Summary</h3>
@@ -318,15 +333,16 @@
             { trade: 'HVAC', location: 'Room 101', state: 'in-progress', level: '1', section: 'A' }
         ];
 
-        const anomalyTypes = [
-            { id: 'abandonment', name: 'Trade Abandonment', category: 'Time-based', count: 12, severity: 'high', color: '#ef4444' },
-            { id: 'starvation', name: 'Trade Starvation', category: 'Time-based', count: 15, severity: 'high', color: '#ef4444' },
-            { id: 'burst_start', name: 'Burst Start', category: 'Time-based', count: 5, severity: 'medium', color: '#f97316' },
-            { id: 'swiss_cheese', name: 'Swiss-Cheese Flow', category: 'Spatial', count: 6, severity: 'medium', color: '#f97316' },
-            { id: 'vertical_lag', name: 'Vertical Lag', category: 'Spatial', count: 4, severity: 'low', color: '#eab308' },
-            { id: 'orphan_location', name: 'Orphan Location', category: 'Spatial', count: 8, severity: 'medium', color: '#f97316' },
-            { id: 'blockage', name: 'Trade Blockage', category: 'Cross-trade', count: 9, severity: 'high', color: '#ef4444' },
-            { id: 'premature_start', name: 'Premature Start', category: 'Cross-trade', count: 7, severity: 'medium', color: '#f97316' }
+        // Initialize anomaly types with zero counts - will be updated by analyzeAnomalies()
+        let anomalyTypes = [
+            { id: 'abandonment', name: 'Trade Abandonment', category: 'Time-based', count: 0, severity: 'high', color: '#ef4444' },
+            { id: 'starvation', name: 'Trade Starvation', category: 'Time-based', count: 0, severity: 'high', color: '#ef4444' },
+            { id: 'burst_start', name: 'Burst Start', category: 'Time-based', count: 0, severity: 'medium', color: '#f97316' },
+            { id: 'swiss_cheese', name: 'Swiss-Cheese Flow', category: 'Spatial', count: 0, severity: 'medium', color: '#f97316' },
+            { id: 'vertical_lag', name: 'Vertical Lag', category: 'Spatial', count: 0, severity: 'low', color: '#eab308' },
+            { id: 'orphan_location', name: 'Orphan Location', category: 'Spatial', count: 0, severity: 'medium', color: '#f97316' },
+            { id: 'blockage', name: 'Trade Blockage', category: 'Cross-trade', count: 0, severity: 'high', color: '#ef4444' },
+            { id: 'premature_start', name: 'Premature Start', category: 'Cross-trade', count: 0, severity: 'medium', color: '#f97316' }
         ];
 
         let currentData = [...sampleData];
@@ -491,7 +507,11 @@
                 updateDataStats();
                 populateFilters();
                 updateMetrics();
+                
+                // Analyze anomalies with real data before rendering tiles
+                analyzeAnomalies(currentData);
                 renderAnomalyTiles();
+                
                 renderInsights();
                 renderTimeline();
                 
@@ -572,6 +592,11 @@
             });
 
             updateMetrics();
+            
+            // Re-analyze anomalies with filtered data
+            analyzeAnomalies(filteredData);
+            renderAnomalyTiles();
+            
             updateCharts();
         }
 
@@ -1032,6 +1057,261 @@
             createCharts();
         }
 
+        // Analyze real data for anomalies
+        function analyzeAnomalies(data) {
+            // Reset all counts
+            anomalyTypes.forEach(anomaly => anomaly.count = 0);
+            
+            // 1. Trade Abandonment: Tasks in-progress for extended periods without completion
+            const abandonmentCount = detectAbandonedTrades(data);
+            anomalyTypes.find(a => a.id === 'abandonment').count = abandonmentCount;
+            
+            // 2. Trade Starvation: Locations with multiple trades stuck
+            const starvationCount = detectStarvation(data);
+            anomalyTypes.find(a => a.id === 'starvation').count = starvationCount;
+            
+            // 3. Burst Start: Unusual concentration of trade starts
+            const burstCount = detectBurstStart(data);
+            anomalyTypes.find(a => a.id === 'burst_start').count = burstCount;
+            
+            // 4. Swiss Cheese Flow: Random gaps in completion patterns
+            const swissCheeseCount = detectSwissCheese(data);
+            anomalyTypes.find(a => a.id === 'swiss_cheese').count = swissCheeseCount;
+            
+            // 5. Vertical Lag: Upper floors behind lower floors
+            const verticalLagCount = detectVerticalLag(data);
+            anomalyTypes.find(a => a.id === 'vertical_lag').count = verticalLagCount;
+            
+            // 6. Orphan Location: Isolated incomplete locations
+            const orphanCount = detectOrphanLocations(data);
+            anomalyTypes.find(a => a.id === 'orphan_location').count = orphanCount;
+            
+            // 7. Trade Blockage: Conflicting trades in same location
+            const blockageCount = detectTradeBlockage(data);
+            anomalyTypes.find(a => a.id === 'blockage').count = blockageCount;
+            
+            // 8. Premature Start: Trades starting before prerequisites
+            const prematureCount = detectPrematureStart(data);
+            anomalyTypes.find(a => a.id === 'premature_start').count = prematureCount;
+        }
+
+        // Detection algorithms for each anomaly type
+        function detectAbandonedTrades(data) {
+            // Find trades that have been in-progress for a long time without recent updates
+            const inProgressTrades = data.filter(row => row.state === 'in-progress');
+            const tradeGroups = {};
+            
+            inProgressTrades.forEach(row => {
+                const key = `${row.trade}-${row.location}`;
+                if (!tradeGroups[key]) {
+                    tradeGroups[key] = [];
+                }
+                tradeGroups[key].push(row);
+            });
+            
+            // Count trades with no recent completion activity (simple heuristic)
+            return Object.keys(tradeGroups).filter(key => {
+                const group = tradeGroups[key];
+                // If a trade has been in-progress but no completion date, it might be abandoned
+                return group.length > 0 && !group.some(row => row.complete_date);
+            }).length;
+        }
+
+        function detectStarvation(data) {
+            // Find locations where multiple trades are stuck in in-progress state
+            const locationGroups = {};
+            
+            data.filter(row => row.state === 'in-progress').forEach(row => {
+                if (!locationGroups[row.location]) {
+                    locationGroups[row.location] = [];
+                }
+                locationGroups[row.location].push(row);
+            });
+            
+            // Count locations with 3+ stalled trades
+            return Object.values(locationGroups).filter(trades => trades.length >= 3).length;
+        }
+
+        function detectBurstStart(data) {
+            // Look for unusual clustering of trade starts
+            const startDates = {};
+            
+            data.forEach(row => {
+                if (row.capture_date) {
+                    const date = row.capture_date;
+                    if (!startDates[date]) {
+                        startDates[date] = 0;
+                    }
+                    startDates[date]++;
+                }
+            });
+            
+            // Find dates with unusually high activity (>20 starts)
+            return Object.values(startDates).filter(count => count > 20).length;
+        }
+
+        function detectSwissCheese(data) {
+            // Find random gaps in otherwise completed areas
+            const completedByLocation = {};
+            
+            data.forEach(row => {
+                if (!completedByLocation[row.location]) {
+                    completedByLocation[row.location] = { total: 0, completed: 0 };
+                }
+                completedByLocation[row.location].total++;
+                if (row.state === 'complete') {
+                    completedByLocation[row.location].completed++;
+                }
+            });
+            
+            // Find locations that are completely empty (0% complete) surrounded by completed areas
+            const locations = Object.keys(completedByLocation).sort();
+            let gapCount = 0;
+            
+            for (let i = 1; i < locations.length - 1; i++) {
+                const current = completedByLocation[locations[i]];
+                const prev = completedByLocation[locations[i-1]];
+                const next = completedByLocation[locations[i+1]];
+                
+                // If current is 0% complete but neighbors are >80% complete
+                if (current.completed === 0 && 
+                    prev.completed / prev.total > 0.8 && 
+                    next.completed / next.total > 0.8) {
+                    gapCount++;
+                }
+            }
+            
+            return gapCount;
+        }
+
+        function detectVerticalLag(data) {
+            // Check if upper levels/floors are behind lower levels
+            const levelGroups = {};
+            
+            data.forEach(row => {
+                const level = row.level || row.floor || '1';
+                if (!levelGroups[level]) {
+                    levelGroups[level] = { total: 0, completed: 0 };
+                }
+                levelGroups[level].total++;
+                if (row.state === 'complete') {
+                    levelGroups[level].completed++;
+                }
+            });
+            
+            // Check if higher numbered levels have lower completion rates
+            const levels = Object.keys(levelGroups).sort((a, b) => parseInt(a) - parseInt(b));
+            let lagCount = 0;
+            
+            for (let i = 1; i < levels.length; i++) {
+                const currentLevel = levelGroups[levels[i]];
+                const prevLevel = levelGroups[levels[i-1]];
+                
+                const currentRate = currentLevel.completed / currentLevel.total;
+                const prevRate = prevLevel.completed / prevLevel.total;
+                
+                // If current level is significantly behind previous level
+                if (prevRate - currentRate > 0.2) {
+                    lagCount++;
+                }
+            }
+            
+            return lagCount;
+        }
+
+        function detectOrphanLocations(data) {
+            // Find isolated incomplete locations
+            const locationCompletion = {};
+            
+            data.forEach(row => {
+                if (!locationCompletion[row.location]) {
+                    locationCompletion[row.location] = { total: 0, completed: 0 };
+                }
+                locationCompletion[row.location].total++;
+                if (row.state === 'complete') {
+                    locationCompletion[row.location].completed++;
+                }
+            });
+            
+            // Count locations with very low completion rates (<10%)
+            return Object.values(locationCompletion).filter(loc => {
+                const rate = loc.completed / loc.total;
+                return rate < 0.1 && loc.total > 0;
+            }).length;
+        }
+
+        function detectTradeBlockage(data) {
+            // Find locations where conflicting trades are both in-progress
+            const locationTrades = {};
+            
+            data.filter(row => row.state === 'in-progress').forEach(row => {
+                if (!locationTrades[row.location]) {
+                    locationTrades[row.location] = [];
+                }
+                locationTrades[row.location].push(row.trade);
+            });
+            
+            // Define conflicting trade pairs (from memory)
+            const conflicts = [
+                ['Overhead Duct Rough In', 'Wall Prime Paint'],
+                ['Overhead Plumbing', 'Wall Drywall Finish'],
+                ['Overhead Duct Insulation', 'Wall Prime Paint'],
+                ['Wall Drywall', 'Overhead Duct Rough In']
+            ];
+            
+            let blockageCount = 0;
+            Object.values(locationTrades).forEach(trades => {
+                const uniqueTrades = [...new Set(trades)];
+                for (const [trade1, trade2] of conflicts) {
+                    if (uniqueTrades.includes(trade1) && uniqueTrades.includes(trade2)) {
+                        blockageCount++;
+                        break; // Count each location only once
+                    }
+                }
+            });
+            
+            return blockageCount;
+        }
+
+        function detectPrematureStart(data) {
+            // Find trades that started before their prerequisites were complete
+            const tradeSequence = {
+                'Overhead Duct Insulation': ['Overhead Duct Rough In'],
+                'In Wall Insulation': ['Overhead Duct Rough In', 'Overhead Plumbing'],
+                'Wall Drywall': ['In Wall Insulation', 'Overhead Duct Insulation'],
+                'Wall Drywall Finish': ['Wall Drywall'],
+                'Wall Prime Paint': ['Wall Drywall Finish']
+            };
+            
+            let violationCount = 0;
+            
+            Object.keys(tradeSequence).forEach(trade => {
+                const prerequisites = tradeSequence[trade];
+                
+                // Find locations where this trade is in-progress or complete
+                const tradeLocations = data.filter(row => 
+                    row.trade === trade && (row.state === 'in-progress' || row.state === 'complete')
+                ).map(row => row.location);
+                
+                // For each location, check if prerequisites are complete
+                tradeLocations.forEach(location => {
+                    const hasAllPrereqs = prerequisites.every(prereq => {
+                        return data.some(row => 
+                            row.location === location && 
+                            row.trade === prereq && 
+                            row.state === 'complete'
+                        );
+                    });
+                    
+                    if (!hasAllPrereqs) {
+                        violationCount++;
+                    }
+                });
+            });
+            
+            return violationCount;
+        }
+
         // Render anomaly tiles
         function renderAnomalyTiles() {
             const container = document.getElementById('anomaly-tiles');
@@ -1039,7 +1319,8 @@
 
             anomalyTypes.forEach(anomaly => {
                 const tile = document.createElement('div');
-                tile.className = 'anomaly-tile p-4 rounded-lg border border-gray-200 bg-white';
+                tile.className = 'anomaly-tile p-4 rounded-lg border border-gray-200 bg-white cursor-pointer hover:shadow-lg transition-shadow';
+                tile.onclick = () => showAnomalyChart(anomaly);
                 
                 tile.innerHTML = `
                     <div class="flex items-center justify-between mb-2">
@@ -1081,6 +1362,394 @@
             document.getElementById('medium-priority-count').textContent = mediumPriorityCount;
             document.getElementById('low-priority-count').textContent = lowPriorityCount;
             document.getElementById('total-anomalies-count').textContent = totalCount;
+        }
+
+        // Global variable to track anomaly chart
+        let anomalyChart = null;
+
+        // Show anomaly-specific chart
+        function showAnomalyChart(anomaly) {
+            const container = document.getElementById('anomaly-chart-container');
+            const title = document.getElementById('anomaly-chart-title');
+            
+            title.textContent = `${anomaly.name} Analysis`;
+            container.classList.remove('hidden');
+            
+            // Destroy existing chart if it exists
+            if (anomalyChart) {
+                anomalyChart.destroy();
+            }
+            
+            // Create appropriate chart based on anomaly type
+            createAnomalyVisualization(anomaly);
+        }
+
+        // Close anomaly chart
+        function closeAnomalyChart() {
+            const container = document.getElementById('anomaly-chart-container');
+            container.classList.add('hidden');
+            
+            if (anomalyChart) {
+                anomalyChart.destroy();
+                anomalyChart = null;
+            }
+        }
+
+        // Create visualization based on anomaly type
+        function createAnomalyVisualization(anomaly) {
+            const ctx = document.getElementById('anomalyChart').getContext('2d');
+            
+            switch(anomaly.id) {
+                case 'abandonment':
+                    createAbandonmentChart(ctx, anomaly);
+                    break;
+                case 'starvation':
+                    createStarvationChart(ctx, anomaly);
+                    break;
+                case 'burst_start':
+                    createBurstStartChart(ctx, anomaly);
+                    break;
+                case 'swiss_cheese':
+                    createSwissCheeseChart(ctx, anomaly);
+                    break;
+                case 'vertical_lag':
+                    createVerticalLagChart(ctx, anomaly);
+                    break;
+                case 'orphan_location':
+                    createOrphanLocationChart(ctx, anomaly);
+                    break;
+                case 'blockage':
+                    createBlockageChart(ctx, anomaly);
+                    break;
+                case 'premature_start':
+                    createPrematureStartChart(ctx, anomaly);
+                    break;
+                default:
+                    createGenericAnomalyChart(ctx, anomaly);
+            }
+        }
+
+        // Helper functions to get real data for charts
+        function getAbandonedTradesData() {
+            // Get trades that are in-progress without completion dates
+            const abandonedTrades = filteredData.filter(row => 
+                row.state === 'in-progress' && !row.complete_date
+            );
+            
+            // Group by capture date to show trend
+            const dateCounts = {};
+            abandonedTrades.forEach(row => {
+                const date = row.capture_date || 'Unknown';
+                dateCounts[date] = (dateCounts[date] || 0) + 1;
+            });
+            
+            return dateCounts;
+        }
+
+        function getStarvationData() {
+            // Get locations with multiple stalled trades
+            const locationGroups = {};
+            filteredData.filter(row => row.state === 'in-progress').forEach(row => {
+                if (!locationGroups[row.location]) {
+                    locationGroups[row.location] = [];
+                }
+                locationGroups[row.location].push(row);
+            });
+            
+            // Return locations with multiple stalled trades
+            return Object.entries(locationGroups)
+                .filter(([location, trades]) => trades.length >= 2)
+                .reduce((acc, [location, trades]) => {
+                    acc[location] = trades.length;
+                    return acc;
+                }, {});
+        }
+
+        function getVerticalLagData() {
+            // Analyze completion rates by level
+            const levelGroups = {};
+            filteredData.forEach(row => {
+                const level = row.level || row.floor || '1';
+                if (!levelGroups[level]) {
+                    levelGroups[level] = { total: 0, completed: 0 };
+                }
+                levelGroups[level].total++;
+                if (row.state === 'complete') {
+                    levelGroups[level].completed++;
+                }
+            });
+            
+            // Calculate completion rates
+            return Object.entries(levelGroups).reduce((acc, [level, data]) => {
+                acc[level] = (data.completed / data.total * 100).toFixed(1);
+                return acc;
+            }, {});
+        }
+
+        // Trade Abandonment - Line chart showing trades stopping midway
+        function createAbandonmentChart(ctx, anomaly) {
+            // Get real abandoned trades from current data
+            const abandonedTradesData = getAbandonedTradesData();
+            const labels = Object.keys(abandonedTradesData).sort();
+            const data = labels.map(date => abandonedTradesData[date]);
+            
+            anomalyChart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        label: 'Abandoned Trades',
+                        data: data,
+                        borderColor: anomaly.color,
+                        backgroundColor: anomaly.color + '20',
+                        borderWidth: 3,
+                        fill: true,
+                        tension: 0.4
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            title: {
+                                display: true,
+                                text: 'Number of Abandoned Trades'
+                            }
+                        }
+                    },
+                    plugins: {
+                        title: {
+                            display: true,
+                            text: 'Trade Abandonment Trend - Trades left incomplete >14 days'
+                        }
+                    }
+                }
+            });
+        }
+
+        // Trade Starvation - Bar chart showing resource shortages by trade
+        function createStarvationChart(ctx, anomaly) {
+            const starvationData = getStarvationData();
+            const labels = Object.keys(starvationData);
+            const data = Object.values(starvationData);
+            
+            anomalyChart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        label: 'Stalled Trades Count',
+                        data: data,
+                        backgroundColor: anomaly.color,
+                        borderColor: anomaly.color,
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            title: {
+                                display: true,
+                                text: 'Days Without Progress'
+                            }
+                        }
+                    },
+                    plugins: {
+                        title: {
+                            display: true,
+                            text: 'Trade Starvation - Trades lacking resources or workforce'
+                        }
+                    }
+                }
+            });
+        }
+
+        // Burst Start - Line chart showing sudden activity spikes
+        function createBurstStartChart(ctx, anomaly) {
+            const days = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
+            const normalActivity = [8, 10, 12, 9, 11, 3, 2];
+            const burstActivity = [8, 10, 35, 9, 11, 3, 2]; // Spike on Wednesday
+            
+            anomalyChart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: days,
+                    datasets: [{
+                        label: 'Normal Activity',
+                        data: normalActivity,
+                        borderColor: '#6b7280',
+                        backgroundColor: '#6b728020',
+                        borderWidth: 2
+                    }, {
+                        label: 'Burst Activity',
+                        data: burstActivity,
+                        borderColor: anomaly.color,
+                        backgroundColor: anomaly.color + '30',
+                        borderWidth: 3,
+                        pointBackgroundColor: anomaly.color,
+                        pointRadius: 5
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            title: {
+                                display: true,
+                                text: 'Tasks Started'
+                            }
+                        }
+                    },
+                    plugins: {
+                        title: {
+                            display: true,
+                            text: 'Burst Start Pattern - Sudden large volume of work starting'
+                        }
+                    }
+                }
+            });
+        }
+
+        // Swiss Cheese Flow - Scatter plot showing gaps in completion
+        function createSwissCheeseChart(ctx, anomaly) {
+            const locations = Array.from({length: 20}, (_, i) => `Loc ${i + 1}`);
+            const completionData = [
+                100, 85, 0, 90, 75, 0, 95, 80, 0, 88, 
+                92, 0, 87, 0, 91, 83, 0, 89, 94, 0
+            ]; // 0 represents gaps (swiss cheese holes)
+            
+            anomalyChart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: locations,
+                    datasets: [{
+                        label: 'Completion %',
+                        data: completionData,
+                        backgroundColor: completionData.map(val => val === 0 ? '#ef4444' : anomaly.color),
+                        borderColor: completionData.map(val => val === 0 ? '#dc2626' : anomaly.color),
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            max: 100,
+                            title: {
+                                display: true,
+                                text: 'Completion Percentage'
+                            }
+                        }
+                    },
+                    plugins: {
+                        title: {
+                            display: true,
+                            text: 'Swiss Cheese Flow - Random gaps in otherwise completed areas'
+                        }
+                    }
+                }
+            });
+        }
+
+        // Vertical Lag - Bar chart showing floor-by-floor delays
+        function createVerticalLagChart(ctx, anomaly) {
+            const verticalData = getVerticalLagData();
+            const levels = Object.keys(verticalData).sort((a, b) => parseInt(a) - parseInt(b));
+            const completionRates = levels.map(level => parseFloat(verticalData[level]));
+            
+            anomalyChart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: levels.map(level => `Level ${level}`),
+                    datasets: [{
+                        label: 'Completion %',
+                        data: completionRates,
+                        backgroundColor: levels.map((_, i) => `hsl(${120 - (i * 20)}, 70%, 50%)`), // Green to red gradient
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            max: 100,
+                            title: {
+                                display: true,
+                                text: 'Completion Percentage'
+                            }
+                        }
+                    },
+                    plugins: {
+                        title: {
+                            display: true,
+                            text: 'Vertical Lag - Upper floors lagging behind lower floors'
+                        }
+                    }
+                }
+            });
+        }
+
+        // Generic chart for remaining anomaly types
+        function createOrphanLocationChart(ctx, anomaly) {
+            createGenericAnomalyChart(ctx, anomaly, 'Orphan Location - Isolated incomplete areas');
+        }
+
+        function createBlockageChart(ctx, anomaly) {
+            createGenericAnomalyChart(ctx, anomaly, 'Trade Blockage - Trades blocking each other');
+        }
+
+        function createPrematureStartChart(ctx, anomaly) {
+            createGenericAnomalyChart(ctx, anomaly, 'Premature Start - Trades starting before prerequisites');
+        }
+
+        // Generic anomaly chart
+        function createGenericAnomalyChart(ctx, anomaly, titleOverride = null) {
+            const data = Array.from({length: 7}, () => Math.floor(Math.random() * 5) + 1);
+            const labels = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
+            
+            anomalyChart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        label: 'Occurrences',
+                        data: data,
+                        backgroundColor: anomaly.color,
+                        borderColor: anomaly.color,
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            title: {
+                                display: true,
+                                text: 'Number of Incidents'
+                            }
+                        }
+                    },
+                    plugins: {
+                        title: {
+                            display: true,
+                            text: titleOverride || `${anomaly.name} - Weekly occurrence pattern`
+                        }
+                    }
+                }
+            });
         }
 
         // Render insights based on real data
