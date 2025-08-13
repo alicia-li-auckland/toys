@@ -170,8 +170,8 @@
                                 <div class="flex items-center justify-between">
                                     <div>
                                         <p class="text-sm font-medium text-gray-600">Overall Progress</p>
-                                        <p class="text-3xl font-bold text-blue-600" id="completion-rate">58.3%</p>
-                                        <p class="text-xs text-gray-500" id="completion-tasks">7 of 12 tasks</p>
+                                        <p class="text-3xl font-bold text-blue-600" id="completion-rate">0%</p>
+                                        <p class="text-xs text-gray-500" id="completion-tasks">0 of 0 tasks</p>
                                     </div>
                                     <svg class="w-8 h-8 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
@@ -183,7 +183,7 @@
                                 <div class="flex items-center justify-between">
                                     <div>
                                         <p class="text-sm font-medium text-gray-600">Work Velocity</p>
-                                        <p class="text-3xl font-bold text-green-600">+224</p>
+                                        <p class="text-3xl font-bold text-green-600" id="work-velocity">0</p>
                                         <p class="text-xs text-gray-500">tasks completed per day</p>
                                     </div>
                                     <svg class="w-8 h-8 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -196,7 +196,7 @@
                                 <div class="flex items-center justify-between">
                                     <div>
                                         <p class="text-sm font-medium text-gray-600">Active Trades</p>
-                                        <p class="text-3xl font-bold text-purple-600" id="active-trades">4</p>
+                                        <p class="text-3xl font-bold text-purple-600" id="active-trades">0</p>
                                         <p class="text-xs text-gray-500">currently in progress</p>
                                     </div>
                                     <svg class="w-8 h-8 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -209,7 +209,7 @@
                                 <div class="flex items-center justify-between">
                                     <div>
                                         <p class="text-sm font-medium text-gray-600">Last Capture</p>
-                                        <p class="text-lg font-bold text-orange-600">01/26</p>
+                                        <p class="text-lg font-bold text-orange-600" id="last-capture">N/A</p>
                                         <p class="text-xs text-gray-500">most recent data</p>
                                     </div>
                                     <svg class="w-8 h-8 text-orange-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -264,19 +264,19 @@
                             <h3 class="text-lg font-semibold text-gray-900 mb-4">Anomaly Summary</h3>
                             <div class="grid grid-cols-2 lg:grid-cols-4 gap-6">
                                 <div class="text-center">
-                                    <div class="text-2xl font-bold text-red-600">36</div>
+                                    <div class="text-2xl font-bold text-red-600" id="high-priority-count">0</div>
                                     <div class="text-sm text-gray-600">High Priority Issues</div>
                                 </div>
                                 <div class="text-center">
-                                    <div class="text-2xl font-bold text-orange-600">41</div>
+                                    <div class="text-2xl font-bold text-orange-600" id="medium-priority-count">0</div>
                                     <div class="text-sm text-gray-600">Medium Priority Issues</div>
                                 </div>
                                 <div class="text-center">
-                                    <div class="text-2xl font-bold text-yellow-600">11</div>
+                                    <div class="text-2xl font-bold text-yellow-600" id="low-priority-count">0</div>
                                     <div class="text-sm text-gray-600">Low Priority Issues</div>
                                 </div>
                                 <div class="text-center">
-                                    <div class="text-2xl font-bold text-gray-600">88</div>
+                                    <div class="text-2xl font-bold text-gray-600" id="total-anomalies-count">0</div>
                                     <div class="text-sm text-gray-600">Total Anomalies</div>
                                 </div>
                             </div>
@@ -564,9 +564,42 @@
             const activeTrades = [...new Set(filteredData.filter(row => row.state === 'in-progress').map(row => row.trade))].length;
             const completionRate = totalTasks > 0 ? ((completedTasks / totalTasks) * 100).toFixed(1) : 0;
 
+            // Calculate work velocity (tasks completed per day)
+            const completionDates = [...new Set(filteredData
+                .filter(row => row.complete_date && row.state === 'complete')
+                .map(row => row.complete_date)
+            )];
+            const workVelocity = completionDates.length > 0 ? 
+                Math.round(completedTasks / completionDates.length) : 0;
+
+            // Get last capture date
+            const captureDates = [...new Set(filteredData
+                .map(row => row.capture_date)
+                .filter(Boolean)
+            )].sort();
+            const lastCaptureDate = captureDates.length > 0 ? 
+                captureDates[captureDates.length - 1] : 'N/A';
+            
+            // Format last capture date for display
+            let formattedLastCapture = lastCaptureDate;
+            if (lastCaptureDate !== 'N/A') {
+                const parts = lastCaptureDate.split('/');
+                if (parts.length === 3) {
+                    formattedLastCapture = parts[1] + '/' + parts[2]; // MM/DD
+                } else {
+                    const dateParts = lastCaptureDate.split('-');
+                    if (dateParts.length === 3) {
+                        formattedLastCapture = dateParts[1] + '/' + dateParts[2]; // MM/DD from YYYY-MM-DD
+                    }
+                }
+            }
+
+            // Update DOM elements
             document.getElementById('completion-rate').textContent = `${completionRate}%`;
             document.getElementById('completion-tasks').textContent = `${completedTasks} of ${totalTasks} tasks`;
             document.getElementById('active-trades').textContent = activeTrades;
+            document.getElementById('work-velocity').textContent = workVelocity > 0 ? `+${workVelocity}` : '0';
+            document.getElementById('last-capture').textContent = formattedLastCapture;
         }
 
         // Switch tabs
@@ -597,26 +630,59 @@
 
         function createProgressChart() {
             const ctx = document.getElementById('progressChart').getContext('2d');
+            
+            // Get all unique dates and sort them
+            const allDates = [...new Set(filteredData.map(row => row.capture_date).filter(Boolean))].sort();
+            const trades = [...new Set(filteredData.map(row => row.trade).filter(Boolean))];
+            
+            // If no dates, use placeholder
+            if (allDates.length === 0) {
+                allDates.push(new Date().toISOString().split('T')[0]);
+            }
+            
+            // Format dates for display (MM/DD)
+            const dateLabels = allDates.map(date => {
+                const parts = date.split('/');
+                if (parts.length === 3) {
+                    return parts[1] + '/' + parts[2]; // MM/DD
+                }
+                return date.split('-').slice(1).join('/'); // Handle YYYY-MM-DD format
+            });
+            
+            // Create datasets for each trade
+            const datasets = trades.map((trade, index) => {
+                const tradeData = allDates.map(date => {
+                    const tradeTasksUpToDate = filteredData.filter(row => 
+                        row.trade === trade && 
+                        row.capture_date <= date
+                    );
+                    const completedUpToDate = tradeTasksUpToDate.filter(row => 
+                        row.state === 'complete' && 
+                        row.complete_date && 
+                        row.complete_date <= date
+                    );
+                    const totalTradeTasks = filteredData.filter(row => row.trade === trade).length;
+                    
+                    return totalTradeTasks > 0 ? Math.round((completedUpToDate.length / totalTradeTasks) * 100) : 0;
+                });
+                
+                const colors = ['#3b82f6', '#ef4444', '#10b981', '#f59e0b', '#8b5cf6', '#06b6d4', '#84cc16'];
+                
+                return {
+                    label: trade,
+                    data: tradeData,
+                    borderColor: colors[index % colors.length],
+                    backgroundColor: colors[index % colors.length] + '20',
+                    tension: 0.1,
+                    fill: false
+                };
+            });
+            
             charts.progress = new Chart(ctx, {
                 type: 'line',
                 data: {
-                    labels: ['Week 1', 'Week 2', 'Week 3', 'Week 4'],
-                    datasets: [{
-                        label: 'Wall Drywall',
-                        data: [10, 35, 65, 85],
-                        borderColor: '#3b82f6',
-                        tension: 0.1
-                    }, {
-                        label: 'Overhead Plumbing',
-                        data: [5, 15, 30, 50],
-                        borderColor: '#ef4444',
-                        tension: 0.1
-                    }, {
-                        label: 'Electrical',
-                        data: [0, 10, 25, 45],
-                        borderColor: '#10b981',
-                        tension: 0.1
-                    }]
+                    labels: dateLabels,
+                    datasets: datasets
                 },
                 options: {
                     responsive: true,
@@ -629,6 +695,22 @@
                                 display: true,
                                 text: '% Complete'
                             }
+                        },
+                        x: {
+                            title: {
+                                display: true,
+                                text: 'Capture Date'
+                            }
+                        }
+                    },
+                    plugins: {
+                        legend: {
+                            display: true,
+                            position: 'top'
+                        },
+                        tooltip: {
+                            mode: 'index',
+                            intersect: false
                         }
                     }
                 }
@@ -637,18 +719,101 @@
 
         function createVelocityChart() {
             const ctx = document.getElementById('velocityChart').getContext('2d');
+            
+            // Get all unique completion dates and sort them
+            const completionDates = [...new Set(filteredData
+                .filter(row => row.complete_date && row.state === 'complete')
+                .map(row => row.complete_date)
+            )].sort();
+            
+            const trades = [...new Set(filteredData.map(row => row.trade).filter(Boolean))];
+            
+            // If no completion dates, show placeholder
+            if (completionDates.length === 0) {
+                charts.velocity = new Chart(ctx, {
+                    type: 'line',
+                    data: {
+                        labels: ['No Data'],
+                        datasets: [{
+                            label: 'No completed tasks found',
+                            data: [0],
+                            borderColor: '#9ca3af',
+                            backgroundColor: 'rgba(156, 163, 175, 0.1)',
+                            tension: 0.1,
+                            fill: true
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        scales: {
+                            y: {
+                                beginAtZero: true,
+                                title: {
+                                    display: true,
+                                    text: 'Tasks Completed'
+                                }
+                            }
+                        }
+                    }
+                });
+                return;
+            }
+            
+            // Format dates for display
+            const dateLabels = completionDates.map(date => {
+                const parts = date.split('/');
+                if (parts.length === 3) {
+                    return parts[1] + '/' + parts[2]; // MM/DD
+                }
+                return date.split('-').slice(1).join('/'); // Handle YYYY-MM-DD format
+            });
+            
+            // Create datasets for each trade showing daily completions
+            const datasets = trades.map((trade, index) => {
+                const tradeData = completionDates.map(date => {
+                    return filteredData.filter(row => 
+                        row.trade === trade && 
+                        row.complete_date === date && 
+                        row.state === 'complete'
+                    ).length;
+                });
+                
+                const colors = ['#3b82f6', '#ef4444', '#10b981', '#f59e0b', '#8b5cf6', '#06b6d4', '#84cc16'];
+                
+                return {
+                    label: trade,
+                    data: tradeData,
+                    borderColor: colors[index % colors.length],
+                    backgroundColor: colors[index % colors.length] + '20',
+                    tension: 0.1,
+                    fill: false
+                };
+            });
+            
+            // Add total line
+            const totalData = completionDates.map(date => {
+                return filteredData.filter(row => 
+                    row.complete_date === date && 
+                    row.state === 'complete'
+                ).length;
+            });
+            
+            datasets.push({
+                label: 'Total (All Trades)',
+                data: totalData,
+                borderColor: '#1f2937',
+                backgroundColor: 'rgba(31, 41, 55, 0.1)',
+                tension: 0.1,
+                fill: true,
+                borderWidth: 3
+            });
+            
             charts.velocity = new Chart(ctx, {
                 type: 'line',
                 data: {
-                    labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri'],
-                    datasets: [{
-                        label: 'Completed Tasks',
-                        data: [12, 19, 8, 15, 22],
-                        borderColor: '#10b981',
-                        backgroundColor: 'rgba(16, 185, 129, 0.1)',
-                        tension: 0.1,
-                        fill: true
-                    }]
+                    labels: dateLabels,
+                    datasets: datasets
                 },
                 options: {
                     responsive: true,
@@ -658,8 +823,24 @@
                             beginAtZero: true,
                             title: {
                                 display: true,
-                                text: 'Tasks Completed'
+                                text: 'Tasks Completed Per Day'
                             }
+                        },
+                        x: {
+                            title: {
+                                display: true,
+                                text: 'Completion Date'
+                            }
+                        }
+                    },
+                    plugins: {
+                        legend: {
+                            display: true,
+                            position: 'top'
+                        },
+                        tooltip: {
+                            mode: 'index',
+                            intersect: false
                         }
                     }
                 }
@@ -670,20 +851,42 @@
             const ctx = document.getElementById('distributionChart').getContext('2d');
             const trades = [...new Set(filteredData.map(row => row.trade))];
             
+            // Calculate real completion percentages for each trade
+            const tradeData = trades.map(trade => {
+                const tradeRows = filteredData.filter(row => row.trade === trade);
+                const completed = tradeRows.filter(row => row.state === 'complete').length;
+                const total = tradeRows.length;
+                return total > 0 ? Math.round((completed / total) * 100) : 0;
+            });
+            
             charts.distribution = new Chart(ctx, {
                 type: 'doughnut',
                 data: {
                     labels: trades,
                     datasets: [{
-                        data: trades.map(() => Math.floor(Math.random() * 100) + 20),
+                        data: tradeData,
                         backgroundColor: [
-                            '#3b82f6', '#ef4444', '#10b981', '#f59e0b', '#8b5cf6', '#06b6d4'
+                            '#3b82f6', '#ef4444', '#10b981', '#f59e0b', '#8b5cf6', '#06b6d4', '#84cc16'
                         ]
                     }]
                 },
                 options: {
                     responsive: true,
-                    maintainAspectRatio: false
+                    maintainAspectRatio: false,
+                    plugins: {
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    const trade = context.label;
+                                    const percentage = context.raw;
+                                    const tradeRows = filteredData.filter(row => row.trade === trade);
+                                    const completed = tradeRows.filter(row => row.state === 'complete').length;
+                                    const total = tradeRows.length;
+                                    return `${trade}: ${percentage}% (${completed}/${total})`;
+                                }
+                            }
+                        }
+                    }
                 }
             });
         }
@@ -724,22 +927,22 @@
         }
 
         function updateCharts() {
-            if (charts.distribution) {
-                const trades = [...new Set(filteredData.map(row => row.trade))];
-                const data = trades.map(trade => {
-                    const tradeData = filteredData.filter(row => row.trade === trade);
-                    const completed = tradeData.filter(row => row.state === 'complete').length;
-                    return Math.round((completed / tradeData.length) * 100);
-                });
-                
-                charts.distribution.data.labels = trades;
-                charts.distribution.data.datasets[0].data = data;
-                charts.distribution.update();
-
-                charts.performance.data.labels = trades;
-                charts.performance.data.datasets[0].data = data;
-                charts.performance.update();
+            // Destroy existing charts and recreate them with filtered data
+            if (charts.progress) {
+                charts.progress.destroy();
             }
+            if (charts.velocity) {
+                charts.velocity.destroy();
+            }
+            if (charts.distribution) {
+                charts.distribution.destroy();
+            }
+            if (charts.performance) {
+                charts.performance.destroy();
+            }
+            
+            // Recreate all charts with filtered data
+            createCharts();
         }
 
         // Render anomaly tiles
@@ -775,6 +978,22 @@
                 
                 container.appendChild(tile);
             });
+
+            // Update anomaly summary counts
+            updateAnomalySummary();
+        }
+
+        // Update anomaly summary counts
+        function updateAnomalySummary() {
+            const highPriorityCount = anomalyTypes.filter(a => a.severity === 'high').reduce((sum, a) => sum + a.count, 0);
+            const mediumPriorityCount = anomalyTypes.filter(a => a.severity === 'medium').reduce((sum, a) => sum + a.count, 0);
+            const lowPriorityCount = anomalyTypes.filter(a => a.severity === 'low').reduce((sum, a) => sum + a.count, 0);
+            const totalCount = anomalyTypes.reduce((sum, a) => sum + a.count, 0);
+
+            document.getElementById('high-priority-count').textContent = highPriorityCount;
+            document.getElementById('medium-priority-count').textContent = mediumPriorityCount;
+            document.getElementById('low-priority-count').textContent = lowPriorityCount;
+            document.getElementById('total-anomalies-count').textContent = totalCount;
         }
 
         // Initialize when page loads
