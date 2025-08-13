@@ -238,50 +238,32 @@
                     
                     <!-- Tab Navigation -->
                     <div class="px-6 pb-4">
-                        <div class="flex items-center space-x-4">
-                            <!-- Analysis Tabs -->
-                            <div class="flex space-x-1 bg-white rounded-lg p-1">
-                                <button id="projectTab" class="tab-button px-4 py-2 text-sm font-medium rounded-md transition-colors bg-blue-600 text-white">
-                                    🏗️ Project
-                                </button>
-                                <button id="levelTab" class="tab-button px-4 py-2 text-sm font-medium rounded-md transition-colors text-gray-700 hover:bg-gray-100">
-                                    📊 Level
-                                </button>
-                                <button id="sectionTab" class="tab-button px-4 py-2 text-sm font-medium rounded-md transition-colors text-gray-700 hover:bg-gray-100">
-                                    📍 Section
-                                </button>
-                            </div>
-                            
-                            <!-- Separator -->
-                            <div class="h-8 w-px bg-gray-300"></div>
-                            
-                            <!-- Anomaly Tab -->
-                            <div class="flex space-x-1 bg-white rounded-lg p-1">
-                                <button id="anomaliesTab" class="tab-button px-4 py-2 text-sm font-medium rounded-md transition-colors text-gray-700 hover:bg-gray-100">
-                                    🚨 Trade Anomalies
-                                </button>
-                            </div>
+                        <div class="flex space-x-1 bg-white rounded-lg p-1 w-max">
+                            <button id="superintendentTab" class="tab-button px-4 py-2 text-sm font-medium rounded-md transition-colors bg-blue-600 text-white">
+                                👷 Superintendent
+                            </button>
+                            <button id="vdcTab" class="tab-button px-4 py-2 text-sm font-medium rounded-md transition-colors text-gray-700 hover:bg-gray-100">
+                                📊 VDC Manager
+                            </button>
                         </div>
                     </div>
                 </div>
 
                 <!-- Tab Content Container -->
                 <div class="px-6 py-6">
-                    <!-- Analytics Tab Content -->
-                    <div id="analyticsTabContent">
-                        <!-- Level/Section Selector (shown for level and section tabs) -->
-                        <div id="filterSelector" class="mb-6 hidden">
-                            <div class="flex items-center gap-4">
-                                <label class="text-sm font-medium text-gray-700">Filter by:</label>
-                                <select id="filterDropdown" class="border border-gray-300 rounded-md px-3 py-2 text-sm">
-                                    <!-- Options populated by JavaScript -->
-                                </select>
-                                <span id="filterInfo" class="text-xs text-gray-500"></span>
-                            </div>
+                    <!-- Level/Section Selector (shown for level and section tabs) -->
+                    <div id="filterSelector" class="mb-6 hidden">
+                        <div class="flex items-center gap-4">
+                            <label class="text-sm font-medium text-gray-700">Filter by:</label>
+                            <select id="filterDropdown" class="border border-gray-300 rounded-md px-3 py-2 text-sm">
+                                <!-- Options populated by JavaScript -->
+                            </select>
+                            <span id="filterInfo" class="text-xs text-gray-500"></span>
                         </div>
-                        
-                        <!-- Dashboard Content (same for all tabs, filtered by JavaScript) -->
-                        <div id="dashboardContent">
+                    </div>
+                    
+                    <!-- Dashboard Content (same for all tabs, filtered by JavaScript) -->
+                    <div id="dashboardContent">
                         <!-- Primary KPI Cards -->
                         <div class="grid grid-cols-2 md:grid-cols-4 xl:grid-cols-6 gap-4 mb-6" id="primaryKPIs">
                             <!-- KPI cards will be populated here -->
@@ -289,156 +271,495 @@
 
 
 
-                        <!-- Chart Filters -->
-                        <div class="bg-white border rounded-lg p-4 mb-6">
-                            <h4 class="text-md font-semibold mb-3 flex items-center">
-                                <i data-lucide="filter" class="w-4 h-4 mr-2 text-blue-600"></i>
-                                Chart Filters
-                            </h4>
-                            <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-                                <div>
-                                    <label class="block text-xs font-medium text-gray-700 mb-1">Trade Filter</label>
-                                    <select id="tradeFilter" class="w-full px-2 py-1 text-sm border border-gray-300 rounded">
-                                        <option value="">All Trades</option>
-                                    </select>
-                                </div>
-                                <div>
-                                    <label class="block text-xs font-medium text-gray-700 mb-1">Time Filter</label>
-                                    <select id="timeFilter" class="w-full px-2 py-1 text-sm border border-gray-300 rounded">
-                                        <option value="">All Time</option>
-                                        <option value="last30">Last 30 Days</option>
-                                        <option value="last60">Last 60 Days</option>
-                                        <option value="last90">Last 90 Days</option>
-                                    </select>
-                                </div>
-                                <div>
-                                    <label class="block text-xs font-medium text-gray-700 mb-1">Level Filter</label>
-                                    <select id="levelFilter" class="w-full px-2 py-1 text-sm border border-gray-300 rounded">
-                                        <option value="">All Levels</option>
-                                    </select>
-                                </div>
-                                <div>
-                                    <label class="block text-xs font-medium text-gray-700 mb-1">Section Filter</label>
-                                    <select id="sectionFilter" class="w-full px-2 py-1 text-sm border border-gray-300 rounded">
-                                        <option value="">All Sections</option>
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Row 2: Trade Progress Over Time (100% width) -->
-                        <div class="bg-white border rounded-lg p-4 mb-6">
-                            <h4 class="text-md font-semibold mb-3 flex items-center">
-                                <i data-lucide="trending-up" class="w-4 h-4 mr-2 text-blue-600"></i>
-                                Trade Progress Over Time
-                            </h4>
-                            <div style="position: relative; height: 400px; width: 100%;">
-                                <canvas id="tradeProgressChart"></canvas>
-                            </div>
-                        </div>
-
-                        <!-- Row 3: Velocity Chart (100% width) -->
-                        <div class="bg-white border rounded-lg p-4 mb-6">
-                            <h4 class="text-md font-semibold mb-3 flex items-center">
-                                <i data-lucide="zap" class="w-4 h-4 mr-2 text-green-600"></i>
-                                Daily Completion Velocity
-                            </h4>
-                            <div style="position: relative; height: 400px; width: 100%;">
-                                <canvas id="velocityChart"></canvas>
-                            </div>
-                        </div>
-
-                        <!-- Row 4: Two 50% width charts -->
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                        <!-- Performance Trend Charts -->
+                        <div class="grid grid-cols-1 gap-6 mb-6">
                             <div class="bg-white border rounded-lg p-4">
                                 <h4 class="text-md font-semibold mb-3 flex items-center">
-                                    <i data-lucide="pie-chart" class="w-4 h-4 mr-2 text-purple-600"></i>
-                                    Task Distribution
+                                    <i data-lucide="trending-up" class="w-4 h-4 mr-2 text-green-600"></i>
+                                    Completion Velocity
                                 </h4>
-                                <div style="position: relative; height: 350px; width: 100%;">
-                                    <canvas id="distributionPieChart"></canvas>
-                                </div>
+                                <canvas id="completionVelocityChart" width="400" height="160"></canvas>
                             </div>
+                            
+                            <div class="bg-white border rounded-lg p-4">
+                                <h4 class="text-md font-semibold mb-3 flex items-center">
+                                    <i data-lucide="building" class="w-4 h-4 mr-2 text-blue-600"></i>
+                                    Building Progress
+                                </h4>
+                                <canvas id="buildingProgressChart" width="400" height="160"></canvas>
+                            </div>
+                            
                             <div class="bg-white border rounded-lg p-4">
                                 <h4 class="text-md font-semibold mb-3 flex items-center">
                                     <i data-lucide="clock" class="w-4 h-4 mr-2 text-orange-600"></i>
                                     Trade Performance
                                 </h4>
-                                <div style="position: relative; height: 350px; width: 100%;">
-                                    <canvas id="tradeDurationChart"></canvas>
+                                <canvas id="tradeDurationChart" width="400" height="160"></canvas>
+                            </div>
+                        </div>
+
+                        <!-- State Distribution Overview -->
+                        <div class="grid grid-cols-1 gap-6 mb-6">
+                            <div class="bg-white border rounded-lg p-4">
+                                <h4 class="text-md font-semibold mb-3 flex items-center">
+                                    <i data-lucide="pie-chart" class="w-4 h-4 mr-2 text-purple-600"></i>
+                                    State Distribution
+                                </h4>
+                                <canvas id="stateDistributionChart" width="400" height="160"></canvas>
+                            </div>
+                            
+                            <div class="bg-white border rounded-lg p-4">
+                                <h4 class="text-md font-semibold mb-3 flex items-center">
+                                    <i data-lucide="calendar" class="w-4 h-4 mr-2 text-indigo-600"></i>
+                                    Weekly Progress Heatmap
+                                </h4>
+                                <div id="weeklyProgressHeatmap" class="h-32 overflow-auto">
+                                    <!-- Heatmap will be generated here -->
                                 </div>
                             </div>
                         </div>
+
+                        <!-- Python-Style Data Analysis Charts -->
+                        <div class="border-t border-gray-200 pt-6">
+                            <div class="mb-4">
+                                <h3 class="text-lg font-semibold text-gray-800 flex items-center">
+                                    <i data-lucide="bar-chart-4" class="w-5 h-5 mr-2 text-indigo-600"></i>
+                                    Python-Style Data Analysis
+                                    <span class="ml-2 text-xs bg-indigo-100 text-indigo-600 px-2 py-1 rounded">Pandas Equivalent</span>
+                                </h3>
+                                <p class="text-sm text-gray-600 mt-1">Comprehensive data exploration and visualization</p>
+                            </div>
+
+                            <div class="grid grid-cols-1 gap-6 mb-6">
+                                <div class="bg-white border rounded-lg p-4">
+                                    <h4 class="text-md font-semibold mb-3 flex items-center">
+                                        <i data-lucide="bar-chart-3" class="w-4 h-4 mr-2 text-indigo-600"></i>
+                                        Trade Distribution Analysis
+                                        <span class="ml-2 text-xs bg-gray-100 text-gray-600 px-2 py-1 rounded">df['trade'].value_counts()</span>
+                                    </h4>
+                                    <canvas id="tradeDistributionChart" width="400" height="200"></canvas>
+                                </div>
+                                <div class="bg-white border rounded-lg p-4">
+                                    <h4 class="text-md font-semibold mb-3 flex items-center">
+                                        <i data-lucide="activity" class="w-4 h-4 mr-2 text-cyan-600"></i>
+                                        Work Status Overview
+                                        <span class="ml-2 text-xs bg-gray-100 text-gray-600 px-2 py-1 rounded">df['state'].value_counts()</span>
+                                    </h4>
+                                    <canvas id="statusOverviewChart" width="400" height="180"></canvas>
+                                </div>
+                            </div>
+
+                            <div class="grid grid-cols-1 gap-6 mb-6">
+                                <div class="bg-white border rounded-lg p-4">
+                                    <h4 class="text-md font-semibold mb-3 flex items-center">
+                                        <i data-lucide="map-pin" class="w-4 h-4 mr-2 text-orange-600"></i>
+                                        Top 10 Busiest Locations
+                                        <span class="ml-2 text-xs bg-gray-100 text-gray-600 px-2 py-1 rounded">nlargest(10)</span>
+                                    </h4>
+                                    <canvas id="topLocationsChart" width="400" height="200"></canvas>
+                                </div>
+                                <div class="bg-white border rounded-lg p-4">
+                                    <h4 class="text-md font-semibold mb-3 flex items-center">
+                                        <i data-lucide="layers" class="w-4 h-4 mr-2 text-teal-600"></i>
+                                        Building & Level Analysis
+                                        <span class="ml-2 text-xs bg-gray-100 text-gray-600 px-2 py-1 rounded">groupby(['building', 'level'])</span>
+                                    </h4>
+                                    <canvas id="buildingLevelChart" width="400" height="180"></canvas>
+                                </div>
+                            </div>
+
+                            <div class="grid grid-cols-1 gap-6 mb-6">
+                                <div class="bg-white border rounded-lg p-4">
+                                    <h4 class="text-md font-semibold mb-3 flex items-center">
+                                        <i data-lucide="trending-up" class="w-4 h-4 mr-2 text-emerald-600"></i>
+                                        Work Items Captured Over Time
+                                        <span class="ml-2 text-xs bg-gray-100 text-gray-600 px-2 py-1 rounded">df.groupby(df['capture_date'].dt.date).size()</span>
+                                    </h4>
+                                    <canvas id="timeSeriesChart" width="600" height="200"></canvas>
+                                </div>
+                            </div>
+
+                            <!-- Level & Section Comparison Analytics -->
+                            <div class="border-t border-gray-200 pt-6">
+                                <div class="mb-4">
+                                    <h3 class="text-lg font-semibold text-gray-800 flex items-center">
+                                        <i data-lucide="layers" class="w-5 h-5 mr-2 text-purple-600"></i>
+                                        Level & Section Analytics
+                                        <span class="ml-2 text-xs bg-purple-100 text-purple-600 px-2 py-1 rounded">Comparative Analysis</span>
+                                    </h3>
+                                    <p class="text-sm text-gray-600 mt-1">Compare performance across building levels and sections</p>
+                                </div>
+
+                                <div class="grid grid-cols-1 gap-6 mb-6">
+                                    <div class="bg-white border rounded-lg p-4">
+                                        <h4 class="text-md font-semibold mb-3 flex items-center">
+                                            <i data-lucide="bar-chart-2" class="w-4 h-4 mr-2 text-blue-600"></i>
+                                            Level Comparison
+                                            <span class="ml-2 text-xs bg-gray-100 text-gray-600 px-2 py-1 rounded">Level 1 vs 2</span>
+                                        </h4>
+                                        <canvas id="levelComparisonChart" width="400" height="200"></canvas>
+                                    </div>
+                                    <div class="bg-white border rounded-lg p-4">
+                                        <h4 class="text-md font-semibold mb-3 flex items-center">
+                                            <i data-lucide="grid-3x3" class="w-4 h-4 mr-2 text-green-600"></i>
+                                            Section Comparison
+                                            <span class="ml-2 text-xs bg-gray-100 text-gray-600 px-2 py-1 rounded">Section A, B, C...</span>
+                                        </h4>
+                                        <canvas id="sectionComparisonChart" width="400" height="200"></canvas>
+                                    </div>
+                                </div>
+
+                                <div class="grid grid-cols-1 gap-6 mb-6">
+                                    <div class="bg-white border rounded-lg p-4">
+                                        <h4 class="text-md font-semibold mb-3 flex items-center">
+                                            <i data-lucide="trending-up" class="w-4 h-4 mr-2 text-orange-600"></i>
+                                            Level Progress Rates
+                                            <span class="ml-2 text-xs bg-gray-100 text-gray-600 px-2 py-1 rounded">Completion %</span>
+                                        </h4>
+                                        <canvas id="levelProgressChart" width="400" height="180"></canvas>
+                                    </div>
+                                    <div class="bg-white border rounded-lg p-4">
+                                        <h4 class="text-md font-semibold mb-3 flex items-center">
+                                            <i data-lucide="pie-chart" class="w-4 h-4 mr-2 text-red-600"></i>
+                                            Section Progress Rates
+                                            <span class="ml-2 text-xs bg-gray-100 text-gray-600 px-2 py-1 rounded">Completion %</span>
+                                        </h4>
+                                        <canvas id="sectionProgressChart" width="400" height="180"></canvas>
+                                    </div>
+                                </div>
+
+                                <div class="grid grid-cols-1 gap-6 mb-6">
+                                    <div class="bg-white border rounded-lg p-4">
+                                        <h4 class="text-md font-semibold mb-3 flex items-center">
+                                            <i data-lucide="crosshair" class="w-4 h-4 mr-2 text-indigo-600"></i>
+                                            Level vs Section Matrix
+                                            <span class="ml-2 text-xs bg-gray-100 text-gray-600 px-2 py-1 rounded">Cross-analysis</span>
+                                        </h4>
+                                        <canvas id="levelSectionMatrixChart" width="600" height="300"></canvas>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                    
-                    <!-- Trade Anomalies Tab Content -->
-                    <div id="anomaliesTabContent" class="hidden">
-                        <!-- Row 1: Summary KPI Tiles -->
-                        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-                            <!-- Total Anomalies Found -->
-                            <div class="bg-white rounded-lg border border-gray-200 p-6 shadow-sm">
-                                <div class="flex items-center justify-between">
-                                    <div>
-                                        <p class="text-sm font-medium text-gray-600">Total Anomalies Found</p>
-                                        <p id="totalAnomaliesCount" class="text-3xl font-bold text-red-600">0</p>
+                </div>
+
+                <!-- Dashboard Header -->
+                <div class="border-b border-gray-200 px-6 py-4 bg-white">
+                    <h2 class="text-xl font-semibold flex items-center">
+                        <i data-lucide="alert-triangle" class="w-5 h-5 mr-2 text-red-500"></i>
+                        Anomaly Evidence Dashboard
+                    </h2>
+                    <p class="text-sm text-gray-600 mt-1">Interactive analysis with evidence and visualizations</p>
+                </div>
+
+                <!-- Evidence Details (FIRST) -->
+                <div class="bg-white border-t border-gray-200">
+                    <div class="border-b border-gray-200 px-6 py-4">
+                        <h3 class="text-lg font-semibold text-slate-700 flex items-center">
+                            <i data-lucide="search" class="w-5 h-5 mr-2 text-blue-500"></i>
+                            Evidence Dashboard - Proof of Anomalies
+                        </h3>
+                        <p class="text-sm text-gray-600">Visual proof showing exactly why each anomaly was detected</p>
+                    </div>
+                    <div class="p-6">
+                        <div id="evidenceFilters" class="flex flex-wrap gap-2 mb-6">
+                            <!-- Filter buttons will be populated -->
+                        </div>
+                        
+                        <!-- Specific Evidence Visualizations -->
+                        <div id="evidenceCharts" class="space-y-8 mb-8">
+                            <!-- Yo-yo/Rework Evidence -->
+                            <div id="yoyoEvidence" class="hidden">
+                                <h4 class="text-lg font-semibold text-red-700 mb-4 flex items-center">
+                                    <span class="w-4 h-4 bg-red-500 rounded-full mr-2"></span>
+                                    Yo-yo / Rework Evidence: Status Regressions Over Time
+                                </h4>
+                                
+                                <!-- Timeline Heatmap (Location x Days) -->
+                                <div class="mb-6 bg-white border rounded-lg p-4">
+                                    <h5 class="font-medium mb-3 flex items-center">
+                                        <i data-lucide="calendar" class="w-4 h-4 mr-2 text-red-500"></i>
+                                        Regression Timeline Heatmap
+                                    </h5>
+                                    <div id="yoyoTimelineHeatmap" class="overflow-x-auto">
+                                        <!-- Timeline heatmap will be generated here -->
                                     </div>
-                                    <div class="p-3 bg-red-100 rounded-full">
-                                        <i data-lucide="alert-triangle" class="w-6 h-6 text-red-600"></i>
+                                    <div class="mt-2 flex items-center justify-between text-xs text-gray-600">
+                                        <span>Regression Intensity:</span>
+                                        <div class="flex items-center space-x-2">
+                                            <span class="w-4 h-4 bg-red-100 border rounded"></span><span>None</span>
+                                            <span class="w-4 h-4 bg-red-300 rounded"></span><span>Low</span>
+                                            <span class="w-4 h-4 bg-red-500 rounded"></span><span>Medium</span>
+                                            <span class="w-4 h-4 bg-red-700 rounded"></span><span>High</span>
+                                        </div>
                                     </div>
+                                </div>
+
+                                <div class="grid grid-cols-1 gap-6">
+                                    <!-- State Transition Flow -->
+                                    <div class="bg-white border rounded-lg p-4">
+                                        <h5 class="font-medium mb-3 flex items-center">
+                                            <i data-lucide="git-branch" class="w-4 h-4 mr-2 text-red-500"></i>
+                                            State Transitions
+                                        </h5>
+                                        <div id="yoyoStateFlow" class="min-h-[200px]">
+                                            <!-- State transition visualization -->
+                                        </div>
+                                    </div>
+
+                                    <!-- Regression Timeline -->
+                                    <div class="bg-white border rounded-lg p-4">
+                                        <h5 class="font-medium mb-3 flex items-center">
+                                            <i data-lucide="trending-down" class="w-4 h-4 mr-2 text-red-500"></i>
+                                            Daily Regressions
+                                        </h5>
+                                        <canvas id="yoyoTimelineChart" width="400" height="200"></canvas>
+                                    </div>
+
+                                    <!-- Location Impact -->
+                                    <div class="bg-white border rounded-lg p-4">
+                                        <h5 class="font-medium mb-3 flex items-center">
+                                            <i data-lucide="map-pin" class="w-4 h-4 mr-2 text-red-500"></i>
+                                            Worst Locations
+                                        </h5>
+                                        <canvas id="yoyoLocationChart" width="400" height="200"></canvas>
+                                    </div>
+                                </div>
+
+                                <!-- Quality Impact Analysis -->
+                                <div class="mt-6 grid grid-cols-1 gap-6">
+                                    <div class="bg-white border rounded-lg p-4">
+                                        <h5 class="font-medium mb-3 flex items-center">
+                                            <i data-lucide="alert-triangle" class="w-4 h-4 mr-2 text-red-500"></i>
+                                            Quality Risk Indicators
+                                        </h5>
+                                        <div id="yoyoQualityRisk" class="space-y-3">
+                                            <!-- Quality metrics will be populated -->
+                                        </div>
+                                    </div>
+
+                                    <div class="bg-white border rounded-lg p-4">
+                                        <h5 class="font-medium mb-3 flex items-center">
+                                            <i data-lucide="clock" class="w-4 h-4 mr-2 text-red-500"></i>
+                                            Rework Frequency
+                                        </h5>
+                                        <canvas id="yoyoFrequencyChart" width="400" height="200"></canvas>
+                                    </div>
+                                </div>
+
+                                <div class="mt-4 bg-red-50 border border-red-200 rounded-lg p-4">
+                                    <h5 class="font-medium text-red-800 mb-2">Evidence Summary</h5>
+                                    <div id="yoyoEvidenceText" class="text-sm text-red-700"></div>
                                 </div>
                             </div>
 
-                            <!-- Trades Affected -->
-                            <div class="bg-white rounded-lg border border-gray-200 p-6 shadow-sm">
-                                <div class="flex items-center justify-between">
-                                    <div>
-                                        <p class="text-sm font-medium text-gray-600">Trades Affected</p>
-                                        <p id="tradesAffectedCount" class="text-3xl font-bold text-orange-600">0</p>
+                            <!-- Swiss Cheese Evidence -->
+                            <div id="swissCheeseEvidence" class="hidden">
+                                <h4 class="text-lg font-semibold text-orange-700 mb-4 flex items-center">
+                                    <span class="w-4 h-4 bg-orange-500 rounded-full mr-2"></span>
+                                    Swiss Cheese Evidence: Completion Rate Disparities
+                                </h4>
+                                
+                                <!-- Floor Plan Style Heatmap -->
+                                <div class="mb-6 bg-white border rounded-lg p-4">
+                                    <h5 class="font-medium mb-3 flex items-center">
+                                        <i data-lucide="map" class="w-4 h-4 mr-2 text-orange-500"></i>
+                                        Building Floor Plan Heatmap
+                                    </h5>
+                                    <div id="swissCheeseFloorPlan" class="relative bg-gray-50 border-2 border-gray-200 rounded-lg min-h-[300px] p-4">
+                                        <!-- Floor plan visualization will be generated here -->
                                     </div>
-                                    <div class="p-3 bg-orange-100 rounded-full">
-                                        <i data-lucide="wrench" class="w-6 h-6 text-orange-600"></i>
+
+                            <!-- Bottleneck Evidence -->
+                            <div id="bottleneckEvidence" class="hidden">
+                                <h4 class="text-lg font-semibold text-rose-700 mb-4 flex items-center">
+                                    <span class="w-4 h-4 bg-rose-500 rounded-full mr-2"></span>
+                                    Bottleneck Evidence: Concurrent Trades in Locations
+                                </h4>
+                                <div class="grid grid-cols-1 gap-6">
+                                    <div class="bg-white border rounded-lg p-4">
+                                        <h5 class="font-medium mb-3 flex items-center">
+                                            <i data-lucide="map-pin" class="w-4 h-4 mr-2 text-rose-500"></i>
+                                            Conflicts by Location
+                                        </h5>
+                                        <canvas id="bottleneckLocationChart" width="400" height="200"></canvas>
                                     </div>
+                                    <div class="bg-white border rounded-lg p-4">
+                                        <h5 class="font-medium mb-3 flex items-center">
+                                            <i data-lucide="trending-up" class="w-4 h-4 mr-2 text-rose-500"></i>
+                                            Weekly Conflict Pattern
+                                        </h5>
+                                        <canvas id="bottleneckWeeklyChart" width="400" height="180"></canvas>
+                                    </div>
+                                </div>
+                                <div class="mt-4 bg-rose-50 border border-rose-200 rounded-lg p-4">
+                                    <h5 class="font-medium text-rose-800 mb-2">Evidence Summary</h5>
+                                    <div id="bottleneckEvidenceText" class="text-sm text-rose-700"></div>
                                 </div>
                             </div>
 
-                            <!-- Locations Affected -->
-                            <div class="bg-white rounded-lg border border-gray-200 p-6 shadow-sm">
-                                <div class="flex items-center justify-between">
-                                    <div>
-                                        <p class="text-sm font-medium text-gray-600">Locations Affected</p>
-                                        <p id="locationsAffectedCount" class="text-3xl font-bold text-blue-600">0</p>
+                            <!-- Unbalanced Progress Evidence -->
+                            <div id="unbalancedEvidence" class="hidden">
+                                <h4 class="text-lg font-semibold text-emerald-700 mb-4 flex items-center">
+                                    <span class="w-4 h-4 bg-emerald-500 rounded-full mr-2"></span>
+                                    Unbalanced Progress Evidence: Level Completion Gaps
+                                </h4>
+                                <div class="bg-white border rounded-lg p-4 mb-6">
+                                    <h5 class="font-medium mb-3 flex items-center">
+                                        <i data-lucide="layers" class="w-4 h-4 mr-2 text-emerald-500"></i>
+                                        Task Distribution by Level
+                                    </h5>
+                                    <canvas id="levelStackedBarChart" width="400" height="200"></canvas>
+                                </div>
+                                <div class="mt-4 bg-emerald-50 border border-emerald-200 rounded-lg p-4">
+                                    <h5 class="font-medium text-emerald-800 mb-2">Evidence Summary</h5>
+                                    <div id="unbalancedEvidenceText" class="text-sm text-emerald-700"></div>
+                                </div>
+                            </div>
+                                    <div class="mt-2 flex items-center justify-between text-xs text-gray-600">
+                                        <span>Completion Rate:</span>
+                                        <div class="flex items-center space-x-2">
+                                            <span class="w-4 h-4 bg-red-500 rounded"></span><span>0-25%</span>
+                                            <span class="w-4 h-4 bg-orange-500 rounded"></span><span>25-50%</span>
+                                            <span class="w-4 h-4 bg-yellow-500 rounded"></span><span>50-75%</span>
+                                            <span class="w-4 h-4 bg-green-500 rounded"></span><span>75-100%</span>
+                                        </div>
                                     </div>
-                                    <div class="p-3 bg-blue-100 rounded-full">
-                                        <i data-lucide="map-pin" class="w-6 h-6 text-blue-600"></i>
+                                </div>
+
+                                <div class="grid grid-cols-1 gap-6">
+                                    <!-- Completion Matrix -->
+                                    <div class="bg-white border rounded-lg p-4">
+                                        <h5 class="font-medium mb-3 flex items-center">
+                                            <i data-lucide="grid-3x3" class="w-4 h-4 mr-2 text-orange-500"></i>
+                                            Trade vs Location Matrix
+                                        </h5>
+                                        <canvas id="swissCheeseHeatmap" width="400" height="250"></canvas>
                                     </div>
+
+                                    <!-- Variance Analysis -->
+                                    <div class="bg-white border rounded-lg p-4">
+                                        <h5 class="font-medium mb-3 flex items-center">
+                                            <i data-lucide="trending-up" class="w-4 h-4 mr-2 text-orange-500"></i>
+                                            Completion Rate Spread
+                                        </h5>
+                                        <canvas id="swissCheeseSpreadChart" width="400" height="250"></canvas>
+                                    </div>
+
+                                    <!-- KPI Cards -->
+                                    <div class="bg-white border rounded-lg p-4">
+                                        <h5 class="font-medium mb-3 flex items-center">
+                                            <i data-lucide="activity" class="w-4 h-4 mr-2 text-orange-500"></i>
+                                            Key Metrics
+                                        </h5>
+                                        <div id="swissCheeseKPIs" class="space-y-3">
+                                            <!-- KPI cards will be populated -->
+                                        </div>
+                                    </div>
+
+                                    <!-- Top Performers/Laggards -->
+                                    <div class="bg-white border rounded-lg p-4">
+                                        <h5 class="font-medium mb-3 flex items-center">
+                                            <i data-lucide="award" class="w-4 h-4 mr-2 text-orange-500"></i>
+                                            Performance Outliers
+                                        </h5>
+                                        <div id="swissCheeseOutliers" class="space-y-2">
+                                            <!-- Outlier analysis will be populated -->
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="mt-4 bg-orange-50 border border-orange-200 rounded-lg p-4">
+                                    <h5 class="font-medium text-orange-800 mb-2">Evidence Summary</h5>
+                                    <div id="swissCheeseEvidenceText" class="text-sm text-orange-700"></div>
+                                </div>
+                            </div>
+
+                            <!-- Abandonment Evidence -->
+                            <div id="abandonmentEvidence" class="hidden">
+                                <h4 class="text-lg font-semibold text-yellow-700 mb-4 flex items-center">
+                                    <span class="w-4 h-4 bg-yellow-500 rounded-full mr-2"></span>
+                                    Abandonment Evidence: Long-Running Tasks
+                                </h4>
+                                <div class="grid grid-cols-1 gap-6">
+                                    <div class="bg-white border rounded-lg p-4">
+                                        <h5 class="font-medium mb-3">Task Duration Distribution</h5>
+                                        <canvas id="abandonmentDurationChart" width="400" height="250"></canvas>
+                                    </div>
+                                    <div class="bg-white border rounded-lg p-4">
+                                        <h5 class="font-medium mb-3">Stalled Tasks Timeline</h5>
+                                        <canvas id="abandonmentTimelineChart" width="400" height="250"></canvas>
+                                    </div>
+                                </div>
+                                <div class="mt-4 bg-yellow-50 border border-yellow-200 rounded-lg p-4">
+                                    <h5 class="font-medium text-yellow-800 mb-2">Evidence Summary</h5>
+                                    <div id="abandonmentEvidenceText" class="text-sm text-yellow-700"></div>
                                 </div>
                             </div>
                         </div>
 
-                        <!-- Row 2: Anomaly Type Tiles -->
-                        <div class="mb-8">
-                            <h3 class="text-lg font-semibold text-gray-900 mb-4">Anomaly Types Detected</h3>
-                            <div id="anomaliesTypeGrid" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
-                                <!-- Anomaly type tiles will be populated by JavaScript -->
-                            </div>
-                        </div>
-
-                        <!-- Row 3: Dynamic Visualization Area -->
-                        <div class="bg-white rounded-lg border border-gray-200 shadow-sm">
-                            <!-- Default placeholder when no anomaly is selected -->
-                            <div id="anomalyPlaceholder" class="p-12 text-center">
-                                <i data-lucide="chart-bar" class="w-16 h-16 text-gray-400 mx-auto mb-4"></i>
-                                <h3 class="text-lg font-semibold text-gray-600 mb-2">Select an Anomaly Type</h3>
-                                <p class="text-gray-500">Click on one of the anomaly type tiles above to view detailed analysis and evidence.</p>
-                            </div>
-
-                            <!-- Dynamic content area for specific anomaly visualizations -->
-                            <div id="anomalyVisualization" class="hidden">
-                                <!-- Content will be populated by JavaScript based on selected anomaly -->
-                            </div>
+                        <div id="evidenceGrid" class="grid grid-cols-1 gap-4 mb-6">
+                            <!-- Evidence cards will be populated -->
                         </div>
                     </div>
+                </div>
+
+                <!-- Detailed Table (SECOND) -->
+                <div id="anomalyResults" class="border-t border-gray-200">
+                    <div class="px-6 py-4 bg-gray-50">
+                        <h3 class="text-lg font-semibold text-slate-700 flex items-center">
+                            <i data-lucide="table" class="w-5 h-5 mr-2 text-gray-500"></i>
+                            Detailed Anomaly Table
+                        </h3>
+                    </div>
+                    <div class="p-6">
+                        <!-- Results will be populated by JavaScript -->
+                    </div>
+                </div>
+
+                <!-- Summary Dashboard (LAST) -->
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 p-6 bg-gray-50">
+                    <!-- Anomaly Type Distribution -->
+                    <div class="bg-white rounded-lg shadow-md p-6">
+                        <h3 class="text-lg font-semibold text-slate-700 mb-4 flex items-center">
+                            <span class="w-3 h-3 bg-blue-500 rounded-full mr-2"></span>
+                            Anomaly Type Distribution
+                        </h3>
+                        <canvas id="anomalyTypeChart" width="400" height="300"></canvas>
+                    </div>
+
+                    <!-- Timeline Heatmap -->
+                    <div class="bg-white rounded-lg shadow-md p-6">
+                        <h3 class="text-lg font-semibold text-slate-700 mb-4 flex items-center">
+                            <span class="w-3 h-3 bg-green-500 rounded-full mr-2"></span>
+                            Anomaly Timeline
+                        </h3>
+                        <div id="timelineHeatmap" class="overflow-x-auto">
+                            <!-- Timeline visualization -->
+                        </div>
+                    </div>
+
+                    <!-- Location Impact -->
+                    <div class="bg-white rounded-lg shadow-md p-6">
+                        <h3 class="text-lg font-semibold text-slate-700 mb-4 flex items-center">
+                            <span class="w-3 h-3 bg-purple-500 rounded-full mr-2"></span>
+                            Location Impact Analysis
+                        </h3>
+                        <canvas id="locationChart" width="400" height="300"></canvas>
+                    </div>
+
+                    <!-- Trade Performance -->
+                    <div class="bg-white rounded-lg shadow-md p-6">
+                        <h3 class="text-lg font-semibold text-slate-700 mb-4 flex items-center">
+                            <span class="w-3 h-3 bg-orange-500 rounded-full mr-2"></span>
+                            Trade Performance
+                        </h3>
+                        <canvas id="tradeChart" width="400" height="300"></canvas>
+                    </div>
+                </div>
+                    </div> <!-- End dashboardContent -->
+                </div> <!-- End tab content container -->
+            </div>
 
             <!-- No Anomalies -->
             <div id="noAnomalies" class="text-center py-12 bg-white rounded-lg shadow hidden">
@@ -992,328 +1313,314 @@
             return records;
         };
 
-        // ========================================
-        // TRADE SEQUENCE AND RULES CONFIGURATION
-        // ========================================
-        
-        const TRADE_DEPENDENCIES = {
-            'Overhead Duct Rough In': [],
-            'Overhead Plumbing': [],
-            'Overhead Duct Insulation': ['Overhead Duct Rough In'],
-            'In Wall Insulation': ['Overhead Duct Rough In', 'Overhead Plumbing'],
-            'Wall Drywall': ['In Wall Insulation', 'Overhead Duct Insulation'],
-            'Wall Drywall Finish': ['Wall Drywall'],
-            'Wall Prime Paint': ['Wall Drywall Finish']
-        };
-
-        const CONFLICTING_TRADE_PAIRS = [
-            ['Overhead Duct Rough In', 'Wall Prime Paint'],
-            ['Overhead Plumbing', 'Wall Drywall Finish'],
-            ['Overhead Duct Insulation', 'Wall Prime Paint'],
-            ['Wall Drywall', 'Overhead Duct Rough In']
-        ];
-
-        // ========================================
-        // COMPREHENSIVE ANOMALY DETECTION SYSTEM
-        // ========================================
-
         const runClientSideDetection = async () => {
             const data = parseCsvData();
             const detectedAnomalies = [];
-            
-            // Enhanced data preprocessing
-            const processedData = preprocessTradeData(data);
-            
-            // Run comprehensive detection algorithms
-            const detectionResults = await Promise.all([
-                detectSequenceViolations(processedData),
-                detectStalledTrades(processedData),
-                detectTradeVelocityDisparities(processedData),
-                detectCompletionClustering(processedData),
-                detectTradeStackDensity(processedData),
-                calculateBottleneckIndex(processedData),
-                detectAbandonedZones(processedData),
-                detectTradeLeapfrogging(processedData),
-                detectCompletionRateDecay(processedData),
-                detectFalseStarts(processedData),
-                detectHiddenRework(processedData),
-                detectTradeCollisions(processedData),
-                detectAsymmetricProgress(processedData),
-                detectScheduleDeviations(processedData),
-                detectMaterialConstraints(processedData)
-            ]);
+            const selectedAnomalies = Array.from(document.querySelectorAll('input[type="checkbox"]:checked')).map(cb => cb.value);
 
-            // Filter and add valid results
-            detectionResults.forEach(result => {
-                if (result && result.items && result.items.length > 0) {
-                    detectedAnomalies.push(result);
-                }
-            });
-
-            return detectedAnomalies;
-        };
-
-        // ========================================
-        // DATA PREPROCESSING
-        // ========================================
-
-        const preprocessTradeData = (data) => {
+            // Group data by useful dimensions
             const byLocation = {};
             const byTrade = {};
             const byLocationTrade = {};
-            const bySection = {};
-            const timeSeriesData = [];
 
             data.forEach(row => {
                 const location = row.location || row.location_id || row.building || 'Unknown';
                 const trade = row.trade || 'Unknown';
                 const state = row.state || row.status || '';
-                const section = row.section || row.zone || 'Unknown';
-                const captureDate = row.capture_date || row.date || row.timestamp;
-                const completionRate = parseFloat(row.completion_rate || row.progress || 0);
-                
                 const key = `${location}_${trade}`;
 
-                // Initialize groupings
                 if (!byLocation[location]) byLocation[location] = [];
                 if (!byTrade[trade]) byTrade[trade] = [];
                 if (!byLocationTrade[key]) byLocationTrade[key] = [];
-                if (!bySection[section]) bySection[section] = [];
 
-                // Enhanced row data
-                const enhancedRow = {
-                    ...row,
-                    location,
-                    trade,
-                    state,
-                    section,
-                    captureDate: captureDate ? new Date(captureDate) : null,
-                    completionRate,
-                    key
-                };
-
-                byLocation[location].push(enhancedRow);
-                byTrade[trade].push(enhancedRow);
-                byLocationTrade[key].push(enhancedRow);
-                bySection[section].push(enhancedRow);
-                timeSeriesData.push(enhancedRow);
+                byLocation[location].push(row);
+                byTrade[trade].push(row);
+                byLocationTrade[key].push(row);
             });
 
-            return {
-                raw: data,
-                byLocation,
-                byTrade,
-                byLocationTrade,
-                bySection,
-                timeSeriesData: timeSeriesData.sort((a, b) => (a.captureDate || 0) - (b.captureDate || 0))
-            };
-        };
-
-        // ========================================
-        // 15 ANOMALY DETECTION ALGORITHMS
-        // ========================================
-
-        // 1. Sequence Violations Detection
-        const detectSequenceViolations = (processedData) => {
-            const violations = [];
-            
-            Object.entries(processedData.byLocationTrade).forEach(([key, records]) => {
-                const [location, trade] = key.split('_');
-                const prerequisites = TRADE_DEPENDENCIES[trade] || [];
+            // 1. ABANDONMENT DETECTION
+            if (selectedAnomalies.includes('abandonment')) {
+                const abandonedTasks = [];
                 
-                // Check if this trade is complete but prerequisites aren't
-                const isTradeComplete = records.some(r => r.state.toLowerCase().includes('complete'));
-                
-                if (isTradeComplete && prerequisites.length > 0) {
-                    prerequisites.forEach(prereq => {
-                        const prereqKey = `${location}_${prereq}`;
-                        const prereqRecords = processedData.byLocationTrade[prereqKey] || [];
-                        const isPrereqComplete = prereqRecords.some(r => r.state.toLowerCase().includes('complete'));
+                Object.entries(byLocationTrade).forEach(([key, records]) => {
+                    const inProgressTasks = records.filter(r => 
+                        (r.state || '').toLowerCase().includes('progress') || 
+                        (r.state || '').toLowerCase().includes('active')
+                    );
+                    
+                    inProgressTasks.forEach(task => {
+                        const startDate = parseDate(task.start_date || task.actual_start_date);
+                        const today = new Date();
                         
-                        if (!isPrereqComplete) {
-                            violations.push({
-                                location,
-                                trade,
-                                violatedTrade: trade,
-                                missingPrerequisite: prereq,
-                                severity: 'High'
-                            });
+                        if (startDate) {
+                            const elapsedDays = daysBetween(startDate, today);
+                            
+                            if (elapsedDays > 30) { // Lowered from 60 to 30 days for testing
+                                abandonedTasks.push({
+                                    location: task.location || task.location_id || task.building,
+                                    trade: task.trade,
+                                    value: Math.round(elapsedDays),
+                                    description: `In-progress for ${Math.round(elapsedDays)} days`
+                                });
+                            }
                         }
                     });
+                });
+
+                if (abandonedTasks.length > 0) {
+                    detectedAnomalies.push({
+                        type: 'abandonment',
+                        name: 'Abandonment',
+                        category: 'Time-based',
+                        severity: abandonedTasks.length > 5 ? 'high' : 'medium',
+                        count: abandonedTasks.length,
+                        locations: [...new Set(abandonedTasks.map(t => t.location))],
+                        details: `Found ${abandonedTasks.length} tasks that have been in-progress for unusually long periods`,
+                        data: abandonedTasks.slice(0, 10)
+                    });
                 }
-            });
+            }
 
-            return {
-                type: 'sequenceViolations',
-                name: 'Sequence Violations',
-                description: 'Trades completed before their prerequisites',
-                severity: 'High',
-                items: violations,
-                impact: 'Quality issues and rework risk'
-            };
-        };
-
-        // 2. Stalled Trades Detection  
-        const detectStalledTrades = (processedData) => {
-            const stalledTrades = [];
-            
-            Object.entries(processedData.byLocationTrade).forEach(([key, records]) => {
-                const inProgressRecords = records.filter(r => r.state.toLowerCase().includes('progress'));
-                const completionRates = records.map(r => r.completionRate).filter(rate => rate > 0);
+            // 2. YO-YO / REWORK DETECTION
+            if (selectedAnomalies.includes('yoyo')) {
+                const yoyoTasks = [];
                 
-                if (inProgressRecords.length > 0 && completionRates.length > 0) {
-                    const avgCompletion = completionRates.reduce((a, b) => a + b, 0) / completionRates.length;
-                    const inProgressRatio = inProgressRecords.length / records.length;
+                Object.entries(byLocationTrade).forEach(([key, records]) => {
+                    if (records.length > 1) {
+                        const sorted = records.sort((a, b) => {
+                            const dateA = parseDate(a.capture_date || a.date);
+                            const dateB = parseDate(b.capture_date || b.date);
+                            if (!dateA || !dateB) return 0;
+                            return dateA - dateB;
+                        });
+
+                        for (let i = 1; i < sorted.length; i++) {
+                            const prev = sorted[i-1];
+                            const curr = sorted[i];
+                            
+                            const prevComplete = (prev.state || '').toLowerCase().includes('complete');
+                            const currNotComplete = !(curr.state || '').toLowerCase().includes('complete');
+                            
+                            if (prevComplete && currNotComplete) {
+                                yoyoTasks.push({
+                                    location: curr.location || curr.location_id || curr.building,
+                                    trade: curr.trade,
+                                    value: 1,
+                                    description: `Regressed from complete to ${curr.state}`
+                                });
+                            }
+                        }
+                    }
+                });
+
+                if (yoyoTasks.length > 0) {
+                    detectedAnomalies.push({
+                        type: 'yoyo',
+                        name: 'Yo-yo / Rework',
+                        category: 'Time-based',
+                        severity: yoyoTasks.length > 3 ? 'high' : 'medium',
+                        count: yoyoTasks.length,
+                        locations: [...new Set(yoyoTasks.map(t => t.location))],
+                        details: `Found ${yoyoTasks.length} instances of work regression`,
+                        data: yoyoTasks
+                    });
+                }
+            }
+
+            // 3. SWISS CHEESE DETECTION
+            if (selectedAnomalies.includes('swissCheese')) {
+                const swissCheeseAnomalies = [];
+                
+                Object.entries(byTrade).forEach(([trade, records]) => {
+                    const locationCompletionRates = {};
                     
-                    if (inProgressRatio > 0.5 && avgCompletion < 20) {
-                        const [location, trade] = key.split('_');
-                        stalledTrades.push({
-                            location,
-                            trade,
-                            inProgressRatio: Math.round(inProgressRatio * 100),
-                            avgCompletion: Math.round(avgCompletion),
-                            severity: 'Medium'
-                        });
-                    }
-                }
-            });
-
-            return {
-                type: 'stalledTrades',
-                name: 'Stalled Trades',
-                description: 'Trades with high in-progress percentage but low completion rates',
-                severity: 'Medium',
-                items: stalledTrades,
-                impact: 'Resource allocation inefficiency'
-            };
-        };
-
-        // 3. Trade Velocity Disparities Detection
-        const detectTradeVelocityDisparities = (processedData) => {
-            const disparities = [];
-            
-            Object.entries(processedData.byTrade).forEach(([trade, records]) => {
-                const sectionVelocities = {};
-                
-                records.forEach(record => {
-                    const section = record.section;
-                    if (!sectionVelocities[section]) sectionVelocities[section] = [];
-                    sectionVelocities[section].push(record.completionRate);
-                });
-                
-                const sectionAvgs = Object.entries(sectionVelocities).map(([section, rates]) => ({
-                    section,
-                    avgRate: rates.reduce((a, b) => a + b, 0) / rates.length
-                }));
-                
-                if (sectionAvgs.length > 1) {
-                    const maxRate = Math.max(...sectionAvgs.map(s => s.avgRate));
-                    const minRate = Math.min(...sectionAvgs.map(s => s.avgRate));
-                    const variance = ((maxRate - minRate) / maxRate) * 100;
+                    Object.entries(byLocation).forEach(([location, locationRecords]) => {
+                        const tradeRecords = locationRecords.filter(r => r.trade === trade);
+                        if (tradeRecords.length > 0) {
+                            const completed = tradeRecords.filter(r => 
+                                (r.state || '').toLowerCase().includes('complete')
+                            ).length;
+                            locationCompletionRates[location] = completed / tradeRecords.length;
+                        }
+                    });
                     
-                    if (variance > 40) {
-                        disparities.push({
-                            trade,
-                            location: `Sections: ${sectionAvgs.map(s => s.section).join(', ')}`,
-                            variance: Math.round(variance),
-                            fastest: sectionAvgs.find(s => s.avgRate === maxRate),
-                            slowest: sectionAvgs.find(s => s.avgRate === minRate),
-                            severity: 'Medium'
+                    const rates = Object.values(locationCompletionRates);
+                    if (rates.length > 2) {
+                        const max = Math.max(...rates);
+                        const min = Math.min(...rates);
+                        const spread = max - min;
+                        
+                        if (spread > 0.3) { // Lowered from 0.5 to 0.3 for testing
+                            const incompleteLocations = Object.entries(locationCompletionRates)
+                                .filter(([loc, rate]) => rate < 0.3)
+                                .map(([loc]) => loc);
+                                
+                            swissCheeseAnomalies.push({
+                                location: `Multiple (${incompleteLocations.length} affected)`,
+                                trade: trade,
+                                value: Math.round(spread * 100),
+                                description: `${Math.round(spread * 100)}% completion spread across locations`
+                            });
+                        }
+                    }
+                });
+
+                if (swissCheeseAnomalies.length > 0) {
+                    detectedAnomalies.push({
+                        type: 'swissCheese',
+                        name: 'Swiss-Cheese Flow',
+                        category: 'Spatial-pattern',
+                        severity: swissCheeseAnomalies.length > 2 ? 'high' : 'medium',
+                        count: swissCheeseAnomalies.length,
+                        locations: [...new Set(swissCheeseAnomalies.map(t => t.location))],
+                        details: `Found ${swissCheeseAnomalies.length} trades with scattered completion patterns`,
+                        data: swissCheeseAnomalies
+                    });
+                }
+            }
+
+            // 4. TRADE STARVATION DETECTION
+            if (selectedAnomalies.includes('tradeStarvation')) {
+                const starvationCases = [];
+                
+                const tradeDependencies = {
+                    'electrical': ['structural'],
+                    'plumbing': ['structural'],
+                    'drywall': ['electrical', 'plumbing'],
+                    'mechanical': ['structural']
+                };
+                
+                Object.entries(byLocation).forEach(([location, records]) => {
+                    Object.entries(tradeDependencies).forEach(([trade, prerequisites]) => {
+                        const tradeRecord = records.find(r => 
+                            (r.trade || '').toLowerCase().includes(trade.toLowerCase())
+                        );
+                        
+                        if (tradeRecord && (tradeRecord.state || '').toLowerCase().includes('not-started')) {
+                            const prereqsComplete = prerequisites.some(prereq => {
+                                const prereqRecord = records.find(r => 
+                                    (r.trade || '').toLowerCase().includes(prereq.toLowerCase())
+                                );
+                                return prereqRecord && (prereqRecord.state || '').toLowerCase().includes('complete');
+                            });
+                            
+                            if (prereqsComplete) {
+                                starvationCases.push({
+                                    location: location,
+                                    trade: trade,
+                                    value: prerequisites.length,
+                                    description: `Prerequisites complete but ${trade} not started`
+                                });
+                            }
+                        }
+                    });
+                });
+
+                if (starvationCases.length > 0) {
+                    detectedAnomalies.push({
+                        type: 'tradeStarvation',
+                        name: 'Trade Starvation',
+                        category: 'Time-based',
+                        severity: starvationCases.length > 3 ? 'high' : 'medium',
+                        count: starvationCases.length,
+                        locations: [...new Set(starvationCases.map(t => t.location))],
+                        details: `Found ${starvationCases.length} cases where follow-on trades haven't started`,
+                        data: starvationCases
+                    });
+                }
+            }
+
+            // 5. BLOCKAGE DETECTION
+            if (selectedAnomalies.includes('blockage')) {
+                const blockageCases = [];
+                
+                Object.entries(byLocation).forEach(([location, records]) => {
+                    const inProgressTrades = records.filter(r => 
+                        (r.state || '').toLowerCase().includes('progress')
+                    );
+                    
+                    if (inProgressTrades.length > 2) {
+                        const avgDuration = inProgressTrades.map(trade => {
+                            const startDate = parseDate(trade.start_date || trade.actual_start_date);
+                            if (startDate) {
+                                return daysBetween(startDate, new Date());
+                            }
+                            return 0;
+                        }).filter(d => d > 0);
+                        
+                        if (avgDuration.length > 0) {
+                            const avgDays = avgDuration.reduce((sum, d) => sum + d, 0) / avgDuration.length;
+                            
+                            if (avgDays > 30) {
+                                blockageCases.push({
+                                    location: location,
+                                    trade: `${inProgressTrades.length} trades`,
+                                    value: Math.round(avgDays),
+                                    description: `${inProgressTrades.length} trades blocked for ${Math.round(avgDays)} days`
+                                });
+                            }
+                        }
+                    }
+                });
+
+                if (blockageCases.length > 0) {
+                    detectedAnomalies.push({
+                        type: 'blockage',
+                        name: 'Blockage / Deadlock',
+                        category: 'Cross-trade',
+                        severity: blockageCases.some(b => b.value > 60) ? 'high' : 'medium',
+                        count: blockageCases.length,
+                        locations: [...new Set(blockageCases.map(t => t.location))],
+                        details: `Found ${blockageCases.length} locations with multiple stalled trades`,
+                        data: blockageCases
+                    });
+                }
+            }
+
+            // 6. BOTTLENECK DETECTION (new)
+            if (selectedAnomalies.includes('bottleneck')) {
+                const analysis = performAdvancedAnalysis(data);
+                const bottlenecks = analysis.locationBottlenecks || [];
+                if (bottlenecks.length > 0) {
+                    detectedAnomalies.push({
+                        type: 'bottleneck',
+                        name: 'Bottleneck',
+                        category: 'Cross-trade',
+                        severity: bottlenecks.some(b => b.severity === 'critical') ? 'high' : 'medium',
+                        count: bottlenecks.length,
+                        locations: bottlenecks.map(b => b.location),
+                        details: `Found ${bottlenecks.length} locations with 3+ concurrent in-progress trades`,
+                        data: bottlenecks
+                    });
+                }
+            }
+
+            // 7. UNBALANCED PROGRESS (new)
+            if (selectedAnomalies.includes('unbalancedProgress')) {
+                const analysis = performAdvancedAnalysis(data);
+                const levels = Object.entries(analysis.levelAnalysis || {});
+                if (levels.length > 1) {
+                    const rates = levels.map(([level, d]) => d.total ? (d.complete / d.total) * 100 : 0);
+                    const maxRate = Math.max(...rates);
+                    const minRate = Math.min(...rates);
+                    const spread = maxRate - minRate;
+                    if (spread > 30) {
+                        detectedAnomalies.push({
+                            type: 'unbalancedProgress',
+                            name: 'Unbalanced Progress',
+                            category: 'Spatial-pattern',
+                            severity: spread > 45 ? 'high' : 'medium',
+                            count: levels.length,
+                            locations: levels.map(([lvl]) => `Level ${lvl}`),
+                            details: `Significant progress gap across levels (${spread.toFixed(1)}% spread)`,
+                            data: levels.map(([level, d]) => ({ level, complete: d.complete, inProgress: d.inProgress, total: d.total }))
                         });
                     }
                 }
-            });
+            }
 
-            return {
-                type: 'velocityDisparities',
-                name: 'Trade Velocity Disparities',
-                description: 'Significant completion rate differences across sections',
-                severity: 'Medium',
-                items: disparities,
-                impact: 'Uneven resource distribution'
-            };
+            return detectedAnomalies;
         };
-
-        // 4. Trade Collisions Detection
-        const detectTradeCollisions = (processedData) => {
-            const collisions = [];
-            
-            Object.entries(processedData.byLocation).forEach(([location, records]) => {
-                const inProgressTrades = records
-                    .filter(r => r.state.toLowerCase().includes('progress'))
-                    .map(r => r.trade);
-                
-                CONFLICTING_TRADE_PAIRS.forEach(([trade1, trade2]) => {
-                    if (inProgressTrades.includes(trade1) && inProgressTrades.includes(trade2)) {
-                        collisions.push({
-                            location,
-                            trade: `${trade1} + ${trade2}`,
-                            conflictingTrades: [trade1, trade2],
-                            severity: 'High'
-                        });
-                    }
-                });
-            });
-
-            return {
-                type: 'tradeCollisions',
-                name: 'Trade Collisions',
-                description: 'Conflicting trades active simultaneously at same location',
-                severity: 'High',
-                items: collisions,
-                impact: 'Safety risks and workflow disruption'
-            };
-        };
-
-        // 5. Hidden Rework Detection
-        const detectHiddenRework = (processedData) => {
-            const reworkCases = [];
-            
-            Object.entries(processedData.byLocationTrade).forEach(([key, records]) => {
-                if (records.length < 2) return;
-                
-                const sortedRecords = records.sort((a, b) => (a.captureDate || 0) - (b.captureDate || 0));
-                let wasComplete = false;
-                
-                sortedRecords.forEach(record => {
-                    if (record.state.toLowerCase().includes('complete')) {
-                        wasComplete = true;
-                    } else if (wasComplete && record.state.toLowerCase().includes('progress')) {
-                        const [location, trade] = key.split('_');
-                        reworkCases.push({
-                            location,
-                            trade,
-                            regressionDate: record.captureDate,
-                            fromState: 'Complete',
-                            toState: record.state,
-                            severity: 'High'
-                        });
-                        wasComplete = false; // Reset to avoid duplicate detection
-                    }
-                });
-            });
-
-            return {
-                type: 'hiddenRework',
-                name: 'Hidden Rework',
-                description: 'State changes from complete back to in-progress',
-                severity: 'High',
-                items: reworkCases,
-                impact: 'Quality issues and cost overruns'
-            };
-        };
-
-        // Add placeholder functions for the remaining algorithms
-        const detectCompletionClustering = (processedData) => ({ type: 'completionClustering', name: 'Completion Clustering', items: [] });
-        const detectTradeStackDensity = (processedData) => ({ type: 'tradeStackDensity', name: 'Trade Stack Density', items: [] });
-        const calculateBottleneckIndex = (processedData) => ({ type: 'bottleneckIndex', name: 'Bottleneck Index', items: [] });
-        const detectAbandonedZones = (processedData) => ({ type: 'abandonedZones', name: 'Abandoned Zones', items: [] });
-        const detectTradeLeapfrogging = (processedData) => ({ type: 'tradeLeapfrogging', name: 'Trade Leapfrogging', items: [] });
-        const detectCompletionRateDecay = (processedData) => ({ type: 'completionRateDecay', name: 'Completion Rate Decay', items: [] });
-        const detectFalseStarts = (processedData) => ({ type: 'falseStarts', name: 'False Starts', items: [] });
-        const detectAsymmetricProgress = (processedData) => ({ type: 'asymmetricProgress', name: 'Asymmetric Progress', items: [] });
-        const detectScheduleDeviations = (processedData) => ({ type: 'scheduleDeviations', name: 'Schedule Deviations', items: [] });
-        const detectMaterialConstraints = (processedData) => ({ type: 'materialConstraints', name: 'Material Constraints', items: [] });
 
         // File upload handler
         document.getElementById('csvFile').addEventListener('change', async (event) => {
@@ -1380,8 +1687,6 @@
                 
                 if (anomalies.length > 0) {
                     displayResults(anomalies);
-                    // Populate the new anomaly dashboard
-                    populateAnomalyDashboard(anomalies);
                 } else {
                     document.getElementById('noAnomalies').classList.remove('hidden');
                 }
@@ -2270,261 +2575,6 @@
 
 
 
-        // Create tab-specific KPIs and charts based on current view
-        const createTabSpecificKPIs = (data, activeTab) => {
-            const kpiContainer = document.querySelector('#primaryKPIContainer');
-            if (!kpiContainer) return;
-
-            // All tabs now use the same unified KPI structure
-            createUnifiedKPIs(data);
-        };
-
-        // Unified KPIs for all tabs (Row 1: 4 tiles)
-        const createUnifiedKPIs = (data) => {
-            const totalTasks = data.length;
-            const completedTasks = data.filter(item => (item.state || '').toLowerCase().includes('complete')).length;
-            const overallProgress = totalTasks > 0 ? ((completedTasks / totalTasks) * 100).toFixed(1) : '0';
-            
-            // Calculate work velocity (completion rate per day)
-            const workVelocity = calculateWorkVelocity(data);
-            
-            // Count active trades (in progress)
-            const trades = [...new Set(data.map(item => item.trade).filter(Boolean))];
-            const activeTrades = trades.filter(trade => {
-                const tradeTasks = data.filter(item => item.trade === trade);
-                const inProgress = tradeTasks.filter(item => 
-                    (item.state || '').toLowerCase().includes('progress') || 
-                    (item.state || '').toLowerCase().includes('active')
-                ).length;
-                return inProgress > 0;
-            });
-
-            // Get last capture date
-            const lastCaptureDate = getLastCaptureDate(data);
-            
-            const kpiHtml = `
-                <div class="kpi-card">
-                    <div class="kpi-value" style="color: #3b82f6;">${overallProgress}%</div>
-                    <div class="kpi-label">Overall Progress</div>
-                    <div class="kpi-description">${completedTasks}/${totalTasks} tasks completed</div>
-                </div>
-                <div class="kpi-card">
-                    <div class="kpi-value" style="color: #10b981;">${workVelocity}</div>
-                    <div class="kpi-label">Work Velocity</div>
-                    <div class="kpi-description">Tasks completed per day</div>
-                </div>
-                <div class="kpi-card">
-                    <div class="kpi-value" style="color: #f59e0b;">${activeTrades.length}</div>
-                    <div class="kpi-label">Active Trades</div>
-                    <div class="kpi-description">Currently in progress</div>
-                </div>
-                <div class="kpi-card">
-                    <div class="kpi-value" style="color: #8b5cf6;">${lastCaptureDate}</div>
-                    <div class="kpi-label">Last Capture</div>
-                    <div class="kpi-description">Most recent data</div>
-                </div>
-            `;
-            
-            document.querySelector('#primaryKPIContainer').innerHTML = kpiHtml;
-        };
-
-        // Calculate work velocity (completion rate per day)
-        const calculateWorkVelocity = (data) => {
-            const completedTasks = data.filter(item => (item.state || '').toLowerCase().includes('complete'));
-            if (completedTasks.length === 0) return '0.0';
-            
-            // Get all completion dates
-            const completionDates = completedTasks
-                .map(item => item.complete_date)
-                .filter(Boolean)
-                .map(date => new Date(date))
-                .filter(date => !isNaN(date.getTime()));
-                
-            if (completionDates.length === 0) return '0.0';
-            
-            // Calculate date range
-            const minDate = new Date(Math.min(...completionDates));
-            const maxDate = new Date(Math.max(...completionDates));
-            const daysDiff = Math.max(1, Math.ceil((maxDate - minDate) / (1000 * 60 * 60 * 24)));
-            
-            const velocity = (completedTasks.length / daysDiff).toFixed(1);
-            return velocity;
-        };
-
-        // Get last capture date from the data
-        const getLastCaptureDate = (data) => {
-            const allDates = [
-                ...data.map(item => item.complete_date),
-                ...data.map(item => item.start_date),
-                ...data.map(item => item.end_date)
-            ].filter(Boolean);
-            
-            if (allDates.length === 0) return 'N/A';
-            
-            const dates = allDates
-                .map(date => new Date(date))
-                .filter(date => !isNaN(date.getTime()));
-                
-            if (dates.length === 0) return 'N/A';
-            
-            const lastDate = new Date(Math.max(...dates));
-            return lastDate.toLocaleDateString();
-        };
-
-        // Level-specific KPIs
-        const createLevelKPIs = (data) => {
-            if (currentFilter) {
-                // Single level view
-                const levelData = data.filter(item => item.level === currentFilter);
-                const totalTasks = levelData.length;
-                const completedTasks = levelData.filter(item => (item.state || '').toLowerCase().includes('complete')).length;
-                const levelProgress = totalTasks > 0 ? ((completedTasks / totalTasks) * 100).toFixed(1) : '0';
-                
-                const trades = [...new Set(levelData.map(item => item.trade).filter(Boolean))];
-                const sections = [...new Set(levelData.map(item => item.section).filter(Boolean))];
-
-                const kpiHtml = `
-                    <div class="kpi-card">
-                        <div class="kpi-value" style="color: #3b82f6;">${levelProgress}%</div>
-                        <div class="kpi-label">Level ${currentFilter} Progress</div>
-                        <div class="kpi-description">${completedTasks}/${totalTasks} tasks completed</div>
-                    </div>
-                    <div class="kpi-card">
-                        <div class="kpi-value" style="color: #10b981;">${trades.length}</div>
-                        <div class="kpi-label">Active Trades</div>
-                        <div class="kpi-description">On this level</div>
-                    </div>
-                    <div class="kpi-card">
-                        <div class="kpi-value" style="color: #f59e0b;">${sections.length}</div>
-                        <div class="kpi-label">Sections</div>
-                        <div class="kpi-description">Within level ${currentFilter}</div>
-                    </div>
-                    <div class="kpi-card">
-                        <div class="kpi-value" style="color: #8b5cf6;">${totalTasks}</div>
-                        <div class="kpi-label">Level Tasks</div>
-                        <div class="kpi-description">Total on this level</div>
-                    </div>
-                `;
-                
-                document.querySelector('#primaryKPIContainer').innerHTML = kpiHtml;
-            } else {
-                // All levels comparison view
-                const levels = [...new Set(data.map(item => item.level).filter(Boolean))].sort();
-                const levelStats = levels.map(level => {
-                    const levelData = data.filter(item => item.level === level);
-                    const totalTasks = levelData.length;
-                    const completedTasks = levelData.filter(item => (item.state || '').toLowerCase().includes('complete')).length;
-                    const progress = totalTasks > 0 ? ((completedTasks / totalTasks) * 100).toFixed(1) : '0';
-                    return { level, progress, totalTasks, completedTasks };
-                });
-
-                const avgProgress = levelStats.length > 0 ? 
-                    (levelStats.reduce((sum, stat) => sum + parseFloat(stat.progress), 0) / levelStats.length).toFixed(1) : '0';
-
-                const kpiHtml = `
-                    <div class="kpi-card">
-                        <div class="kpi-value" style="color: #3b82f6;">${avgProgress}%</div>
-                        <div class="kpi-label">Average Level Progress</div>
-                        <div class="kpi-description">Across ${levels.length} levels</div>
-                    </div>
-                    <div class="kpi-card">
-                        <div class="kpi-value" style="color: #10b981;">${levels.length}</div>
-                        <div class="kpi-label">Building Levels</div>
-                        <div class="kpi-description">Total levels in project</div>
-                    </div>
-                    <div class="kpi-card">
-                        <div class="kpi-value" style="color: #f59e0b;">${Math.max(...levelStats.map(s => parseFloat(s.progress))).toFixed(1)}%</div>
-                        <div class="kpi-label">Best Performing Level</div>
-                        <div class="kpi-description">Highest completion rate</div>
-                    </div>
-                    <div class="kpi-card">
-                        <div class="kpi-value" style="color: #ef4444;">${Math.min(...levelStats.map(s => parseFloat(s.progress))).toFixed(1)}%</div>
-                        <div class="kpi-label">Needs Attention</div>
-                        <div class="kpi-description">Lowest completion rate</div>
-                    </div>
-                `;
-                
-                document.querySelector('#primaryKPIContainer').innerHTML = kpiHtml;
-            }
-        };
-
-        // Section-specific KPIs
-        const createSectionKPIs = (data) => {
-            if (currentFilter) {
-                // Single section view
-                const sectionData = data.filter(item => item.section === currentFilter);
-                const totalTasks = sectionData.length;
-                const completedTasks = sectionData.filter(item => (item.state || '').toLowerCase().includes('complete')).length;
-                const sectionProgress = totalTasks > 0 ? ((completedTasks / totalTasks) * 100).toFixed(1) : '0';
-                
-                const trades = [...new Set(sectionData.map(item => item.trade).filter(Boolean))];
-                const levels = [...new Set(sectionData.map(item => item.level).filter(Boolean))];
-
-                const kpiHtml = `
-                    <div class="kpi-card">
-                        <div class="kpi-value" style="color: #3b82f6;">${sectionProgress}%</div>
-                        <div class="kpi-label">Section ${currentFilter} Progress</div>
-                        <div class="kpi-description">${completedTasks}/${totalTasks} tasks completed</div>
-                    </div>
-                    <div class="kpi-card">
-                        <div class="kpi-value" style="color: #10b981;">${trades.length}</div>
-                        <div class="kpi-label">Active Trades</div>
-                        <div class="kpi-description">In this section</div>
-                    </div>
-                    <div class="kpi-card">
-                        <div class="kpi-value" style="color: #f59e0b;">${levels.length}</div>
-                        <div class="kpi-label">Levels Covered</div>
-                        <div class="kpi-description">By section ${currentFilter}</div>
-                    </div>
-                    <div class="kpi-card">
-                        <div class="kpi-value" style="color: #8b5cf6;">${totalTasks}</div>
-                        <div class="kpi-label">Section Tasks</div>
-                        <div class="kpi-description">Total in this section</div>
-                    </div>
-                `;
-                
-                document.querySelector('#primaryKPIContainer').innerHTML = kpiHtml;
-            } else {
-                // All sections comparison view
-                const sections = [...new Set(data.map(item => item.section).filter(Boolean))].sort();
-                const sectionStats = sections.map(section => {
-                    const sectionData = data.filter(item => item.section === section);
-                    const totalTasks = sectionData.length;
-                    const completedTasks = sectionData.filter(item => (item.state || '').toLowerCase().includes('complete')).length;
-                    const progress = totalTasks > 0 ? ((completedTasks / totalTasks) * 100).toFixed(1) : '0';
-                    return { section, progress, totalTasks, completedTasks };
-                });
-
-                const avgProgress = sectionStats.length > 0 ? 
-                    (sectionStats.reduce((sum, stat) => sum + parseFloat(stat.progress), 0) / sectionStats.length).toFixed(1) : '0';
-
-                const kpiHtml = `
-                    <div class="kpi-card">
-                        <div class="kpi-value" style="color: #3b82f6;">${avgProgress}%</div>
-                        <div class="kpi-label">Average Section Progress</div>
-                        <div class="kpi-description">Across ${sections.length} sections</div>
-                    </div>
-                    <div class="kpi-card">
-                        <div class="kpi-value" style="color: #10b981;">${sections.length}</div>
-                        <div class="kpi-label">Project Sections</div>
-                        <div class="kpi-description">Total sections in project</div>
-                    </div>
-                    <div class="kpi-card">
-                        <div class="kpi-value" style="color: #f59e0b;">${Math.max(...sectionStats.map(s => parseFloat(s.progress))).toFixed(1)}%</div>
-                        <div class="kpi-label">Best Performing Section</div>
-                        <div class="kpi-description">Highest completion rate</div>
-                    </div>
-                    <div class="kpi-card">
-                        <div class="kpi-value" style="color: #ef4444;">${Math.min(...sectionStats.map(s => parseFloat(s.progress))).toFixed(1)}%</div>
-                        <div class="kpi-label">Needs Attention</div>
-                        <div class="kpi-description">Lowest completion rate</div>
-                    </div>
-                `;
-                
-                document.querySelector('#primaryKPIContainer').innerHTML = kpiHtml;
-            }
-        };
-
         const createKPIDashboard = (anomalies, filteredData = null) => {
             // Clear all existing charts first to prevent Canvas conflicts
             clearAllCharts();
@@ -2532,51 +2582,37 @@
             // Use filtered data for current tab context
             const data = filteredData || parseCsvData();
             
-            // Apply additional filtering based on current tab
-            const tabFilteredData = applyTabFiltering(data);
-            
-            // Get current tab from global variable or default to 'project'
-            const activeTab = (typeof currentTab !== 'undefined') ? currentTab : 'project';
-            console.log('📊 Using data for KPIs:', tabFilteredData.length, 'rows', `(Tab: ${activeTab})`);
+            // Get current tab from global variable or default to 'superintendent'
+            const activeTab = (typeof currentTab !== 'undefined') ? currentTab : 'superintendent';
+            console.log('📊 Using data for KPIs:', data.length, 'rows', `(Tab: ${activeTab})`);
             console.log('📊 Current tab:', activeTab);
-            
-            // Create tab-specific KPIs
-            createTabSpecificKPIs(tabFilteredData, activeTab);
 
-            // Calculate project metrics from filtered data (for any additional legacy chart usage)
-            const metrics = calculateProjectMetrics(tabFilteredData);
+            // Calculate project metrics from filtered data
+            const metrics = calculateProjectMetrics(data);
             
-            // Store original data for chart filtering
-            if (!originalData || originalData.length === 0) {
-                originalData = data;
-            }
+            // Create KPI cards
+            createPrimaryKPICards(metrics);
             
-            // Create unified chart layout for all tabs (Rows 2, 3, 4)
-            createUnifiedChartLayout(tabFilteredData);
-        };
-
-        // Create the unified 4-row chart layout
-        const createUnifiedChartLayout = (data) => {
-            // Populate chart filters with current data
-            populateChartFilters(data);
-            
-            // Apply any active filters to the data
-            const filteredData = applyChartFilters(data);
-            
-            // Row 2: Trade Progress Over Time (100% width line chart)
-            createTradeProgressTimelineChart(filteredData);
-            
-            // Row 3: Velocity Chart (100% width line chart)
-            createVelocityTimelineChart(filteredData);
-            
-            // Row 4: Two 50% width charts
-            createDistributionPieChart(filteredData);        // Left: Distribution pie chart
-            createTradePerformanceChart(filteredData);       // Right: Trade performance chart
-            
-            // Setup chart filter listeners (only once)
-            if (!window.chartFiltersSetup) {
-                setupChartFilters();
-                window.chartFiltersSetup = true;
+            // Create persona-specific charts
+            if (activeTab === 'superintendent') {
+                // SUPERINTENDENT VIEW: Sequence, Dependencies & Flow
+                createTradeSequenceChart(data);           // Trade dependency/sequence analysis
+                createLocationWorkflowChart(data);        // Work flow between locations
+                createTradePerformanceChart(data);        // Task completion by trade
+                createCriticalPathChart(data);            // Bottleneck identification
+                createWeeklyProgressChart(data);        // Timeline view for scheduling
+                createStateDistributionChart(data);       // Current status overview
+                createBuildingProgressChart(data);        // Progress by building/area
+            } else if (activeTab === 'vdc') {
+                // VDC MANAGER VIEW: Production Rates & Efficiency
+                createCompletionVelocityChart(data);      // Production rate analysis
+                createTradeEfficiencyChart(data);         // Trade-by-trade efficiency
+                createProductivityTrendsChart(data);      // Efficiency trends over time
+                createResourceUtilizationChart(data);     // Location/resource usage
+                createQualityMetricsChart(data);          // Quality indicators (rework)
+                createTimeSeriesChart(data);              // Historical performance
+                createTopLocationsChart(data);            // Busiest locations
+                createBuildingLevelChart(data);           // Building/level analysis
             }
         };
 
@@ -3594,6 +3630,11 @@
         const createBuildingProgressChartByLevel = (data) => createBuildingProgressChart(data);
         const createStateDistributionChartByLevel = (data) => createStateDistributionChart(data);
         const createWeeklyProgressHeatmapByLevel = (data) => createWeeklyProgressChart(data);
+        const createTradeDistributionChartByLevel = (data) => createTradeDistributionChart(data);
+        const createStatusOverviewChartByLevel = (data) => createStatusOverviewChart(data);
+        const createTopLocationsChartByLevel = (data) => createTopLocationsChart(data);
+        const createBuildingLevelChartByLevel = (data) => createBuildingLevelChart(data);
+        const createTimeSeriesChartByLevel = (data) => createTimeSeriesChart(data);
         const createLevelSectionAnalyticsByLevel = (data) => createLevelSectionAnalytics(data);
 
         // Section comparison functions  
@@ -3601,7 +3642,346 @@
         const createBuildingProgressChartBySection = (data) => createBuildingProgressChart(data);
         const createStateDistributionChartBySection = (data) => createStateDistributionChart(data);
         const createWeeklyProgressHeatmapBySection = (data) => createWeeklyProgressChart(data);
+        const createTradeDistributionChartBySection = (data) => createTradeDistributionChart(data);
+        const createStatusOverviewChartBySection = (data) => createStatusOverviewChart(data);
+        const createTopLocationsChartBySection = (data) => createTopLocationsChart(data);
+        const createBuildingLevelChartBySection = (data) => createBuildingLevelChart(data);
+        const createTimeSeriesChartBySection = (data) => createTimeSeriesChart(data);
         const createLevelSectionAnalyticsBySection = (data) => createLevelSectionAnalytics(data);
+
+        // ===========================================
+        // Python-Style Data Analysis Functions
+        // ===========================================
+
+        // 1. Trade Distribution Analysis (df['trade'].value_counts())
+        const createTradeDistributionChart = (data) => {
+            const ctx = getChartCtx('tradeDistributionChart');
+            
+            // Count trade occurrences
+            const tradeCounts = {};
+            data.forEach(item => {
+                const trade = item.trade || 'Unknown';
+                tradeCounts[trade] = (tradeCounts[trade] || 0) + 1;
+            });
+            
+            // Sort by count (descending) like pandas value_counts()
+            const sortedTrades = Object.entries(tradeCounts)
+                .sort(([,a], [,b]) => b - a)
+                .slice(0, 8); // Top 8 trades (more readable)
+            
+            const labels = sortedTrades.map(([trade]) => trade);
+            const counts = sortedTrades.map(([,count]) => count);
+            
+            createChart('tradeDistributionChart', {
+                type: 'bar',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        label: 'Number of Occurrences',
+                        data: counts,
+                        backgroundColor: 'rgba(99, 102, 241, 0.8)',
+                        borderColor: 'rgba(99, 102, 241, 1)',
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    indexAxis: 'y', // Horizontal bars like seaborn
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    layout: {
+                        padding: 10
+                    },
+                    scales: {
+                        x: {
+                            beginAtZero: true,
+                            title: {
+                                display: true,
+                                text: 'Number of Occurrences'
+                            }
+                        },
+                        y: {
+                            title: {
+                                display: true,
+                                text: 'Trade'
+                            }
+                        }
+                    },
+                    plugins: {
+                        title: {
+                            display: true,
+                            text: 'Distribution of Trades'
+                        },
+                        legend: {
+                            display: false
+                        }
+                    }
+                }
+            });
+        };
+
+        // 2. Work Status Overview (df['state'].value_counts())
+        const createStatusOverviewChart = (data) => {
+            const ctx = getChartCtx('statusOverviewChart');
+            
+            // Count status occurrences
+            const statusCounts = {};
+            data.forEach(item => {
+                const status = item.state || 'unknown';
+                statusCounts[status] = (statusCounts[status] || 0) + 1;
+            });
+            
+            const labels = Object.keys(statusCounts);
+            const counts = Object.values(statusCounts);
+            const colors = ['#10B981', '#3B82F6', '#F59E0B', '#EF4444', '#8B5CF6', '#6B7280'];
+            
+            createChart('statusOverviewChart', {
+                type: 'bar',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        label: 'Number of Work Items',
+                        data: counts,
+                        backgroundColor: colors.slice(0, labels.length),
+                        borderColor: colors.slice(0, labels.length).map(c => c.replace('0.8', '1')),
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            title: {
+                                display: true,
+                                text: 'Number of Work Items'
+                            }
+                        },
+                        x: {
+                            title: {
+                                display: true,
+                                text: 'Status'
+                            }
+                        }
+                    },
+                    plugins: {
+                        title: {
+                            display: true,
+                            text: 'Work Status Overview'
+                        },
+                        legend: {
+                            display: false
+                        }
+                    }
+                }
+            });
+        };
+
+        // 3. Top 10 Busiest Locations (df['location'].value_counts().nlargest(10))
+        const createTopLocationsChart = (data) => {
+            const ctx = getChartCtx('levelComparisonChart');
+            
+            // Count location occurrences
+            const locationCounts = {};
+            data.forEach(item => {
+                const location = item.location || 'Unknown';
+                locationCounts[location] = (locationCounts[location] || 0) + 1;
+            });
+            
+            // Get top 8 locations (more readable)
+            const sortedLocations = Object.entries(locationCounts)
+                .sort(([,a], [,b]) => b - a)
+                .slice(0, 8);
+            
+            const labels = sortedLocations.map(([location]) => location);
+            const counts = sortedLocations.map(([,count]) => count);
+            
+            createChart('topLocationsChart', {
+                type: 'bar',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        label: 'Number of Work Items',
+                        data: counts,
+                        backgroundColor: 'rgba(251, 146, 60, 0.8)',
+                        borderColor: 'rgba(251, 146, 60, 1)',
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    indexAxis: 'y', // Horizontal bars
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    layout: { padding: 10 },
+                    scales: {
+                        x: {
+                            beginAtZero: true,
+                            title: {
+                                display: true,
+                                text: 'Number of Work Items'
+                            }
+                        },
+                        y: {
+                            title: {
+                                display: true,
+                                text: 'Location'
+                            }
+                        }
+                    },
+                    plugins: {
+                        title: {
+                            display: true,
+                            text: 'Top 10 Locations by Work Item Count'
+                        },
+                        legend: {
+                            display: false
+                        }
+                    }
+                }
+            });
+        };
+
+        // 4. Building & Level Analysis (df.groupby(['building', 'level']).size())
+        const createBuildingLevelChart = (data) => {
+            const ctx = getChartCtx('buildingLevelChart');
+            
+            // Group by building and level
+            const buildingLevelCounts = {};
+            data.forEach(item => {
+                const building = item.building || 'Unknown';
+                const level = item.level || 'Unknown';
+                const key = `${building}-L${level}`;
+                buildingLevelCounts[key] = (buildingLevelCounts[key] || 0) + 1;
+            });
+            
+            // Prepare data for grouped bar chart
+            const buildings = [...new Set(data.map(item => item.building || 'Unknown'))];
+            const levels = [...new Set(data.map(item => item.level || 'Unknown'))].sort();
+            
+            const datasets = levels.map((level, index) => {
+                const colors = ['#EF4444', '#F97316', '#EAB308', '#22C55E', '#3B82F6', '#8B5CF6'];
+                return {
+                    label: `Level ${level}`,
+                    data: buildings.map(building => buildingLevelCounts[`${building}-L${level}`] || 0),
+                    backgroundColor: colors[index % colors.length],
+                    borderColor: colors[index % colors.length],
+                    borderWidth: 1
+                };
+            });
+            
+            if (!ctx) return;
+            chartInstances['buildingLevelChart'] = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: buildings,
+                    datasets: datasets
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            title: {
+                                display: true,
+                                text: 'Number of Work Items'
+                            }
+                        },
+                        x: {
+                            title: {
+                                display: true,
+                                text: 'Building'
+                            }
+                        }
+                    },
+                    plugins: {
+                        title: {
+                            display: true,
+                            text: 'Work Items by Building and Level'
+                        },
+                        legend: {
+                            display: true,
+                            position: 'top'
+                        }
+                    }
+                }
+            });
+        };
+
+        // 5. Time Series Analysis (df.groupby(df['capture_date'].dt.date).size())
+        const createTimeSeriesChart = (data) => {
+            const ctx = getChartCtx('timeSeriesChart');
+            
+            // Group by capture date
+            const dateCounts = {};
+            data.forEach(item => {
+                const raw = item.capture_date || item.date;
+                if (raw) {
+                    let dateKey = '';
+                    if (typeof raw === 'string') {
+                        dateKey = raw.includes('T') ? raw.split('T')[0] : raw;
+                    } else {
+                        const d = new Date(raw);
+                        if (!isNaN(d)) dateKey = d.toISOString().split('T')[0];
+                    }
+                    if (dateKey) dateCounts[dateKey] = (dateCounts[dateKey] || 0) + 1;
+                }
+            });
+            
+            // Sort dates chronologically
+            const sortedDates = Object.keys(dateCounts).sort();
+            const counts = sortedDates.map(date => dateCounts[date]);
+            
+            if (!ctx) return;
+            chartInstances['timeSeriesChart'] = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: sortedDates,
+                    datasets: [{
+                        label: 'Work Items Captured',
+                        data: counts,
+                        borderColor: 'rgba(16, 185, 129, 1)',
+                        backgroundColor: 'rgba(16, 185, 129, 0.1)',
+                        borderWidth: 2,
+                        fill: true,
+                        tension: 0.1,
+                        pointBackgroundColor: 'rgba(16, 185, 129, 1)',
+                        pointBorderColor: '#fff',
+                        pointBorderWidth: 2,
+                        pointRadius: 5
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            title: {
+                                display: true,
+                                text: 'Number of Work Items Captured'
+                            }
+                        },
+                        x: {
+                            title: {
+                                display: true,
+                                text: 'Date'
+                            }
+                        }
+                    },
+                    plugins: {
+                        title: {
+                            display: true,
+                            text: 'Work Items Captured Over Time'
+                        },
+                        legend: {
+                            display: false
+                        }
+                    }
+                }
+            });
+        };
+
         // ===========================================
         // Level & Section Analytics Functions
         // ===========================================
@@ -4894,248 +5274,10 @@
         // TAB SYSTEM & DATA FILTERING
         // ============================================
 
-        let currentTab = 'project';
+        let currentTab = 'superintendent';
         let currentFilter = null;
         let originalData = null; // Store the full dataset
         let currentAnomalies = null; // Store the current anomalies
-        
-        // New filtering logic for Project/Level/Section views
-        const applyTabFiltering = (data) => {
-            if (!data || data.length === 0) return data;
-            
-            switch (currentTab) {
-                case 'project':
-                    // Project view: show all data with project-level aggregations
-                    return data;
-                    
-                case 'level':
-                    // Level view: group and filter by building levels
-                    if (currentFilter) {
-                        return data.filter(item => item.level === currentFilter);
-                    }
-                    return data;
-                    
-                case 'section':
-                    // Section view: group and filter by sections
-                    if (currentFilter) {
-                        return data.filter(item => item.section === currentFilter);
-                    }
-                    return data;
-                    
-                default:
-                    return data;
-            }
-        };
-        
-        // Update filter selector based on current tab
-        const updateFilterSelector = (tabName) => {
-            const filterContainer = document.getElementById('filterSelector');
-            if (!filterContainer) return;
-            
-            let filterOptions = [];
-            const data = originalData || parseCsvData();
-            
-            switch (tabName) {
-                case 'project':
-                    // Project view doesn't need additional filters
-                    filterContainer.innerHTML = '<span class="text-sm text-gray-600">Showing project-wide metrics</span>';
-                    currentFilter = null;
-                    return;
-                    
-                case 'level':
-                    // Get unique levels from data
-                    filterOptions = [...new Set(data.map(item => item.level).filter(Boolean))].sort();
-                    break;
-                    
-                case 'section':
-                    // Get unique sections from data
-                    filterOptions = [...new Set(data.map(item => item.section).filter(Boolean))].sort();
-                    break;
-            }
-            
-            if (filterOptions.length === 0) {
-                filterContainer.innerHTML = `<span class="text-sm text-gray-600">No ${tabName} data available</span>`;
-                return;
-            }
-            
-            // Create dropdown for level/section filtering
-            filterContainer.innerHTML = `
-                <div class="flex items-center gap-2">
-                    <span class="text-sm text-gray-600">Filter by ${tabName}:</span>
-                    <select id="tabFilter" class="px-3 py-1 border border-gray-300 rounded text-sm">
-                        <option value="">All ${tabName}s</option>
-                        ${filterOptions.map(option => 
-                            `<option value="${option}" ${option === currentFilter ? 'selected' : ''}>${option}</option>`
-                        ).join('')}
-                    </select>
-                </div>
-            `;
-            
-            // Add event listener for filter changes
-            document.getElementById('tabFilter').addEventListener('change', (e) => {
-                currentFilter = e.target.value || null;
-                // Re-render dashboard with new filter
-                if (currentAnomalies && originalData) {
-                    createKPIDashboard(currentAnomalies, originalData);
-                }
-            });
-        };
-
-        // ========================================
-        // NEW ANOMALY DASHBOARD FUNCTIONS
-        // ========================================
-
-        // Populate the new anomaly dashboard with detected anomalies
-        const populateAnomalyDashboard = (anomalies) => {
-            // Calculate summary statistics
-            const totalAnomalies = anomalies.length;
-            const tradesAffected = new Set();
-            const locationsAffected = new Set();
-            
-            // Extract trades and locations from anomaly items
-            anomalies.forEach(anomaly => {
-                if (anomaly.items) {
-                    anomaly.items.forEach(item => {
-                        if (item.trade) tradesAffected.add(item.trade);
-                        if (item.location) locationsAffected.add(item.location);
-                    });
-                }
-            });
-
-            // Update summary tiles
-            document.getElementById('totalAnomaliesCount').textContent = totalAnomalies;
-            document.getElementById('tradesAffectedCount').textContent = tradesAffected.size;
-            document.getElementById('locationsAffectedCount').textContent = locationsAffected.size;
-
-            // Populate anomaly type tiles
-            populateAnomalyTypeTiles(anomalies);
-        };
-
-        // Create tiles for each detected anomaly type
-        const populateAnomalyTypeTiles = (anomalies) => {
-            const grid = document.getElementById('anomaliesTypeGrid');
-            grid.innerHTML = '';
-
-            // Define colors and icons for each anomaly type
-            const anomalyStyles = {
-                'sequenceViolations': { color: 'red', icon: 'alert-triangle', label: 'Sequence Violations' },
-                'stalledTrades': { color: 'orange', icon: 'pause-circle', label: 'Stalled Trades' },
-                'velocityDisparities': { color: 'yellow', icon: 'trending-up', label: 'Velocity Disparities' },
-                'tradeCollisions': { color: 'purple', icon: 'zap', label: 'Trade Collisions' },
-                'hiddenRework': { color: 'pink', icon: 'refresh-cw', label: 'Hidden Rework' },
-                'completionClustering': { color: 'blue', icon: 'grid-3x3', label: 'Completion Clustering' },
-                'tradeStackDensity': { color: 'indigo', icon: 'layers', label: 'Stack Density' },
-                'bottleneckIndex': { color: 'cyan', icon: 'funnel', label: 'Bottleneck Index' },
-                'abandonedZones': { color: 'gray', icon: 'map-pin', label: 'Abandoned Zones' },
-                'tradeLeapfrogging': { color: 'green', icon: 'shuffle', label: 'Trade Leapfrogging' },
-                'completionRateDecay': { color: 'teal', icon: 'trending-down', label: 'Rate Decay' },
-                'falseStarts': { color: 'amber', icon: 'play-circle', label: 'False Starts' },
-                'asymmetricProgress': { color: 'lime', icon: 'balance-scale', label: 'Asymmetric Progress' },
-                'scheduleDeviations': { color: 'violet', icon: 'clock', label: 'Schedule Deviations' },
-                'materialConstraints': { color: 'rose', icon: 'package', label: 'Material Constraints' },
-                // Legacy support
-                'abandonment': { color: 'red', icon: 'pause-circle', label: 'Abandonment' },
-                'yoyo': { color: 'orange', icon: 'refresh-cw', label: 'Yo-yo / Rework' },
-                'swissCheese': { color: 'yellow', icon: 'grid-3x3', label: 'Swiss-Cheese Flow' },
-                'tradeStarvation': { color: 'purple', icon: 'clock', label: 'Trade Starvation' },
-                'blockage': { color: 'gray', icon: 'shield-x', label: 'Blockage / Deadlock' },
-                'bottleneck': { color: 'blue', icon: 'funnel', label: 'Bottleneck' },
-                'unbalancedProgress': { color: 'green', icon: 'trending-down', label: 'Unbalanced Progress' }
-            };
-
-            anomalies.forEach(anomaly => {
-                const style = anomalyStyles[anomaly.type] || { color: 'gray', icon: 'alert-triangle', label: anomaly.name };
-                const count = anomaly.items ? anomaly.items.length : 1;
-                
-                const tile = document.createElement('div');
-                tile.className = `anomaly-type-tile cursor-pointer bg-${style.color}-50 border border-${style.color}-200 rounded-lg p-4 hover:shadow-lg transition-all duration-200 hover:bg-${style.color}-100`;
-                tile.dataset.anomalyType = anomaly.type;
-                
-                tile.innerHTML = `
-                    <div class="flex flex-col items-center text-center">
-                        <i data-lucide="${style.icon}" class="w-8 h-8 text-${style.color}-600 mb-2"></i>
-                        <h4 class="font-semibold text-${style.color}-800 text-sm mb-1">${style.label}</h4>
-                        <p class="text-xs text-${style.color}-600 mb-2">${anomaly.description || 'Click to view details'}</p>
-                        <div class="bg-${style.color}-600 text-white text-xs px-2 py-1 rounded">${count} detected</div>
-                    </div>
-                `;
-                
-                // Add click handler
-                tile.addEventListener('click', () => showAnomalyDetails(anomaly));
-                
-                grid.appendChild(tile);
-            });
-
-            // Re-initialize Lucide icons for new elements
-            lucide.createIcons();
-        };
-
-        // Show detailed visualization for a specific anomaly
-        const showAnomalyDetails = (anomaly) => {
-            // Hide placeholder, show visualization area
-            document.getElementById('anomalyPlaceholder').classList.add('hidden');
-            document.getElementById('anomalyVisualization').classList.remove('hidden');
-            
-            // Update active state of tiles
-            document.querySelectorAll('.anomaly-type-tile').forEach(tile => {
-                tile.classList.remove('ring-2', 'ring-blue-500', 'ring-offset-2');
-            });
-            
-            const activeTile = document.querySelector(`[data-anomaly-type="${anomaly.type}"]`);
-            if (activeTile) {
-                activeTile.classList.add('ring-2', 'ring-blue-500', 'ring-offset-2');
-            }
-
-            // Populate visualization area with anomaly-specific content
-            const vizContainer = document.getElementById('anomalyVisualization');
-            vizContainer.innerHTML = `
-                <div class="p-6">
-                    <div class="mb-6">
-                        <h3 class="text-xl font-bold text-gray-900 mb-2">${anomaly.name} Analysis</h3>
-                        <p class="text-gray-600">${anomaly.description}</p>
-                    </div>
-                    
-                    <div class="grid md:grid-cols-2 gap-6 mb-6">
-                        <div class="bg-gray-50 rounded-lg p-4">
-                            <h4 class="font-semibold text-gray-700 mb-3">Summary</h4>
-                            <ul class="text-sm text-gray-600 space-y-1">
-                                <li><strong>Type:</strong> ${anomaly.name}</li>
-                                <li><strong>Instances:</strong> ${anomaly.items ? anomaly.items.length : 1}</li>
-                                <li><strong>Severity:</strong> ${anomaly.severity || 'Medium'}</li>
-                                <li><strong>Impact:</strong> ${anomaly.impact || 'Project delays and quality issues'}</li>
-                            </ul>
-                        </div>
-                        
-                        <div class="bg-gray-50 rounded-lg p-4">
-                            <h4 class="font-semibold text-gray-700 mb-3">Affected Items</h4>
-                            <div class="max-h-32 overflow-y-auto">
-                                ${anomaly.items ? anomaly.items.slice(0, 10).map(item => `
-                                    <div class="text-sm text-gray-600 mb-1">
-                                        <span class="font-medium">${item.trade || 'Unknown Trade'}</span> 
-                                        at <span class="text-blue-600">${item.location || 'Unknown Location'}</span>
-                                    </div>
-                                `).join('') : '<p class="text-sm text-gray-500">No detailed items available</p>'}
-                                ${anomaly.items && anomaly.items.length > 10 ? `<p class="text-xs text-gray-400 mt-2">... and ${anomaly.items.length - 10} more</p>` : ''}
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="bg-white border rounded-lg p-4">
-                        <h4 class="font-semibold text-gray-700 mb-3">Detailed Evidence</h4>
-                        <div class="h-64 bg-gray-100 rounded flex items-center justify-center">
-                            <div class="text-center">
-                                <i data-lucide="chart-line" class="w-12 h-12 text-gray-400 mx-auto mb-2"></i>
-                                <p class="text-gray-600">Evidence visualization for ${anomaly.name}</p>
-                                <p class="text-sm text-gray-500">Chart will be implemented based on anomaly type</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            `;
-            
-            // Re-initialize icons
-            lucide.createIcons();
-        };
 
         // Tab switching functionality
         const switchTab = (tabName) => {
@@ -5151,33 +5293,21 @@
             activeTab.classList.remove('text-gray-700', 'hover:bg-gray-100');
             activeTab.classList.add('bg-blue-600', 'text-white');
 
-            // Show/hide tab content areas
-            const analyticsContent = document.getElementById('analyticsTabContent');
-            const anomaliesContent = document.getElementById('anomaliesTabContent');
+            // Show/hide filter selector
+            const filterSelector = document.getElementById('filterSelector');
+            const filterDropdown = document.getElementById('filterDropdown');
+            const filterInfo = document.getElementById('filterInfo');
             
-            if (tabName === 'anomalies') {
-                // Show anomalies tab, hide analytics
-                analyticsContent.classList.add('hidden');
-                anomaliesContent.classList.remove('hidden');
+            if (tabName === 'project') {
+                filterSelector.classList.add('hidden');
+                currentFilter = null;
             } else {
-                // Show analytics tab, hide anomalies
-                analyticsContent.classList.remove('hidden');
-                anomaliesContent.classList.add('hidden');
-                
-                // Show/hide filter selector for analytics tabs
-                const filterSelector = document.getElementById('filterSelector');
-                
-                if (tabName === 'project') {
-                    filterSelector.classList.add('hidden');
-                    currentFilter = null;
-                } else {
-                    filterSelector.classList.remove('hidden');
-                    populateFilterDropdown(tabName);
-                }
-
-                // Refresh dashboard with current filter
-                refreshDashboard();
+                filterSelector.classList.remove('hidden');
+                populateFilterDropdown(tabName);
             }
+
+            // Refresh dashboard with current filter
+            refreshDashboard();
         };
 
         // Populate filter dropdown based on tab
@@ -5358,342 +5488,9 @@
             originalCreateKPIDashboard(anomalies, dataToUse);
         };
 
-        // Row 2: Trade Progress Over Time Line Chart (100% width)
-        const createTradeProgressTimelineChart = (data) => {
-            const ctx = getChartCtx('tradeProgressChart');
-            if (!ctx) return;
-            
-            console.log('🎯 Creating trade progress chart with data:', data.length, 'items');
-            
-            // Calculate trade progress over time with date labels
-            const progressData = calculateTradeProgressOverTimeWithLabels(data);
-            
-            // Handle empty data
-            if (!progressData.dates || progressData.dates.length === 0) {
-                progressData.dates = [new Date().toDateString()];
-                progressData.tradeDatasets = [{
-                    label: 'No Data Available',
-                    data: [0],
-                    borderColor: '#6b7280',
-                    backgroundColor: '#6b728020',
-                    tension: 0.1,
-                    fill: false
-                }];
-            }
-            
-            createChart('tradeProgressChart', {
-                type: 'line',
-                data: {
-                    labels: progressData.dates,
-                    datasets: progressData.tradeDatasets
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    interaction: { intersect: false, mode: 'index' },
-                    plugins: {
-                        title: { display: true, text: 'Trade Progress Over Time (% Complete)' },
-                        legend: { display: true, position: 'top' },
-                        tooltip: {
-                            callbacks: {
-                                label: function(context) {
-                                    return `${context.dataset.label}: ${context.parsed.y.toFixed(1)}%`;
-                                }
-                            }
-                        }
-                    },
-                    scales: {
-                        x: { title: { display: true, text: 'Date' } },
-                        y: {
-                            beginAtZero: true,
-                            max: 100,
-                            title: { display: true, text: 'Progress (%)' },
-                            ticks: { callback: function(value) { return value + '%'; } }
-                        }
-                    }
-                }
-            });
-        };
-
-        // Row 3: Velocity Timeline Chart (100% width)
-        const createVelocityTimelineChart = (data) => {
-            const ctx = getChartCtx('velocityChart');
-            if (!ctx) return;
-            
-            const velocityData = calculateDailyCompletionVelocity(data);
-            
-            // Handle empty data
-            if (velocityData.dates.length === 0) {
-                velocityData.dates = [new Date().toDateString()];
-                velocityData.counts = [0];
-            }
-            
-            createChart('velocityChart', {
-                type: 'line',
-                data: {
-                    labels: velocityData.dates,
-                    datasets: [{
-                        label: 'Tasks Completed Per Day',
-                        data: velocityData.counts,
-                        borderColor: '#10b981',
-                        backgroundColor: '#10b98120',
-                        tension: 0.1,
-                        fill: true,
-                        pointRadius: 4,
-                        pointHoverRadius: 6
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    plugins: { title: { display: true, text: 'Daily Completion Velocity' } },
-                    scales: {
-                        x: { title: { display: true, text: 'Date' } },
-                        y: { beginAtZero: true, title: { display: true, text: 'Completed Tasks' } }
-                    }
-                }
-            });
-        };
-
-        // Row 4 Left: Distribution Pie Chart (50% width)
-        const createDistributionPieChart = (data) => {
-            const ctx = getChartCtx('distributionPieChart');
-            if (!ctx) return;
-            
-            // Calculate state distribution
-            const stateDistribution = {};
-            data.forEach(item => {
-                const state = (item.state || 'Unknown').toLowerCase();
-                const normalizedState = state.includes('complete') ? 'Complete' :
-                                      state.includes('progress') || state.includes('active') ? 'In Progress' :
-                                      state.includes('not') ? 'Not Started' : 'Other';
-                stateDistribution[normalizedState] = (stateDistribution[normalizedState] || 0) + 1;
-            });
-
-            createChart('distributionPieChart', {
-                type: 'pie',
-                data: {
-                    labels: Object.keys(stateDistribution),
-                    datasets: [{
-                        data: Object.values(stateDistribution),
-                        backgroundColor: ['#10b981', '#f59e0b', '#ef4444', '#6b7280']
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    plugins: {
-                        title: { display: true, text: 'Task State Distribution' },
-                        legend: { position: 'bottom' }
-                    }
-                }
-            });
-        };
-
-        // Helper functions for chart data calculations
-        const calculateTradeProgressOverTimeWithLabels = (data) => {
-            const trades = [...new Set(data.map(item => item.trade).filter(Boolean))];
-            
-            // Get all completion dates to create timeline
-            const allCompletionDates = data.filter(item => 
-                (item.state || '').toLowerCase().includes('complete') && item.complete_date
-            ).map(item => new Date(item.complete_date))
-              .filter(date => !isNaN(date.getTime()))
-              .sort((a, b) => a - b);
-            
-            if (allCompletionDates.length === 0) {
-                return { dates: [], tradeDatasets: [] };
-            }
-            
-            // Create date range
-            const startDate = new Date(allCompletionDates[0]);
-            startDate.setDate(startDate.getDate() - 1);
-            const endDate = allCompletionDates[allCompletionDates.length - 1];
-            
-            // Generate date labels
-            const dateLabels = [];
-            const uniqueDates = [...new Set(allCompletionDates.map(d => d.toDateString()))];
-            
-            // Add start date
-            dateLabels.push(startDate.toDateString());
-            
-            // Add all unique completion dates
-            uniqueDates.forEach(dateStr => {
-                if (!dateLabels.includes(dateStr)) {
-                    dateLabels.push(dateStr);
-                }
-            });
-            
-            dateLabels.sort((a, b) => new Date(a) - new Date(b));
-            
-            // Calculate progress for each trade over time
-            const colors = ['#3b82f6', '#10b981', '#f59e0b', '#ef4444', '#8b5cf6', '#06b6d4', '#84cc16', '#f97316'];
-            const tradeDatasets = trades.map((trade, index) => {
-                const tradeTasks = data.filter(item => item.trade === trade);
-                const tradeCompletedTasks = tradeTasks.filter(item => 
-                    (item.state || '').toLowerCase().includes('complete') && item.complete_date
-                );
-                
-                // Calculate cumulative progress for each date
-                const progressData = dateLabels.map(dateLabel => {
-                    const currentDate = new Date(dateLabel);
-                    const tasksCompletedByDate = tradeCompletedTasks.filter(task => 
-                        new Date(task.complete_date) <= currentDate
-                    ).length;
-                    
-                    return tradeTasks.length > 0 ? (tasksCompletedByDate / tradeTasks.length) * 100 : 0;
-                });
-                
-                return {
-                    label: trade,
-                    data: progressData,
-                    borderColor: colors[index % colors.length],
-                    backgroundColor: colors[index % colors.length] + '20',
-                    tension: 0.1,
-                    fill: false,
-                    pointRadius: 4,
-                    pointHoverRadius: 6
-                };
-            });
-            
-            return {
-                dates: dateLabels,
-                tradeDatasets: tradeDatasets
-            };
-        };
-
-        const calculateDailyCompletionVelocity = (data) => {
-            const completedTasks = data.filter(item => 
-                (item.state || '').toLowerCase().includes('complete') && item.complete_date
-            );
-            
-            // Group by completion date
-            const dailyCounts = {};
-            completedTasks.forEach(task => {
-                const date = new Date(task.complete_date).toDateString();
-                dailyCounts[date] = (dailyCounts[date] || 0) + 1;
-            });
-            
-            const sortedDates = Object.keys(dailyCounts).sort((a, b) => new Date(a) - new Date(b));
-            
-            return {
-                dates: sortedDates,
-                counts: sortedDates.map(date => dailyCounts[date])
-            };
-        };
-
-        // Populate filter dropdowns with data
-        const populateChartFilters = (data) => {
-            // Trade filter
-            const trades = [...new Set(data.map(item => item.trade).filter(Boolean))].sort();
-            const tradeFilter = document.getElementById('tradeFilter');
-            if (tradeFilter) {
-                tradeFilter.innerHTML = '<option value="">All Trades</option>' + 
-                    trades.map(trade => `<option value="${trade}">${trade}</option>`).join('');
-            }
-
-            // Level/Floor filter - read from floor/level column or extract from location
-            const levels = [...new Set(data.map(item => {
-                // Priority: floor column > level column > extracted from location
-                return item.floor || item.level || extractLevelFromLocation(item.location) || '1';
-            }).filter(Boolean))].sort((a, b) => {
-                // Sort numerically if they're numbers, otherwise alphabetically
-                const aNum = parseInt(a);
-                const bNum = parseInt(b);
-                if (!isNaN(aNum) && !isNaN(bNum)) {
-                    return aNum - bNum;
-                }
-                return a.localeCompare(b);
-            });
-            
-            const levelFilter = document.getElementById('levelFilter');
-            if (levelFilter) {
-                levelFilter.innerHTML = '<option value="">All Levels</option>' + 
-                    levels.map(level => `<option value="${level}">Floor ${level}</option>`).join('');
-            }
-
-            // Section filter
-            const sections = [...new Set(data.map(item => item.section).filter(Boolean))].sort();
-            const sectionFilter = document.getElementById('sectionFilter');
-            if (sectionFilter) {
-                sectionFilter.innerHTML = '<option value="">All Sections</option>' + 
-                    sections.map(section => `<option value="${section}">Section ${section}</option>`).join('');
-            }
-        };
-
-        // Apply chart filters to data
-        const applyChartFilters = (data) => {
-            let filteredData = [...data];
-
-            // Trade filter
-            const tradeFilter = document.getElementById('tradeFilter');
-            if (tradeFilter && tradeFilter.value) {
-                filteredData = filteredData.filter(item => item.trade === tradeFilter.value);
-            }
-
-            // Time filter
-            const timeFilter = document.getElementById('timeFilter');
-            if (timeFilter && timeFilter.value) {
-                const now = new Date();
-                let cutoffDate;
-                switch (timeFilter.value) {
-                    case 'last30':
-                        cutoffDate = new Date(now.setDate(now.getDate() - 30));
-                        break;
-                    case 'last60':
-                        cutoffDate = new Date(now.setDate(now.getDate() - 60));
-                        break;
-                    case 'last90':
-                        cutoffDate = new Date(now.setDate(now.getDate() - 90));
-                        break;
-                }
-                if (cutoffDate) {
-                    filteredData = filteredData.filter(item => {
-                        const itemDate = item.complete_date ? new Date(item.complete_date) : null;
-                        return !itemDate || itemDate >= cutoffDate;
-                    });
-                }
-            }
-
-            // Level filter - check floor column first, then level, then extracted
-            const levelFilter = document.getElementById('levelFilter');
-            if (levelFilter && levelFilter.value) {
-                filteredData = filteredData.filter(item => {
-                    const itemLevel = item.floor || item.level || extractLevelFromLocation(item.location) || '1';
-                    return itemLevel === levelFilter.value;
-                });
-            }
-
-            // Section filter
-            const sectionFilter = document.getElementById('sectionFilter');
-            if (sectionFilter && sectionFilter.value) {
-                filteredData = filteredData.filter(item => item.section === sectionFilter.value);
-            }
-
-            return filteredData;
-        };
-
-        // Setup chart filter event listeners
-        const setupChartFilters = () => {
-            const filterIds = ['tradeFilter', 'timeFilter', 'levelFilter', 'sectionFilter'];
-            filterIds.forEach(filterId => {
-                const filter = document.getElementById(filterId);
-                if (filter) {
-                    filter.addEventListener('change', () => {
-                        if (originalData) {
-                            const filteredData = applyChartFilters(originalData);
-                            createUnifiedChartLayout(filteredData);
-                        }
-                    });
-                }
-            });
-        };
-
         // Add tab event listeners
-        document.getElementById('projectTab').addEventListener('click', () => switchTab('project'));
-        document.getElementById('levelTab').addEventListener('click', () => switchTab('level'));
-        document.getElementById('sectionTab').addEventListener('click', () => switchTab('section'));
-        document.getElementById('anomaliesTab').addEventListener('click', () => switchTab('anomalies'));
+        document.getElementById('superintendentTab').addEventListener('click', () => switchTab('superintendent'));
+        document.getElementById('vdcTab').addEventListener('click', () => switchTab('vdc'));
     </script>
 </body>
 </html>
