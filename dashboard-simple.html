@@ -1,0 +1,787 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Construction Analytics Dashboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        .tab-button.active {
+            border-bottom: 2px solid #3b82f6;
+            color: #2563eb;
+            background-color: #eff6ff;
+        }
+        .anomaly-tile {
+            transition: all 0.2s;
+            cursor: pointer;
+        }
+        .anomaly-tile:hover {
+            border-color: #d1d5db;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <div id="root" class="min-h-screen p-6">
+        <div class="max-w-7xl mx-auto">
+            <!-- Header -->
+            <div class="mb-8">
+                <h1 class="text-3xl font-bold text-gray-900 mb-2">Construction Analytics Dashboard</h1>
+                <p class="text-gray-600">Comprehensive analytics for construction project insights</p>
+            </div>
+
+            <!-- CSV Upload Section -->
+            <div id="upload-section" class="min-h-screen flex items-center justify-center">
+                <div class="max-w-2xl w-full">
+                    <div class="text-center mb-8">
+                        <svg class="w-16 h-16 text-blue-600 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
+                        </svg>
+                        <h1 class="text-3xl font-bold text-gray-900 mb-2">Construction Analytics Dashboard</h1>
+                        <p class="text-gray-600">Upload your construction data CSV to get started</p>
+                    </div>
+                    
+                    <div id="dropzone" class="bg-white p-8 rounded-lg shadow-sm border-2 border-dashed border-gray-300 hover:border-blue-400 transition-colors cursor-pointer">
+                        <div class="text-center">
+                            <svg class="w-12 h-12 text-gray-400 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"></path>
+                            </svg>
+                            <h3 class="text-lg font-semibold text-gray-900 mb-2">Upload CSV File</h3>
+                            <p class="text-gray-600 mb-4">
+                                Drag and drop your construction data CSV file here, or click to browse
+                            </p>
+                            <p class="text-sm text-gray-500 mb-4">
+                                Expected columns: trade, location, state/status, level/floor, section, capture_date, complete_date
+                            </p>
+                            <button class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors">
+                                Choose File
+                            </button>
+                            <p class="text-xs text-gray-400 mt-2">or try with sample data</p>
+                            <button id="use-sample-data" class="text-blue-600 hover:text-blue-800 text-sm mt-1">
+                                Use Sample Data
+                            </button>
+                        </div>
+                        
+                        <input type="file" id="csvFile" accept=".csv" class="hidden">
+                    </div>
+                    
+                    <div id="upload-progress" class="hidden mt-6">
+                        <div class="text-center">
+                            <div class="inline-flex items-center gap-2 text-blue-600">
+                                <svg class="animate-spin h-4 w-4" fill="none" viewBox="0 0 24 24">
+                                    <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                                    <path class="opacity-75" fill="currentColor" d="m4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                                </svg>
+                                <span id="upload-status">Processing CSV file...</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="upload-error" class="hidden mt-6 p-4 bg-red-50 border border-red-200 rounded-lg">
+                        <div class="flex">
+                            <svg class="w-5 h-5 text-red-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path>
+                            </svg>
+                            <div class="ml-3">
+                                <h3 class="text-sm font-medium text-red-800">Error processing file</h3>
+                                <p id="error-message" class="text-sm text-red-700 mt-1"></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Loading State -->
+            <div id="loading" class="min-h-screen flex items-center justify-center hidden">
+                <div class="text-center">
+                    <svg class="w-12 h-12 text-gray-400 mx-auto mb-4 animate-pulse" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
+                    </svg>
+                    <p class="text-gray-600">Loading construction analytics...</p>
+                </div>
+            </div>
+
+            <!-- Main Dashboard -->
+            <div id="dashboard" class="hidden">
+                <!-- File Info & Filters -->
+                <div class="bg-white p-4 rounded-lg shadow-sm border border-gray-200 mb-6">
+                    <div class="flex items-center justify-between mb-4">
+                        <div class="flex items-center gap-3">
+                            <svg class="w-5 h-5 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                            </svg>
+                            <div>
+                                <p class="text-sm font-medium text-gray-900" id="file-info">Data loaded successfully</p>
+                                <p class="text-xs text-gray-500" id="data-stats">Processing data...</p>
+                            </div>
+                        </div>
+                        <button onclick="reloadData()" class="text-blue-600 hover:text-blue-800 text-sm font-medium">
+                            Upload New File
+                        </button>
+                    </div>
+                    
+                    <div class="flex items-center gap-6 flex-wrap">
+                        <div class="flex items-center gap-2">
+                            <svg class="w-4 h-4 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.414A1 1 0 013 6.707V4z"></path>
+                            </svg>
+                            <span class="text-sm font-medium text-gray-700">Filters:</span>
+                        </div>
+                        
+                        <div class="flex items-center gap-2">
+                            <label class="text-xs text-gray-600">Level:</label>
+                            <select id="levelFilter" class="text-xs border rounded px-2 py-1">
+                                <option value="all">All Levels</option>
+                            </select>
+                        </div>
+                        
+                        <div class="flex items-center gap-2">
+                            <label class="text-xs text-gray-600">Trade:</label>
+                            <select id="tradeFilter" class="text-xs border rounded px-2 py-1">
+                                <option value="all">All Trades</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Navigation Tabs -->
+                <div class="bg-white rounded-lg shadow-sm border border-gray-200 mb-6">
+                    <div class="flex border-b border-gray-200">
+                        <button onclick="switchTab('executive')" class="tab-button px-6 py-3 text-sm font-medium border-b-2 border-transparent text-gray-500 active" id="executive-tab">
+                            Executive Dashboard
+                        </button>
+                        <button onclick="switchTab('overview')" class="tab-button px-6 py-3 text-sm font-medium border-b-2 border-transparent text-gray-500" id="overview-tab">
+                            Project Overview
+                        </button>
+                        <button onclick="switchTab('anomalies')" class="tab-button px-6 py-3 text-sm font-medium border-b-2 border-transparent text-gray-500" id="anomalies-tab">
+                            Trade Anomalies
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Tab Content -->
+                <div id="tab-content">
+                    <!-- Executive Dashboard -->
+                    <div id="executive-content" class="space-y-6">
+                        <!-- Row 1: Key Metrics Cards -->
+                        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                            <div class="bg-white p-6 rounded-lg shadow-sm border border-gray-200">
+                                <div class="flex items-center justify-between">
+                                    <div>
+                                        <p class="text-sm font-medium text-gray-600">Overall Progress</p>
+                                        <p class="text-3xl font-bold text-blue-600" id="completion-rate">58.3%</p>
+                                        <p class="text-xs text-gray-500" id="completion-tasks">7 of 12 tasks</p>
+                                    </div>
+                                    <svg class="w-8 h-8 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                    </svg>
+                                </div>
+                            </div>
+
+                            <div class="bg-white p-6 rounded-lg shadow-sm border border-gray-200">
+                                <div class="flex items-center justify-between">
+                                    <div>
+                                        <p class="text-sm font-medium text-gray-600">Work Velocity</p>
+                                        <p class="text-3xl font-bold text-green-600">+224</p>
+                                        <p class="text-xs text-gray-500">tasks completed per day</p>
+                                    </div>
+                                    <svg class="w-8 h-8 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path>
+                                    </svg>
+                                </div>
+                            </div>
+
+                            <div class="bg-white p-6 rounded-lg shadow-sm border border-gray-200">
+                                <div class="flex items-center justify-between">
+                                    <div>
+                                        <p class="text-sm font-medium text-gray-600">Active Trades</p>
+                                        <p class="text-3xl font-bold text-purple-600" id="active-trades">4</p>
+                                        <p class="text-xs text-gray-500">currently in progress</p>
+                                    </div>
+                                    <svg class="w-8 h-8 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path>
+                                    </svg>
+                                </div>
+                            </div>
+
+                            <div class="bg-white p-6 rounded-lg shadow-sm border border-gray-200">
+                                <div class="flex items-center justify-between">
+                                    <div>
+                                        <p class="text-sm font-medium text-gray-600">Last Capture</p>
+                                        <p class="text-lg font-bold text-orange-600">01/26</p>
+                                        <p class="text-xs text-gray-500">most recent data</p>
+                                    </div>
+                                    <svg class="w-8 h-8 text-orange-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+                                    </svg>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Row 2: Trade Progress Chart -->
+                        <div class="bg-white p-6 rounded-lg shadow-sm border border-gray-200">
+                            <h3 class="text-lg font-semibold text-gray-900 mb-4">Trade Progress Over Time</h3>
+                            <div class="h-80">
+                                <canvas id="progressChart"></canvas>
+                            </div>
+                        </div>
+
+                        <!-- Row 3: Velocity Chart -->
+                        <div class="bg-white p-6 rounded-lg shadow-sm border border-gray-200">
+                            <h3 class="text-lg font-semibold text-gray-900 mb-4">Daily Completion Velocity</h3>
+                            <div class="h-80">
+                                <canvas id="velocityChart"></canvas>
+                            </div>
+                        </div>
+
+                        <!-- Row 4: Distribution Charts -->
+                        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                            <div class="bg-white p-6 rounded-lg shadow-sm border border-gray-200">
+                                <h3 class="text-lg font-semibold text-gray-900 mb-4">Trade Distribution</h3>
+                                <div class="h-64">
+                                    <canvas id="distributionChart"></canvas>
+                                </div>
+                            </div>
+                            <div class="bg-white p-6 rounded-lg shadow-sm border border-gray-200">
+                                <h3 class="text-lg font-semibold text-gray-900 mb-4">Trade Performance</h3>
+                                <div class="h-64">
+                                    <canvas id="performanceChart"></canvas>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Trade Anomalies -->
+                    <div id="anomalies-content" class="space-y-6 hidden">
+                        <!-- Anomaly Tiles -->
+                        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4" id="anomaly-tiles">
+                            <!-- Tiles will be populated by JavaScript -->
+                        </div>
+
+                        <!-- Summary Stats -->
+                        <div class="bg-white p-6 rounded-lg shadow-sm border border-gray-200">
+                            <h3 class="text-lg font-semibold text-gray-900 mb-4">Anomaly Summary</h3>
+                            <div class="grid grid-cols-2 lg:grid-cols-4 gap-6">
+                                <div class="text-center">
+                                    <div class="text-2xl font-bold text-red-600">36</div>
+                                    <div class="text-sm text-gray-600">High Priority Issues</div>
+                                </div>
+                                <div class="text-center">
+                                    <div class="text-2xl font-bold text-orange-600">41</div>
+                                    <div class="text-sm text-gray-600">Medium Priority Issues</div>
+                                </div>
+                                <div class="text-center">
+                                    <div class="text-2xl font-bold text-yellow-600">11</div>
+                                    <div class="text-sm text-gray-600">Low Priority Issues</div>
+                                </div>
+                                <div class="text-center">
+                                    <div class="text-2xl font-bold text-gray-600">88</div>
+                                    <div class="text-sm text-gray-600">Total Anomalies</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Sample construction data
+        const sampleData = [
+            { trade: 'Wall Drywall', location: 'Room 101', state: 'complete', level: '1', section: 'A' },
+            { trade: 'Wall Drywall', location: 'Room 102', state: 'in-progress', level: '1', section: 'A' },
+            { trade: 'Wall Drywall', location: 'Room 103', state: 'complete', level: '1', section: 'B' },
+            { trade: 'Overhead Plumbing', location: 'Room 101', state: 'complete', level: '1', section: 'A' },
+            { trade: 'Overhead Plumbing', location: 'Room 102', state: 'in-progress', level: '1', section: 'A' },
+            { trade: 'Insulation', location: 'Room 101', state: 'complete', level: '1', section: 'B' },
+            { trade: 'Insulation', location: 'Room 102', state: 'not-started', level: '1', section: 'B' },
+            { trade: 'Electrical', location: 'Room 101', state: 'in-progress', level: '2', section: 'A' },
+            { trade: 'Electrical', location: 'Room 201', state: 'complete', level: '2', section: 'A' },
+            { trade: 'Paint', location: 'Room 101', state: 'complete', level: '1', section: 'A' },
+            { trade: 'Paint', location: 'Room 102', state: 'not-started', level: '1', section: 'A' },
+            { trade: 'HVAC', location: 'Room 101', state: 'in-progress', level: '1', section: 'A' }
+        ];
+
+        const anomalyTypes = [
+            { id: 'abandonment', name: 'Trade Abandonment', category: 'Time-based', count: 12, severity: 'high', color: '#ef4444' },
+            { id: 'starvation', name: 'Trade Starvation', category: 'Time-based', count: 15, severity: 'high', color: '#ef4444' },
+            { id: 'burst_start', name: 'Burst Start', category: 'Time-based', count: 5, severity: 'medium', color: '#f97316' },
+            { id: 'swiss_cheese', name: 'Swiss-Cheese Flow', category: 'Spatial', count: 6, severity: 'medium', color: '#f97316' },
+            { id: 'vertical_lag', name: 'Vertical Lag', category: 'Spatial', count: 4, severity: 'low', color: '#eab308' },
+            { id: 'orphan_location', name: 'Orphan Location', category: 'Spatial', count: 8, severity: 'medium', color: '#f97316' },
+            { id: 'blockage', name: 'Trade Blockage', category: 'Cross-trade', count: 9, severity: 'high', color: '#ef4444' },
+            { id: 'premature_start', name: 'Premature Start', category: 'Cross-trade', count: 7, severity: 'medium', color: '#f97316' }
+        ];
+
+        let currentData = [...sampleData];
+        let filteredData = [...sampleData];
+        let charts = {};
+
+        // Initialize upload functionality
+        function initUpload() {
+            const dropzone = document.getElementById('dropzone');
+            const csvFile = document.getElementById('csvFile');
+            const useSampleDataBtn = document.getElementById('use-sample-data');
+
+            // Dropzone click handler
+            dropzone.addEventListener('click', () => {
+                csvFile.click();
+            });
+
+            // File selection handler
+            csvFile.addEventListener('change', (e) => {
+                if (e.target.files.length > 0) {
+                    handleFileUpload(e.target.files[0]);
+                }
+            });
+
+            // Drag and drop handlers
+            dropzone.addEventListener('dragover', (e) => {
+                e.preventDefault();
+                dropzone.classList.add('border-blue-400', 'bg-blue-50');
+            });
+
+            dropzone.addEventListener('dragleave', (e) => {
+                e.preventDefault();
+                dropzone.classList.remove('border-blue-400', 'bg-blue-50');
+            });
+
+            dropzone.addEventListener('drop', (e) => {
+                e.preventDefault();
+                dropzone.classList.remove('border-blue-400', 'bg-blue-50');
+                
+                if (e.dataTransfer.files.length > 0) {
+                    const file = e.dataTransfer.files[0];
+                    if (file.type === 'text/csv' || file.name.endsWith('.csv')) {
+                        handleFileUpload(file);
+                    } else {
+                        showError('Please upload a CSV file.');
+                    }
+                }
+            });
+
+            // Sample data button
+            useSampleDataBtn.addEventListener('click', () => {
+                loadSampleData();
+            });
+        }
+
+        // Handle CSV file upload
+        function handleFileUpload(file) {
+            if (!file.name.endsWith('.csv')) {
+                showError('Please select a CSV file.');
+                return;
+            }
+
+            showProgress('Reading CSV file...');
+
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                try {
+                    const csvContent = e.target.result;
+                    parseCSV(csvContent);
+                } catch (error) {
+                    showError('Error reading file: ' + error.message);
+                }
+            };
+            reader.onerror = function() {
+                showError('Error reading file.');
+            };
+            reader.readAsText(file);
+        }
+
+        // Parse CSV content
+        function parseCSV(csvContent) {
+            showProgress('Processing CSV data...');
+
+            try {
+                const lines = csvContent.trim().split('\n');
+                if (lines.length < 2) {
+                    throw new Error('CSV file must contain at least a header row and one data row.');
+                }
+
+                const headers = lines[0].split(',').map(h => h.replace(/"/g, '').trim().toLowerCase());
+                const data = [];
+
+                for (let i = 1; i < lines.length; i++) {
+                    const values = lines[i].split(',').map(v => v.replace(/"/g, '').trim());
+                    if (values.length !== headers.length) continue; // Skip malformed rows
+                    
+                    const row = {};
+                    headers.forEach((header, index) => {
+                        row[header] = values[index] || '';
+                    });
+
+                    // Only include rows that have essential data
+                    if (row.trade && row.location) {
+                        data.push(row);
+                    }
+                }
+
+                if (data.length === 0) {
+                    throw new Error('No valid data rows found. Please ensure your CSV has trade and location columns.');
+                }
+
+                // Validate required columns
+                const requiredColumns = ['trade', 'location'];
+                const missingColumns = requiredColumns.filter(col => !headers.includes(col));
+                if (missingColumns.length > 0) {
+                    throw new Error(`Missing required columns: ${missingColumns.join(', ')}`);
+                }
+
+                // Update data and initialize dashboard
+                currentData = data.map(row => ({
+                    trade: row.trade,
+                    location: row.location,
+                    state: row.state || row.status || 'unknown',
+                    level: row.level || row['level / floor'] || row.floor || '1',
+                    section: row.section || 'A',
+                    capture_date: row.capture_date || row.date || new Date().toISOString().split('T')[0],
+                    complete_date: row.complete_date || row.completion_date || null
+                }));
+
+                filteredData = [...currentData];
+                
+                showProgress('Initializing dashboard...');
+                setTimeout(() => {
+                    initDashboard();
+                }, 500);
+
+            } catch (error) {
+                showError('Error parsing CSV: ' + error.message);
+            }
+        }
+
+        // Load sample data
+        function loadSampleData() {
+            showProgress('Loading sample data...');
+            currentData = [...sampleData];
+            filteredData = [...sampleData];
+            
+            setTimeout(() => {
+                initDashboard();
+            }, 1000);
+        }
+
+        // Initialize dashboard
+        function initDashboard() {
+            document.getElementById('upload-section').classList.add('hidden');
+            document.getElementById('loading').classList.remove('hidden');
+            
+            setTimeout(() => {
+                document.getElementById('loading').classList.add('hidden');
+                document.getElementById('dashboard').classList.remove('hidden');
+                
+                updateDataStats();
+                populateFilters();
+                updateMetrics();
+                createCharts();
+                renderAnomalyTiles();
+            }, 1000);
+        }
+
+        // Update data statistics
+        function updateDataStats() {
+            const totalRows = currentData.length;
+            const uniqueTrades = [...new Set(currentData.map(row => row.trade))].length;
+            const uniqueLocations = [...new Set(currentData.map(row => row.location))].length;
+            
+            document.getElementById('data-stats').textContent = 
+                `${totalRows} tasks • ${uniqueTrades} trades • ${uniqueLocations} locations`;
+        }
+
+        // Reload data (go back to upload)
+        function reloadData() {
+            document.getElementById('dashboard').classList.add('hidden');
+            document.getElementById('upload-section').classList.remove('hidden');
+            
+            // Reset file input
+            document.getElementById('csvFile').value = '';
+            document.getElementById('upload-progress').classList.add('hidden');
+            document.getElementById('upload-error').classList.add('hidden');
+        }
+
+        // Show upload progress
+        function showProgress(message) {
+            document.getElementById('upload-error').classList.add('hidden');
+            document.getElementById('upload-progress').classList.remove('hidden');
+            document.getElementById('upload-status').textContent = message;
+        }
+
+        // Show error message
+        function showError(message) {
+            document.getElementById('upload-progress').classList.add('hidden');
+            document.getElementById('upload-error').classList.remove('hidden');
+            document.getElementById('error-message').textContent = message;
+        }
+
+        // Populate filter dropdowns
+        function populateFilters() {
+            const levels = [...new Set(currentData.map(row => row.level))].sort();
+            const trades = [...new Set(currentData.map(row => row.trade))].sort();
+
+            const levelFilter = document.getElementById('levelFilter');
+            const tradeFilter = document.getElementById('tradeFilter');
+
+            levels.forEach(level => {
+                const option = document.createElement('option');
+                option.value = level;
+                option.textContent = `Level ${level}`;
+                levelFilter.appendChild(option);
+            });
+
+            trades.forEach(trade => {
+                const option = document.createElement('option');
+                option.value = trade;
+                option.textContent = trade;
+                tradeFilter.appendChild(option);
+            });
+
+            levelFilter.addEventListener('change', applyFilters);
+            tradeFilter.addEventListener('change', applyFilters);
+        }
+
+        // Apply filters
+        function applyFilters() {
+            const levelFilter = document.getElementById('levelFilter').value;
+            const tradeFilter = document.getElementById('tradeFilter').value;
+
+            filteredData = currentData.filter(row => {
+                return (levelFilter === 'all' || row.level === levelFilter) &&
+                       (tradeFilter === 'all' || row.trade === tradeFilter);
+            });
+
+            updateMetrics();
+            updateCharts();
+        }
+
+        // Update metrics
+        function updateMetrics() {
+            const totalTasks = filteredData.length;
+            const completedTasks = filteredData.filter(row => row.state === 'complete').length;
+            const activeTrades = [...new Set(filteredData.filter(row => row.state === 'in-progress').map(row => row.trade))].length;
+            const completionRate = totalTasks > 0 ? ((completedTasks / totalTasks) * 100).toFixed(1) : 0;
+
+            document.getElementById('completion-rate').textContent = `${completionRate}%`;
+            document.getElementById('completion-tasks').textContent = `${completedTasks} of ${totalTasks} tasks`;
+            document.getElementById('active-trades').textContent = activeTrades;
+        }
+
+        // Switch tabs
+        function switchTab(tab) {
+            // Update tab buttons
+            document.querySelectorAll('.tab-button').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            document.getElementById(`${tab}-tab`).classList.add('active');
+
+            // Show/hide content
+            if (tab === 'anomalies') {
+                document.getElementById('executive-content').classList.add('hidden');
+                document.getElementById('anomalies-content').classList.remove('hidden');
+            } else {
+                document.getElementById('executive-content').classList.remove('hidden');
+                document.getElementById('anomalies-content').classList.add('hidden');
+            }
+        }
+
+        // Create charts
+        function createCharts() {
+            createProgressChart();
+            createVelocityChart();
+            createDistributionChart();
+            createPerformanceChart();
+        }
+
+        function createProgressChart() {
+            const ctx = document.getElementById('progressChart').getContext('2d');
+            charts.progress = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: ['Week 1', 'Week 2', 'Week 3', 'Week 4'],
+                    datasets: [{
+                        label: 'Wall Drywall',
+                        data: [10, 35, 65, 85],
+                        borderColor: '#3b82f6',
+                        tension: 0.1
+                    }, {
+                        label: 'Overhead Plumbing',
+                        data: [5, 15, 30, 50],
+                        borderColor: '#ef4444',
+                        tension: 0.1
+                    }, {
+                        label: 'Electrical',
+                        data: [0, 10, 25, 45],
+                        borderColor: '#10b981',
+                        tension: 0.1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            max: 100,
+                            title: {
+                                display: true,
+                                text: '% Complete'
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+        function createVelocityChart() {
+            const ctx = document.getElementById('velocityChart').getContext('2d');
+            charts.velocity = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri'],
+                    datasets: [{
+                        label: 'Completed Tasks',
+                        data: [12, 19, 8, 15, 22],
+                        borderColor: '#10b981',
+                        backgroundColor: 'rgba(16, 185, 129, 0.1)',
+                        tension: 0.1,
+                        fill: true
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            title: {
+                                display: true,
+                                text: 'Tasks Completed'
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+        function createDistributionChart() {
+            const ctx = document.getElementById('distributionChart').getContext('2d');
+            const trades = [...new Set(filteredData.map(row => row.trade))];
+            
+            charts.distribution = new Chart(ctx, {
+                type: 'doughnut',
+                data: {
+                    labels: trades,
+                    datasets: [{
+                        data: trades.map(() => Math.floor(Math.random() * 100) + 20),
+                        backgroundColor: [
+                            '#3b82f6', '#ef4444', '#10b981', '#f59e0b', '#8b5cf6', '#06b6d4'
+                        ]
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false
+                }
+            });
+        }
+
+        function createPerformanceChart() {
+            const ctx = document.getElementById('performanceChart').getContext('2d');
+            const trades = [...new Set(filteredData.map(row => row.trade))];
+            
+            charts.performance = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: trades,
+                    datasets: [{
+                        label: 'Completion %',
+                        data: trades.map(trade => {
+                            const tradeData = filteredData.filter(row => row.trade === trade);
+                            const completed = tradeData.filter(row => row.state === 'complete').length;
+                            return Math.round((completed / tradeData.length) * 100);
+                        }),
+                        backgroundColor: '#3b82f6'
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            max: 100,
+                            title: {
+                                display: true,
+                                text: '% Complete'
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+        function updateCharts() {
+            if (charts.distribution) {
+                const trades = [...new Set(filteredData.map(row => row.trade))];
+                const data = trades.map(trade => {
+                    const tradeData = filteredData.filter(row => row.trade === trade);
+                    const completed = tradeData.filter(row => row.state === 'complete').length;
+                    return Math.round((completed / tradeData.length) * 100);
+                });
+                
+                charts.distribution.data.labels = trades;
+                charts.distribution.data.datasets[0].data = data;
+                charts.distribution.update();
+
+                charts.performance.data.labels = trades;
+                charts.performance.data.datasets[0].data = data;
+                charts.performance.update();
+            }
+        }
+
+        // Render anomaly tiles
+        function renderAnomalyTiles() {
+            const container = document.getElementById('anomaly-tiles');
+            container.innerHTML = '';
+
+            anomalyTypes.forEach(anomaly => {
+                const tile = document.createElement('div');
+                tile.className = 'anomaly-tile p-4 rounded-lg border border-gray-200 bg-white';
+                
+                tile.innerHTML = `
+                    <div class="flex items-center justify-between mb-2">
+                        <div class="flex items-center gap-2">
+                            <svg class="w-5 h-5" style="color: ${anomaly.color}" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path>
+                            </svg>
+                            <h4 class="font-semibold text-gray-900 text-sm">${anomaly.name}</h4>
+                        </div>
+                        <span class="px-2 py-1 text-xs font-medium rounded-full text-white" style="background-color: ${anomaly.color}">
+                            ${anomaly.count}
+                        </span>
+                    </div>
+                    <p class="text-xs text-gray-600 mb-2">${anomaly.category}</p>
+                    <div class="text-xs px-2 py-1 rounded inline-block ${
+                        anomaly.severity === 'high' ? 'bg-red-100 text-red-800' :
+                        anomaly.severity === 'medium' ? 'bg-orange-100 text-orange-800' :
+                        'bg-yellow-100 text-yellow-800'
+                    }">
+                        ${anomaly.severity.toUpperCase()} PRIORITY
+                    </div>
+                `;
+                
+                container.appendChild(tile);
+            });
+        }
+
+        // Initialize when page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            // Start with upload screen instead of sample data
+            initUpload();
+        });
+    </script>
+</body>
+</html>
