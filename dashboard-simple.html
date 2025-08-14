@@ -20,6 +20,48 @@
             border-color: #d1d5db;
             box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
         }
+        .filter-dropdown {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            background: white;
+            border: 1px solid #d1d5db;
+            border-radius: 0.375rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            z-index: 50;
+            max-height: 200px;
+            overflow-y: auto;
+        }
+        .filter-option {
+            padding: 0.5rem;
+            cursor: pointer;
+            font-size: 0.75rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .filter-option:hover {
+            background-color: #f3f4f6;
+        }
+        .filter-option.selected {
+            background-color: #eff6ff;
+            color: #2563eb;
+        }
+        .filter-checkbox {
+            width: 12px;
+            height: 12px;
+            border: 1px solid #d1d5db;
+            border-radius: 2px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .filter-checkbox.checked {
+            background-color: #3b82f6;
+            border-color: #3b82f6;
+            color: white;
+        }
     </style>
 </head>
 <body class="bg-gray-50">
@@ -131,16 +173,50 @@
                         
                         <div class="flex items-center gap-2">
                             <label class="text-xs text-gray-600">Level:</label>
-                            <select id="levelFilter" class="text-xs border rounded px-2 py-1">
-                                <option value="all">All Levels</option>
-                            </select>
+                            <div class="relative">
+                                <div id="levelFilterDisplay" class="text-xs border rounded px-2 py-1 min-w-24 bg-white cursor-pointer hover:bg-gray-50 flex items-center justify-between">
+                                    <span>All Levels</span>
+                                    <svg class="w-3 h-3 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                                    </svg>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-center gap-2">
+                            <label class="text-xs text-gray-600">Section:</label>
+                            <div class="relative">
+                                <div id="sectionFilterDisplay" class="text-xs border rounded px-2 py-1 min-w-24 bg-white cursor-pointer hover:bg-gray-50 flex items-center justify-between">
+                                    <span>All Sections</span>
+                                    <svg class="w-3 h-3 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                                    </svg>
+                                </div>
+                            </div>
                         </div>
                         
                         <div class="flex items-center gap-2">
                             <label class="text-xs text-gray-600">Trade:</label>
-                            <select id="tradeFilter" class="text-xs border rounded px-2 py-1">
-                                <option value="all">All Trades</option>
-                            </select>
+                            <div class="relative">
+                                <div id="tradeFilterDisplay" class="text-xs border rounded px-2 py-1 min-w-32 bg-white cursor-pointer hover:bg-gray-50 flex items-center justify-between">
+                                    <span>All Trades</span>
+                                    <svg class="w-3 h-3 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                                    </svg>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-center gap-2">
+                            <label class="text-xs text-gray-600">Time:</label>
+                            <div class="relative">
+                                <div id="timeFilterDisplay" class="text-xs border rounded px-2 py-1 min-w-32 bg-white cursor-pointer hover:bg-gray-50 flex items-center justify-between">
+                                    <span>All Time</span>
+                                    <svg class="w-3 h-3 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                                    </svg>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -288,28 +364,7 @@
                             </div>
                         </div>
 
-                        <!-- Summary Stats -->
-                        <div class="bg-white p-6 rounded-lg shadow-sm border border-gray-200">
-                            <h3 class="text-lg font-semibold text-gray-900 mb-4">Anomaly Summary</h3>
-                            <div class="grid grid-cols-2 lg:grid-cols-4 gap-6">
-                                <div class="text-center">
-                                    <div class="text-2xl font-bold text-red-600" id="high-priority-count">0</div>
-                                    <div class="text-sm text-gray-600">High Priority Issues</div>
-                                </div>
-                                <div class="text-center">
-                                    <div class="text-2xl font-bold text-orange-600" id="medium-priority-count">0</div>
-                                    <div class="text-sm text-gray-600">Medium Priority Issues</div>
-                                </div>
-                                <div class="text-center">
-                                    <div class="text-2xl font-bold text-yellow-600" id="low-priority-count">0</div>
-                                    <div class="text-sm text-gray-600">Low Priority Issues</div>
-                                </div>
-                                <div class="text-center">
-                                    <div class="text-2xl font-bold text-gray-600" id="total-anomalies-count">0</div>
-                                    <div class="text-sm text-gray-600">Total Anomalies</div>
-                                </div>
-                            </div>
-                        </div>
+
                     </div>
                 </div>
             </div>
@@ -339,8 +394,6 @@
             { id: 'starvation', name: 'Trade Starvation', category: 'Time-based', count: 0, severity: 'high', color: '#ef4444' },
             { id: 'burst_start', name: 'Burst Start', category: 'Time-based', count: 0, severity: 'medium', color: '#f97316' },
             { id: 'swiss_cheese', name: 'Swiss-Cheese Flow', category: 'Spatial', count: 0, severity: 'medium', color: '#f97316' },
-            { id: 'vertical_lag', name: 'Vertical Lag', category: 'Spatial', count: 0, severity: 'low', color: '#eab308' },
-            { id: 'orphan_location', name: 'Orphan Location', category: 'Spatial', count: 0, severity: 'medium', color: '#f97316' },
             { id: 'blockage', name: 'Trade Blockage', category: 'Cross-trade', count: 0, severity: 'high', color: '#ef4444' },
             { id: 'premature_start', name: 'Premature Start', category: 'Cross-trade', count: 0, severity: 'medium', color: '#f97316' }
         ];
@@ -555,40 +608,362 @@
             document.getElementById('error-message').textContent = message;
         }
 
-        // Populate filter dropdowns
+        // Multi-select filter state
+        const filterState = {
+            levels: [],
+            sections: [],
+            trades: [],
+            time: []
+        };
+
+        // Populate filter dropdowns with multi-select functionality
         function populateFilters() {
             const levels = [...new Set(currentData.map(row => row.level))].sort();
+            const sections = [...new Set(currentData.map(row => row.section).filter(Boolean))].sort();
             const trades = [...new Set(currentData.map(row => row.trade))].sort();
+            const captureDates = [...new Set(currentData.map(row => row.capture_date).filter(Boolean))].sort();
 
-            const levelFilter = document.getElementById('levelFilter');
-            const tradeFilter = document.getElementById('tradeFilter');
+            // Initialize filter state
+            filterState.levels = [];
+            filterState.sections = [];
+            filterState.trades = [];
+            filterState.time = [];
 
-            levels.forEach(level => {
-                const option = document.createElement('option');
-                option.value = level;
-                option.textContent = `Level ${level}`;
-                levelFilter.appendChild(option);
-            });
-
-            trades.forEach(trade => {
-                const option = document.createElement('option');
-                option.value = trade;
-                option.textContent = trade;
-                tradeFilter.appendChild(option);
-            });
-
-            levelFilter.addEventListener('change', applyFilters);
-            tradeFilter.addEventListener('change', applyFilters);
+            // Setup multi-select for levels
+            setupMultiSelect('level', levels, (level) => `Level ${level}`);
+            
+            // Setup multi-select for sections
+            setupMultiSelect('section', sections, (section) => `Section ${section}`);
+            
+            // Setup multi-select for trades
+            setupMultiSelect('trade', trades, (trade) => trade);
+            
+            // Setup multi-select for time with special handling
+            setupTimeFilter(captureDates);
         }
 
-        // Apply filters
-        function applyFilters() {
-            const levelFilter = document.getElementById('levelFilter').value;
-            const tradeFilter = document.getElementById('tradeFilter').value;
+        // Setup multi-select dropdown functionality
+        function setupMultiSelect(filterType, options, labelFormatter) {
+            const display = document.getElementById(`${filterType}FilterDisplay`);
+            const container = display.parentElement;
+            
+            // Remove existing dropdown if any
+            const existingDropdown = container.querySelector('.filter-dropdown');
+            if (existingDropdown) {
+                existingDropdown.remove();
+            }
 
+            // Create dropdown
+            const dropdown = document.createElement('div');
+            dropdown.className = 'filter-dropdown hidden';
+            
+            // Add "All" option
+            const allOption = document.createElement('div');
+            allOption.className = 'filter-option selected';
+            allOption.innerHTML = `
+                <div class="filter-checkbox checked">✓</div>
+                <span>All ${filterType.charAt(0).toUpperCase() + filterType.slice(1)}s</span>
+            `;
+            allOption.onclick = () => selectAllOptions(filterType, dropdown, display);
+            dropdown.appendChild(allOption);
+
+            // Add individual options
+            options.forEach(option => {
+                const optionDiv = document.createElement('div');
+                optionDiv.className = 'filter-option';
+                optionDiv.innerHTML = `
+                    <div class="filter-checkbox"></div>
+                    <span>${labelFormatter(option)}</span>
+                `;
+                optionDiv.dataset.value = option;
+                optionDiv.onclick = () => toggleOption(filterType, option, optionDiv, dropdown, display);
+                dropdown.appendChild(optionDiv);
+            });
+
+            container.appendChild(dropdown);
+
+            // Toggle dropdown on display click
+            display.onclick = () => {
+                dropdown.classList.toggle('hidden');
+                // Close other dropdowns
+                document.querySelectorAll('.filter-dropdown').forEach(d => {
+                    if (d !== dropdown) d.classList.add('hidden');
+                });
+            };
+
+            // Close dropdown when clicking outside
+            document.addEventListener('click', (e) => {
+                if (!container.contains(e.target)) {
+                    dropdown.classList.add('hidden');
+                }
+            });
+        }
+
+        // Setup time filter with both individual dates and period options
+        function setupTimeFilter(captureDates) {
+            const display = document.getElementById('timeFilterDisplay');
+            const container = display.parentElement;
+            
+            // Remove existing dropdown if any
+            const existingDropdown = container.querySelector('.filter-dropdown');
+            if (existingDropdown) {
+                existingDropdown.remove();
+            }
+
+            // Create dropdown
+            const dropdown = document.createElement('div');
+            dropdown.className = 'filter-dropdown hidden';
+            
+            // Add "All Time" option
+            const allOption = document.createElement('div');
+            allOption.className = 'filter-option selected';
+            allOption.innerHTML = `
+                <div class="filter-checkbox checked">✓</div>
+                <span>All Time</span>
+            `;
+            allOption.onclick = () => selectAllTimeOptions(dropdown, display);
+            dropdown.appendChild(allOption);
+
+            // Add period options
+            const periods = [
+                { id: 'last_week', label: 'Last 7 Days' },
+                { id: 'last_2_weeks', label: 'Last 2 Weeks' },
+                { id: 'last_month', label: 'Last 30 Days' }
+            ];
+
+            periods.forEach(period => {
+                const optionDiv = document.createElement('div');
+                optionDiv.className = 'filter-option';
+                optionDiv.innerHTML = `
+                    <div class="filter-checkbox"></div>
+                    <span>${period.label}</span>
+                `;
+                optionDiv.dataset.value = period.id;
+                optionDiv.onclick = () => toggleTimePeriod(period.id, optionDiv, dropdown, display, captureDates);
+                dropdown.appendChild(optionDiv);
+            });
+
+            // Add separator
+            const separator = document.createElement('div');
+            separator.className = 'border-t border-gray-200 my-1';
+            dropdown.appendChild(separator);
+
+            // Add individual capture dates
+            captureDates.forEach(date => {
+                const optionDiv = document.createElement('div');
+                optionDiv.className = 'filter-option';
+                optionDiv.innerHTML = `
+                    <div class="filter-checkbox"></div>
+                    <span>${date}</span>
+                `;
+                optionDiv.dataset.value = date;
+                optionDiv.onclick = () => toggleTimeOption(date, optionDiv, dropdown, display);
+                dropdown.appendChild(optionDiv);
+            });
+
+            container.appendChild(dropdown);
+
+            // Toggle dropdown on display click
+            display.onclick = () => {
+                dropdown.classList.toggle('hidden');
+                // Close other dropdowns
+                document.querySelectorAll('.filter-dropdown').forEach(d => {
+                    if (d !== dropdown) d.classList.add('hidden');
+                });
+            };
+
+            // Close dropdown when clicking outside
+            document.addEventListener('click', (e) => {
+                if (!container.contains(e.target)) {
+                    dropdown.classList.add('hidden');
+                }
+            });
+        }
+
+        // Helper functions for multi-select
+        function selectAllOptions(filterType, dropdown, display) {
+            // Clear current selection
+            filterState[filterType + 's'] = [];
+            
+            // Update visual state
+            dropdown.querySelectorAll('.filter-option').forEach((option, index) => {
+                option.classList.remove('selected');
+                const checkbox = option.querySelector('.filter-checkbox');
+                checkbox.classList.remove('checked');
+                checkbox.textContent = '';
+                
+                // Select "All" option (first option)
+                if (index === 0) {
+                    option.classList.add('selected');
+                    checkbox.classList.add('checked');
+                    checkbox.textContent = '✓';
+                }
+            });
+            
+            // Update display
+            updateFilterDisplay(filterType, display);
+            
+            // Apply filters
+            applyFilters();
+        }
+
+        function toggleOption(filterType, value, optionDiv, dropdown, display) {
+            const filterArray = filterState[filterType + 's'];
+            const allOption = dropdown.querySelector('.filter-option');
+            const checkbox = optionDiv.querySelector('.filter-checkbox');
+            const allCheckbox = allOption.querySelector('.filter-checkbox');
+            
+            if (filterArray.includes(value)) {
+                // Remove from selection
+                const index = filterArray.indexOf(value);
+                filterArray.splice(index, 1);
+                optionDiv.classList.remove('selected');
+                checkbox.classList.remove('checked');
+                checkbox.textContent = '';
+            } else {
+                // Add to selection
+                filterArray.push(value);
+                optionDiv.classList.add('selected');
+                checkbox.classList.add('checked');
+                checkbox.textContent = '✓';
+                
+                // Remove "All" selection when individual items are selected
+                allOption.classList.remove('selected');
+                allCheckbox.classList.remove('checked');
+                allCheckbox.textContent = '';
+            }
+            
+            // If no individual options selected, select "All"
+            if (filterArray.length === 0) {
+                allOption.classList.add('selected');
+                allCheckbox.classList.add('checked');
+                allCheckbox.textContent = '✓';
+            }
+            
+            updateFilterDisplay(filterType, display);
+            applyFilters();
+        }
+
+        function updateFilterDisplay(filterType, display) {
+            const filterArray = filterState[filterType + 's'];
+            const textSpan = display.querySelector('span');
+            
+            if (filterArray.length === 0) {
+                textSpan.textContent = `All ${filterType.charAt(0).toUpperCase() + filterType.slice(1)}s`;
+            } else if (filterArray.length === 1) {
+                const label = filterType === 'level' ? `Level ${filterArray[0]}` : 
+                             filterType === 'section' ? `Section ${filterArray[0]}` : 
+                             filterArray[0];
+                textSpan.textContent = label;
+            } else {
+                textSpan.textContent = `${filterArray.length} ${filterType.charAt(0).toUpperCase() + filterType.slice(1)}s`;
+            }
+        }
+
+        // Time filter helper functions
+        function selectAllTimeOptions(dropdown, display) {
+            filterState.time = [];
+            
+            dropdown.querySelectorAll('.filter-option').forEach((option, index) => {
+                option.classList.remove('selected');
+                const checkbox = option.querySelector('.filter-checkbox');
+                checkbox.classList.remove('checked');
+                checkbox.textContent = '';
+                
+                if (index === 0) {
+                    option.classList.add('selected');
+                    checkbox.classList.add('checked');
+                    checkbox.textContent = '✓';
+                }
+            });
+            
+            updateTimeFilterDisplay(display);
+            applyFilters();
+        }
+
+        function toggleTimePeriod(periodId, optionDiv, dropdown, display, captureDates) {
+            const allOption = dropdown.querySelector('.filter-option');
+            const checkbox = optionDiv.querySelector('.filter-checkbox');
+            const allCheckbox = allOption.querySelector('.filter-checkbox');
+            
+            // Clear all other selections
+            dropdown.querySelectorAll('.filter-option').forEach(option => {
+                option.classList.remove('selected');
+                const cb = option.querySelector('.filter-checkbox');
+                cb.classList.remove('checked');
+                cb.textContent = '';
+            });
+            
+            // Select this period
+            optionDiv.classList.add('selected');
+            checkbox.classList.add('checked');
+            checkbox.textContent = '✓';
+            
+            // Calculate dates for this period
+            const now = new Date();
+            let daysBack = 7;
+            if (periodId === 'last_2_weeks') daysBack = 14;
+            if (periodId === 'last_month') daysBack = 30;
+            
+            const cutoffDate = new Date(now.getTime() - (daysBack * 24 * 60 * 60 * 1000));
+            filterState.time = captureDates.filter(date => new Date(date) >= cutoffDate);
+            
+            updateTimeFilterDisplay(display);
+            applyFilters();
+        }
+
+        function toggleTimeOption(date, optionDiv, dropdown, display) {
+            const allOption = dropdown.querySelector('.filter-option');
+            const checkbox = optionDiv.querySelector('.filter-checkbox');
+            const allCheckbox = allOption.querySelector('.filter-checkbox');
+            
+            if (filterState.time.includes(date)) {
+                const index = filterState.time.indexOf(date);
+                filterState.time.splice(index, 1);
+                optionDiv.classList.remove('selected');
+                checkbox.classList.remove('checked');
+                checkbox.textContent = '';
+            } else {
+                filterState.time.push(date);
+                optionDiv.classList.add('selected');
+                checkbox.classList.add('checked');
+                checkbox.textContent = '✓';
+                allOption.classList.remove('selected');
+                allCheckbox.classList.remove('checked');
+                allCheckbox.textContent = '';
+            }
+            
+            if (filterState.time.length === 0) {
+                allOption.classList.add('selected');
+                allCheckbox.classList.add('checked');
+                allCheckbox.textContent = '✓';
+            }
+            
+            updateTimeFilterDisplay(display);
+            applyFilters();
+        }
+
+        function updateTimeFilterDisplay(display) {
+            const textSpan = display.querySelector('span');
+            
+            if (filterState.time.length === 0) {
+                textSpan.textContent = 'All Time';
+            } else if (filterState.time.length === 1) {
+                textSpan.textContent = filterState.time[0];
+            } else {
+                textSpan.textContent = `${filterState.time.length} Days`;
+            }
+        }
+
+        // Apply filters with multi-select support
+        function applyFilters() {
             filteredData = currentData.filter(row => {
-                return (levelFilter === 'all' || row.level === levelFilter) &&
-                       (tradeFilter === 'all' || row.trade === tradeFilter);
+                const levelMatch = filterState.levels.length === 0 || filterState.levels.includes(row.level);
+                const sectionMatch = filterState.sections.length === 0 || filterState.sections.includes(row.section);
+                const tradeMatch = filterState.trades.length === 0 || filterState.trades.includes(row.trade);
+                const timeMatch = filterState.time.length === 0 || filterState.time.includes(row.capture_date);
+                
+                return levelMatch && sectionMatch && tradeMatch && timeMatch;
             });
 
             updateMetrics();
@@ -1078,58 +1453,63 @@
             const swissCheeseCount = detectSwissCheese(data);
             anomalyTypes.find(a => a.id === 'swiss_cheese').count = swissCheeseCount;
             
-            // 5. Vertical Lag: Upper floors behind lower floors
-            const verticalLagCount = detectVerticalLag(data);
-            anomalyTypes.find(a => a.id === 'vertical_lag').count = verticalLagCount;
-            
-            // 6. Orphan Location: Isolated incomplete locations
-            const orphanCount = detectOrphanLocations(data);
-            anomalyTypes.find(a => a.id === 'orphan_location').count = orphanCount;
-            
-            // 7. Trade Blockage: Conflicting trades in same location
+            // 5. Trade Blockage: Conflicting trades in same location
             const blockageCount = detectTradeBlockage(data);
             anomalyTypes.find(a => a.id === 'blockage').count = blockageCount;
             
-            // 8. Premature Start: Trades starting before prerequisites
+            // 6. Premature Start: Trades starting before prerequisites
             const prematureCount = detectPrematureStart(data);
             anomalyTypes.find(a => a.id === 'premature_start').count = prematureCount;
         }
 
         // Detection algorithms for each anomaly type
         function detectAbandonedTrades(data) {
-            // Find trades that have been in-progress for a long time without recent updates
+            const now = new Date();
+            let abandonedCount = 0;
+            
+            // Find trades that have been in-progress for >14 days
             const inProgressTrades = data.filter(row => row.state === 'in-progress');
-            const tradeGroups = {};
             
             inProgressTrades.forEach(row => {
-                const key = `${row.trade}-${row.location}`;
-                if (!tradeGroups[key]) {
-                    tradeGroups[key] = [];
+                if (row.capture_date) {
+                    const captureDate = new Date(row.capture_date);
+                    const daysDiff = (now - captureDate) / (1000 * 60 * 60 * 24);
+                    
+                    // Count tasks stalled for more than 14 days
+                    if (daysDiff > 14) {
+                        abandonedCount++;
+                    }
                 }
-                tradeGroups[key].push(row);
             });
             
-            // Count trades with no recent completion activity (simple heuristic)
-            return Object.keys(tradeGroups).filter(key => {
-                const group = tradeGroups[key];
-                // If a trade has been in-progress but no completion date, it might be abandoned
-                return group.length > 0 && !group.some(row => row.complete_date);
-            }).length;
+            return abandonedCount;
         }
 
         function detectStarvation(data) {
-            // Find locations where multiple trades are stuck in in-progress state
-            const locationGroups = {};
+            // Find locations where multiple trades compete on individual days
+            let starvationCount = 0;
+            const captureDates = [...new Set(data.map(row => row.capture_date).filter(Boolean))];
             
-            data.filter(row => row.state === 'in-progress').forEach(row => {
-                if (!locationGroups[row.location]) {
-                    locationGroups[row.location] = [];
-                }
-                locationGroups[row.location].push(row);
+            captureDates.forEach(date => {
+                const dayData = data.filter(row => row.capture_date === date && row.state === 'in-progress');
+                const locationGroups = {};
+                
+                dayData.forEach(row => {
+                    if (!locationGroups[row.location]) {
+                        locationGroups[row.location] = [];
+                    }
+                    locationGroups[row.location].push(row);
+                });
+                
+                // Count instances where multiple trades compete on the same day
+                Object.values(locationGroups).forEach(trades => {
+                    if (trades.length >= 2) {
+                        starvationCount++;
+                    }
+                });
             });
             
-            // Count locations with 3+ stalled trades
-            return Object.values(locationGroups).filter(trades => trades.length >= 3).length;
+            return starvationCount;
         }
 
         function detectBurstStart(data) {
@@ -1347,22 +1727,10 @@
                 container.appendChild(tile);
             });
 
-            // Update anomaly summary counts
-            updateAnomalySummary();
+
         }
 
-        // Update anomaly summary counts
-        function updateAnomalySummary() {
-            const highPriorityCount = anomalyTypes.filter(a => a.severity === 'high').reduce((sum, a) => sum + a.count, 0);
-            const mediumPriorityCount = anomalyTypes.filter(a => a.severity === 'medium').reduce((sum, a) => sum + a.count, 0);
-            const lowPriorityCount = anomalyTypes.filter(a => a.severity === 'low').reduce((sum, a) => sum + a.count, 0);
-            const totalCount = anomalyTypes.reduce((sum, a) => sum + a.count, 0);
 
-            document.getElementById('high-priority-count').textContent = highPriorityCount;
-            document.getElementById('medium-priority-count').textContent = mediumPriorityCount;
-            document.getElementById('low-priority-count').textContent = lowPriorityCount;
-            document.getElementById('total-anomalies-count').textContent = totalCount;
-        }
 
         // Global variable to track anomaly chart
         let anomalyChart = null;
@@ -1412,12 +1780,6 @@
                 case 'swiss_cheese':
                     createSwissCheeseChart(ctx, anomaly);
                     break;
-                case 'vertical_lag':
-                    createVerticalLagChart(ctx, anomaly);
-                    break;
-                case 'orphan_location':
-                    createOrphanLocationChart(ctx, anomaly);
-                    break;
                 case 'blockage':
                     createBlockageChart(ctx, anomaly);
                     break;
@@ -1431,38 +1793,127 @@
 
         // Helper functions to get real data for charts
         function getAbandonedTradesData() {
-            // Get trades that are in-progress without completion dates
-            const abandonedTrades = filteredData.filter(row => 
-                row.state === 'in-progress' && !row.complete_date
-            );
+            const now = new Date();
             
-            // Group by capture date to show trend
-            const dateCounts = {};
-            abandonedTrades.forEach(row => {
-                const date = row.capture_date || 'Unknown';
-                dateCounts[date] = (dateCounts[date] || 0) + 1;
+            // Get trades that are in-progress and stalled >14 days
+            const abandonedTrades = filteredData.filter(row => {
+                if (row.state !== 'in-progress') return false;
+                
+                // Calculate days stalled from capture date
+                if (row.capture_date) {
+                    const captureDate = new Date(row.capture_date);
+                    const daysDiff = (now - captureDate) / (1000 * 60 * 60 * 24);
+                    return daysDiff > 14;
+                }
+                
+                return false;
             });
             
-            return dateCounts;
+            // Group by location and collect trade details
+            const locationData = {};
+            abandonedTrades.forEach(row => {
+                const location = row.location;
+                
+                if (!locationData[location]) {
+                    locationData[location] = {
+                        totalStalled: 0,
+                        trades: {}
+                    };
+                }
+                
+                // Calculate days stalled
+                const captureDate = new Date(row.capture_date);
+                const daysStalled = Math.floor((now - captureDate) / (1000 * 60 * 60 * 24));
+                
+                if (!locationData[location].trades[row.trade]) {
+                    locationData[location].trades[row.trade] = {
+                        count: 0,
+                        maxDays: 0,
+                        minDays: Infinity
+                    };
+                }
+                
+                locationData[location].totalStalled++;
+                locationData[location].trades[row.trade].count++;
+                locationData[location].trades[row.trade].maxDays = Math.max(
+                    locationData[location].trades[row.trade].maxDays, 
+                    daysStalled
+                );
+                locationData[location].trades[row.trade].minDays = Math.min(
+                    locationData[location].trades[row.trade].minDays, 
+                    daysStalled
+                );
+            });
+            
+            return locationData;
         }
 
         function getStarvationData() {
-            // Get locations with multiple stalled trades
-            const locationGroups = {};
-            filteredData.filter(row => row.state === 'in-progress').forEach(row => {
-                if (!locationGroups[row.location]) {
-                    locationGroups[row.location] = [];
-                }
-                locationGroups[row.location].push(row);
+            // Analyze starvation by individual capture days
+            const starvationByDay = {};
+            
+            // Group data by capture date and location
+            const captureDates = [...new Set(filteredData.map(row => row.capture_date).filter(Boolean))];
+            
+            captureDates.forEach(date => {
+                const dayData = filteredData.filter(row => row.capture_date === date);
+                const locationGroups = {};
+                
+                // Group by location for this specific day
+                dayData.filter(row => row.state === 'in-progress').forEach(row => {
+                    if (!locationGroups[row.location]) {
+                        locationGroups[row.location] = [];
+                    }
+                    locationGroups[row.location].push(row);
+                });
+                
+                // Find locations with multiple competing trades on this day
+                Object.entries(locationGroups).forEach(([location, trades]) => {
+                    if (trades.length >= 2) {
+                        const key = `${location} (${date})`;
+                        if (!starvationByDay[key]) {
+                            starvationByDay[key] = {
+                                count: trades.length,
+                                trades: [...new Set(trades.map(t => t.trade))],
+                                date: date,
+                                location: location
+                            };
+                        }
+                    }
+                });
             });
             
-            // Return locations with multiple stalled trades
-            return Object.entries(locationGroups)
-                .filter(([location, trades]) => trades.length >= 2)
-                .reduce((acc, [location, trades]) => {
-                    acc[location] = trades.length;
-                    return acc;
-                }, {});
+            return starvationByDay;
+        }
+
+        function getSwissCheeseData() {
+            // Find locations with gaps in completion patterns
+            const locationCompletion = {};
+            
+            // Calculate completion rate for each location
+            filteredData.forEach(row => {
+                if (!locationCompletion[row.location]) {
+                    locationCompletion[row.location] = { total: 0, completed: 0 };
+                }
+                locationCompletion[row.location].total++;
+                if (row.state === 'complete') {
+                    locationCompletion[row.location].completed++;
+                }
+            });
+            
+            // Calculate completion percentages and identify gaps
+            const completionData = {};
+            Object.entries(locationCompletion).forEach(([location, data]) => {
+                const percentage = data.total > 0 ? Math.round((data.completed / data.total) * 100) : 0;
+                completionData[location] = {
+                    percentage: percentage,
+                    isGap: percentage === 0 && data.total > 0, // Has tasks but 0% complete
+                    total: data.total,
+                    completed: data.completed
+                };
+            });
+            
+            return completionData;
         }
 
         function getVerticalLagData() {
@@ -1486,25 +1937,29 @@
             }, {});
         }
 
-        // Trade Abandonment - Line chart showing trades stopping midway
+        // Trade Abandonment - Bar chart showing locations with stalled tasks >14 days
         function createAbandonmentChart(ctx, anomaly) {
-            // Get real abandoned trades from current data
-            const abandonedTradesData = getAbandonedTradesData();
-            const labels = Object.keys(abandonedTradesData).sort();
-            const data = labels.map(date => abandonedTradesData[date]);
+            // Get real abandoned trades data
+            const locationData = getAbandonedTradesData();
+            const locations = Object.keys(locationData);
+            const data = locations.map(location => locationData[location].totalStalled);
+            
+            // If no data, show placeholder
+            if (locations.length === 0) {
+                locations.push('No stalled locations found');
+                data.push(0);
+            }
             
             anomalyChart = new Chart(ctx, {
-                type: 'line',
+                type: 'bar',
                 data: {
-                    labels: labels,
+                    labels: locations,
                     datasets: [{
-                        label: 'Abandoned Trades',
+                        label: 'Stalled Tasks',
                         data: data,
+                        backgroundColor: anomaly.color + '80',
                         borderColor: anomaly.color,
-                        backgroundColor: anomaly.color + '20',
-                        borderWidth: 3,
-                        fill: true,
-                        tension: 0.4
+                        borderWidth: 2
                     }]
                 },
                 options: {
@@ -1515,36 +1970,86 @@
                             beginAtZero: true,
                             title: {
                                 display: true,
-                                text: 'Number of Abandoned Trades'
+                                text: 'Number of Stalled Tasks'
+                            }
+                        },
+                        x: {
+                            title: {
+                                display: true,
+                                text: 'Locations'
+                            },
+                            ticks: {
+                                maxRotation: 45,
+                                minRotation: 45
                             }
                         }
                     },
                     plugins: {
                         title: {
                             display: true,
-                            text: 'Trade Abandonment Trend - Trades left incomplete >14 days'
+                            text: 'Trade Abandonment by Location - Tasks stalled >14 days'
+                        },
+                        tooltip: {
+                            callbacks: {
+                                title: function(context) {
+                                    return `Location: ${context[0].label}`;
+                                },
+                                label: function(context) {
+                                    const location = context.label;
+                                    if (!locationData[location]) return 'No data';
+                                    
+                                    const data = locationData[location];
+                                    return `Total Stalled Tasks: ${data.totalStalled}`;
+                                },
+                                afterLabel: function(context) {
+                                    const location = context.label;
+                                    if (!locationData[location]) return [];
+                                    
+                                    const data = locationData[location];
+                                    const details = [];
+                                    
+                                    details.push(''); // Empty line for spacing
+                                    details.push('Breakdown by Trade:');
+                                    
+                                    Object.entries(data.trades).forEach(([trade, tradeInfo]) => {
+                                        const daysRange = tradeInfo.minDays === tradeInfo.maxDays 
+                                            ? `${tradeInfo.maxDays} days`
+                                            : `${tradeInfo.minDays}-${tradeInfo.maxDays} days`;
+                                        
+                                        details.push(`• ${trade}: ${tradeInfo.count} task${tradeInfo.count > 1 ? 's' : ''} (stalled ${daysRange})`);
+                                    });
+                                    
+                                    return details;
+                                }
+                            }
                         }
                     }
                 }
             });
         }
 
-        // Trade Starvation - Bar chart showing resource shortages by trade
+        // Trade Starvation - Bar chart showing locations with multiple competing trades by day
         function createStarvationChart(ctx, anomaly) {
             const starvationData = getStarvationData();
             const labels = Object.keys(starvationData);
-            const data = Object.values(starvationData);
+            const data = labels.map(key => starvationData[key].count);
+            
+            // If no data, show placeholder
+            if (labels.length === 0) {
+                labels.push('No resource conflicts found');
+                data.push(0);
+            }
             
             anomalyChart = new Chart(ctx, {
                 type: 'bar',
                 data: {
                     labels: labels,
                     datasets: [{
-                        label: 'Stalled Trades Count',
+                        label: 'Competing Trades',
                         data: data,
-                        backgroundColor: anomaly.color,
+                        backgroundColor: anomaly.color + '80',
                         borderColor: anomaly.color,
-                        borderWidth: 1
+                        borderWidth: 2
                     }]
                 },
                 options: {
@@ -1555,14 +2060,53 @@
                             beginAtZero: true,
                             title: {
                                 display: true,
-                                text: 'Days Without Progress'
+                                text: 'Number of Competing Trades'
+                            }
+                        },
+                        x: {
+                            title: {
+                                display: true,
+                                text: 'Location (Date)'
+                            },
+                            ticks: {
+                                maxRotation: 45,
+                                minRotation: 45
                             }
                         }
                     },
                     plugins: {
                         title: {
                             display: true,
-                            text: 'Trade Starvation - Trades lacking resources or workforce'
+                            text: 'Trade Starvation - Daily analysis of competing trades by location'
+                        },
+                        tooltip: {
+                            callbacks: {
+                                title: function(context) {
+                                    return context[0].label;
+                                },
+                                label: function(context) {
+                                    const key = context.label;
+                                    const data = starvationData[key];
+                                    if (!data) return 'No data';
+                                    return `Competing Trades: ${data.count}`;
+                                },
+                                afterLabel: function(context) {
+                                    const key = context.label;
+                                    const data = starvationData[key];
+                                    if (!data) return [];
+                                    
+                                    const details = [];
+                                    details.push(''); // Empty line
+                                    details.push('Competing Trades:');
+                                    data.trades.forEach(trade => {
+                                        details.push(`• ${trade}`);
+                                    });
+                                    details.push(''); // Empty line
+                                    details.push('Multiple in-progress trades competing for the same location on this day');
+                                    
+                                    return details;
+                                }
+                            }
                         }
                     }
                 }
@@ -1617,13 +2161,17 @@
             });
         }
 
-        // Swiss Cheese Flow - Scatter plot showing gaps in completion
+        // Swiss Cheese Flow - Bar chart showing gaps in completion patterns
         function createSwissCheeseChart(ctx, anomaly) {
-            const locations = Array.from({length: 20}, (_, i) => `Loc ${i + 1}`);
-            const completionData = [
-                100, 85, 0, 90, 75, 0, 95, 80, 0, 88, 
-                92, 0, 87, 0, 91, 83, 0, 89, 94, 0
-            ]; // 0 represents gaps (swiss cheese holes)
+            const swissCheeseData = getSwissCheeseData();
+            const locations = Object.keys(swissCheeseData);
+            const completionPercentages = locations.map(loc => swissCheeseData[loc].percentage);
+            
+            // If no data, show placeholder
+            if (locations.length === 0) {
+                locations.push('No completion gaps found');
+                completionPercentages.push(0);
+            }
             
             anomalyChart = new Chart(ctx, {
                 type: 'bar',
@@ -1631,10 +2179,16 @@
                     labels: locations,
                     datasets: [{
                         label: 'Completion %',
-                        data: completionData,
-                        backgroundColor: completionData.map(val => val === 0 ? '#ef4444' : anomaly.color),
-                        borderColor: completionData.map(val => val === 0 ? '#dc2626' : anomaly.color),
-                        borderWidth: 1
+                        data: completionPercentages,
+                        backgroundColor: completionPercentages.map((val, idx) => {
+                            if (locations.length === 1 && completionPercentages[0] === 0) return anomaly.color;
+                            return swissCheeseData[locations[idx]]?.isGap ? '#ef4444' : anomaly.color + '80';
+                        }),
+                        borderColor: completionPercentages.map((val, idx) => {
+                            if (locations.length === 1 && completionPercentages[0] === 0) return anomaly.color;
+                            return swissCheeseData[locations[idx]]?.isGap ? '#dc2626' : anomaly.color;
+                        }),
+                        borderWidth: 2
                     }]
                 },
                 options: {
@@ -1653,7 +2207,33 @@
                     plugins: {
                         title: {
                             display: true,
-                            text: 'Swiss Cheese Flow - Random gaps in otherwise completed areas'
+                            text: 'Swiss Cheese Flow - Completion gaps in project locations'
+                        },
+                        tooltip: {
+                            callbacks: {
+                                title: function(context) {
+                                    return `Location: ${context[0].label}`;
+                                },
+                                label: function(context) {
+                                    const location = context.label;
+                                    const data = swissCheeseData[location];
+                                    if (!data) return `Completion: ${context.parsed.y}%`;
+                                    
+                                    return `Completion: ${data.percentage}% (${data.completed}/${data.total} tasks)`;
+                                },
+                                afterLabel: function(context) {
+                                    const location = context.label;
+                                    const data = swissCheeseData[location];
+                                    if (!data) return [];
+                                    
+                                    if (data.isGap) {
+                                        return ['', 'This location has tasks but 0% completion - a potential gap!'];
+                                    } else if (data.percentage < 50) {
+                                        return ['', 'Low completion rate may indicate workflow issues'];
+                                    }
+                                    return [];
+                                }
+                            }
                         }
                     }
                 }
@@ -1891,9 +2471,8 @@
                 timelineItem.innerHTML = `
                     <!-- Timeline dot -->
                     <div class="relative z-10 w-12 h-12 rounded-full flex items-center justify-center ${
-                        milestone.status === 'complete' ? 'bg-green-500' :
-                        milestone.status === 'on-track' ? 'bg-blue-500' :
-                        milestone.status === 'at-risk' ? 'bg-yellow-500' : 'bg-red-500'
+                        milestone.status === 'complete' ? 'bg-blue-600' :
+                        milestone.status === 'in-progress' ? 'bg-blue-400' : 'bg-blue-300'
                     }">
                         ${milestone.status === 'complete' ? 
                             '<svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>' :
@@ -1907,10 +2486,9 @@
                             <div class="flex items-center justify-between mb-2">
                                 <h4 class="font-semibold text-gray-900">${milestone.name}</h4>
                                 <span class="px-3 py-1 text-xs font-medium rounded-full ${
-                                    milestone.status === 'complete' ? 'bg-green-100 text-green-800' :
-                                    milestone.status === 'on-track' ? 'bg-blue-100 text-blue-800' :
-                                    milestone.status === 'at-risk' ? 'bg-yellow-100 text-yellow-800' :
-                                    'bg-red-100 text-red-800'
+                                    milestone.status === 'complete' ? 'bg-blue-100 text-blue-800' :
+                                    milestone.status === 'in-progress' ? 'bg-blue-50 text-blue-700' :
+                                    'bg-blue-50 text-blue-600'
                                 }">
                                     ${milestone.status}
                                 </span>
@@ -1924,9 +2502,8 @@
                                 <div class="flex-1 bg-gray-200 rounded-full h-3">
                                     <div 
                                         class="h-3 rounded-full transition-all duration-500 ${
-                                            milestone.status === 'complete' ? 'bg-green-500' :
-                                            milestone.status === 'on-track' ? 'bg-blue-500' :
-                                            milestone.status === 'at-risk' ? 'bg-yellow-500' : 'bg-red-500'
+                                            milestone.status === 'complete' ? 'bg-blue-600' :
+                                            milestone.status === 'in-progress' ? 'bg-blue-400' : 'bg-blue-300'
                                         }"
                                         style="width: ${milestone.progress}%"
                                     ></div>
@@ -1955,10 +2532,8 @@
                 const total = tradeData.length;
                 const progress = total > 0 ? Math.round((completed / total) * 100) : 0;
                 
-                let status = 'behind';
+                let status = 'in-progress';
                 if (progress === 100) status = 'complete';
-                else if (progress >= 60) status = 'on-track';
-                else if (progress >= 30) status = 'at-risk';
                 
                 milestones.push({
                     name: trade,
@@ -1980,19 +2555,19 @@
                     {
                         name: 'Dashboard Configuration',
                         description: 'Configure project settings',
-                        status: 'on-track',
+                        status: 'complete',
                         progress: 85
                     },
                     {
                         name: 'Trade Analysis',
                         description: 'Analyze trade performance',
-                        status: 'at-risk',
+                        status: 'in-progress',
                         progress: 45
                     },
                     {
                         name: 'Progress Reporting',
                         description: 'Generate project reports',
-                        status: 'behind',
+                        status: 'in-progress',
                         progress: 20
                     }
                 );
