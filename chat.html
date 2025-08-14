@@ -246,8 +246,6 @@
         }
 
         function handleFileUpload(file) {
-            showProgress('Reading CSV file...');
-            
             const reader = new FileReader();
             reader.onload = function(e) {
                 try {
@@ -261,8 +259,6 @@
         }
 
         function parseCSV(csvContent) {
-            showProgress('Parsing CSV data...');
-            
             try {
                 const lines = csvContent.trim().split('\n');
                 if (lines.length < 2) {
@@ -310,11 +306,7 @@
                 }
 
                 currentData = data;
-                showProgress('Analyzing data...');
-                
-                setTimeout(() => {
-                    loadAndAnalyzeData();
-                }, 500);
+                loadAndAnalyzeData();
 
             } catch (error) {
                 showError('Error parsing CSV: ' + error.message);
@@ -324,15 +316,18 @@
 
 
         function showProgress(message) {
-            document.getElementById('upload-progress').classList.remove('hidden');
-            document.getElementById('upload-error').classList.add('hidden');
-            document.getElementById('progress-message').textContent = message;
+            // Update loading screen with progress message
+            const loadingSection = document.getElementById('loading-section');
+            if (loadingSection) {
+                const existingMessage = loadingSection.querySelector('p');
+                if (existingMessage) {
+                    existingMessage.textContent = message;
+                }
+            }
         }
 
         function showError(message) {
-            document.getElementById('upload-error').classList.remove('hidden');
-            document.getElementById('upload-progress').classList.add('hidden');
-            document.getElementById('error-message').textContent = message;
+            showLoadingError(message);
         }
 
         function reloadData() {
