@@ -71,12 +71,7 @@
 
             <input type="file" id="csvFile" accept=".csv" class="hidden">
 
-            <!-- Sample Data Button -->
-            <div class="mt-4">
-                <button id="use-sample-data" class="w-full bg-gray-100 text-gray-700 py-2 px-4 rounded-lg hover:bg-gray-200 transition-colors text-sm">
-                    Use Sample Data Instead
-                </button>
-            </div>
+
 
             <!-- Progress/Error Display -->
             <div id="upload-progress" class="mt-4 hidden">
@@ -164,15 +159,12 @@
     </div>
 
     <script>
-        // Sample data - will be replaced with CSV loading
-        const sampleData = [
-            { trade: 'Overhead Duct Rough In', location: 'Room 101', state: 'in-progress', 'level / floor': '1', section: 'A', capture_date: '2024-01-15', complete_date: null },
-            { trade: 'Overhead Plumbing', location: 'Room 101', state: 'complete', 'level / floor': '1', section: 'A', capture_date: '2024-01-10', complete_date: '2024-01-20' },
-            { trade: 'Wall Drywall', location: 'Room 102', state: 'complete', 'level / floor': '1', section: 'A', capture_date: '2024-01-05', complete_date: '2024-01-25' },
-            { trade: 'Wall Drywall', location: 'Room 201', state: 'in-progress', 'level / floor': '2', section: 'B', capture_date: '2024-01-20', complete_date: null },
-            { trade: 'Wall Prime Paint', location: 'Room 101', state: 'complete', 'level / floor': '1', section: 'A', capture_date: '2024-01-25', complete_date: '2024-02-01' },
-            { trade: 'In Wall Insulation', location: 'Room 103', state: 'complete', 'level / floor': '1', section: 'A', capture_date: '2024-01-12', complete_date: '2024-01-22' }
-        ];
+        // Data will be loaded from uploaded CSV only
+
+        // Helper function to check if a task is in progress (handles both formats)
+        function isInProgress(state) {
+            return state === 'in progress' || state === 'in-progress';
+        }
 
         let dashboardData = null;
         let chatHistory = [];
@@ -191,7 +183,7 @@
         function initUpload() {
             const dropzone = document.getElementById('dropzone');
             const csvFile = document.getElementById('csvFile');
-            const useSampleDataBtn = document.getElementById('use-sample-data');
+
 
             // Dropzone click handler
             dropzone.addEventListener('click', () => {
@@ -225,10 +217,7 @@
                 }
             });
 
-            // Sample data button
-            useSampleDataBtn.addEventListener('click', () => {
-                loadSampleData();
-            });
+
         }
 
         function handleFileUpload(file) {
@@ -307,14 +296,7 @@
             }
         }
 
-        function loadSampleData() {
-            showProgress('Loading sample data...');
-            currentData = sampleData;
-            
-            setTimeout(() => {
-                loadAndAnalyzeData();
-            }, 500);
-        }
+
 
         function showProgress(message) {
             document.getElementById('upload-progress').classList.remove('hidden');
@@ -366,7 +348,9 @@
         }
 
         function updateDataStats() {
-            const totalTasks = currentData.length;
+            // Count unique location-trade combinations (actual tasks)
+            const uniqueTasks = new Set(currentData.map(row => `${row.location}_${row.trade}`));
+            const totalTasks = uniqueTasks.size;
             const uniqueTrades = [...new Set(currentData.map(row => row.trade))].length;
             const uniqueLocations = [...new Set(currentData.map(row => row.location))].length;
             
@@ -375,34 +359,82 @@
         }
 
         function analyzeData(data) {
-            const totalTasks = data.length;
-            const completedTasks = data.filter(item => item.state === 'complete').length;
-            const inProgressTasks = data.filter(item => item.state === 'in-progress').length;
+            // Count unique location-trade combinations for accurate task counts
+            const uniqueTasks = new Set(data.map(item => `${item.location}_${item.trade}`));
+            const totalTasks = uniqueTasks.size;
+            
+            const uniqueCompletedTasks = new Set(
+                data.filter(item => item.state === 'complete')
+                    .map(item => `${item.location}_${item.trade}`)
+            );
+            const completedTasks = uniqueCompletedTasks.size;
+            
+            const uniqueInProgressTasks = new Set(
+                data.filter(item => isInProgress(item.state))
+                    .map(item => `${item.location}_${item.trade}`)
+            );
+            const inProgressTasks = uniqueInProgressTasks.size;
+            
             const overallCompletion = ((completedTasks / totalTasks) * 100).toFixed(1);
 
-            // Level analysis
-            const levelGroups = data.reduce((acc, item) => {
+            // Level analysis - count unique location-trade combinations per level
+            const levelGroups = {};
+            const levelTaskSets = {};
+            
+            data.forEach(item => {
                 const level = item['level / floor'] || 'Unknown';
-                if (!acc[level]) acc[level] = { total: 0, completed: 0 };
-                acc[level].total++;
-                if (item.state === 'complete') acc[level].completed++;
-                return acc;
-            }, {});
-
-            // Trade analysis
-            const tradeGroups = data.reduce((acc, item) => {
-                if (!acc[item.trade]) {
-                    acc[item.trade] = { total: 0, completed: 0, inProgress: 0, items: [] };
+                const taskKey = `${item.location}_${item.trade}`;
+                
+                if (!levelGroups[level]) {
+                    levelGroups[level] = { total: 0, completed: 0 };
+                    levelTaskSets[level] = { allTasks: new Set(), completedTasks: new Set() };
                 }
-                acc[item.trade].total++;
-                acc[item.trade].items.push(item);
+                
+                levelTaskSets[level].allTasks.add(taskKey);
                 if (item.state === 'complete') {
-                    acc[item.trade].completed++;
-                } else if (item.state === 'in-progress') {
-                    acc[item.trade].inProgress++;
+                    levelTaskSets[level].completedTasks.add(taskKey);
                 }
-                return acc;
-            }, {});
+            });
+            
+            // Convert sets to counts
+            Object.keys(levelGroups).forEach(level => {
+                levelGroups[level].total = levelTaskSets[level].allTasks.size;
+                levelGroups[level].completed = levelTaskSets[level].completedTasks.size;
+            });
+
+            // Trade analysis - count unique location-trade combinations per trade
+            const tradeGroups = {};
+            const tradeTaskSets = {};
+            
+            data.forEach(item => {
+                const trade = item.trade;
+                const taskKey = `${item.location}_${item.trade}`;
+                
+                if (!tradeGroups[trade]) {
+                    tradeGroups[trade] = { total: 0, completed: 0, inProgress: 0, items: [] };
+                    tradeTaskSets[trade] = { 
+                        allTasks: new Set(), 
+                        completedTasks: new Set(), 
+                        inProgressTasks: new Set() 
+                    };
+                }
+                
+                tradeTaskSets[trade].allTasks.add(taskKey);
+                tradeGroups[trade].items.push(item);
+                
+                if (item.state === 'complete') {
+                    tradeTaskSets[trade].completedTasks.add(taskKey);
+                } else if (isInProgress(item.state)) {
+                    tradeTaskSets[trade].inProgressTasks.add(taskKey);
+                }
+            });
+            
+            // Convert sets to counts
+            Object.keys(tradeGroups).forEach(trade => {
+                tradeGroups[trade].total = tradeTaskSets[trade].allTasks.size;
+                tradeGroups[trade].completed = tradeTaskSets[trade].completedTasks.size;
+                tradeGroups[trade].inProgress = tradeTaskSets[trade].inProgressTasks.size;
+            });
 
             const tradeAnalysis = Object.entries(tradeGroups).map(([trade, tradeData]) => {
                 const completionRate = (tradeData.completed / tradeData.total) * 100;
@@ -416,13 +448,27 @@
                 };
             }).sort((a, b) => parseFloat(a.completionRate) - parseFloat(b.completionRate));
 
-            // Velocity analysis
+            // Velocity analysis - count unique location-trade completions per date
             const completedWork = data.filter(item => item.complete_date && item.state === 'complete');
             const velocityData = {};
             
+            // Group by unique location-trade-date combinations to avoid double counting
+            const uniqueCompletions = new Map();
             completedWork.forEach(item => {
-                const date = item.complete_date;
-                const trade = item.trade;
+                const key = `${item.location}_${item.trade}_${item.complete_date}`;
+                if (!uniqueCompletions.has(key)) {
+                    uniqueCompletions.set(key, {
+                        date: item.complete_date,
+                        trade: item.trade,
+                        location: item.location
+                    });
+                }
+            });
+            
+            // Now count unique completions per date/trade
+            uniqueCompletions.forEach(completion => {
+                const date = completion.date;
+                const trade = completion.trade;
                 
                 if (!velocityData[date]) {
                     velocityData[date] = {};
@@ -955,10 +1001,6 @@
             
             // Show appropriate chart
             renderChart();
-            
-            // Add response message
-            const responseMessage = `Analyzing ${msg.tileData.title}... Here's the detailed breakdown:`;
-            addChatMessage("assistant", responseMessage);
         }
 
         function renderChart() {
