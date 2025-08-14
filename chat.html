@@ -180,9 +180,7 @@
         let activeChart = null;
         let currentData = [];
         
-        // Google AI Configuration
-        const GOOGLE_AI_API_KEY = 'AIzaSyB59MeYr2GrmH9on09VZM-JmJSeRBfe_6o';
-        const GOOGLE_AI_API_URL = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent';
+        // Removed API configuration - using local chatbot logic
 
         // Initialize the application
         document.addEventListener('DOMContentLoaded', function() {
@@ -454,26 +452,13 @@
             };
         }
 
-        async function generateInitialInsights(data) {
-            // Generate AI-powered welcome message
-            try {
-                const welcomePrompt = `Analyze this construction project data and provide a brief, friendly welcome message (2-3 sentences) highlighting the key status:
-
-Project Data:
-- Overall completion: ${data.overview.overallCompletion}%
-- Total tasks: ${data.overview.totalTasks}
-- Completed: ${data.overview.completedTasks}
-- In progress: ${data.overview.inProgressTasks}
-- Trades: ${data.tradeAnalysis.length}
-
-Provide a professional but friendly greeting that summarizes the project status.`;
-
-                const welcomeResponse = await callGoogleAI(welcomePrompt);
-                addChatMessage("assistant", welcomeResponse);
-            } catch (error) {
-                // Fallback welcome message
-                addChatMessage("assistant", `Hello! I've analyzed your construction data. Your project is ${data.overview.overallCompletion}% complete with ${data.overview.completedTasks} tasks finished and ${data.overview.inProgressTasks} currently in progress. 🏗️`);
-            }
+        function generateInitialInsights(data) {
+            // Welcome message
+            addChatMessage("assistant", `Hello! I've analyzed your construction data. Your project is ${data.overview.overallCompletion}% complete with ${data.overview.completedTasks} tasks finished and ${data.overview.inProgressTasks} currently in progress. 🏗️`);
+            
+            // Overall status
+            const statusMessage = `You're working with ${data.tradeAnalysis.length} trades across ${data.overview.totalTasks} total tasks. I can help you analyze performance, identify issues, and provide recommendations.`;
+            addChatMessage("assistant", statusMessage);
 
             // Critical issues
             const criticalTrades = data.tradeAnalysis.filter(t => parseFloat(t.completionRate) < 15);
@@ -612,163 +597,38 @@ Provide a professional but friendly greeting that summarizes the project status.
             input.disabled = true;
             document.getElementById('send-button').disabled = true;
             
-            // Generate AI response
-            setTimeout(() => {
-                generateAIResponse(message);
-                
-                // Re-enable input
-                input.disabled = false;
-                document.getElementById('send-button').disabled = false;
-                input.focus();
-            }, 1000);
+            // Generate response immediately
+            generateAIResponse(message);
+            
+            // Re-enable input
+            input.disabled = false;
+            document.getElementById('send-button').disabled = false;
+            input.focus();
         }
 
-        // Generate AI response using Google Gemini API
-        async function generateAIResponse(userMessage) {
-            try {
-                const response = await callGoogleAI(userMessage);
-                
-                // Add AI response to chat
-                addChatMessage("assistant", response);
-                
-                // Check if we should generate relevant tiles based on the response
-                generateRelevantTiles(userMessage, response);
-                
-            } catch (error) {
-                console.error('Error calling Google AI:', error);
-                // Fallback to rule-based responses if API fails
-                generateFallbackResponse(userMessage);
-            }
-        }
-
-        // Call Google Gemini AI API
-        async function callGoogleAI(userMessage) {
-            // Prepare context about the construction data
-            const dataContext = dashboardData ? `
-Current Project Data Context:
-- Project completion: ${dashboardData.overview.overallCompletion}%
-- Total tasks: ${dashboardData.overview.totalTasks}
-- Completed tasks: ${dashboardData.overview.completedTasks}
-- In-progress tasks: ${dashboardData.overview.inProgressTasks}
-- Number of trades: ${dashboardData.tradeAnalysis.length}
-- Worst performing trade: ${dashboardData.tradeAnalysis[0]?.trade} (${dashboardData.tradeAnalysis[0]?.completionRate}%)
-- Best performing trade: ${dashboardData.tradeAnalysis[dashboardData.tradeAnalysis.length - 1]?.trade} (${dashboardData.tradeAnalysis[dashboardData.tradeAnalysis.length - 1]?.completionRate}%)
-
-Trade Performance Summary:
-${dashboardData.tradeAnalysis.map(trade => `- ${trade.trade}: ${trade.completionRate}% complete (${trade.completed}/${trade.total} tasks)`).join('\n')}
-            ` : 'No construction data has been uploaded yet.';
-
-            const prompt = `You are a construction project AI assistant. You help analyze construction project data and provide insights.
-
-${dataContext}
-
-User Question: ${userMessage}
-
-Please provide a helpful, specific response about the construction project. Keep responses concise (2-3 sentences), use construction terminology, and include specific numbers from the data when relevant. Use emojis to make responses engaging.`;
-
-            const requestBody = {
-                contents: [{
-                    parts: [{
-                        text: prompt
-                    }]
-                }],
-                generationConfig: {
-                    temperature: 0.7,
-                    topK: 40,
-                    topP: 0.95,
-                    maxOutputTokens: 200
-                }
-            };
-
-            const response = await fetch(`${GOOGLE_AI_API_URL}?key=${GOOGLE_AI_API_KEY}`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(requestBody)
-            });
-
-            if (!response.ok) {
-                throw new Error(`API call failed: ${response.status}`);
-            }
-
-            const data = await response.json();
-            
-            if (data.candidates && data.candidates.length > 0) {
-                return data.candidates[0].content.parts[0].text;
-            } else {
-                throw new Error('No response generated');
-            }
-        }
-
-        // Generate relevant tiles based on the conversation context
-        function generateRelevantTiles(userMessage, aiResponse) {
-            if (!dashboardData) return;
-
-            const lowerMessage = userMessage.toLowerCase();
-            const lowerResponse = aiResponse.toLowerCase();
-            
-            // Generate tiles based on question type
-            if (lowerMessage.includes('completion') || lowerMessage.includes('progress') || lowerResponse.includes('completion')) {
-                const completionTile = {
-                    id: 'completion-analysis',
-                    type: 'completion',
-                    title: `Project Completion: ${dashboardData.overview.overallCompletion}%`,
-                    description: `${dashboardData.overview.completedTasks}/${dashboardData.overview.totalTasks} tasks complete`,
-                    severity: parseFloat(dashboardData.overview.overallCompletion) > 70 ? 'good' : parseFloat(dashboardData.overview.overallCompletion) > 40 ? 'warning' : 'critical',
-                    data: dashboardData.overview,
-                    chartType: 'completion-chart'
-                };
-                addClickableTile("assistant", completionTile);
-            }
-            
-            if (lowerMessage.includes('trade') || lowerMessage.includes('worker') || lowerResponse.includes('trade')) {
-                const worstTrade = dashboardData.tradeAnalysis[0];
-                const tradeTile = {
-                    id: 'trade-analysis',
-                    type: 'trade-performance',
-                    title: `${worstTrade.trade}: ${worstTrade.completionRate}%`,
-                    description: `Needs attention - ${worstTrade.completed}/${worstTrade.total} tasks done`,
-                    severity: parseFloat(worstTrade.completionRate) < 20 ? 'critical' : 'warning',
-                    data: worstTrade,
-                    chartType: 'trade-progress'
-                };
-                addClickableTile("assistant", tradeTile);
-            }
-            
-            if (lowerMessage.includes('velocity') || lowerMessage.includes('rate') || lowerResponse.includes('velocity') || lowerResponse.includes('rate')) {
-                if (dashboardData.velocityData && dashboardData.velocityData.length > 0) {
-                    const avgDaily = (dashboardData.overview.completedTasks / dashboardData.velocityData.length).toFixed(1);
-                    const velocityTile = {
-                        id: 'velocity-analysis',
-                        type: 'velocity',
-                        title: `Daily Rate: ${avgDaily} tasks/day`,
-                        description: `Project velocity and completion trends`,
-                        severity: parseFloat(avgDaily) > 50 ? 'good' : 'warning',
-                        data: { 
-                            velocityData: dashboardData.velocityData, 
-                            allTrades: dashboardData.allTrades,
-                            totalCompleted: dashboardData.overview.completedTasks 
-                        },
-                        chartType: 'velocity-trend'
-                    };
-                    addClickableTile("assistant", velocityTile);
-                }
-            }
-        }
-
-        // Fallback to rule-based responses if API fails
-        function generateFallbackResponse(userMessage) {
+        // Generate intelligent response using rule-based logic
+        function generateAIResponse(userMessage) {
             const lowerMessage = userMessage.toLowerCase();
             
-            if (lowerMessage.includes('completion') || lowerMessage.includes('progress')) {
+            // Analyze user intent and generate appropriate response
+            if (lowerMessage.includes('completion') || lowerMessage.includes('progress') || lowerMessage.includes('status')) {
                 handleCompletionQuery(userMessage);
-            } else if (lowerMessage.includes('trade') || lowerMessage.includes('worker')) {
+            } else if (lowerMessage.includes('trade') || lowerMessage.includes('worker') || lowerMessage.includes('crew')) {
                 handleTradeQuery(userMessage);
-            } else if (lowerMessage.includes('velocity') || lowerMessage.includes('rate')) {
+            } else if (lowerMessage.includes('level') || lowerMessage.includes('floor')) {
+                handleLevelQuery(userMessage);
+            } else if (lowerMessage.includes('velocity') || lowerMessage.includes('rate') || lowerMessage.includes('speed') || lowerMessage.includes('daily')) {
                 handleVelocityQuery(userMessage);
+            } else if (lowerMessage.includes('problem') || lowerMessage.includes('issue') || lowerMessage.includes('delay') || lowerMessage.includes('bottleneck')) {
+                handleProblemQuery(userMessage);
+            } else if (lowerMessage.includes('recommend') || lowerMessage.includes('suggest') || lowerMessage.includes('advice') || lowerMessage.includes('should')) {
+                handleRecommendationQuery(userMessage);
+            } else if (lowerMessage.includes('summary') || lowerMessage.includes('report') || lowerMessage.includes('overview') || lowerMessage.includes('executive')) {
+                handleSummaryQuery(userMessage);
+            } else if (lowerMessage.includes('help') || lowerMessage.includes('what can') || lowerMessage.includes('how do')) {
+                handleHelpQuery(userMessage);
             } else {
-                addChatMessage("assistant", "I'm having trouble connecting to the AI service right now. Please try asking about completion rates, trade performance, or project velocity.");
+                handleGeneralQuery(userMessage);
             }
         }
 
@@ -946,6 +806,57 @@ Please provide a helpful, specific response about the construction project. Keep
             addChatMessage("assistant", `🔄 **Next Steps:** Click the tiles above for detailed analysis and specific action plans.`);
         }
 
+        function handleSummaryQuery(userMessage) {
+            if (!dashboardData) {
+                addChatMessage("assistant", "Please upload your construction data first to generate a project summary.");
+                return;
+            }
+
+            addChatMessage("assistant", `📋 **Executive Project Summary**`);
+            addChatMessage("assistant", `Your project is ${dashboardData.overview.overallCompletion}% complete with ${dashboardData.overview.completedTasks} of ${dashboardData.overview.totalTasks} tasks finished. Currently ${dashboardData.overview.inProgressTasks} tasks are in progress across ${dashboardData.tradeAnalysis.length} different trades.`);
+            
+            const criticalTrades = dashboardData.tradeAnalysis.filter(t => parseFloat(t.completionRate) < 20);
+            const onTrackTrades = dashboardData.tradeAnalysis.filter(t => parseFloat(t.completionRate) > 60);
+            
+            if (criticalTrades.length > 0) {
+                addChatMessage("assistant", `🚨 **Critical Issues:** ${criticalTrades.length} trades require immediate attention: ${criticalTrades.map(t => t.trade).join(', ')}`);
+            }
+            
+            if (onTrackTrades.length > 0) {
+                addChatMessage("assistant", `✅ **On Track:** ${onTrackTrades.length} trades performing well: ${onTrackTrades.slice(0, 3).map(t => t.trade).join(', ')}${onTrackTrades.length > 3 ? ' and others' : ''}`);
+            }
+            
+            // Add summary tile
+            const summaryTile = {
+                id: 'executive-summary',
+                type: 'summary',
+                title: `Executive Summary: ${dashboardData.overview.overallCompletion}% Complete`,
+                description: `${criticalTrades.length} critical issues, ${onTrackTrades.length} trades on track`,
+                severity: criticalTrades.length > 2 ? 'critical' : criticalTrades.length > 0 ? 'warning' : 'good',
+                data: dashboardData.overview,
+                chartType: 'completion-chart'
+            };
+            addClickableTile("assistant", summaryTile);
+        }
+
+        function handleHelpQuery(userMessage) {
+            addChatMessage("assistant", `🤖 **Construction Intelligence Assistant Help**`);
+            addChatMessage("assistant", `I can analyze your construction project data and answer questions about:`);
+            addChatMessage("assistant", `📊 **Project Status:** "What's our completion rate?" "How much progress have we made?"`);
+            addChatMessage("assistant", `🔧 **Trade Performance:** "Which trades are struggling?" "How are the crews doing?"`);
+            addChatMessage("assistant", `🏢 **Level Analysis:** "How do the floors compare?" "Which level is behind?"`);
+            addChatMessage("assistant", `⚡ **Velocity & Speed:** "How fast are we completing tasks?" "What's our daily rate?"`);
+            addChatMessage("assistant", `🚨 **Issues & Problems:** "What problems do we have?" "Any bottlenecks?"`);
+            addChatMessage("assistant", `💡 **Recommendations:** "What should we do next?" "Any suggestions?"`);
+            addChatMessage("assistant", `📋 **Summaries:** "I need an executive summary" "Give me a project overview"`);
+            
+            if (dashboardData) {
+                addChatMessage("assistant", `📈 Currently analyzing: ${dashboardData.overview.totalTasks} tasks across ${dashboardData.tradeAnalysis.length} trades. Ask me anything!`);
+            } else {
+                addChatMessage("assistant", `📁 Upload your CSV data first, then I can provide detailed insights about your project.`);
+            }
+        }
+
         function handleGeneralQuery(userMessage) {
             const responses = [
                 "I can help you analyze your construction data! Try asking about completion rates, trade performance, velocity, or specific problems.",
@@ -960,6 +871,8 @@ Please provide a helpful, specific response about the construction project. Keep
             if (dashboardData) {
                 addChatMessage("assistant", `📊 Quick stats: ${dashboardData.overview.overallCompletion}% complete • ${dashboardData.tradeAnalysis.length} trades • ${dashboardData.overview.completedTasks} tasks done`);
             }
+            
+            addChatMessage("assistant", `💬 Try asking: "What's our status?", "Which trades need help?", "Give me a summary", or "What problems do we have?"`);
         }
 
         function renderChatHistory() {
