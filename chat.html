@@ -47,43 +47,13 @@
         </div>
     </div>
 
-    <!-- CSV Upload Section -->
-    <div id="upload-section" class="h-screen flex items-center justify-center bg-gray-50">
+    <!-- Loading Section -->
+    <div id="loading-section" class="h-screen flex items-center justify-center bg-gray-50">
         <div class="max-w-md w-full bg-white p-8 rounded-lg shadow-lg">
-            <div class="text-center mb-6">
-                <svg class="w-12 h-12 text-blue-500 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/>
-                </svg>
+            <div class="text-center">
+                <div class="animate-spin w-12 h-12 border-4 border-blue-500 border-t-transparent rounded-full mx-auto mb-4"></div>
                 <h2 class="text-2xl font-bold text-gray-900 mb-2">Construction Intelligence Assistant</h2>
-                <p class="text-gray-600">Upload your construction CSV data to get AI-powered insights</p>
-            </div>
-
-            <!-- Upload Area -->
-            <div id="dropzone" class="border-2 border-dashed border-gray-300 rounded-lg p-6 text-center hover:border-blue-400 transition-colors cursor-pointer">
-                <svg class="w-8 h-8 text-gray-400 mx-auto mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"/>
-                </svg>
-                <p class="text-sm text-gray-600 mb-2">
-                    <span class="font-medium text-blue-600">Click to upload</span> or drag and drop
-                </p>
-                <p class="text-xs text-gray-500">CSV files only</p>
-            </div>
-
-            <input type="file" id="csvFile" accept=".csv" class="hidden">
-
-
-
-            <!-- Progress/Error Display -->
-            <div id="upload-progress" class="mt-4 hidden">
-                <div class="bg-blue-50 border border-blue-200 rounded p-3">
-                    <p class="text-sm text-blue-800" id="progress-message">Processing your data...</p>
-                </div>
-            </div>
-
-            <div id="upload-error" class="mt-4 hidden">
-                <div class="bg-red-50 border border-red-200 rounded p-3">
-                    <p class="text-sm text-red-800" id="error-message">Error processing file</p>
-                </div>
+                <p class="text-gray-600">Loading WhartonSmith project data...</p>
             </div>
         </div>
     </div>
@@ -174,9 +144,63 @@
         
         // Removed API configuration - using local chatbot logic
 
+        // Automatically load WhartonSmith data
+        async function autoLoadWhartonSmithData() {
+            try {
+                showLoadingScreen();
+                const response = await fetch('WhartonSmith_Actualised_4_with_derived_dates.csv');
+                
+                if (!response.ok) {
+                    throw new Error(`Failed to load data: ${response.status}`);
+                }
+                
+                const csvContent = await response.text();
+                const data = parseCSV(csvContent);
+                
+                // Validate required columns
+                const requiredFields = ['location', 'trade', 'state', 'capture_date'];
+                const headers = Object.keys(data[0] || {});
+                const missingFields = requiredFields.filter(field => !headers.includes(field));
+
+                if (missingFields.length > 0) {
+                    throw new Error(`Missing required columns: ${missingFields.join(', ')}`);
+                }
+
+                currentData = data;
+                await loadAndAnalyzeData();
+                
+            } catch (error) {
+                console.error('Error loading WhartonSmith data:', error);
+                showLoadingError(error.message);
+            }
+        }
+
+        function showLoadingScreen() {
+            document.getElementById('loading-section').classList.remove('hidden');
+            document.getElementById('chat-app').classList.add('hidden');
+        }
+
+        function showLoadingError(message) {
+            const loadingSection = document.getElementById('loading-section');
+            loadingSection.innerHTML = `
+                <div class="max-w-md w-full bg-white p-8 rounded-lg shadow-lg">
+                    <div class="text-center">
+                        <svg class="w-12 h-12 text-red-500 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L3.732 16c-.77.833.192 2.5 1.732 2.5z"/>
+                        </svg>
+                        <h2 class="text-2xl font-bold text-gray-900 mb-2">Error Loading Data</h2>
+                        <p class="text-gray-600">${message}</p>
+                        <button onclick="autoLoadWhartonSmithData()" class="mt-4 bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">
+                            Retry
+                        </button>
+                    </div>
+                </div>
+            `;
+        }
+
         // Initialize the application
         document.addEventListener('DOMContentLoaded', function() {
-            initUpload();
+            autoLoadWhartonSmithData();
         });
 
         // Initialize upload functionality
@@ -311,7 +335,7 @@
         }
 
         function reloadData() {
-            // Reset everything and go back to upload screen
+            // Reset everything and reload WhartonSmith data
             chatHistory = [];
             selectedInsight = null;
             activeChart = null;
@@ -319,9 +343,7 @@
             currentData = [];
             
             document.getElementById('chat-app').classList.add('hidden');
-            document.getElementById('upload-section').classList.remove('hidden');
-            document.getElementById('upload-progress').classList.add('hidden');
-            document.getElementById('upload-error').classList.add('hidden');
+            autoLoadWhartonSmithData();
         }
 
         async function loadAndAnalyzeData() {
@@ -337,8 +359,8 @@
                 chatHistory = [];
                 generateInitialInsights(analysis);
                 
-                // Hide upload/loading and show chat
-                document.getElementById('upload-section').classList.add('hidden');
+                // Hide loading and show chat
+                document.getElementById('loading-section').classList.add('hidden');
                 document.getElementById('loading').classList.add('hidden');
                 document.getElementById('chat-app').classList.remove('hidden');
             } catch (error) {
