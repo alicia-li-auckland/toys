@@ -1318,10 +1318,16 @@
             
             // Add total line
             const totalData = completionDates.map(date => {
-                return filteredData.filter(row => 
-                    row.complete_date === date && 
-                    row.state === 'complete'
-                ).length;
+                // Count unique location-trade combinations completed on this date
+                const uniqueCompletions = new Set(
+                    filteredData
+                        .filter(row => 
+                            row.complete_date === date && 
+                            row.state === 'complete'
+                        )
+                        .map(row => `${row.location}_${row.trade}`)
+                );
+                return uniqueCompletions.size;
             });
             
             datasets.push({
@@ -1503,24 +1509,24 @@
         // Detection algorithms for each anomaly type
         function detectAbandonedTrades(data) {
             const now = new Date();
-            let abandonedCount = 0;
             
-            // Find trades that have been in-progress for >14 days
+            // Find unique location-trade combinations that have been in-progress for >14 days
             const inProgressTrades = data.filter(row => row.state === 'in progress' || row.state === 'in-progress');
             
+            const abandonedTasks = new Set();
             inProgressTrades.forEach(row => {
                 if (row.capture_date) {
                     const captureDate = new Date(row.capture_date);
                     const daysDiff = (now - captureDate) / (1000 * 60 * 60 * 24);
                     
-                    // Count tasks stalled for more than 14 days
+                    // Count unique tasks stalled for more than 14 days
                     if (daysDiff > 14) {
-                        abandonedCount++;
+                        abandonedTasks.add(`${row.location}_${row.trade}`);
                     }
                 }
             });
             
-            return abandonedCount;
+            return abandonedTasks.size;
         }
 
         function detectStarvation(data) {
@@ -1569,17 +1575,30 @@
         }
 
         function detectSwissCheese(data) {
-            // Find random gaps in otherwise completed areas
+            // Find random gaps in otherwise completed areas using unique tasks
             const completedByLocation = {};
+            const locationTasks = {};
             
+            // First collect unique tasks per location
             data.forEach(row => {
-                if (!completedByLocation[row.location]) {
-                    completedByLocation[row.location] = { total: 0, completed: 0 };
+                if (!locationTasks[row.location]) {
+                    locationTasks[row.location] = {
+                        allTasks: new Set(),
+                        completedTasks: new Set()
+                    };
                 }
-                completedByLocation[row.location].total++;
+                locationTasks[row.location].allTasks.add(`${row.location}_${row.trade}`);
                 if (row.state === 'complete') {
-                    completedByLocation[row.location].completed++;
+                    locationTasks[row.location].completedTasks.add(`${row.location}_${row.trade}`);
                 }
+            });
+            
+            // Convert to completion stats
+            Object.keys(locationTasks).forEach(location => {
+                completedByLocation[location] = {
+                    total: locationTasks[location].allTasks.size,
+                    completed: locationTasks[location].completedTasks.size
+                };
             });
             
             // Find locations that are completely empty (0% complete) surrounded by completed areas
@@ -1603,18 +1622,31 @@
         }
 
         function detectVerticalLag(data) {
-            // Check if upper levels/floors are behind lower levels
+            // Check if upper levels/floors are behind lower levels using unique tasks
             const levelGroups = {};
+            const levelTasks = {};
             
+            // First collect unique tasks per level
             data.forEach(row => {
                 const level = row.level || row.floor || '1';
-                if (!levelGroups[level]) {
-                    levelGroups[level] = { total: 0, completed: 0 };
+                if (!levelTasks[level]) {
+                    levelTasks[level] = {
+                        allTasks: new Set(),
+                        completedTasks: new Set()
+                    };
                 }
-                levelGroups[level].total++;
+                levelTasks[level].allTasks.add(`${row.location}_${row.trade}`);
                 if (row.state === 'complete') {
-                    levelGroups[level].completed++;
+                    levelTasks[level].completedTasks.add(`${row.location}_${row.trade}`);
                 }
+            });
+            
+            // Convert to completion stats
+            Object.keys(levelTasks).forEach(level => {
+                levelGroups[level] = {
+                    total: levelTasks[level].allTasks.size,
+                    completed: levelTasks[level].completedTasks.size
+                };
             });
             
             // Check if higher numbered levels have lower completion rates
@@ -1638,17 +1670,30 @@
         }
 
         function detectOrphanLocations(data) {
-            // Find isolated incomplete locations
+            // Find isolated incomplete locations using unique tasks
             const locationCompletion = {};
+            const locationTasks = {};
             
+            // First collect unique tasks per location
             data.forEach(row => {
-                if (!locationCompletion[row.location]) {
-                    locationCompletion[row.location] = { total: 0, completed: 0 };
+                if (!locationTasks[row.location]) {
+                    locationTasks[row.location] = {
+                        allTasks: new Set(),
+                        completedTasks: new Set()
+                    };
                 }
-                locationCompletion[row.location].total++;
+                locationTasks[row.location].allTasks.add(`${row.location}_${row.trade}`);
                 if (row.state === 'complete') {
-                    locationCompletion[row.location].completed++;
+                    locationTasks[row.location].completedTasks.add(`${row.location}_${row.trade}`);
                 }
+            });
+            
+            // Convert to completion stats
+            Object.keys(locationTasks).forEach(location => {
+                locationCompletion[location] = {
+                    total: locationTasks[location].allTasks.size,
+                    completed: locationTasks[location].completedTasks.size
+                };
             });
             
             // Count locations with very low completion rates (<10%)
@@ -1664,9 +1709,9 @@
             
             data.filter(row => row.state === 'in progress' || row.state === 'in-progress').forEach(row => {
                 if (!locationTrades[row.location]) {
-                    locationTrades[row.location] = [];
+                    locationTrades[row.location] = new Set();
                 }
-                locationTrades[row.location].push(row.trade);
+                locationTrades[row.location].add(row.trade);
             });
             
             // Define conflicting trade pairs (from memory)
@@ -1679,7 +1724,7 @@
             
             let blockageCount = 0;
             Object.values(locationTrades).forEach(trades => {
-                const uniqueTrades = [...new Set(trades)];
+                const uniqueTrades = [...trades]; // trades is already a Set
                 for (const [trade1, trade2] of conflicts) {
                     if (uniqueTrades.includes(trade1) && uniqueTrades.includes(trade2)) {
                         blockageCount++;
@@ -1850,10 +1895,34 @@
                 return false;
             });
             
-            // Group by location and collect trade details
+            // Group by location and collect unique task details
             const locationData = {};
+            const uniqueTasks = new Map();
+            
+            // First, create unique task entries with their stall times
             abandonedTrades.forEach(row => {
-                const location = row.location;
+                const taskKey = `${row.location}_${row.trade}`;
+                const captureDate = new Date(row.capture_date);
+                const daysStalled = Math.floor((now - captureDate) / (1000 * 60 * 60 * 24));
+                
+                if (!uniqueTasks.has(taskKey)) {
+                    uniqueTasks.set(taskKey, {
+                        location: row.location,
+                        trade: row.trade,
+                        daysStalled: daysStalled
+                    });
+                } else {
+                    // Keep the maximum stall time for this unique task
+                    const existing = uniqueTasks.get(taskKey);
+                    if (daysStalled > existing.daysStalled) {
+                        existing.daysStalled = daysStalled;
+                    }
+                }
+            });
+            
+            // Now group unique tasks by location
+            uniqueTasks.forEach(task => {
+                const location = task.location;
                 
                 if (!locationData[location]) {
                     locationData[location] = {
@@ -1862,12 +1931,8 @@
                     };
                 }
                 
-                // Calculate days stalled
-                const captureDate = new Date(row.capture_date);
-                const daysStalled = Math.floor((now - captureDate) / (1000 * 60 * 60 * 24));
-                
-                if (!locationData[location].trades[row.trade]) {
-                    locationData[location].trades[row.trade] = {
+                if (!locationData[location].trades[task.trade]) {
+                    locationData[location].trades[task.trade] = {
                         count: 0,
                         maxDays: 0,
                         minDays: Infinity
@@ -1875,14 +1940,14 @@
                 }
                 
                 locationData[location].totalStalled++;
-                locationData[location].trades[row.trade].count++;
-                locationData[location].trades[row.trade].maxDays = Math.max(
-                    locationData[location].trades[row.trade].maxDays, 
-                    daysStalled
+                locationData[location].trades[task.trade].count++;
+                locationData[location].trades[task.trade].maxDays = Math.max(
+                    locationData[location].trades[task.trade].maxDays, 
+                    task.daysStalled
                 );
-                locationData[location].trades[row.trade].minDays = Math.min(
-                    locationData[location].trades[row.trade].minDays, 
-                    daysStalled
+                locationData[location].trades[task.trade].minDays = Math.min(
+                    locationData[location].trades[task.trade].minDays, 
+                    task.daysStalled
                 );
             });
             
