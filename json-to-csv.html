@@ -1,0 +1,983 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JSON to CSV Converter</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .drag-over {
+            border-color: #3b82f6 !important;
+            background-color: #eff6ff !important;
+        }
+        .json-table {
+            font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 min-h-screen">
+    <div class="container mx-auto px-4 py-8 max-w-6xl">
+        <!-- Header -->
+        <div class="text-center mb-8">
+            <h1 class="text-4xl font-bold text-gray-900 mb-2">JSON to CSV Converter</h1>
+            <p class="text-gray-600">Upload a JSON file or paste JSON data to convert it to CSV format</p>
+        </div>
+
+        <!-- Input Section -->
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
+            <!-- File Upload -->
+            <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
+                <h2 class="text-lg font-semibold text-gray-900 mb-4 flex items-center gap-2">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"></path>
+                    </svg>
+                    Upload JSON File
+                </h2>
+                
+                <div id="dropzone" class="border-2 border-dashed border-gray-300 rounded-lg p-8 text-center hover:border-blue-400 hover:bg-blue-50 transition-colors cursor-pointer">
+                    <svg class="w-12 h-12 text-gray-400 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"></path>
+                    </svg>
+                    <p class="text-gray-600 mb-2">
+                        Drag and drop your JSON file here, or click to browse
+                    </p>
+                    <p class="text-sm text-gray-500">
+                        Supports .json files
+                    </p>
+                    <button class="mt-3 bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors">
+                        Choose File
+                    </button>
+                </div>
+                
+                <input type="file" id="jsonFile" accept=".json" class="hidden">
+            </div>
+
+            <!-- Paste JSON -->
+            <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
+                <h2 class="text-lg font-semibold text-gray-900 mb-4 flex items-center gap-2">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                    </svg>
+                    Paste JSON Data
+                </h2>
+                
+                <div id="jsonInputs">
+                    <div class="json-input-group mb-4">
+                        <div class="flex items-center justify-between mb-2">
+                            <label class="text-sm font-medium text-gray-700">JSON Dataset 1</label>
+                            <button class="remove-json-input text-red-600 hover:text-red-800 text-sm hidden">Remove</button>
+                        </div>
+                        <textarea 
+                            class="json-textarea w-full h-32 p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 json-table text-sm"
+                            placeholder="Paste your JSON data here..."
+                        ></textarea>
+                    </div>
+                </div>
+                
+                <div class="flex gap-2 mt-4">
+                    <button id="addJsonInput" class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors flex items-center gap-2">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
+                        </svg>
+                        Add JSON Input
+                    </button>
+                    <button id="processJson" class="bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700 transition-colors flex items-center gap-2">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+                        </svg>
+                        Convert & Merge to CSV
+                    </button>
+                    <button id="clearJson" class="bg-gray-500 text-white px-4 py-2 rounded-lg hover:bg-gray-600 transition-colors">
+                        Clear All
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Status Messages -->
+        <div id="errorMessage" class="hidden mb-6 p-4 bg-red-50 border border-red-200 rounded-lg">
+            <div class="flex">
+                <svg class="w-5 h-5 text-red-400 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path>
+                </svg>
+                <div class="ml-3 flex-1">
+                    <h3 class="text-sm font-medium text-red-800">JSON Error Detected</h3>
+                    <p id="errorText" class="text-sm text-red-700 mt-1"></p>
+                    <div id="errorDetails" class="mt-3 hidden">
+                        <div class="bg-red-100 rounded-md p-3">
+                            <h4 class="text-xs font-medium text-red-800 mb-2">Problem Location:</h4>
+                            <p id="errorLocation" class="text-xs text-red-700 font-mono mb-2"></p>
+                            <h4 class="text-xs font-medium text-red-800 mb-2">Suggested Fix:</h4>
+                            <p id="errorSuggestion" class="text-xs text-red-700"></p>
+                            <div id="fixExample" class="mt-2 hidden">
+                                <h4 class="text-xs font-medium text-red-800 mb-1">Example:</h4>
+                                <div class="bg-white rounded border p-2">
+                                    <div id="beforeFix" class="mb-2">
+                                        <span class="text-xs font-medium text-gray-600">Before:</span>
+                                        <code id="beforeCode" class="block text-xs text-red-600 bg-red-50 p-1 rounded mt-1"></code>
+                                    </div>
+                                    <div id="afterFix">
+                                        <span class="text-xs font-medium text-gray-600">After:</span>
+                                        <code id="afterCode" class="block text-xs text-green-600 bg-green-50 p-1 rounded mt-1"></code>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="successMessage" class="hidden mb-6 p-4 bg-green-50 border border-green-200 rounded-lg">
+            <div class="flex">
+                <svg class="w-5 h-5 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                </svg>
+                <div class="ml-3">
+                    <h3 class="text-sm font-medium text-green-800">Success</h3>
+                    <p id="successText" class="text-sm text-green-700 mt-1"></p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Results Section -->
+        <div id="resultsSection" class="hidden">
+            <!-- JSON Preview -->
+            <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-6 mb-6">
+                <div class="flex items-center justify-between mb-4">
+                    <h2 class="text-lg font-semibold text-gray-900">JSON Preview</h2>
+                    <span id="jsonStats" class="text-sm text-gray-500"></span>
+                </div>
+                <pre id="jsonPreview" class="bg-gray-50 p-4 rounded-lg overflow-auto max-h-60 json-table text-sm"></pre>
+            </div>
+
+            <!-- CSV Output -->
+            <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
+                <div class="flex items-center justify-between mb-4">
+                    <h2 class="text-lg font-semibold text-gray-900">CSV Output</h2>
+                    <div class="flex gap-2">
+                        <button id="copyCSV" class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors flex items-center gap-2">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path>
+                            </svg>
+                            Copy CSV
+                        </button>
+                        <button id="downloadCSV" class="bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700 transition-colors flex items-center gap-2">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                            </svg>
+                            Download CSV
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- CSV Table Preview -->
+                <div class="overflow-auto max-h-96 border border-gray-200 rounded-lg">
+                    <table id="csvTable" class="min-w-full divide-y divide-gray-200">
+                        <thead id="csvTableHead" class="bg-gray-50">
+                        </thead>
+                        <tbody id="csvTableBody" class="bg-white divide-y divide-gray-200">
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- CSV Raw Text -->
+                <div class="mt-4">
+                    <textarea id="csvOutput" class="w-full h-40 p-3 border border-gray-300 rounded-lg json-table text-sm" readonly></textarea>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let currentCSVData = '';
+
+        let jsonInputCounter = 1;
+
+        // Initialize the app
+        function initApp() {
+            const dropzone = document.getElementById('dropzone');
+            const jsonFile = document.getElementById('jsonFile');
+            const addJsonInput = document.getElementById('addJsonInput');
+            const processJson = document.getElementById('processJson');
+            const clearJson = document.getElementById('clearJson');
+            const copyCSV = document.getElementById('copyCSV');
+            const downloadCSV = document.getElementById('downloadCSV');
+
+            // File upload handlers
+            dropzone.addEventListener('click', () => jsonFile.click());
+            
+            dropzone.addEventListener('dragover', (e) => {
+                e.preventDefault();
+                dropzone.classList.add('drag-over');
+            });
+
+            dropzone.addEventListener('dragleave', (e) => {
+                e.preventDefault();
+                dropzone.classList.remove('drag-over');
+            });
+
+            dropzone.addEventListener('drop', (e) => {
+                e.preventDefault();
+                dropzone.classList.remove('drag-over');
+                const files = e.dataTransfer.files;
+                if (files.length > 0 && files[0].type === 'application/json') {
+                    handleFileUpload(files[0]);
+                } else {
+                    showError('Please drop a valid JSON file');
+                }
+            });
+
+            jsonFile.addEventListener('change', (e) => {
+                if (e.target.files.length > 0) {
+                    handleFileUpload(e.target.files[0]);
+                }
+            });
+
+            // Button handlers
+            addJsonInput.addEventListener('click', () => {
+                addNewJsonInput();
+            });
+
+            processJson.addEventListener('click', () => {
+                processAllJsonInputs();
+            });
+
+            clearJson.addEventListener('click', () => {
+                clearAllJsonInputs();
+            });
+
+            // Initialize remove button handlers
+            initRemoveHandlers();
+
+            copyCSV.addEventListener('click', () => {
+                navigator.clipboard.writeText(currentCSVData).then(() => {
+                    showSuccess('CSV data copied to clipboard!');
+                }).catch(() => {
+                    showError('Failed to copy to clipboard');
+                });
+            });
+
+            downloadCSV.addEventListener('click', () => {
+                downloadCSVFile();
+            });
+        }
+
+        // Handle file upload
+        function handleFileUpload(file) {
+            if (!file.type.includes('json')) {
+                showError('Please select a valid JSON file');
+                return;
+            }
+
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                const jsonText = e.target.result;
+                const firstTextarea = document.querySelector('.json-textarea');
+                firstTextarea.value = jsonText;
+                processAllJsonInputs();
+            };
+            reader.onerror = () => {
+                showError('Failed to read file');
+            };
+            reader.readAsText(file);
+        }
+
+        // Add new JSON input
+        function addNewJsonInput() {
+            jsonInputCounter++;
+            const jsonInputs = document.getElementById('jsonInputs');
+            
+            const newInputGroup = document.createElement('div');
+            newInputGroup.className = 'json-input-group mb-4';
+            
+            newInputGroup.innerHTML = `
+                <div class="flex items-center justify-between mb-2">
+                    <label class="text-sm font-medium text-gray-700">JSON Dataset ${jsonInputCounter}</label>
+                    <button class="remove-json-input text-red-600 hover:text-red-800 text-sm">Remove</button>
+                </div>
+                <textarea 
+                    class="json-textarea w-full h-32 p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 json-table text-sm"
+                    placeholder="Paste your JSON data here..."
+                ></textarea>
+            `;
+            
+            jsonInputs.appendChild(newInputGroup);
+            updateRemoveButtonVisibility();
+            initRemoveHandlers();
+        }
+
+        // Initialize remove button handlers
+        function initRemoveHandlers() {
+            document.querySelectorAll('.remove-json-input').forEach(button => {
+                button.onclick = (e) => {
+                    e.target.closest('.json-input-group').remove();
+                    updateRemoveButtonVisibility();
+                    renumberInputs();
+                };
+            });
+        }
+
+        // Update remove button visibility
+        function updateRemoveButtonVisibility() {
+            const groups = document.querySelectorAll('.json-input-group');
+            groups.forEach((group, index) => {
+                const removeBtn = group.querySelector('.remove-json-input');
+                if (groups.length > 1) {
+                    removeBtn.classList.remove('hidden');
+                } else {
+                    removeBtn.classList.add('hidden');
+                }
+            });
+        }
+
+        // Renumber inputs after removal
+        function renumberInputs() {
+            const groups = document.querySelectorAll('.json-input-group');
+            groups.forEach((group, index) => {
+                const label = group.querySelector('label');
+                label.textContent = `JSON Dataset ${index + 1}`;
+            });
+            jsonInputCounter = groups.length;
+        }
+
+        // Clear all JSON inputs
+        function clearAllJsonInputs() {
+            const jsonInputs = document.getElementById('jsonInputs');
+            jsonInputs.innerHTML = `
+                <div class="json-input-group mb-4">
+                    <div class="flex items-center justify-between mb-2">
+                        <label class="text-sm font-medium text-gray-700">JSON Dataset 1</label>
+                        <button class="remove-json-input text-red-600 hover:text-red-800 text-sm hidden">Remove</button>
+                    </div>
+                    <textarea 
+                        class="json-textarea w-full h-32 p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 json-table text-sm"
+                        placeholder="Paste your JSON data here..."
+                    ></textarea>
+                </div>
+            `;
+            jsonInputCounter = 1;
+            hideResults();
+            hideMessages();
+            initRemoveHandlers();
+        }
+
+        // Process all JSON inputs and merge
+        function processAllJsonInputs() {
+            hideMessages();
+            
+            const textareas = document.querySelectorAll('.json-textarea');
+            const allJsonData = [];
+            let hasData = false;
+            
+            // Parse all JSON inputs
+            for (let i = 0; i < textareas.length; i++) {
+                const jsonText = textareas[i].value.trim();
+                if (jsonText) {
+                    hasData = true;
+                    try {
+                        const jsonData = JSON.parse(jsonText);
+                        allJsonData.push({
+                            index: i + 1,
+                            data: jsonData
+                        });
+                    } catch (error) {
+                        showError(`Invalid JSON in Dataset ${i + 1}: ${error.message}`, jsonText, error);
+                        return;
+                    }
+                }
+            }
+            
+            if (!hasData) {
+                showError('Please enter at least one JSON dataset');
+                return;
+            }
+            
+            try {
+                // Merge all JSON datasets
+                const mergedData = mergeJsonDatasets(allJsonData);
+                
+                // Display JSON preview
+                showJsonPreview(mergedData, allJsonData.length);
+                
+                // Convert to CSV
+                const csvData = jsonToCSV(mergedData);
+                
+                if (csvData) {
+                    currentCSVData = csvData;
+                    showCSVResults(csvData);
+                    showSuccess(`Successfully merged ${allJsonData.length} JSON dataset(s) to CSV! Found ${getRowCount(csvData)} rows.`);
+                } else {
+                    showError('Failed to convert merged JSON to CSV. Please check your JSON structure.');
+                }
+                
+            } catch (error) {
+                showError(`Error merging JSON datasets: ${error.message}`, '', error);
+            }
+        }
+
+        // Merge multiple JSON datasets
+        function mergeJsonDatasets(datasets) {
+            const allRows = [];
+            
+            datasets.forEach(dataset => {
+                const { data, index } = dataset;
+                
+                // Handle different data types
+                if (Array.isArray(data)) {
+                    // Array of objects - add each item with dataset info
+                    data.forEach((item, itemIndex) => {
+                        if (typeof item === 'object' && item !== null) {
+                            allRows.push({
+                                _dataset: `Dataset ${index}`,
+                                _row: itemIndex + 1,
+                                ...item
+                            });
+                        } else {
+                            allRows.push({
+                                _dataset: `Dataset ${index}`,
+                                _row: itemIndex + 1,
+                                value: item
+                            });
+                        }
+                    });
+                } else if (typeof data === 'object' && data !== null) {
+                    // Single object - add with dataset info
+                    allRows.push({
+                        _dataset: `Dataset ${index}`,
+                        _row: 1,
+                        ...data
+                    });
+                } else {
+                    // Primitive value - add with dataset info
+                    allRows.push({
+                        _dataset: `Dataset ${index}`,
+                        _row: 1,
+                        value: data
+                    });
+                }
+            });
+            
+            return allRows;
+        }
+
+        // Transform JSON data to match required CSV headers
+        function transformToRequiredFormat(jsonData) {
+            const allRows = [];
+            
+            if (!Array.isArray(jsonData)) {
+                jsonData = [jsonData];
+            }
+            
+            jsonData.forEach(item => {
+                if (typeof item === 'object' && item !== null) {
+                    // Handle bigjson structure: table -> dates -> locations -> trades -> states
+                    if (item.table && typeof item.table === 'object') {
+                        // Extract location mappings if available
+                        const locationMapping = item.locationKeyToName || {};
+                        
+                        // Iterate through each date
+                        Object.keys(item.table).forEach(captureDate => {
+                            const dateData = item.table[captureDate];
+                            
+                            // Iterate through each location
+                            Object.keys(dateData).forEach(locationId => {
+                                const locationData = dateData[locationId];
+                                const locationName = locationMapping[locationId] || locationId;
+                                
+                                // Iterate through each trade for this location
+                                Object.keys(locationData).forEach(tradeName => {
+                                    const tradeState = locationData[tradeName];
+                                    
+                                    allRows.push({
+                                        'location': locationName,
+                                        'section': '', // Not available in this data structure
+                                        'level / floor': '', // Not available in this data structure
+                                        'trade': tradeName,
+                                        'state': tradeState,
+                                        'start_date': '', // Not available in this data structure
+                                        'complete_date': '', // Not available in this data structure
+                                        'capture_date': captureDate
+                                    });
+                                });
+                            });
+                        });
+                    }
+                    // Handle array of flat objects (standard case)
+                    else if (Array.isArray(item)) {
+                        item.forEach(subItem => {
+                            allRows.push(transformSingleItem(subItem));
+                        });
+                    }
+                    // Handle single flat objects
+                    else {
+                        allRows.push(transformSingleItem(item));
+                    }
+                }
+            });
+            
+            return allRows.length > 0 ? allRows : [transformSingleItem({})];
+        }
+        
+        // Transform a single item to required format
+        function transformSingleItem(item) {
+            const transformed = {
+                'location': '',
+                'section': '',
+                'level / floor': '',
+                'trade': '',
+                'state': '',
+                'start_date': '',
+                'complete_date': '',
+                'capture_date': ''
+            };
+            
+            if (typeof item === 'object' && item !== null) {
+                // Location mappings
+                transformed.location = item.location || item.Location || item.LOCATION || 
+                                     item.locationId || item.location_id || item.loc || '';
+                
+                // Section mappings
+                transformed.section = item.section || item.Section || item.SECTION || 
+                                    item.sectionId || item.section_id || '';
+                
+                // Level/Floor mappings
+                transformed['level / floor'] = item.level || item.floor || item.Level || 
+                                             item.Floor || item['level / floor'] || 
+                                             item.level_floor || item.floorLevel || '';
+                
+                // Trade mappings
+                transformed.trade = item.trade || item.Trade || item.TRADE || 
+                                  item.tradeName || item.trade_name || item.tradeType || '';
+                
+                // State mappings (status/progress)
+                transformed.state = item.state || item.status || item.Status || 
+                                  item.STATE || item.progress || item.completion || 
+                                  item.completionStatus || '';
+                
+                // Start date mappings
+                transformed.start_date = item.start_date || item.startDate || item.Start_Date || 
+                                       item.START_DATE || item.dateStarted || item.date_started || 
+                                       item.plannedStart || item.planned_start || '';
+                
+                // Complete date mappings
+                transformed.complete_date = item.complete_date || item.completeDate || 
+                                          item.Complete_Date || item.COMPLETE_DATE || 
+                                          item.dateCompleted || item.date_completed || 
+                                          item.finishDate || item.finish_date || '';
+                
+                // Capture date mappings
+                transformed.capture_date = item.capture_date || item.captureDate || 
+                                         item.Capture_Date || item.CAPTURE_DATE || 
+                                         item.recordDate || item.record_date || 
+                                         item.timestamp || item.dateRecorded || '';
+                
+                // Copy any remaining fields that match exactly
+                Object.keys(item).forEach(key => {
+                    if (transformed.hasOwnProperty(key) && !transformed[key]) {
+                        transformed[key] = item[key];
+                    }
+                });
+            }
+            
+            return transformed;
+        }
+
+        // Convert JSON to CSV
+        function jsonToCSV(jsonData) {
+            if (!jsonData) return null;
+            
+            // Handle array of objects
+            if (Array.isArray(jsonData)) {
+                if (jsonData.length === 0) {
+                    return 'No data found';
+                }
+                
+                // Define the required headers in order
+                const requiredHeaders = [
+                    'location',
+                    'section', 
+                    'level / floor',
+                    'trade',
+                    'state',
+                    'start_date',
+                    'complete_date',
+                    'capture_date'
+                ];
+                
+                // Transform data to match required headers
+                const transformedData = transformToRequiredFormat(jsonData);
+                
+                const csvRows = [];
+                
+                // Add headers
+                csvRows.push(requiredHeaders.map(header => escapeCSVValue(header)).join(','));
+                
+                // Add data rows
+                transformedData.forEach(obj => {
+                    const row = requiredHeaders.map(header => {
+                        let value = obj[header];
+                        if (value === undefined || value === null) {
+                            return '';
+                        }
+                        if (typeof value === 'object') {
+                            value = JSON.stringify(value);
+                        }
+                        return escapeCSVValue(String(value));
+                    });
+                    csvRows.push(row.join(','));
+                });
+                
+                return csvRows.join('\n');
+            }
+            
+            // Handle single object
+            else if (typeof jsonData === 'object' && jsonData !== null) {
+                // Use the same transformation for single objects
+                const transformedData = transformToRequiredFormat([jsonData]);
+                
+                const requiredHeaders = [
+                    'location',
+                    'section', 
+                    'level / floor',
+                    'trade',
+                    'state',
+                    'start_date',
+                    'complete_date',
+                    'capture_date'
+                ];
+                
+                const csvRows = [];
+                csvRows.push(requiredHeaders.map(header => escapeCSVValue(header)).join(','));
+                
+                const row = requiredHeaders.map(header => {
+                    let value = transformedData[0][header];
+                    if (value === undefined || value === null) {
+                        return '';
+                    }
+                    if (typeof value === 'object') {
+                        value = JSON.stringify(value);
+                    }
+                    return escapeCSVValue(String(value));
+                });
+                csvRows.push(row.join(','));
+                
+                return csvRows.join('\n');
+            }
+            
+            // Handle primitive values
+            else {
+                const requiredHeaders = [
+                    'location',
+                    'section', 
+                    'level / floor',
+                    'trade',
+                    'state',
+                    'start_date',
+                    'complete_date',
+                    'capture_date'
+                ];
+                
+                const csvRows = [];
+                csvRows.push(requiredHeaders.map(header => escapeCSVValue(header)).join(','));
+                
+                // Put the primitive value in the first column, leave others empty
+                const row = requiredHeaders.map((header, index) => {
+                    if (index === 0) {
+                        return escapeCSVValue(String(jsonData));
+                    }
+                    return '';
+                });
+                csvRows.push(row.join(','));
+                
+                return csvRows.join('\n');
+            }
+        }
+
+        // Escape CSV values
+        function escapeCSVValue(value) {
+            if (value.includes(',') || value.includes('"') || value.includes('\n')) {
+                return '"' + value.replace(/"/g, '""') + '"';
+            }
+            return value;
+        }
+
+        // Show JSON preview
+        function showJsonPreview(jsonData, datasetCount = 1) {
+            const preview = document.getElementById('jsonPreview');
+            const stats = document.getElementById('jsonStats');
+            
+            let formattedJson;
+            let statsText;
+            
+            if (Array.isArray(jsonData)) {
+                formattedJson = JSON.stringify(jsonData.slice(0, 3), null, 2);
+                if (jsonData.length > 3) {
+                    formattedJson += '\n... and ' + (jsonData.length - 3) + ' more items';
+                }
+                if (datasetCount > 1) {
+                    statsText = `Merged array from ${datasetCount} datasets with ${jsonData.length} total items`;
+                } else {
+                    statsText = `Array with ${jsonData.length} items`;
+                }
+            } else {
+                formattedJson = JSON.stringify(jsonData, null, 2);
+                if (datasetCount > 1) {
+                    statsText = `Merged data from ${datasetCount} datasets`;
+                } else {
+                    statsText = typeof jsonData === 'object' ? 'Object' : 'Primitive value';
+                }
+            }
+            
+            preview.textContent = formattedJson;
+            stats.textContent = statsText;
+        }
+
+        // Show CSV results
+        function showCSVResults(csvData) {
+            const csvOutput = document.getElementById('csvOutput');
+            const csvTable = document.getElementById('csvTable');
+            const csvTableHead = document.getElementById('csvTableHead');
+            const csvTableBody = document.getElementById('csvTableBody');
+            
+            csvOutput.value = csvData;
+            
+            // Parse CSV for table display
+            const lines = csvData.split('\n').filter(line => line.trim());
+            if (lines.length === 0) return;
+            
+            // Create table headers
+            const headers = parseCSVLine(lines[0]);
+            csvTableHead.innerHTML = '<tr>' + 
+                headers.map(header => `<th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">${escapeHtml(header)}</th>`).join('') +
+                '</tr>';
+            
+            // Create table rows (show first 10 rows)
+            const dataRows = lines.slice(1, 11);
+            csvTableBody.innerHTML = dataRows.map((line, index) => {
+                const cells = parseCSVLine(line);
+                return '<tr class="' + (index % 2 === 0 ? 'bg-white' : 'bg-gray-50') + '">' +
+                    cells.map(cell => `<td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">${escapeHtml(cell)}</td>`).join('') +
+                    '</tr>';
+            }).join('');
+            
+            // Show results section
+            document.getElementById('resultsSection').classList.remove('hidden');
+        }
+
+        // Parse CSV line (simple parser)
+        function parseCSVLine(line) {
+            const result = [];
+            let current = '';
+            let inQuotes = false;
+            let i = 0;
+            
+            while (i < line.length) {
+                const char = line[i];
+                
+                if (char === '"' && !inQuotes) {
+                    inQuotes = true;
+                } else if (char === '"' && inQuotes) {
+                    if (i + 1 < line.length && line[i + 1] === '"') {
+                        current += '"';
+                        i++; // skip next quote
+                    } else {
+                        inQuotes = false;
+                    }
+                } else if (char === ',' && !inQuotes) {
+                    result.push(current);
+                    current = '';
+                } else {
+                    current += char;
+                }
+                i++;
+            }
+            
+            result.push(current);
+            return result;
+        }
+
+        // Utility functions
+        function escapeHtml(text) {
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+
+        function getRowCount(csvData) {
+            return csvData.split('\n').filter(line => line.trim()).length - 1; // -1 for header
+        }
+
+        function downloadCSVFile() {
+            const blob = new Blob([currentCSVData], { type: 'text/csv' });
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'converted_data.csv';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            window.URL.revokeObjectURL(url);
+            
+            showSuccess('CSV file downloaded successfully!');
+        }
+
+        function showError(message, jsonText = '', error = null) {
+            const errorDiv = document.getElementById('errorMessage');
+            const errorText = document.getElementById('errorText');
+            errorText.textContent = message;
+            errorDiv.classList.remove('hidden');
+            
+            // If we have JSON text and an error, analyze it for better suggestions
+            if (jsonText && error) {
+                analyzeJsonError(jsonText, error);
+            } else {
+                // Hide error details if we don't have analysis
+                document.getElementById('errorDetails').classList.add('hidden');
+            }
+            
+            document.getElementById('successMessage').classList.add('hidden');
+        }
+
+        // Analyze JSON error and provide detailed feedback
+        function analyzeJsonError(jsonText, error) {
+            const errorDetails = document.getElementById('errorDetails');
+            const errorLocation = document.getElementById('errorLocation');
+            const errorSuggestion = document.getElementById('errorSuggestion');
+            const fixExample = document.getElementById('fixExample');
+            const beforeCode = document.getElementById('beforeCode');
+            const afterCode = document.getElementById('afterCode');
+            
+            let location = '';
+            let suggestion = '';
+            let showExample = false;
+            let beforeExample = '';
+            let afterExample = '';
+            
+            const errorMessage = error.message.toLowerCase();
+            
+            // Extract position from error message if available
+            const positionMatch = error.message.match(/position (\d+)/i) || error.message.match(/at (\d+)/i);
+            const position = positionMatch ? parseInt(positionMatch[1]) : null;
+            
+            // Common JSON errors and fixes
+            if (errorMessage.includes('unexpected token') || errorMessage.includes('unexpected character')) {
+                if (errorMessage.includes("'") || errorMessage.includes('single quote')) {
+                    suggestion = "Use double quotes (\") instead of single quotes (') for strings in JSON.";
+                    showExample = true;
+                    beforeExample = "{ 'name': 'John', 'age': 30 }";
+                    afterExample = '{ "name": "John", "age": 30 }';
+                } else if (errorMessage.includes('trailing comma') || errorMessage.includes(',')) {
+                    suggestion = "Remove trailing commas. JSON doesn't allow commas after the last item in objects or arrays.";
+                    showExample = true;
+                    beforeExample = '{ "name": "John", "age": 30, }';
+                    afterExample = '{ "name": "John", "age": 30 }';
+                } else if (position) {
+                    const char = jsonText[position] || '';
+                    suggestion = `Unexpected character "${char}" at position ${position}. Check for missing quotes, brackets, or commas.`;
+                    location = getContextAroundPosition(jsonText, position);
+                } else {
+                    suggestion = "Check for missing quotes around strings, extra commas, or invalid characters.";
+                }
+            } else if (errorMessage.includes('unterminated string') || errorMessage.includes('unclosed string')) {
+                suggestion = "Add a closing quote (\") to complete the string.";
+                showExample = true;
+                beforeExample = '{ "name": "John Doe }';
+                afterExample = '{ "name": "John Doe" }';
+                if (position) {
+                    location = getContextAroundPosition(jsonText, position);
+                }
+            } else if (errorMessage.includes('expected') && errorMessage.includes('object')) {
+                suggestion = "Wrap your data in curly braces {} to create a valid JSON object.";
+                showExample = true;
+                beforeExample = '"name": "John", "age": 30';
+                afterExample = '{ "name": "John", "age": 30 }';
+            } else if (errorMessage.includes('expected') && errorMessage.includes('array')) {
+                suggestion = "Wrap your data in square brackets [] to create a valid JSON array.";
+                showExample = true;
+                beforeExample = '"item1", "item2", "item3"';
+                afterExample = '["item1", "item2", "item3"]';
+            } else if (errorMessage.includes('expected property name') || errorMessage.includes('expected string')) {
+                suggestion = "Property names in JSON must be strings enclosed in double quotes.";
+                showExample = true;
+                beforeExample = '{ name: "John", age: 30 }';
+                afterExample = '{ "name": "John", "age": 30 }';
+            } else if (errorMessage.includes('duplicate key') || errorMessage.includes('duplicate property')) {
+                suggestion = "Remove duplicate property names. Each key in a JSON object must be unique.";
+                showExample = true;
+                beforeExample = '{ "name": "John", "age": 30, "name": "Jane" }';
+                afterExample = '{ "name": "John", "age": 30 }';
+            } else if (errorMessage.includes('undefined')) {
+                suggestion = "Replace undefined values with null, or remove the property entirely.";
+                showExample = true;
+                beforeExample = '{ "name": "John", "spouse": undefined }';
+                afterExample = '{ "name": "John", "spouse": null }';
+            } else if (position) {
+                location = getContextAroundPosition(jsonText, position);
+                suggestion = "Check the syntax around the highlighted position for missing quotes, brackets, or commas.";
+            } else {
+                suggestion = "Validate your JSON syntax. Common issues: missing quotes, trailing commas, or unescaped characters.";
+            }
+            
+            // Show location if we have it
+            if (location) {
+                errorLocation.textContent = location;
+            } else if (position) {
+                errorLocation.textContent = `Character position: ${position}`;
+            } else {
+                errorLocation.textContent = 'Unable to determine exact location';
+            }
+            
+            errorSuggestion.textContent = suggestion;
+            
+            // Show example if we have one
+            if (showExample && beforeExample && afterExample) {
+                beforeCode.textContent = beforeExample;
+                afterCode.textContent = afterExample;
+                fixExample.classList.remove('hidden');
+            } else {
+                fixExample.classList.add('hidden');
+            }
+            
+            errorDetails.classList.remove('hidden');
+        }
+
+        // Get context around a specific position in the JSON text
+        function getContextAroundPosition(text, position) {
+            const contextSize = 20;
+            const start = Math.max(0, position - contextSize);
+            const end = Math.min(text.length, position + contextSize);
+            
+            const before = text.substring(start, position);
+            const char = text[position] || '';
+            const after = text.substring(position + 1, end);
+            
+            const lineNumber = text.substring(0, position).split('\n').length;
+            const columnNumber = position - text.lastIndexOf('\n', position - 1);
+            
+            return `Line ${lineNumber}, Column ${columnNumber}: "${before}❌${char}${after}"`;
+        }
+
+        function showSuccess(message) {
+            const successDiv = document.getElementById('successMessage');
+            const successText = document.getElementById('successText');
+            successText.textContent = message;
+            successDiv.classList.remove('hidden');
+            
+            document.getElementById('errorMessage').classList.add('hidden');
+        }
+
+        function hideMessages() {
+            document.getElementById('errorMessage').classList.add('hidden');
+            document.getElementById('successMessage').classList.add('hidden');
+        }
+
+        function hideResults() {
+            document.getElementById('resultsSection').classList.add('hidden');
+        }
+
+        // Initialize the app when page loads
+        document.addEventListener('DOMContentLoaded', initApp);
+    </script>
+</body>
+</html>

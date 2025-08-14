@@ -99,10 +99,7 @@
                             <button class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors">
                                 Choose File
                             </button>
-                            <p class="text-xs text-gray-400 mt-2">or try with sample data</p>
-                            <button id="use-sample-data" class="text-blue-600 hover:text-blue-800 text-sm mt-1">
-                                Use Sample Data
-                            </button>
+                            <p class="text-xs text-gray-400 mt-2">Upload your CSV file to begin analysis</p>
                         </div>
                         
                         <input type="file" id="csvFile" accept=".csv" class="hidden">
@@ -372,22 +369,6 @@
     </div>
 
     <script>
-        // Sample construction data
-        const sampleData = [
-            { trade: 'Wall Drywall', location: 'Room 101', state: 'complete', level: '1', section: 'A' },
-            { trade: 'Wall Drywall', location: 'Room 102', state: 'in-progress', level: '1', section: 'A' },
-            { trade: 'Wall Drywall', location: 'Room 103', state: 'complete', level: '1', section: 'B' },
-            { trade: 'Overhead Plumbing', location: 'Room 101', state: 'complete', level: '1', section: 'A' },
-            { trade: 'Overhead Plumbing', location: 'Room 102', state: 'in-progress', level: '1', section: 'A' },
-            { trade: 'Insulation', location: 'Room 101', state: 'complete', level: '1', section: 'B' },
-            { trade: 'Insulation', location: 'Room 102', state: 'not-started', level: '1', section: 'B' },
-            { trade: 'Electrical', location: 'Room 101', state: 'in-progress', level: '2', section: 'A' },
-            { trade: 'Electrical', location: 'Room 201', state: 'complete', level: '2', section: 'A' },
-            { trade: 'Paint', location: 'Room 101', state: 'complete', level: '1', section: 'A' },
-            { trade: 'Paint', location: 'Room 102', state: 'not-started', level: '1', section: 'A' },
-            { trade: 'HVAC', location: 'Room 101', state: 'in-progress', level: '1', section: 'A' }
-        ];
-
         // Initialize anomaly types with zero counts - will be updated by analyzeAnomalies()
         let anomalyTypes = [
             { id: 'abandonment', name: 'Trade Abandonment', category: 'Time-based', count: 0, severity: 'high', color: '#ef4444' },
@@ -398,15 +379,15 @@
             { id: 'premature_start', name: 'Premature Start', category: 'Cross-trade', count: 0, severity: 'medium', color: '#f97316' }
         ];
 
-        let currentData = [...sampleData];
-        let filteredData = [...sampleData];
+        // Data arrays - start empty until CSV is uploaded
+        let currentData = [];
+        let filteredData = [];
         let charts = {};
 
         // Initialize upload functionality
         function initUpload() {
             const dropzone = document.getElementById('dropzone');
             const csvFile = document.getElementById('csvFile');
-            const useSampleDataBtn = document.getElementById('use-sample-data');
 
             // Dropzone click handler
             dropzone.addEventListener('click', () => {
@@ -445,10 +426,7 @@
                 }
             });
 
-            // Sample data button
-            useSampleDataBtn.addEventListener('click', () => {
-                loadSampleData();
-            });
+
         }
 
         // Handle CSV file upload
@@ -537,16 +515,7 @@
             }
         }
 
-        // Load sample data
-        function loadSampleData() {
-            showProgress('Loading sample data...');
-            currentData = [...sampleData];
-            filteredData = [...sampleData];
-            
-            setTimeout(() => {
-                initDashboard();
-            }, 1000);
-        }
+
 
         // Initialize dashboard
         function initDashboard() {
@@ -979,7 +948,10 @@
         function updateMetrics() {
             const totalTasks = filteredData.length;
             const completedTasks = filteredData.filter(row => row.state === 'complete').length;
-            const activeTrades = [...new Set(filteredData.filter(row => row.state === 'in-progress').map(row => row.trade))].length;
+            // Count unique trades that have at least one "in progress" task in the filtered data
+            const activeTrades = [...new Set(filteredData.filter(row => 
+                row.state === 'in progress' || row.state === 'in-progress'
+            ).map(row => row.trade))].length;
             const completionRate = totalTasks > 0 ? ((completedTasks / totalTasks) * 100).toFixed(1) : 0;
 
             // Calculate work velocity (tasks completed per day)
@@ -1012,9 +984,9 @@
                 }
             }
 
-            // Calculate active locations
+            // Count unique locations that have at least one "in progress" task in the filtered data
             const activeLocations = [...new Set(filteredData.filter(row => 
-                row.state === 'in-progress'
+                row.state === 'in progress' || row.state === 'in-progress'
             ).map(row => row.location))].length;
 
             // Update DOM elements
@@ -1468,7 +1440,7 @@
             let abandonedCount = 0;
             
             // Find trades that have been in-progress for >14 days
-            const inProgressTrades = data.filter(row => row.state === 'in-progress');
+            const inProgressTrades = data.filter(row => row.state === 'in progress' || row.state === 'in-progress');
             
             inProgressTrades.forEach(row => {
                 if (row.capture_date) {
@@ -1491,7 +1463,7 @@
             const captureDates = [...new Set(data.map(row => row.capture_date).filter(Boolean))];
             
             captureDates.forEach(date => {
-                const dayData = data.filter(row => row.capture_date === date && row.state === 'in-progress');
+                const dayData = data.filter(row => row.capture_date === date && (row.state === 'in progress' || row.state === 'in-progress'));
                 const locationGroups = {};
                 
                 dayData.forEach(row => {
@@ -1624,7 +1596,7 @@
             // Find locations where conflicting trades are both in-progress
             const locationTrades = {};
             
-            data.filter(row => row.state === 'in-progress').forEach(row => {
+            data.filter(row => row.state === 'in progress' || row.state === 'in-progress').forEach(row => {
                 if (!locationTrades[row.location]) {
                     locationTrades[row.location] = [];
                 }
@@ -1670,7 +1642,7 @@
                 
                 // Find locations where this trade is in-progress or complete
                 const tradeLocations = data.filter(row => 
-                    row.trade === trade && (row.state === 'in-progress' || row.state === 'complete')
+                    row.trade === trade && (row.state === 'in progress' || row.state === 'in-progress' || row.state === 'complete')
                 ).map(row => row.location);
                 
                 // For each location, check if prerequisites are complete
@@ -1797,7 +1769,7 @@
             
             // Get trades that are in-progress and stalled >14 days
             const abandonedTrades = filteredData.filter(row => {
-                if (row.state !== 'in-progress') return false;
+                if (row.state !== 'in progress' && row.state !== 'in-progress') return false;
                 
                 // Calculate days stalled from capture date
                 if (row.capture_date) {
@@ -1860,7 +1832,7 @@
                 const locationGroups = {};
                 
                 // Group by location for this specific day
-                dayData.filter(row => row.state === 'in-progress').forEach(row => {
+                dayData.filter(row => row.state === 'in progress' || row.state === 'in-progress').forEach(row => {
                     if (!locationGroups[row.location]) {
                         locationGroups[row.location] = [];
                     }
@@ -2543,35 +2515,7 @@
                 });
             });
 
-            // Add default milestones if none were generated from data
-            if (milestones.length === 0) {
-                milestones.push(
-                    {
-                        name: 'Data Upload',
-                        description: 'Upload construction CSV data',
-                        status: 'complete',
-                        progress: 100
-                    },
-                    {
-                        name: 'Dashboard Configuration',
-                        description: 'Configure project settings',
-                        status: 'complete',
-                        progress: 85
-                    },
-                    {
-                        name: 'Trade Analysis',
-                        description: 'Analyze trade performance',
-                        status: 'in-progress',
-                        progress: 45
-                    },
-                    {
-                        name: 'Progress Reporting',
-                        description: 'Generate project reports',
-                        status: 'in-progress',
-                        progress: 20
-                    }
-                );
-            }
+            // Only show milestones generated from real data
 
             // Sort by progress descending and take top 5
             return milestones.sort((a, b) => b.progress - a.progress).slice(0, 5);
@@ -2579,7 +2523,7 @@
 
         // Initialize when page loads
         document.addEventListener('DOMContentLoaded', function() {
-            // Start with upload screen instead of sample data
+            // Initialize with upload screen
             initUpload();
         });
     </script>
