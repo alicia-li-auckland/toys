@@ -674,29 +674,199 @@
         function generateAIResponse(userMessage) {
             const lowerMessage = userMessage.toLowerCase();
             
-            // Analyze user intent and generate appropriate response
-            if (lowerMessage.includes('completion') || lowerMessage.includes('progress') || lowerMessage.includes('status')) {
-                handleCompletionQuery(userMessage);
-            } else if (lowerMessage.includes('trade') || lowerMessage.includes('worker') || lowerMessage.includes('crew')) {
-                handleTradeQuery(userMessage);
-            } else if (lowerMessage.includes('level') || lowerMessage.includes('floor')) {
-                handleLevelQuery(userMessage);
-            } else if (lowerMessage.includes('velocity') || lowerMessage.includes('rate') || lowerMessage.includes('speed') || lowerMessage.includes('daily')) {
-                handleVelocityQuery(userMessage);
-            } else if (lowerMessage.includes('problem') || lowerMessage.includes('issue') || lowerMessage.includes('delay') || lowerMessage.includes('bottleneck')) {
-                handleProblemQuery(userMessage);
-            } else if (lowerMessage.includes('recommend') || lowerMessage.includes('suggest') || lowerMessage.includes('advice') || lowerMessage.includes('should')) {
-                handleRecommendationQuery(userMessage);
-            } else if (lowerMessage.includes('summary') || lowerMessage.includes('report') || lowerMessage.includes('overview') || lowerMessage.includes('executive')) {
-                handleSummaryQuery(userMessage);
-            } else if (lowerMessage.includes('help') || lowerMessage.includes('what can') || lowerMessage.includes('how do')) {
-                handleHelpQuery(userMessage);
+            // Enhanced intent recognition with multiple patterns and context
+            const intents = analyzeUserIntent(lowerMessage, userMessage);
+            
+            // Execute the most confident intent or combination of intents
+            if (intents.completion.confidence > 0.7) {
+                handleCompletionQuery(userMessage, intents);
+            } else if (intents.trade.confidence > 0.7) {
+                handleTradeQuery(userMessage, intents);
+            } else if (intents.location.confidence > 0.7) {
+                handleLocationQuery(userMessage, intents);
+            } else if (intents.timeline.confidence > 0.7) {
+                handleTimelineQuery(userMessage, intents);
+            } else if (intents.comparison.confidence > 0.7) {
+                handleComparisonQuery(userMessage, intents);
+            } else if (intents.prediction.confidence > 0.7) {
+                handlePredictionQuery(userMessage, intents);
+            } else if (intents.problem.confidence > 0.7) {
+                handleProblemQuery(userMessage, intents);
+            } else if (intents.recommendation.confidence > 0.7) {
+                handleRecommendationQuery(userMessage, intents);
+            } else if (intents.summary.confidence > 0.7) {
+                handleSummaryQuery(userMessage, intents);
+            } else if (intents.help.confidence > 0.7) {
+                handleHelpQuery(userMessage, intents);
             } else {
-                handleGeneralQuery(userMessage);
+                // Handle complex queries or multiple intents
+                handleComplexQuery(userMessage, intents);
             }
         }
 
-        function handleCompletionQuery(userMessage) {
+        function analyzeUserIntent(lowerMessage, originalMessage) {
+            const intents = {
+                completion: { confidence: 0, keywords: [], entities: [] },
+                trade: { confidence: 0, keywords: [], entities: [] },
+                location: { confidence: 0, keywords: [], entities: [] },
+                timeline: { confidence: 0, keywords: [], entities: [] },
+                comparison: { confidence: 0, keywords: [], entities: [] },
+                prediction: { confidence: 0, keywords: [], entities: [] },
+                problem: { confidence: 0, keywords: [], entities: [] },
+                recommendation: { confidence: 0, keywords: [], entities: [] },
+                summary: { confidence: 0, keywords: [], entities: [] },
+                help: { confidence: 0, keywords: [], entities: [] }
+            };
+
+            // Completion intent patterns
+            const completionPatterns = [
+                /(?:how much|what.*percent|completion rate|progress|status|done|finished|complete)/,
+                /(?:overall|total|project).*(?:progress|completion|done)/,
+                /(?:where.*stand|current.*status|how.*doing)/
+            ];
+            intents.completion.confidence = calculatePatternConfidence(lowerMessage, completionPatterns);
+            intents.completion.keywords = extractKeywords(lowerMessage, ['completion', 'progress', 'status', 'done', 'finished', 'complete', 'percent']);
+
+            // Trade-specific intent patterns
+            const tradePatterns = [
+                /(?:trade|crew|worker|team|contractor).*(?:performance|doing|progress|status)/,
+                /(?:which|what).*trade.*(?:best|worst|struggling|behind|ahead)/,
+                /(?:wall|overhead|insulation|drywall|plumbing|duct|paint).*(?:progress|status|completion)/
+            ];
+            intents.trade.confidence = calculatePatternConfidence(lowerMessage, tradePatterns);
+            intents.trade.keywords = extractKeywords(lowerMessage, ['trade', 'crew', 'worker', 'team', 'contractor', 'wall', 'overhead', 'insulation', 'drywall', 'plumbing', 'duct', 'paint']);
+            intents.trade.entities = extractTradeEntities(originalMessage);
+
+            // Location/level intent patterns
+            const locationPatterns = [
+                /(?:level|floor|location|room|area|zone).*(?:progress|completion|status|doing)/,
+                /(?:which|what).*(?:level|floor|location).*(?:best|worst|behind|ahead)/,
+                /(?:compare|comparison).*(?:level|floor|location)/
+            ];
+            intents.location.confidence = calculatePatternConfidence(lowerMessage, locationPatterns);
+            intents.location.keywords = extractKeywords(lowerMessage, ['level', 'floor', 'location', 'room', 'area', 'zone']);
+            intents.location.entities = extractLocationEntities(originalMessage);
+
+            // Timeline intent patterns
+            const timelinePatterns = [
+                /(?:when|timeline|schedule|date|time).*(?:complete|finish|done)/,
+                /(?:how long|duration|timeframe|estimate)/,
+                /(?:velocity|speed|rate|pace|daily|weekly|trend)/
+            ];
+            intents.timeline.confidence = calculatePatternConfidence(lowerMessage, timelinePatterns);
+            intents.timeline.keywords = extractKeywords(lowerMessage, ['when', 'timeline', 'schedule', 'date', 'time', 'velocity', 'speed', 'rate', 'pace', 'daily', 'weekly']);
+
+            // Comparison intent patterns
+            const comparisonPatterns = [
+                /(?:compare|comparison|versus|vs|difference|better|worse)/,
+                /(?:which.*(?:better|worse|faster|slower|ahead|behind))/,
+                /(?:best|worst|top|bottom|highest|lowest).*(?:performing|completion)/
+            ];
+            intents.comparison.confidence = calculatePatternConfidence(lowerMessage, comparisonPatterns);
+            intents.comparison.keywords = extractKeywords(lowerMessage, ['compare', 'comparison', 'versus', 'vs', 'difference', 'better', 'worse', 'best', 'worst']);
+
+            // Prediction intent patterns
+            const predictionPatterns = [
+                /(?:predict|forecast|estimate|projection|expect|will|future)/,
+                /(?:when.*(?:complete|finish|done)|completion.*date)/,
+                /(?:trend|trajectory|direction|outlook)/
+            ];
+            intents.prediction.confidence = calculatePatternConfidence(lowerMessage, predictionPatterns);
+            intents.prediction.keywords = extractKeywords(lowerMessage, ['predict', 'forecast', 'estimate', 'projection', 'expect', 'will', 'future', 'trend']);
+
+            // Problem intent patterns
+            const problemPatterns = [
+                /(?:problem|issue|delay|bottleneck|stuck|stalled|blocked|concern)/,
+                /(?:what.*wrong|why.*slow|trouble|difficulty|challenge)/,
+                /(?:behind|lagging|struggling|failing)/
+            ];
+            intents.problem.confidence = calculatePatternConfidence(lowerMessage, problemPatterns);
+            intents.problem.keywords = extractKeywords(lowerMessage, ['problem', 'issue', 'delay', 'bottleneck', 'stuck', 'stalled', 'blocked', 'concern']);
+
+            // Recommendation intent patterns
+            const recommendationPatterns = [
+                /(?:recommend|suggest|advice|should|need.*do|what.*next|action)/,
+                /(?:improve|optimize|fix|solve|address)/,
+                /(?:priority|focus|urgent|important)/
+            ];
+            intents.recommendation.confidence = calculatePatternConfidence(lowerMessage, recommendationPatterns);
+            intents.recommendation.keywords = extractKeywords(lowerMessage, ['recommend', 'suggest', 'advice', 'should', 'improve', 'optimize', 'fix', 'solve']);
+
+            // Summary intent patterns
+            const summaryPatterns = [
+                /(?:summary|report|overview|dashboard|executive|brief)/,
+                /(?:overall|general|high.*level|big.*picture)/,
+                /(?:key.*(?:metrics|insights|findings|points))/
+            ];
+            intents.summary.confidence = calculatePatternConfidence(lowerMessage, summaryPatterns);
+            intents.summary.keywords = extractKeywords(lowerMessage, ['summary', 'report', 'overview', 'dashboard', 'executive', 'brief']);
+
+            // Help intent patterns
+            const helpPatterns = [
+                /(?:help|what.*can|how.*do|what.*possible|capabilities)/,
+                /(?:guide|tutorial|explain|show.*me)/,
+                /(?:commands|options|features)/
+            ];
+            intents.help.confidence = calculatePatternConfidence(lowerMessage, helpPatterns);
+            intents.help.keywords = extractKeywords(lowerMessage, ['help', 'guide', 'tutorial', 'explain', 'show', 'commands', 'options']);
+
+            return intents;
+        }
+
+        function calculatePatternConfidence(message, patterns) {
+            let maxConfidence = 0;
+            patterns.forEach(pattern => {
+                const matches = message.match(pattern);
+                if (matches) {
+                    // Base confidence from pattern match
+                    let confidence = 0.6;
+                    
+                    // Boost confidence based on match quality
+                    const matchLength = matches[0].length;
+                    const messageLength = message.length;
+                    confidence += (matchLength / messageLength) * 0.3;
+                    
+                    // Boost for question words
+                    if (/(?:what|how|when|where|why|which|who)/.test(message)) {
+                        confidence += 0.1;
+                    }
+                    
+                    maxConfidence = Math.max(maxConfidence, Math.min(confidence, 1.0));
+                }
+            });
+            
+            return maxConfidence;
+        }
+
+        function extractKeywords(message, keywordList) {
+            return keywordList.filter(keyword => message.includes(keyword));
+        }
+
+        function extractTradeEntities(message) {
+            const trades = [];
+            if (dashboardData && dashboardData.tradeAnalysis) {
+                dashboardData.tradeAnalysis.forEach(trade => {
+                    if (message.toLowerCase().includes(trade.trade.toLowerCase())) {
+                        trades.push(trade.trade);
+                    }
+                });
+            }
+            return trades;
+        }
+
+        function extractLocationEntities(message) {
+            const locations = [];
+            if (dashboardData && dashboardData.levelAnalysis) {
+                Object.keys(dashboardData.levelAnalysis).forEach(level => {
+                    if (message.toLowerCase().includes(level.toLowerCase())) {
+                        locations.push(level);
+                    }
+                });
+            }
+            return locations;
+        }
+
+        function handleCompletionQuery(userMessage, intents = {}) {
             if (!dashboardData) {
                 addChatMessage("assistant", "Please upload your construction data first to analyze completion rates.");
                 return;
@@ -721,7 +891,7 @@
             addClickableTile("assistant", completionTile);
         }
 
-        function handleTradeQuery(userMessage) {
+        function handleTradeQuery(userMessage, intents = {}) {
             if (!dashboardData) {
                 addChatMessage("assistant", "Please upload your construction data first to analyze trade performance.");
                 return;
@@ -747,7 +917,7 @@
             addClickableTile("assistant", tradeTile);
         }
 
-        function handleLevelQuery(userMessage) {
+        function handleLocationQuery(userMessage, intents = {}) {
             if (!dashboardData || !dashboardData.levelAnalysis) {
                 addChatMessage("assistant", "Level analysis requires floor/level data in your CSV. Please check your data includes level information.");
                 return;
@@ -778,7 +948,7 @@
             }
         }
 
-        function handleVelocityQuery(userMessage) {
+        function handleTimelineQuery(userMessage, intents = {}) {
             if (!dashboardData) {
                 addChatMessage("assistant", "Please upload your construction data first to analyze velocity.");
                 return;
@@ -816,7 +986,7 @@
             addClickableTile("assistant", velocityTile);
         }
 
-        function handleProblemQuery(userMessage) {
+        function handleProblemQuery(userMessage, intents = {}) {
             if (!dashboardData) {
                 addChatMessage("assistant", "Please upload your construction data first to identify problems.");
                 return;
@@ -843,7 +1013,7 @@
             }
         }
 
-        function handleRecommendationQuery(userMessage) {
+        function handleRecommendationQuery(userMessage, intents = {}) {
             if (!dashboardData) {
                 addChatMessage("assistant", "Please upload your construction data first to provide recommendations.");
                 return;
@@ -870,7 +1040,7 @@
             addChatMessage("assistant", `🔄 **Next Steps:** Click the tiles above for detailed analysis and specific action plans.`);
         }
 
-        function handleSummaryQuery(userMessage) {
+        function handleSummaryQuery(userMessage, intents = {}) {
             if (!dashboardData) {
                 addChatMessage("assistant", "Please upload your construction data first to generate a project summary.");
                 return;
@@ -903,21 +1073,229 @@
             addClickableTile("assistant", summaryTile);
         }
 
-        function handleHelpQuery(userMessage) {
-            addChatMessage("assistant", `🤖 **Construction Intelligence Assistant Help**`);
-            addChatMessage("assistant", `I can analyze your construction project data and answer questions about:`);
-            addChatMessage("assistant", `📊 **Project Status:** "What's our completion rate?" "How much progress have we made?"`);
-            addChatMessage("assistant", `🔧 **Trade Performance:** "Which trades are struggling?" "How are the crews doing?"`);
-            addChatMessage("assistant", `🏢 **Level Analysis:** "How do the floors compare?" "Which level has lower completion rates?"`);
-            addChatMessage("assistant", `⚡ **Velocity & Speed:** "How fast are we completing tasks?" "What's our daily rate?"`);
-            addChatMessage("assistant", `🚨 **Issues & Problems:** "What problems do we have?" "Any bottlenecks?"`);
-            addChatMessage("assistant", `💡 **Recommendations:** "What should we do next?" "Any suggestions?"`);
-            addChatMessage("assistant", `📋 **Summaries:** "I need an executive summary" "Give me a project overview"`);
+        function handleHelpQuery(userMessage, intents = {}) {
+            addChatMessage("assistant", `🤖 **Enhanced Construction Intelligence Assistant**`);
+            addChatMessage("assistant", `I'm now much more robust and can understand complex questions! Here's what I can help with:`);
+            
+            addChatMessage("assistant", `📊 **Project Status & Progress:**`);
+            addChatMessage("assistant", `• "What's our completion rate?" "How much progress have we made?" "Where do we stand?"`);
+            
+            addChatMessage("assistant", `🔧 **Trade Performance Analysis:**`);
+            addChatMessage("assistant", `• "Which trades are struggling?" "How is wall drywall performing?" "Trade status overview"`);
+            
+            addChatMessage("assistant", `📈 **Comparisons & Rankings:**`);
+            addChatMessage("assistant", `• "Compare all trades" "Which level is best?" "Rank trade performance" "Wall vs overhead trades"`);
+            
+            addChatMessage("assistant", `🔮 **Predictions & Forecasting:**`);
+            addChatMessage("assistant", `• "When will we finish?" "Estimate completion time" "Project forecast" "Velocity trends"`);
+            
+            addChatMessage("assistant", `🏢 **Location & Level Analysis:**`);
+            addChatMessage("assistant", `• "How do the floors compare?" "Which level needs attention?" "Location progress"`);
+            
+            addChatMessage("assistant", `🚨 **Problem Detection:**`);
+            addChatMessage("assistant", `• "What problems do we have?" "Any bottlenecks?" "Issues and delays" "Risk factors"`);
+            
+            addChatMessage("assistant", `💡 **Smart Recommendations:**`);
+            addChatMessage("assistant", `• "What should we do next?" "Improve project speed" "Priority actions" "Focus areas"`);
+            
+            addChatMessage("assistant", `📋 **Executive Summaries:**`);
+            addChatMessage("assistant", `• "Executive summary" "Project overview" "Key insights" "Dashboard report"`);
             
             if (dashboardData) {
-                addChatMessage("assistant", `📈 Currently analyzing: ${dashboardData.overview.totalTasks} tasks across ${dashboardData.tradeAnalysis.length} trades. Ask me anything!`);
+                addChatMessage("assistant", `📊 **Currently analyzing:** ${dashboardData.overview.totalTasks} tasks across ${dashboardData.tradeAnalysis.length} trades`);
+                addChatMessage("assistant", `🎯 **Try complex questions like:** "Why is wall drywall behind and when will it catch up?" or "Compare level 2 vs level 3 and recommend actions"`);
             } else {
-                addChatMessage("assistant", `📁 Upload your CSV data first, then I can provide detailed insights about your project.`);
+                addChatMessage("assistant", `📁 **Note:** Auto-loading your WhartonSmith data for immediate analysis...`);
+            }
+        }
+
+        function handleComparisonQuery(userMessage, intents = {}) {
+            if (!dashboardData) {
+                addChatMessage("assistant", "Please upload your construction data first to perform comparisons.");
+                return;
+            }
+
+            // Determine what to compare based on entities and keywords
+            if (intents.trade && intents.trade.entities.length > 1) {
+                // Compare specific trades
+                const trades = intents.trade.entities;
+                const tradeData = trades.map(tradeName => 
+                    dashboardData.tradeAnalysis.find(t => t.trade === tradeName)
+                ).filter(Boolean);
+
+                if (tradeData.length >= 2) {
+                    addChatMessage("assistant", `📊 **Trade Comparison:**`);
+                    tradeData.forEach(trade => {
+                        addChatMessage("assistant", `• ${trade.trade}: ${trade.completionRate}% complete (${trade.completed}/${trade.total} tasks)`);
+                    });
+
+                    const bestTrade = tradeData.reduce((a, b) => parseFloat(a.completionRate) > parseFloat(b.completionRate) ? a : b);
+                    const worstTrade = tradeData.reduce((a, b) => parseFloat(a.completionRate) < parseFloat(b.completionRate) ? a : b);
+                    
+                    addChatMessage("assistant", `🏆 Best performing: ${bestTrade.trade} at ${bestTrade.completionRate}%`);
+                    addChatMessage("assistant", `⚠️ Needs attention: ${worstTrade.trade} at ${worstTrade.completionRate}%`);
+                }
+            } else if (intents.location && intents.location.entities.length > 0) {
+                // Compare levels/locations
+                const levelData = Object.entries(dashboardData.levelAnalysis).map(([level, data]) => ({
+                    level,
+                    completionRate: ((data.completed / data.total) * 100).toFixed(1),
+                    completed: data.completed,
+                    total: data.total
+                })).sort((a, b) => parseFloat(b.completionRate) - parseFloat(a.completionRate));
+
+                addChatMessage("assistant", `🏢 **Level Performance Comparison:**`);
+                levelData.forEach((level, index) => {
+                    const emoji = index === 0 ? '🥇' : index === levelData.length - 1 ? '🔴' : '📊';
+                    addChatMessage("assistant", `${emoji} Level ${level.level}: ${level.completionRate}% complete (${level.completed}/${level.total} tasks)`);
+                });
+            } else {
+                // General comparison of all trades
+                const sortedTrades = [...dashboardData.tradeAnalysis].sort((a, b) => parseFloat(b.completionRate) - parseFloat(a.completionRate));
+                
+                addChatMessage("assistant", `📊 **Overall Trade Performance Ranking:**`);
+                sortedTrades.slice(0, 5).forEach((trade, index) => {
+                    const emoji = index === 0 ? '🥇' : index === 1 ? '🥈' : index === 2 ? '🥉' : '📈';
+                    addChatMessage("assistant", `${emoji} ${trade.trade}: ${trade.completionRate}% complete`);
+                });
+
+                if (sortedTrades.length > 5) {
+                    addChatMessage("assistant", `... and ${sortedTrades.length - 5} more trades`);
+                }
+            }
+        }
+
+        function handlePredictionQuery(userMessage, intents = {}) {
+            if (!dashboardData) {
+                addChatMessage("assistant", "Please upload your construction data first to make predictions.");
+                return;
+            }
+
+            if (!dashboardData.velocityData || dashboardData.velocityData.length === 0) {
+                addChatMessage("assistant", "Prediction analysis requires completion dates in your data. Please ensure your CSV includes complete_date information.");
+                return;
+            }
+
+            // Calculate current velocity
+            const recentData = dashboardData.velocityData.slice(-7); // Last 7 days
+            const avgDailyCompletion = recentData.reduce((sum, day) => {
+                return sum + dashboardData.allTrades.reduce((daySum, trade) => daySum + (day[trade] || 0), 0);
+            }, 0) / recentData.length;
+
+            const remainingTasks = dashboardData.overview.totalTasks - dashboardData.overview.completedTasks;
+            const estimatedDaysToComplete = Math.ceil(remainingTasks / avgDailyCompletion);
+
+            addChatMessage("assistant", `🔮 **Project Completion Prediction:**`);
+            addChatMessage("assistant", `📈 Current velocity: ${avgDailyCompletion.toFixed(1)} tasks completed per day (7-day average)`);
+            addChatMessage("assistant", `📋 Remaining tasks: ${remainingTasks}`);
+            addChatMessage("assistant", `⏰ Estimated completion: ${estimatedDaysToComplete} days`);
+
+            // Add prediction tile
+            const predictionTile = {
+                id: 'completion-prediction',
+                type: 'prediction',
+                title: `Completion Forecast: ${estimatedDaysToComplete} days`,
+                description: `Based on current velocity of ${avgDailyCompletion.toFixed(1)} tasks/day`,
+                severity: estimatedDaysToComplete > 30 ? 'warning' : 'good',
+                data: {
+                    avgDailyCompletion,
+                    remainingTasks,
+                    estimatedDays: estimatedDaysToComplete,
+                    velocityData: dashboardData.velocityData
+                },
+                chartType: 'velocity-trend'
+            };
+            addClickableTile("assistant", predictionTile);
+
+            // Provide trade-specific predictions
+            const criticalTrades = dashboardData.tradeAnalysis.filter(trade => parseFloat(trade.completionRate) < 30);
+            if (criticalTrades.length > 0) {
+                addChatMessage("assistant", `⚠️ **Risk Factors:** ${criticalTrades.length} trades below 30% completion may impact timeline:`);
+                criticalTrades.forEach(trade => {
+                    addChatMessage("assistant", `• ${trade.trade}: ${trade.completionRate}% complete`);
+                });
+            }
+        }
+
+        function handleComplexQuery(userMessage, intents) {
+            // Handle queries that don't clearly fit one category or combine multiple intents
+            const sortedIntents = Object.entries(intents)
+                .map(([type, data]) => ({ type, ...data }))
+                .sort((a, b) => b.confidence - a.confidence)
+                .filter(intent => intent.confidence > 0.3);
+
+            if (sortedIntents.length === 0) {
+                // No clear intent detected
+                addChatMessage("assistant", "I'm not sure exactly what you're looking for. Here are some things I can help with:");
+                addChatMessage("assistant", "📊 Project completion status and progress");
+                addChatMessage("assistant", "🔧 Trade performance analysis and comparisons");
+                addChatMessage("assistant", "🏢 Level/floor progress analysis");
+                addChatMessage("assistant", "⚡ Project velocity and timeline predictions");
+                addChatMessage("assistant", "🚨 Problem identification and recommendations");
+                addChatMessage("assistant", "Try asking something like: 'How are the trades performing?' or 'What problems do we have?'");
+                return;
+            }
+
+            if (sortedIntents.length === 1) {
+                // Single intent with lower confidence - provide context-aware response
+                const intent = sortedIntents[0];
+                addChatMessage("assistant", `I think you're asking about ${intent.type}. Let me provide some insights:`);
+                
+                // Route to appropriate handler with lower threshold
+                switch (intent.type) {
+                    case 'completion':
+                        handleCompletionQuery(userMessage, intents);
+                        break;
+                    case 'trade':
+                        handleTradeQuery(userMessage, intents);
+                        break;
+                    case 'location':
+                        handleLocationQuery(userMessage, intents);
+                        break;
+                    case 'timeline':
+                        handleTimelineQuery(userMessage, intents);
+                        break;
+                    case 'comparison':
+                        handleComparisonQuery(userMessage, intents);
+                        break;
+                    case 'prediction':
+                        handlePredictionQuery(userMessage, intents);
+                        break;
+                    case 'problem':
+                        handleProblemQuery(userMessage, intents);
+                        break;
+                    case 'recommendation':
+                        handleRecommendationQuery(userMessage, intents);
+                        break;
+                    case 'summary':
+                        handleSummaryQuery(userMessage, intents);
+                        break;
+                    default:
+                        handleGeneralQuery(userMessage);
+                }
+            } else {
+                // Multiple intents detected - provide comprehensive response
+                addChatMessage("assistant", "I can see you're interested in multiple aspects. Let me address each:");
+                
+                sortedIntents.slice(0, 2).forEach(intent => {
+                    if (intent.confidence > 0.4) {
+                        switch (intent.type) {
+                            case 'completion':
+                                addChatMessage("assistant", `📊 **Completion Status:** ${dashboardData.overview.overallCompletion}% complete`);
+                                break;
+                            case 'trade':
+                                const worstTrade = dashboardData.tradeAnalysis[0];
+                                addChatMessage("assistant", `🔧 **Trade Issues:** ${worstTrade.trade} needs attention at ${worstTrade.completionRate}%`);
+                                break;
+                            case 'problem':
+                                const criticalTrades = dashboardData.tradeAnalysis.filter(t => parseFloat(t.completionRate) < 20);
+                                addChatMessage("assistant", `🚨 **Problems:** ${criticalTrades.length} critical bottlenecks identified`);
+                                break;
+                        }
+                    }
+                });
+                
+                addChatMessage("assistant", "Would you like me to dive deeper into any of these areas?");
             }
         }
 
