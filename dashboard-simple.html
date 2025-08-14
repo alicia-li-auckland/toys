@@ -569,12 +569,14 @@
 
         // Update data statistics
         function updateDataStats() {
-            const totalRows = currentData.length;
+            // Count unique location-trade combinations (actual tasks, not CSV rows)
+            const uniqueTasks = new Set(currentData.map(row => `${row.location}_${row.trade}`));
+            const totalTasks = uniqueTasks.size;
             const uniqueTrades = [...new Set(currentData.map(row => row.trade))].length;
             const uniqueLocations = [...new Set(currentData.map(row => row.location))].length;
             
             document.getElementById('data-stats').textContent = 
-                `${totalRows} tasks • ${uniqueTrades} trades • ${uniqueLocations} locations`;
+                `${totalTasks} tasks • ${uniqueTrades} trades • ${uniqueLocations} locations`;
         }
 
         // Reload data
@@ -986,19 +988,29 @@
 
         // Update metrics
         function updateMetrics() {
-            const totalTasks = filteredData.length;
-            const completedTasks = filteredData.filter(row => row.state === 'complete').length;
+            // Count unique location-trade combinations (actual tasks, not CSV rows)
+            const uniqueTasks = new Set(filteredData.map(row => `${row.location}_${row.trade}`));
+            const totalTasks = uniqueTasks.size;
+            
+            const uniqueCompletedTasks = new Set(
+                filteredData
+                    .filter(row => row.state === 'complete')
+                    .map(row => `${row.location}_${row.trade}`)
+            );
+            const completedTasks = uniqueCompletedTasks.size;
+            
             // Count unique trades that have at least one "in progress" task in the filtered data
             const activeTrades = [...new Set(filteredData.filter(row => 
                 row.state === 'in progress' || row.state === 'in-progress'
             ).map(row => row.trade))].length;
             const completionRate = totalTasks > 0 ? ((completedTasks / totalTasks) * 100).toFixed(1) : 0;
 
-            // Calculate work velocity (tasks completed per day)
+            // Calculate work velocity (unique tasks completed per day)
             const completionDates = [...new Set(filteredData
                 .filter(row => row.complete_date && row.state === 'complete')
                 .map(row => row.complete_date)
             )];
+            
             const workVelocity = completionDates.length > 0 ? 
                 Math.round(completedTasks / completionDates.length) : 0;
 
@@ -1151,18 +1163,26 @@
             // Create datasets for each trade
             const datasets = trades.map((trade, index) => {
                 const tradeData = allDates.map(date => {
-                    const tradeTasksUpToDate = filteredData.filter(row => 
-                        row.trade === trade && 
-                        row.capture_date <= date
+                    // Get unique completed location-trade combinations up to this date
+                    const completedUpToDate = new Set(
+                        filteredData
+                            .filter(row => 
+                                row.trade === trade && 
+                                row.state === 'complete' && 
+                                row.complete_date && 
+                                row.complete_date <= date
+                            )
+                            .map(row => `${row.location}_${row.trade}`)
                     );
-                    const completedUpToDate = tradeTasksUpToDate.filter(row => 
-                        row.state === 'complete' && 
-                        row.complete_date && 
-                        row.complete_date <= date
-                    );
-                    const totalTradeTasks = filteredData.filter(row => row.trade === trade).length;
                     
-                    return totalTradeTasks > 0 ? Math.round((completedUpToDate.length / totalTradeTasks) * 100) : 0;
+                    // Get total unique tasks for this trade
+                    const totalTradeTasks = new Set(
+                        filteredData
+                            .filter(row => row.trade === trade)
+                            .map(row => `${row.location}_${row.trade}`)
+                    ).size;
+                    
+                    return totalTradeTasks > 0 ? Math.round((completedUpToDate.size / totalTradeTasks) * 100) : 0;
                 });
                 
                 const colors = ['#3b82f6', '#ef4444', '#10b981', '#f59e0b', '#8b5cf6', '#06b6d4', '#84cc16'];
@@ -1268,14 +1288,20 @@
                 return date.split('-').slice(1).join('/'); // Handle YYYY-MM-DD format
             });
             
-            // Create datasets for each trade showing daily completions
+            // Create datasets for each trade showing daily completions (unique location-trade combinations)
             const datasets = trades.map((trade, index) => {
                 const tradeData = completionDates.map(date => {
-                    return filteredData.filter(row => 
-                        row.trade === trade && 
-                        row.complete_date === date && 
-                        row.state === 'complete'
-                    ).length;
+                    // Get unique location-trade combinations for this date and trade
+                    const uniqueCompletions = new Set(
+                        filteredData
+                            .filter(row => 
+                                row.trade === trade && 
+                                row.complete_date === date && 
+                                row.state === 'complete'
+                            )
+                            .map(row => `${row.location}_${row.trade}`)
+                    );
+                    return uniqueCompletions.size;
                 });
                 
                 const colors = ['#3b82f6', '#ef4444', '#10b981', '#f59e0b', '#8b5cf6', '#06b6d4', '#84cc16'];
@@ -1902,18 +1928,30 @@
         }
 
         function getSwissCheeseData() {
-            // Find locations with gaps in completion patterns
+            // Find locations with gaps in completion patterns using unique tasks
             const locationCompletion = {};
             
-            // Calculate completion rate for each location
+            // Calculate completion rate for each location using unique tasks
+            const locationTasks = {};
             filteredData.forEach(row => {
-                if (!locationCompletion[row.location]) {
-                    locationCompletion[row.location] = { total: 0, completed: 0 };
+                if (!locationTasks[row.location]) {
+                    locationTasks[row.location] = {
+                        allTasks: new Set(),
+                        completedTasks: new Set()
+                    };
                 }
-                locationCompletion[row.location].total++;
+                locationTasks[row.location].allTasks.add(`${row.location}_${row.trade}`);
                 if (row.state === 'complete') {
-                    locationCompletion[row.location].completed++;
+                    locationTasks[row.location].completedTasks.add(`${row.location}_${row.trade}`);
                 }
+            });
+            
+            // Convert to completion stats
+            Object.keys(locationTasks).forEach(location => {
+                locationCompletion[location] = {
+                    total: locationTasks[location].allTasks.size,
+                    completed: locationTasks[location].completedTasks.size
+                };
             });
             
             // Calculate completion percentages and identify gaps
@@ -2392,11 +2430,20 @@
             const insights = [];
             const trades = [...new Set(filteredData.map(row => row.trade))];
             
-            // Find best performing trade
+            // Find best performing trade using unique location-trade combinations
             const tradePerformance = trades.map(trade => {
-                const tradeData = filteredData.filter(row => row.trade === trade);
-                const completed = tradeData.filter(row => row.state === 'complete').length;
-                const total = tradeData.length;
+                const uniqueTradeTasks = new Set(
+                    filteredData
+                        .filter(row => row.trade === trade)
+                        .map(row => `${row.location}_${row.trade}`)
+                );
+                const uniqueCompletedTasks = new Set(
+                    filteredData
+                        .filter(row => row.trade === trade && row.state === 'complete')
+                        .map(row => `${row.location}_${row.trade}`)
+                );
+                const total = uniqueTradeTasks.size;
+                const completed = uniqueCompletedTasks.size;
                 const rate = total > 0 ? (completed / total) * 100 : 0;
                 return { trade, rate, completed, total };
             }).sort((a, b) => b.rate - a.rate);
@@ -2554,11 +2601,20 @@
             
             const milestones = [];
 
-            // Create milestones based on trade completion rates in sequence order
+            // Create milestones based on trade completion rates in sequence order using unique tasks
             orderedTrades.forEach(trade => {
-                const tradeData = filteredData.filter(row => row.trade === trade);
-                const completed = tradeData.filter(row => row.state === 'complete').length;
-                const total = tradeData.length;
+                const uniqueTradeTasks = new Set(
+                    filteredData
+                        .filter(row => row.trade === trade)
+                        .map(row => `${row.location}_${row.trade}`)
+                );
+                const uniqueCompletedTasks = new Set(
+                    filteredData
+                        .filter(row => row.trade === trade && row.state === 'complete')
+                        .map(row => `${row.location}_${row.trade}`)
+                );
+                const total = uniqueTradeTasks.size;
+                const completed = uniqueCompletedTasks.size;
                 const progress = total > 0 ? Math.round((completed / total) * 100) : 0;
                 
                 let status = 'in-progress';
