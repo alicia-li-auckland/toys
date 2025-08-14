@@ -589,7 +589,21 @@
         function populateFilters() {
             const levels = [...new Set(currentData.map(row => row.level))].sort();
             const sections = [...new Set(currentData.map(row => row.section).filter(Boolean))].sort();
-            const trades = [...new Set(currentData.map(row => row.trade))].sort();
+            // Order trades by project sequence
+            const tradeOrder = [
+                'In Wall Insulation',
+                'Wall Drywall', 
+                'Overhead Plumbing',
+                'Overhead Duct Rough In',
+                'Overhead Duct Insulation',
+                'Wall Drywall Finish',
+                'Wall Prime Paint'
+            ];
+            const availableTrades = [...new Set(currentData.map(row => row.trade))];
+            const orderedTrades = tradeOrder.filter(trade => availableTrades.includes(trade));
+            // Add any trades not in the sequence at the end
+            const otherTrades = availableTrades.filter(trade => !tradeOrder.includes(trade)).sort();
+            const trades = [...orderedTrades, ...otherTrades];
             const captureDates = [...new Set(currentData.map(row => row.capture_date).filter(Boolean))].sort();
 
             // Initialize filter state
@@ -1627,11 +1641,14 @@
 
         function detectPrematureStart(data) {
             // Find trades that started before their prerequisites were complete
+            // Correct trade sequence based on project milestones
             const tradeSequence = {
+                'In Wall Insulation': [], // First trade, no prerequisites
+                'Wall Drywall': ['In Wall Insulation'],
+                'Overhead Plumbing': ['Wall Drywall'],
+                'Overhead Duct Rough In': ['Overhead Plumbing'],
                 'Overhead Duct Insulation': ['Overhead Duct Rough In'],
-                'In Wall Insulation': ['Overhead Duct Rough In', 'Overhead Plumbing'],
-                'Wall Drywall': ['In Wall Insulation', 'Overhead Duct Insulation'],
-                'Wall Drywall Finish': ['Wall Drywall'],
+                'Wall Drywall Finish': ['Overhead Duct Insulation'],
                 'Wall Prime Paint': ['Wall Drywall Finish']
             };
             
@@ -2494,11 +2511,25 @@
 
         // Get milestones from actual data
         function getMilestonesFromData() {
-            const trades = [...new Set(filteredData.map(row => row.trade))];
+            // Define trade sequence order for project milestones
+            const tradeOrder = [
+                'In Wall Insulation',
+                'Wall Drywall', 
+                'Overhead Plumbing',
+                'Overhead Duct Rough In',
+                'Overhead Duct Insulation',
+                'Wall Drywall Finish',
+                'Wall Prime Paint'
+            ];
+            
+            // Get only trades that exist in the data, in sequence order
+            const availableTrades = [...new Set(filteredData.map(row => row.trade))];
+            const orderedTrades = tradeOrder.filter(trade => availableTrades.includes(trade));
+            
             const milestones = [];
 
-            // Create milestones based on trade completion rates
-            trades.forEach(trade => {
+            // Create milestones based on trade completion rates in sequence order
+            orderedTrades.forEach(trade => {
                 const tradeData = filteredData.filter(row => row.trade === trade);
                 const completed = tradeData.filter(row => row.state === 'complete').length;
                 const total = tradeData.length;
