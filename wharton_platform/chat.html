@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>UNO Construction Intelligence Assistant</title>
+    <title>Construction Intelligence Assistant</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
@@ -54,7 +54,7 @@
                 <div class="animate-spin w-12 h-12 border-4 border-blue-500 border-t-transparent rounded-full mx-auto mb-4"></div>
                 <h2 class="text-2xl font-bold text-gray-900 mb-2">Construction Intelligence Assistant</h2>
 
-                <p class="text-gray-600">Loading UNO project data...</p>
+                <p class="text-gray-600">Loading WhartonSmith project data...</p>
             </div>
         </div>
     </div>
@@ -112,7 +112,7 @@
 
         <!-- Right Panel - Charts -->
         <div class="chart-panel" id="chart-panel">
-            <div class="h-full flex items-center justify-center hidden" id="default-chart-view">
+            <div class="h-full flex items-center justify-center" id="default-chart-view">
                 <div class="text-center">
                     <svg class="w-16 h-16 text-gray-400 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/>
@@ -122,118 +122,10 @@
                 </div>
             </div>
 
-            <!-- Executive Dashboard (copied from dashboard-simple_UNO.html) -->
-            <div id="executive-dashboard" class="h-full overflow-y-auto p-6">
-                <h2 class="text-xl font-bold text-gray-900 mb-6">Executive Summary</h2>
-                
-                <!-- Row 1: Key Metrics Cards -->
-                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-6">
-                    <div class="bg-white p-6 rounded-lg shadow-sm border border-gray-200">
-                        <div class="flex items-center justify-between">
-                            <div>
-                                <p class="text-sm font-medium text-gray-600">Project Completion</p>
-                                <p class="text-3xl font-bold text-blue-600" id="completion-rate">0%</p>
-                                <p class="text-xs text-gray-500" id="completion-tasks">0 of 0 tasks</p>
-                            </div>
-                            <div class="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center">
-                                <svg class="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                                </svg>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="bg-white p-6 rounded-lg shadow-sm border border-gray-200">
-                        <div class="flex items-center justify-between">
-                            <div>
-                                <p class="text-sm font-medium text-gray-600">Completion Rate</p>
-                                <p class="text-3xl font-bold text-green-600" id="work-velocity">0</p>
-                                <p class="text-xs text-gray-500">tasks/day average</p>
-                            </div>
-                            <div class="w-10 h-10 bg-green-100 rounded-full flex items-center justify-center">
-                                <svg class="w-6 h-6 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path>
-                                </svg>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="bg-white p-6 rounded-lg shadow-sm border border-gray-200">
-                        <div class="flex items-center justify-between">
-                            <div>
-                                <p class="text-sm font-medium text-gray-600">Active Trades</p>
-                                <p class="text-3xl font-bold text-purple-600" id="active-trades">0</p>
-                                <p class="text-xs text-gray-500">currently working</p>
-                            </div>
-                            <div class="w-10 h-10 bg-purple-100 rounded-full flex items-center justify-center">
-                                <svg class="w-6 h-6 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path>
-                                </svg>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="bg-white p-6 rounded-lg shadow-sm border border-gray-200">
-                        <div class="flex items-center justify-between">
-                            <div>
-                                <p class="text-sm font-medium text-gray-600">Active Locations</p>
-                                <p class="text-3xl font-bold text-orange-600" id="active-locations">0</p>
-                                <p class="text-xs text-gray-500">with ongoing work</p>
-                            </div>
-                            <div class="w-10 h-10 bg-orange-100 rounded-full flex items-center justify-center">
-                                <svg class="w-6 h-6 text-orange-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path>
-                                </svg>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Key Insights & Actions -->
-                <div class="bg-white p-6 rounded-lg shadow-sm border border-gray-200 mb-6">
-                    <h3 class="text-lg font-semibold text-gray-900 mb-4 flex items-center gap-2">
-                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path>
-                        </svg>
-                        Key Insights & Actions
-                    </h3>
-                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-4" id="insights-container">
-                        <!-- Insights will be populated by JavaScript -->
-                    </div>
-                </div>
-
-                <!-- Project Milestone Timeline -->
-                <div class="bg-white p-6 rounded-lg shadow-sm border border-gray-200">
-                    <h3 class="text-lg font-semibold text-gray-900 mb-6 flex items-center gap-2">
-                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
-                        </svg>
-                        Project Milestone Timeline
-                    </h3>
-                    
-                    <!-- Timeline visualization -->
-                    <div class="relative">
-                        <!-- Timeline line -->
-                        <div class="absolute left-6 top-0 bottom-0 w-0.5 bg-gray-300"></div>
-                        
-                        <div class="max-h-none overflow-visible" id="timeline-container">
-                            <!-- Timeline items will be populated by JavaScript -->
-                        </div>
-                    </div>
-                </div>
-            </div>
-
             <!-- Chart containers (hidden by default) -->
             <div id="trade-progress-chart" class="h-full overflow-y-auto hidden"></div>
             <div id="level-comparison-chart" class="h-full overflow-y-auto hidden"></div>
             <div id="velocity-trend-chart" class="h-full overflow-y-auto hidden"></div>
-            <div id="velocity-comparison-chart" class="h-full overflow-y-auto hidden"></div>
-            <div id="stalled-trades-chart" class="h-full overflow-y-auto hidden"></div>
-            <div id="stacked-trades-chart" class="h-full overflow-y-auto hidden"></div>
-            <div id="burst-start-chart" class="h-full overflow-y-auto hidden"></div>
-            <div id="swiss-cheese-chart" class="h-full overflow-y-auto hidden"></div>
-            <div id="trade-blockage-chart" class="h-full overflow-y-auto hidden"></div>
-            <div id="premature-start-chart" class="h-full overflow-y-auto hidden"></div>
         </div>
     </div>
 
@@ -253,91 +145,18 @@
         
         // Removed API configuration - using local chatbot logic
 
-        // Centralized trade ordering function (copied exactly from dashboard-simple_UNO.html)
-        function getOrderedTrades(availableTrades) {
-            const tradeOrder = [
-                'Concrete Formwork',
-                'Concrete Rebar',
-                'Backfill',
-                'Electrical Yard Equipment Conduit',
-                'Structural Piles',
-                'Concrete Pour',
-                'Structural Steel',
-                'Generator Placement',
-                'DWTR Installation',
-                'MWT Installation',
-                'Mechanical Yard - Equipment Placement',
-                'Electrical Yard 96 Equipment Placement',
-                'Conveyance',
-                'Booster Pump System Installation',
-                'Roofing Metal Deck',
-                'Roofing Insulation',
-                'Roofing Membrane',
-                'Roofing Flashing'
-            ];
-            
-            // Function to normalize trade names for comparison
-            function normalizeTradeForComparison(trade) {
-                return trade.toLowerCase()
-                    .replace(/[-\s]+/g, ' ')
-                    .replace(/\s+/g, ' ')
-                    .trim();
-            }
-            
-            // Get trades in preferred order first
-            const orderedTrades = tradeOrder.filter(orderTrade => {
-                return availableTrades.some(availableTrade => {
-                    const normalizedOrder = normalizeTradeForComparison(orderTrade);
-                    const normalizedAvailable = normalizeTradeForComparison(availableTrade);
-                    return normalizedOrder === normalizedAvailable || 
-                           normalizedAvailable.includes(normalizedOrder) ||
-                           normalizedOrder.includes(normalizedAvailable);
-                });
-            }).map(orderTrade => {
-                return availableTrades.find(availableTrade => {
-                    const normalizedOrder = normalizeTradeForComparison(orderTrade);
-                    const normalizedAvailable = normalizeTradeForComparison(availableTrade);
-                    return normalizedOrder === normalizedAvailable || 
-                           normalizedAvailable.includes(normalizedOrder) ||
-                           normalizedOrder.includes(normalizedAvailable);
-                });
-            });
-            
-            // Add any trades not in the sequence at the end
-            const otherTrades = availableTrades.filter(trade => !orderedTrades.includes(trade)).sort();
-            return [...orderedTrades, ...otherTrades];
-        }
-
-        // Automatically load UNO data
-        async function autoLoadUNOData() {
+        // Automatically load WhartonSmith data
+        async function autoLoadWhartonSmithData() {
             try {
                 showLoadingScreen();
-                console.log('🔥 LOADING UNO_construction_data_fixed.csv - ENSURING CLEAN DATA');
-                const response = await fetch('UNO_construction_data_fixed.csv');
+                const response = await fetch('WhartonSmith_Actualised_4_with_derived_dates.csv');
                 
                 if (!response.ok) {
                     throw new Error(`Failed to load data: ${response.status}`);
                 }
                 
                 const csvContent = await response.text();
-                console.log('📊 Raw CSV loaded, length:', csvContent.length);
                 const data = parseCSV(csvContent);
-                console.log('📋 Parsed CSV data:', data.length, 'total records');
-                
-                // Validate we have the right UNO data
-                const uniqueTrades = [...new Set(data.map(row => row.trade))].sort();
-                console.log('🔧 Unique trades found:', uniqueTrades);
-                console.log('📊 Trade counts:', uniqueTrades.map(trade => 
-                    `${trade}: ${data.filter(row => row.trade === trade).length}`
-                ));
-                
-                // Check for any WhartonSmith contamination
-                const suspiciousWhartonTrades = ['Wall Drywall', 'Wall Prime Paint', 'In Wall Insulation', 'Overhead Plumbing'];
-                const contamination = suspiciousWhartonTrades.filter(trade => uniqueTrades.includes(trade));
-                if (contamination.length > 0) {
-                    console.error('❌ CONTAMINATION DETECTED:', contamination);
-                    throw new Error(`WhartonSmith data contamination detected: ${contamination.join(', ')}`);
-                }
                 
                 // Validate required columns
                 const requiredFields = ['location', 'trade', 'state', 'capture_date'];
@@ -352,7 +171,7 @@
                 await loadAndAnalyzeData();
                 
             } catch (error) {
-                console.error('Error loading UNO data:', error);
+                console.error('Error loading WhartonSmith data:', error);
                 showLoadingError(error.message);
             }
         }
@@ -372,7 +191,7 @@
                         </svg>
                         <h2 class="text-2xl font-bold text-gray-900 mb-2">Error Loading Data</h2>
                         <p class="text-gray-600">${message}</p>
-                        <button onclick="autoLoadUNOData()" class="mt-4 bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">
+                        <button onclick="autoLoadWhartonSmithData()" class="mt-4 bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">
                             Retry
                         </button>
                     </div>
@@ -382,7 +201,7 @@
 
         // Initialize the application
         document.addEventListener('DOMContentLoaded', function() {
-            autoLoadUNOData();
+            autoLoadWhartonSmithData();
         });
 
         // Initialize upload functionality
@@ -486,15 +305,7 @@
                     throw new Error(`Missing required columns: ${missingFields.join(', ')}`);
                 }
 
-                // Clear any existing data completely
-                currentData = [];
-                chatHistory = [];
-                
-                // Load fresh UNO data
                 currentData = data;
-                console.log('✅ CLEAN DATA LOADED - currentData length:', currentData.length);
-                console.log('🎯 Sample record:', currentData[0]);
-                
                 loadAndAnalyzeData();
 
             } catch (error) {
@@ -520,7 +331,7 @@
         }
 
         function reloadData() {
-            // Reset everything and reload UNO data
+            // Reset everything and reload WhartonSmith data
             chatHistory = [];
             selectedInsight = null;
             activeChart = null;
@@ -528,7 +339,7 @@
             currentData = [];
             
             document.getElementById('chat-app').classList.add('hidden');
-            autoLoadUNOData();
+            autoLoadWhartonSmithData();
         }
 
         async function loadAndAnalyzeData() {
@@ -565,321 +376,82 @@
                 `${totalTasks} tasks • ${uniqueTrades} trades • ${uniqueLocations} locations`;
         }
 
-        // Velocity Comparison Analysis - with proper 'no data' handling
-        function analyzeVelocityComparison(data) {
-            const captureDates = [...new Set(data.map(row => row.capture_date))].sort();
-            const startTransitions = {};
-            const completionTransitions = {};
-            
-            captureDates.forEach(date => {
-                startTransitions[date] = 0;
-                completionTransitions[date] = 0;
-            });
-            
-            const taskStates = {};
-            // Only process valid states, skip 'no data' entries
-            data.filter(row => row.state !== 'no data').forEach(row => {
-                const taskKey = `${row.location}_${row.trade}`;
-                if (!taskStates[taskKey]) {
-                    taskStates[taskKey] = [];
-                }
-                taskStates[taskKey].push({
-                    date: row.capture_date,
-                    state: row.state
-                });
-            });
-            
-            Object.values(taskStates).forEach(taskHistory => {
-                taskHistory.sort((a, b) => a.date.localeCompare(b.date));
-                
-                for (let i = 1; i < taskHistory.length; i++) {
-                    const prev = taskHistory[i - 1];
-                    const curr = taskHistory[i];
-                    
-                    if (prev.state === 'not started' && curr.state === 'in progress') {
-                        startTransitions[curr.date]++;
-                    }
-                    
-                    if (prev.state === 'in progress' && curr.state === 'complete') {
-                        completionTransitions[curr.date]++;
-                    }
-                }
-            });
-            
-            return {
-                dates: captureDates,
-                starts: captureDates.map(date => startTransitions[date]),
-                completions: captureDates.map(date => completionTransitions[date])
-            };
-        }
-
-        // Enhanced Anomaly Detection - same as dashboard with renamed anomalies
-        function detectEnhancedAnomalies(data) {
-            const anomalies = {
-                stalledTrades: detectStalledTrades(data),
-                stackedTrades: detectStackedTrades(data),
-                burstStart: detectBurstStart(data),
-                swissCheese: detectSwissCheese(data),
-                tradeBlockage: detectTradeBlockage(data),
-                prematureStart: detectPrematureStart(data)
-            };
-            
-            return anomalies;
-        }
-
-        function detectStalledTrades(data) {
-            const stalledTasks = [];
-            const taskStates = {};
-            
-            // Only process valid states, skip 'no data' entries
-            data.filter(row => row.state !== 'no data').forEach(row => {
-                const taskKey = `${row.location}_${row.trade}`;
-                if (!taskStates[taskKey]) {
-                    taskStates[taskKey] = [];
-                }
-                taskStates[taskKey].push({
-                    date: row.capture_date,
-                    state: row.state,
-                    location: row.location,
-                    trade: row.trade
-                });
-            });
-            
-            Object.values(taskStates).forEach(taskHistory => {
-                taskHistory.sort((a, b) => a.date.localeCompare(b.date));
-                
-                const inProgressDates = taskHistory.filter(t => t.state === 'in progress' || t.state === 'in-progress');
-                if (inProgressDates.length >= 3) {
-                    stalledTasks.push({
-                        location: taskHistory[0].location,
-                        trade: taskHistory[0].trade,
-                        duration: inProgressDates.length
-                    });
-                }
-            });
-            
-            return stalledTasks;
-        }
-
-        function detectStackedTrades(data) {
-            const stackedLocations = [];
-            const captureDates = [...new Set(data.map(row => row.capture_date))];
-            
-            captureDates.forEach(date => {
-                const dayData = data.filter(row => row.capture_date === date && row.state !== 'no data');
-                const locationGroups = {};
-                
-                dayData.filter(row => row.state === 'in progress' || row.state === 'in-progress').forEach(row => {
-                    if (!locationGroups[row.location]) {
-                        locationGroups[row.location] = [];
-                    }
-                    locationGroups[row.location].push(row.trade);
-                });
-                
-                Object.entries(locationGroups).forEach(([location, trades]) => {
-                    const uniqueTrades = [...new Set(trades)];
-                    if (uniqueTrades.length >= 2) {
-                        stackedLocations.push({
-                            location: location,
-                            date: date,
-                            trades: uniqueTrades,
-                            count: uniqueTrades.length
-                        });
-                    }
-                });
-            });
-            
-            return stackedLocations;
-        }
-
-        function detectBurstStart(data) {
-            const startsByWeek = {};
-            const captureDates = [...new Set(data.map(row => row.capture_date))].sort();
-            
-            captureDates.forEach(date => {
-                const dateObj = new Date(date);
-                const weekStart = new Date(dateObj);
-                weekStart.setDate(dateObj.getDate() - dateObj.getDay());
-                const weekKey = weekStart.toISOString().split('T')[0];
-                
-                if (!startsByWeek[weekKey]) {
-                    startsByWeek[weekKey] = 0;
-                }
-                
-                const starts = data.filter(row => 
-                    row.start_date === date && 
-                    row.start_date.trim() !== '' && 
-                    row.state !== 'no data'
-                );
-                startsByWeek[weekKey] += starts.length;
-            });
-            
-            const weeklyStarts = Object.values(startsByWeek);
-            const average = weeklyStarts.reduce((sum, val) => sum + val, 0) / weeklyStarts.length;
-            
-            return Object.entries(startsByWeek).filter(([week, starts]) => starts > average * 1.5);
-        }
-
-        function detectSwissCheese(data) {
-            const locationCompletion = {};
-            
-            // Use final states to avoid counting 'no data' entries
-            const taskStates = {};
-            data.forEach(row => {
-                const taskKey = `${row.location}_${row.trade}`;
-                const captureDate = row.capture_date;
-                
-                if (row.state === 'no data') return;
-                
-                if (!taskStates[taskKey] || captureDate > taskStates[taskKey].date) {
-                    taskStates[taskKey] = {
-                        state: row.state,
-                        location: row.location,
-                        trade: row.trade
-                    };
-                }
-            });
-            
-            // Count completion by location using final states
-            Object.values(taskStates).forEach(task => {
-                if (!locationCompletion[task.location]) {
-                    locationCompletion[task.location] = { total: 0, completed: 0 };
-                }
-                locationCompletion[task.location].total++;
-                if (task.state === 'complete') {
-                    locationCompletion[task.location].completed++;
-                }
-            });
-            
-            const gapLocations = [];
-            Object.entries(locationCompletion).forEach(([location, data]) => {
-                const percentage = (data.completed / data.total) * 100;
-                if (percentage > 30 && percentage < 90) {
-                    gapLocations.push({ location, percentage: percentage.toFixed(1) });
-                }
-            });
-            
-            return gapLocations;
-        }
-
-        function detectTradeBlockage(data) {
-            const sections = [...new Set(data.map(row => row.section).filter(Boolean))];
-            const blockedTrades = {};
-            
-            sections.forEach(section => {
-                const sectionData = data.filter(row => row.section === section && row.state !== 'no data');
-                const inProgressTrades = {};
-                
-                sectionData.forEach(row => {
-                    if (row.state === 'in progress' || row.state === 'in-progress') {
-                        const taskKey = `${row.location}_${row.trade}`;
-                        if (!inProgressTrades[taskKey]) {
-                            inProgressTrades[taskKey] = { trade: row.trade, dates: [] };
-                        }
-                        inProgressTrades[taskKey].dates.push(row.capture_date);
-                    }
-                });
-                
-                const blocked = [];
-                Object.values(inProgressTrades).forEach(task => {
-                    if (task.dates.length >= 3) {
-                        blocked.push(task.trade);
-                    }
-                });
-                
-                if (blocked.length > 0) {
-                    blockedTrades[section] = [...new Set(blocked)];
-                }
-            });
-            
-            return blockedTrades;
-        }
-
-        function detectPrematureStart(data) {
-            const prematureStarts = [];
-            // Implementation would check for trades starting before prerequisites are complete
-            // Simplified for now
-            return prematureStarts;
-        }
-
         function analyzeData(data) {
-            console.log('🔄 ANALYZING DATA WITH PROPER NO DATA HANDLING');
+            // Count unique location-trade combinations for accurate task counts
+            const uniqueTasks = new Set(data.map(item => `${item.location}_${item.trade}`));
+            const totalTasks = uniqueTasks.size;
             
-            // Get final state for each unique task, ignoring 'no data' entries
-            const taskStates = {};
-            data.forEach(row => {
-                const taskKey = `${row.location}_${row.trade}`;
-                const captureDate = row.capture_date;
-                
-                // Skip 'no data' entries - they mean location wasn't captured that day
-                if (row.state === 'no data') {
-                    return;
-                }
-                
-                if (!taskStates[taskKey] || captureDate > taskStates[taskKey].date) {
-                    taskStates[taskKey] = {
-                        state: row.state,
-                        date: captureDate,
-                        location: row.location,
-                        trade: row.trade,
-                        level: row['level / floor'] || 'Unknown'
-                    };
-                }
-            });
-            
-            const allTaskKeys = Object.keys(taskStates);
-            const totalTasks = allTaskKeys.length;
-            
-            const completedTaskKeys = allTaskKeys.filter(taskKey => 
-                taskStates[taskKey].state === 'complete'
+            const uniqueCompletedTasks = new Set(
+                data.filter(item => item.state === 'complete')
+                    .map(item => `${item.location}_${item.trade}`)
             );
-            const completedTasks = completedTaskKeys.length;
+            const completedTasks = uniqueCompletedTasks.size;
             
-            const inProgressTaskKeys = allTaskKeys.filter(taskKey => 
-                isInProgress(taskStates[taskKey].state)
+            const uniqueInProgressTasks = new Set(
+                data.filter(item => isInProgress(item.state))
+                    .map(item => `${item.location}_${item.trade}`)
             );
-            const inProgressTasks = inProgressTaskKeys.length;
+            const inProgressTasks = uniqueInProgressTasks.size;
             
-            const overallCompletion = totalTasks > 0 ? ((completedTasks / totalTasks) * 100).toFixed(1) : '0.0';
-            
-            console.log(`📊 Final state analysis: ${completedTasks}/${totalTasks} = ${overallCompletion}%`);
+            const overallCompletion = ((completedTasks / totalTasks) * 100).toFixed(1);
 
-            // Level analysis - using final states from taskStates
+            // Level analysis - count unique location-trade combinations per level
             const levelGroups = {};
+            const levelTaskSets = {};
             
-            allTaskKeys.forEach(taskKey => {
-                const task = taskStates[taskKey];
-                const level = task.level;
+            data.forEach(item => {
+                const level = item['level / floor'] || 'Unknown';
+                const taskKey = `${item.location}_${item.trade}`;
                 
                 if (!levelGroups[level]) {
                     levelGroups[level] = { total: 0, completed: 0 };
+                    levelTaskSets[level] = { allTasks: new Set(), completedTasks: new Set() };
                 }
                 
-                levelGroups[level].total++;
-                if (task.state === 'complete') {
-                    levelGroups[level].completed++;
+                levelTaskSets[level].allTasks.add(taskKey);
+                if (item.state === 'complete') {
+                    levelTaskSets[level].completedTasks.add(taskKey);
                 }
             });
-
-            // Trade analysis - using final states from taskStates
-            const tradeGroups = {};
             
-            allTaskKeys.forEach(taskKey => {
-                const task = taskStates[taskKey];
-                const trade = task.trade;
+            // Convert sets to counts
+            Object.keys(levelGroups).forEach(level => {
+                levelGroups[level].total = levelTaskSets[level].allTasks.size;
+                levelGroups[level].completed = levelTaskSets[level].completedTasks.size;
+            });
+
+            // Trade analysis - count unique location-trade combinations per trade
+            const tradeGroups = {};
+            const tradeTaskSets = {};
+            
+            data.forEach(item => {
+                const trade = item.trade;
+                const taskKey = `${item.location}_${item.trade}`;
                 
                 if (!tradeGroups[trade]) {
                     tradeGroups[trade] = { total: 0, completed: 0, inProgress: 0, items: [] };
+                    tradeTaskSets[trade] = { 
+                        allTasks: new Set(), 
+                        completedTasks: new Set(), 
+                        inProgressTasks: new Set() 
+                    };
                 }
                 
-                tradeGroups[trade].total++;
-                tradeGroups[trade].items.push(task); // Add final state task info
+                tradeTaskSets[trade].allTasks.add(taskKey);
+                tradeGroups[trade].items.push(item);
                 
-                if (task.state === 'complete') {
-                    tradeGroups[trade].completed++;
-                } else if (isInProgress(task.state)) {
-                    tradeGroups[trade].inProgress++;
+                if (item.state === 'complete') {
+                    tradeTaskSets[trade].completedTasks.add(taskKey);
+                } else if (isInProgress(item.state)) {
+                    tradeTaskSets[trade].inProgressTasks.add(taskKey);
                 }
+            });
+            
+            // Convert sets to counts
+            Object.keys(tradeGroups).forEach(trade => {
+                tradeGroups[trade].total = tradeTaskSets[trade].allTasks.size;
+                tradeGroups[trade].completed = tradeTaskSets[trade].completedTasks.size;
+                tradeGroups[trade].inProgress = tradeTaskSets[trade].inProgressTasks.size;
             });
 
             const tradeAnalysis = Object.entries(tradeGroups).map(([trade, tradeData]) => {
@@ -894,22 +466,13 @@
                 };
             }).sort((a, b) => parseFloat(a.completionRate) - parseFloat(b.completionRate));
 
-            // Velocity analysis - using final states and completion dates
+            // Velocity analysis - count unique location-trade completions per date
+            const completedWork = data.filter(item => item.complete_date && item.state === 'complete');
             const velocityData = {};
             
-            // Use only tasks with final state 'complete' and valid completion dates
-            const completedTasksWithDates = allTaskKeys.filter(taskKey => {
-                const task = taskStates[taskKey];
-                return task.state === 'complete';
-            }).map(taskKey => taskStates[taskKey]);
-            
-            // Get completion dates from original data for completed tasks
+            // Group by unique location-trade-date combinations to avoid double counting
             const uniqueCompletions = new Map();
-            data.forEach(item => {
-                if (item.state === 'complete' && item.complete_date && item.complete_date.trim() !== '' && item.state !== 'no data') {
-                    const taskKey = `${item.location}_${item.trade}`;
-                    // Only include if this task's final state is complete
-                    if (completedTaskKeys.includes(taskKey)) {
+            completedWork.forEach(item => {
                 const key = `${item.location}_${item.trade}_${item.complete_date}`;
                 if (!uniqueCompletions.has(key)) {
                     uniqueCompletions.set(key, {
@@ -917,8 +480,6 @@
                         trade: item.trade,
                         location: item.location
                     });
-                        }
-                    }
                 }
             });
             
@@ -944,414 +505,106 @@
                 }))
                 .sort((a, b) => a.date - b.date);
 
-            const availableTrades = [...new Set(tradeAnalysis.map(t => t.trade))];
-            const allTrades = getOrderedTrades(availableTrades);
-            
-            // Velocity Comparison Analysis - transitions between states
-            const velocityComparison = analyzeVelocityComparison(data);
-            
-            // Enhanced Anomaly Detection with renamed anomalies
-            const anomalies = detectEnhancedAnomalies(data);
+            const allTrades = [...new Set(tradeAnalysis.map(t => t.trade))];
 
             return {
                 overview: { totalTasks, completedTasks, inProgressTasks, overallCompletion },
                 tradeAnalysis,
                 levelAnalysis: levelGroups,
                 velocityData: timeSeriesData,
-                velocityComparison,
-                anomalies,
                 allTrades
             };
         }
 
-        // Use the same dashboard functions - copied from dashboard-simple_UNO.html
-        function populateExecutiveDashboard(data) {
-            console.log('Populating executive dashboard with data:', data);
-            console.log('Current raw data length:', currentData.length);
-            
-            // Use dashboard's updateDataStats logic
-            updateDataStats();
-            
-            // Populate insights and timeline using dashboard functions
-            populateInsights();
-            populateMilestoneTimeline();
-        }
-
-        function updateDataStats() {
-            console.log('📊 UPDATING DATA STATS');
-            console.log('📋 Current data length:', currentData.length);
-            
-            // Use same logic as milestone timeline - get final state for each unique task
-            // Skip 'no data' entries as they mean the location wasn't captured that day
-            const taskStates = {};
-            currentData.forEach(row => {
-                const taskKey = `${row.location}_${row.trade}`;
-                const captureDate = row.capture_date;
-                
-                // Skip 'no data' entries - they mean location wasn't captured that day
-                if (row.state === 'no data') {
-                    return;
-                }
-                
-                if (!taskStates[taskKey] || captureDate > taskStates[taskKey].date) {
-                    taskStates[taskKey] = {
-                        state: row.state,
-                        date: captureDate,
-                        location: row.location,
-                        trade: row.trade
-                    };
-                }
-            });
-            
-            const allTaskKeys = Object.keys(taskStates);
-            const totalTasks = allTaskKeys.length;
-            console.log('🎯 Unique tasks:', totalTasks);
-
-            const completedTaskKeys = allTaskKeys.filter(taskKey => 
-                taskStates[taskKey].state === 'complete'
-            );
-            const completedTasks = completedTaskKeys.length;
-            console.log('✅ Completed tasks:', completedTasks);
-
-            const inProgressTaskKeys = allTaskKeys.filter(taskKey => 
-                isInProgress(taskStates[taskKey].state)
-            );
-            const inProgressTasks = inProgressTaskKeys.length;
-
-            const activeTrades = new Set(
-                inProgressTaskKeys.map(taskKey => taskStates[taskKey].trade)
-            ).size;
-
-            const activeLocations = new Set(
-                inProgressTaskKeys.map(taskKey => taskStates[taskKey].location)
-            ).size;
-
-            const overallCompletion = totalTasks > 0 ? ((completedTasks / totalTasks) * 100).toFixed(1) : '0.0';
-
-            // Calculate completion rate (unique tasks completed per day average)
-            // Skip 'no data' entries as they mean the location wasn't captured that day
-            const completionsByDate = {};
-            const uniqueCompletedByDate = new Set();
-            
-            currentData.filter(row => 
-                row.complete_date && 
-                row.complete_date.trim() !== '' && 
-                row.state === 'complete' &&
-                row.state !== 'no data'  // Skip no data entries
-            ).forEach(row => {
-                const date = row.complete_date;
-                const taskKey = `${row.location}_${row.trade}_${date}`;
-                if (!uniqueCompletedByDate.has(taskKey)) {
-                    completionsByDate[date] = (completionsByDate[date] || 0) + 1;
-                    uniqueCompletedByDate.add(taskKey);
-                }
-            });
-            
-            const avgCompletionRate = Object.keys(completionsByDate).length > 0 
-                ? (Object.values(completionsByDate).reduce((sum, val) => sum + val, 0) / Object.keys(completionsByDate).length).toFixed(1)
-                : '0.0';
-
-            // Update the dashboard elements
-            document.getElementById('completion-rate').textContent = `${overallCompletion}%`;
-            document.getElementById('completion-tasks').textContent = `${completedTasks} of ${totalTasks} tasks`;
-            document.getElementById('work-velocity').textContent = avgCompletionRate;
-            document.getElementById('active-trades').textContent = activeTrades;
-            document.getElementById('active-locations').textContent = activeLocations;
-
-            console.log('✅ DASHBOARD UPDATED WITH CLEAN UNO DATA:', {
-                totalTasks, completedTasks, inProgressTasks, 
-                activeTrades, activeLocations, overallCompletion, avgCompletionRate
-            });
-            console.log('🎯 KPI Elements updated successfully');
-        }
-
-        function populateInsights() {
-            const container = document.getElementById('insights-container');
-            if (!container) return;
-
-            // Simple insights for now - can be enhanced later
-            container.innerHTML = `
-                <div class="bg-blue-50 border border-blue-200 rounded-lg p-4">
-                    <h4 class="font-semibold text-blue-900">Project Status</h4>
-                    <p class="text-blue-700 text-sm">Project is progressing with ${document.getElementById('active-trades').textContent} active trades across ${document.getElementById('active-locations').textContent} locations.</p>
-                </div>
-                <div class="bg-green-50 border border-green-200 rounded-lg p-4">
-                    <h4 class="font-semibold text-green-900">Completion Rate</h4>
-                    <p class="text-green-700 text-sm">Averaging ${document.getElementById('work-velocity').textContent} tasks completed per day.</p>
-                </div>
-            `;
-        }
-
-        function populateMilestoneTimeline() {
-            const container = document.getElementById('timeline-container');
-            if (!container) return;
-
-            console.log('🏗️ POPULATING MILESTONE TIMELINE');
-            console.log('📊 Current data length:', currentData.length);
-            console.log('📋 Data sample:', currentData[0]);
-            console.log('🔍 Unique states in data:', [...new Set(currentData.map(row => row.state))]);
-
-            // Get completion data for each trade - using ALL data (not filtered like dashboard)
-            const tradeCompletion = {};
-            const allTrades = [...new Set(currentData.map(row => row.trade))];
-            console.log('🔧 All trades before ordering:', allTrades);
-            console.log('🔍 Using currentData length:', currentData.length, '(not filteredData)');
-            
-            allTrades.forEach(trade => {
-                const tradeData = currentData.filter(row => row.trade === trade);
-                
-                // Get all unique location-trade combinations for this trade
-                const allTaskKeys = new Set(tradeData.map(row => `${row.location}_${row.trade}`));
-                
-                // For each unique task, determine its final state by looking at the most recent VALID record
-                // Filter 'no data' entries upfront like dashboard does
-                const taskStates = {};
-                tradeData.filter(row => row.state !== 'no data').forEach(row => {
-                    const taskKey = `${row.location}_${row.trade}`;
-                    const captureDate = row.capture_date;
-                    
-                    if (!taskStates[taskKey] || captureDate > taskStates[taskKey].date) {
-                        taskStates[taskKey] = {
-                            state: row.state,
-                            date: captureDate,
-                            location: row.location
-                        };
-                    }
-                });
-                
-                // Count completed tasks based on final state
-                const allTaskKeysFromStates = Object.keys(taskStates);
-                const completedTaskKeys = allTaskKeysFromStates.filter(taskKey => 
-                    taskStates[taskKey].state === 'complete'
-                );
-                
-                const totalTasks = allTaskKeysFromStates.length;  // Use final states count, not raw data count
-                const completedTasks = completedTaskKeys.length;
-                
-                const completion = totalTasks > 0 ? 
-                    Math.round((completedTasks / totalTasks) * 100) : 0;
-                
-                console.log(`🔍 ${trade}: ${completedTasks}/${totalTasks} = ${completion}%`);
-                if (trade === 'Structural Piles') {
-                    console.log('📊 Structural Piles detailed analysis:');
-                    console.log('   All raw records:', tradeData.length);
-                    console.log('   Records after excluding no data:', tradeData.filter(row => row.state !== 'no data').length);
-                    console.log('   Task states:', taskStates);
-                    console.log('   Completed keys:', completedTaskKeys);
-                    console.log('   Should be 100% (3/3) if all locations are complete');
-                }
-                
-                tradeCompletion[trade] = {
-                    percentage: completion,
-                    completed: completedTasks,
-                    total: totalTasks
-                };
-            });
-
-            // Use ordered trades
-            const orderedTrades = getOrderedTrades(allTrades);
-            console.log('✅ ORDERED TRADES FOR TIMELINE:', orderedTrades);
-            console.log('🔢 Total trades to display:', orderedTrades.length);
-            console.log('📈 Trade completion data:', Object.entries(tradeCompletion).map(([trade, data]) => 
-                `${trade}: ${data.percentage}%`
-            ));
-            
-            // Debug: Check if Structural Piles is in the ordered trades
-            console.log('🔍 Structural Piles in ordered trades?', orderedTrades.includes('Structural Piles'));
-            console.log('🔍 Structural Piles completion data:', tradeCompletion['Structural Piles']);
-            
-            let timelineHTML = '';
-            orderedTrades.forEach((trade, index) => {
-                const completion = tradeCompletion[trade];
-                const percentage = completion ? completion.percentage : 0;
-                const isCompleted = percentage >= 100;
-                const isInProgress = percentage > 0 && percentage < 100;
-                
-                const statusColor = isCompleted ? 'blue' : isInProgress ? 'yellow' : 'gray';
-                const bgColor = isCompleted ? 'bg-blue-600' : isInProgress ? 'bg-yellow-500' : 'bg-gray-300';
-                
-                timelineHTML += `
-                    <div class="relative flex items-start mb-6">
-                        <div class="flex-shrink-0 w-12 h-12 ${bgColor} rounded-full flex items-center justify-center z-10">
-                            <span class="text-white font-bold text-sm">${index + 1}</span>
-                        </div>
-                        <div class="ml-4 min-w-0 flex-1">
-                            <div class="text-sm font-medium text-gray-900">${trade}</div>
-                            <div class="text-sm text-gray-500">
-                                ${percentage}% complete 
-                                ${completion ? `(${completion.completed}/${completion.total} tasks)` : ''}
-                            </div>
-                            <div class="mt-1 w-full bg-gray-200 rounded-full h-2">
-                                <div class="bg-blue-600 h-2 rounded-full" style="width: ${percentage}%"></div>
-                            </div>
-                        </div>
-                    </div>
-                `;
-            });
-            
-            container.innerHTML = timelineHTML;
-            console.log('📝 Timeline HTML generated, length:', timelineHTML.length);
-            console.log('🎯 Timeline container height:', container.scrollHeight, 'px');
-            console.log('🔍 Timeline items generated:', orderedTrades.length);
-        }
-
-
-
         function generateInitialInsights(data) {
-            // Populate the executive dashboard first
-            populateExecutiveDashboard(data);
+            // Welcome message
+            addChatMessage("assistant", `Hello! I've analyzed your construction data. Your project is ${data.overview.overallCompletion}% complete with ${data.overview.completedTasks} tasks finished and ${data.overview.inProgressTasks} currently in progress. 🏗️`);
             
-            // Generate executive summary for the last week
-            const executiveSummary = generateWeeklyExecutiveSummary(data);
-            addChatMessage("assistant", executiveSummary);
-            
-            // Add velocity comparison insight block
-            const totalStarts = data.velocityComparison.starts.reduce((sum, val) => sum + val, 0);
-            const totalCompletions = data.velocityComparison.completions.reduce((sum, val) => sum + val, 0);
-            const velocityInsight = {
-                id: 'velocity-comparison',
-                type: 'velocity-analysis',
-                title: '📊 Work Velocity Analysis',
-                description: `Comparing ${totalStarts} tasks started vs ${totalCompletions} completed this period. ${totalStarts > totalCompletions ? 'You\'re starting more than finishing - potential bottleneck building.' : 'Healthy completion rate maintaining good flow.'}`,
-                severity: 'info',
-                data: data.velocityComparison,
-                chartType: 'velocity-comparison'
+            // Overall status
+            const statusMessage = `You're working with ${data.tradeAnalysis.length} trades across ${data.overview.totalTasks} total tasks. I can help you analyze performance, identify issues, and provide recommendations.`;
+            addChatMessage("assistant", statusMessage);
+
+            // Critical issues
+            const criticalTrades = data.tradeAnalysis.filter(t => parseFloat(t.completionRate) < 15);
+            if (criticalTrades.length > 0) {
+                const criticalMessage = `🚨 I've identified ${criticalTrades.length} critical bottlenecks that need immediate attention:`;
+                addChatMessage("assistant", criticalMessage);
+                
+                criticalTrades.forEach(trade => {
+                    const tileData = {
+                        id: `critical-${trade.trade}`,
+                        type: 'critical-trade',
+                        title: `${trade.trade}: ${trade.completionRate}% Complete`,
+                        description: `Only ${trade.completed} of ${trade.total} tasks done - major bottleneck`,
+                        severity: 'critical',
+                        data: trade,
+                        chartType: 'trade-progress'
+                    };
+                    addClickableTile("assistant", tileData);
+                });
+            }
+
+            // Level analysis
+            if (data.levelAnalysis && data.levelAnalysis['1'] && data.levelAnalysis['2']) {
+                const level1Rate = (data.levelAnalysis['1'].completed / data.levelAnalysis['1'].total * 100).toFixed(1);
+                const level2Rate = (data.levelAnalysis['2'].completed / data.levelAnalysis['2'].total * 100).toFixed(1);
+                const gap = Math.abs(parseFloat(level1Rate) - parseFloat(level2Rate));
+                
+                if (gap > 25) {
+                    const levelMessage = `📊 Significant vertical imbalance detected between floors:`;
+                    addChatMessage("assistant", levelMessage);
+                    
+                    const levelTileData = {
+                        id: 'level-imbalance',
+                        type: 'level-analysis',
+                        title: `Level Imbalance: ${gap.toFixed(1)}% Gap`,
+                        description: `Level 1: ${level1Rate}% vs Level 2: ${level2Rate}%`,
+                        severity: 'warning',
+                        data: { level1Rate, level2Rate, gap },
+                        chartType: 'level-comparison'
+                    };
+                    addClickableTile("assistant", levelTileData);
+                }
+            }
+
+            // Top performer
+            const topPerformer = data.tradeAnalysis[data.tradeAnalysis.length - 1];
+            const performanceMessage = `✅ Best performing trade: ${topPerformer.trade} at ${topPerformer.completionRate}% completion.`;
+            addChatMessage("assistant", performanceMessage);
+
+            const performanceTileData = {
+                id: 'top-performer',
+                type: 'performance',
+                title: `${topPerformer.trade}: ${topPerformer.completionRate}%`,
+                description: `${topPerformer.completed}/${topPerformer.total} tasks complete - performing well`,
+                severity: 'good',
+                data: topPerformer,
+                chartType: 'trade-progress'
             };
-            addClickableTile("assistant", velocityInsight);
-            
-            // Add anomaly insight blocks
-            addAnomalyInsightBlocks(data);
-        }
+            addClickableTile("assistant", performanceTileData);
 
-        function generateWeeklyExecutiveSummary(data) {
-            // Get last week's data for analysis
-            const lastWeekData = getLastWeekData();
-            const completedLastWeek = lastWeekData.filter(row => row.state === 'complete').length;
-            const startedLastWeek = lastWeekData.filter(row => isInProgress(row.state)).length;
-            
-            // Identify most active trades and zones
-            const tradeActivity = {};
-            const zoneActivity = {};
-            
-            lastWeekData.forEach(row => {
-                tradeActivity[row.trade] = (tradeActivity[row.trade] || 0) + 1;
-                const zone = row.section || 'Unknown Zone';
-                zoneActivity[zone] = (zoneActivity[zone] || 0) + 1;
-            });
-            
-            const topTrade = Object.entries(tradeActivity).sort((a, b) => b[1] - a[1])[0];
-            const topZone = Object.entries(zoneActivity).sort((a, b) => b[1] - a[1])[0];
-            
-            // Detect any significant changes or issues
-            const stalledCount = data.anomalies.stalledTrades.length;
-            const stackedCount = data.anomalies.stackedTrades.length;
-            
-            let summary = `📋 **Weekly Executive Summary**: Over the past week, your project maintained ${data.overview.overallCompletion}% completion with ${completedLastWeek} tasks completed and ${startedLastWeek} new tasks initiated. `;
-            
-            if (topTrade) {
-                summary += `${topTrade[0]} showed the highest activity with ${topTrade[1]} task updates. `;
-            }
-            
-            if (topZone) {
-                summary += `${topZone[0]} was the most active zone with ${topZone[1]} total updates. `;
-            }
-            
-            if (stalledCount > 0) {
-                summary += `⚠️ Notable concern: ${stalledCount} trades showing stalled progress requiring attention. `;
-            }
-            
-            if (stackedCount > 0) {
-                summary += `🚧 ${stackedCount} locations have multiple competing trades that may benefit from coordination. `;
-            }
-            
-            if (stalledCount === 0 && stackedCount === 0) {
-                summary += `✅ No major bottlenecks detected - project flow appears healthy.`;
-            }
-            
-            return summary;
-        }
+            // Velocity analysis
+            const trendMessage = `📈 Based on current data, here's your project velocity and trend analysis:`;
+            addChatMessage("assistant", trendMessage);
 
-        function getLastWeekData() {
-            const oneWeekAgo = new Date();
-            oneWeekAgo.setDate(oneWeekAgo.getDate() - 7);
-            
-            return currentData.filter(row => {
-                const captureDate = new Date(row.capture_date);
-                return captureDate >= oneWeekAgo;
-            });
-        }
-
-        function addAnomalyInsightBlocks(data) {
-            // Stalled Trades
-            if (data.anomalies.stalledTrades.length > 0) {
-                const stalledInsight = {
-                    id: 'stalled-trades',
-                    type: 'anomaly-stalled',
-                    title: `🚨 Stalled Trades (${data.anomalies.stalledTrades.length})`,
-                    description: `${data.anomalies.stalledTrades.length} trades have been stuck in progress for extended periods. This represents potential workflow bottlenecks that need immediate attention to maintain project momentum.`,
-                    severity: 'critical',
-                    data: data.anomalies.stalledTrades,
-                    chartType: 'stalled-trades'
-                };
-                addClickableTile("assistant", stalledInsight);
-            }
-            
-            // Stacked Trades
-            if (data.anomalies.stackedTrades.length > 0) {
-                const stackedInsight = {
-                    id: 'stacked-trades',
-                    type: 'anomaly-stacked',
-                    title: `⚡ Stacked Trades (${data.anomalies.stackedTrades.length})`,
-                    description: `${data.anomalies.stackedTrades.length} locations have multiple trades competing for the same space simultaneously. Better coordination could improve efficiency and reduce conflicts.`,
+            const velocityTileData = {
+                id: 'project-velocity',
+                type: 'velocity',
+                title: 'Project Velocity: Daily Trade Completions',
+                description: 'Task completion trends over time by trade',
                 severity: 'warning',
-                    data: data.anomalies.stackedTrades,
-                    chartType: 'stacked-trades'
-                };
-                addClickableTile("assistant", stackedInsight);
-            }
-            
-            // Burst Start Analysis
-            if (data.anomalies.burstStart.length > 0) {
-                const burstInsight = {
-                    id: 'burst-start',
-                    type: 'anomaly-burst',
-                    title: `🚀 Burst Start Activity (${data.anomalies.burstStart.length})`,
-                    description: `${data.anomalies.burstStart.length} periods of unusually high task initiation detected. These bursts may indicate resource allocation spikes or catch-up efforts after delays.`,
-                    severity: 'info',
-                    data: data.anomalies.burstStart,
-                    chartType: 'burst-start'
-                };
-                addClickableTile("assistant", burstInsight);
-            }
-            
-            // Swiss Cheese Flow
-            if (data.anomalies.swissCheese.length > 0) {
-                const swissInsight = {
-                    id: 'swiss-cheese',
-                    type: 'anomaly-swiss',
-                    title: `🧀 Swiss Cheese Flow (${data.anomalies.swissCheese.length})`,
-                    description: `${data.anomalies.swissCheese.length} locations show incomplete work patterns with gaps. This scattered completion pattern may indicate coordination issues or resource constraints.`,
-                    severity: 'warning',
-                    data: data.anomalies.swissCheese,
-                    chartType: 'swiss-cheese'
-                };
-                addClickableTile("assistant", swissInsight);
-            }
-            
-            // Trade Blockage
-            const blockedSections = Object.keys(data.anomalies.tradeBlockage).length;
-            if (blockedSections > 0) {
-                const blockageInsight = {
-                    id: 'trade-blockage',
-                    type: 'anomaly-blockage',
-                    title: `🚧 Trade Blockage (${blockedSections} sections)`,
-                    description: `${blockedSections} sections show signs of blocked trades with extended in-progress periods. These blockages may require intervention to restore normal workflow patterns.`,
-                    severity: 'warning',
-                    data: data.anomalies.tradeBlockage,
-                    chartType: 'trade-blockage'
-                };
-                addClickableTile("assistant", blockageInsight);
-            }
+                data: { 
+                    velocityData: data.velocityData, 
+                    allTrades: data.allTrades,
+                    totalCompleted: data.overview.completedTasks 
+                },
+                chartType: 'velocity-trend'
+            };
+            addClickableTile("assistant", velocityTileData);
+
+            // End with action items
+            const actionMessage = `💡 Click any of the insights above to see detailed charts and analysis. What would you like to investigate first?`;
+            addChatMessage("assistant", actionMessage);
         }
 
         function addChatMessage(sender, message) {
@@ -1821,7 +1074,7 @@
         }
 
         function handleHelpQuery(userMessage, intents = {}) {
-            addChatMessage("assistant", `🤖 **UNO Construction Intelligence Assistant**`);
+            addChatMessage("assistant", `🤖 **Enhanced Construction Intelligence Assistant**`);
             addChatMessage("assistant", `I'm now much more robust and can understand complex questions! Here's what I can help with:`);
             
             addChatMessage("assistant", `📊 **Project Status & Progress:**`);
@@ -1852,7 +1105,7 @@
                 addChatMessage("assistant", `📊 **Currently analyzing:** ${dashboardData.overview.totalTasks} tasks across ${dashboardData.tradeAnalysis.length} trades`);
                 addChatMessage("assistant", `🎯 **Try complex questions like:** "Why is wall drywall behind and when will it catch up?" or "Compare level 2 vs level 3 and recommend actions"`);
             } else {
-                addChatMessage("assistant", `📁 **Note:** Auto-loading your UNO data for immediate analysis...`);
+                addChatMessage("assistant", `📁 **Note:** Auto-loading your WhartonSmith data for immediate analysis...`);
             }
         }
 
@@ -2134,21 +1387,13 @@
             selectedInsight = msg.tileData;
             activeChart = msg.tileData.chartType;
             
-            // Hide default view and executive dashboard
+            // Hide default view
             document.getElementById('default-chart-view').classList.add('hidden');
-            document.getElementById('executive-dashboard').classList.add('hidden');
             
             // Hide all chart views
             document.getElementById('trade-progress-chart').classList.add('hidden');
             document.getElementById('level-comparison-chart').classList.add('hidden');
             document.getElementById('velocity-trend-chart').classList.add('hidden');
-            document.getElementById('velocity-comparison-chart').classList.add('hidden');
-            document.getElementById('stalled-trades-chart').classList.add('hidden');
-            document.getElementById('stacked-trades-chart').classList.add('hidden');
-            document.getElementById('burst-start-chart').classList.add('hidden');
-            document.getElementById('swiss-cheese-chart').classList.add('hidden');
-            document.getElementById('trade-blockage-chart').classList.add('hidden');
-            document.getElementById('premature-start-chart').classList.add('hidden');
             
             // Show appropriate chart
             renderChart();
@@ -2165,29 +1410,8 @@
                 case 'velocity-trend':
                     renderVelocityTrendChart();
                     break;
-                case 'velocity-comparison':
-                    renderVelocityComparisonChart();
-                    break;
-                case 'stalled-trades':
-                    renderStalledTradesChart();
-                    break;
-                case 'stacked-trades':
-                    renderStackedTradesChart();
-                    break;
-                case 'burst-start':
-                    renderBurstStartChart();
-                    break;
-                case 'swiss-cheese':
-                    renderSwissCheeseChart();
-                    break;
-                case 'trade-blockage':
-                    renderTradeBlockageChart();
-                    break;
-                case 'premature-start':
-                    renderPrematureStartChart();
-                    break;
                 default:
-                    document.getElementById('executive-dashboard').classList.remove('hidden');
+                    document.getElementById('default-chart-view').classList.remove('hidden');
             }
         }
 
@@ -2580,303 +1804,6 @@
                 }
             }, 100);
         }
-        // New chart rendering functions for enhanced anomalies
-        function renderVelocityComparisonChart() {
-            const container = document.getElementById('velocity-comparison-chart');
-            container.classList.remove('hidden');
-            
-            const data = selectedInsight.data;
-            
-            container.innerHTML = `
-                <div class="p-6 space-y-6">
-                    <div class="border-b border-gray-200 pb-4">
-                        <h1 class="text-xl font-bold text-gray-900">Work Velocity Comparison</h1>
-                        <p class="text-gray-600">Comparing task starts vs completions over time</p>
-                    </div>
-                    <div class="bg-white rounded-lg border p-4">
-                        <div style="height: 300px;">
-                            <canvas id="velocityComparisonChartCanvas"></canvas>
-                        </div>
-                    </div>
-                </div>
-            `;
-            
-            setTimeout(() => {
-                const ctx = document.getElementById('velocityComparisonChartCanvas');
-                if (ctx) {
-                    new Chart(ctx, {
-                        type: 'line',
-                        data: {
-                            labels: data.dates,
-                            datasets: [{
-                                label: 'Started (Not Started → In Progress)',
-                                data: data.starts,
-                                borderColor: '#3B82F6',
-                                backgroundColor: 'rgba(59, 130, 246, 0.1)',
-                                tension: 0.4
-                            }, {
-                                label: 'Completed (In Progress → Complete)',
-                                data: data.completions,
-                                borderColor: '#10B981',
-                                backgroundColor: 'rgba(16, 185, 129, 0.1)',
-                                tension: 0.4
-                            }]
-                        },
-                        options: {
-                            responsive: true,
-                            maintainAspectRatio: false,
-                            scales: {
-                                y: { beginAtZero: true }
-                            }
-                        }
-                    });
-                }
-            }, 100);
-        }
-
-        function renderStalledTradesChart() {
-            const container = document.getElementById('stalled-trades-chart');
-            container.classList.remove('hidden');
-            
-            const data = selectedInsight.data;
-            
-            container.innerHTML = `
-                <div class="p-6 space-y-6">
-                    <div class="border-b border-gray-200 pb-4">
-                        <h1 class="text-xl font-bold text-gray-900">Stalled Trades Analysis</h1>
-                        <p class="text-gray-600">Tasks stuck in progress for extended periods</p>
-                    </div>
-                    <div class="bg-white rounded-lg border p-4">
-                        <div style="height: 300px;">
-                            <canvas id="stalledTradesChartCanvas"></canvas>
-                        </div>
-                    </div>
-                    <div class="grid grid-cols-1 gap-4">
-                        ${data.map(task => `
-                            <div class="bg-red-50 border border-red-200 rounded-lg p-4">
-                                <h3 class="font-semibold text-red-900">${task.location}</h3>
-                                <p class="text-red-700">${task.trade} - ${task.duration} periods in progress</p>
-                            </div>
-                        `).join('')}
-                    </div>
-                </div>
-            `;
-            
-            setTimeout(() => {
-                const ctx = document.getElementById('stalledTradesChartCanvas');
-                if (ctx) {
-                    new Chart(ctx, {
-                        type: 'bar',
-                        data: {
-                            labels: data.map(task => task.location),
-                            datasets: [{
-                                label: 'Days Stalled',
-                                data: data.map(task => task.duration),
-                                backgroundColor: '#EF4444'
-                            }]
-                        },
-                        options: {
-                            responsive: true,
-                            maintainAspectRatio: false,
-                            plugins: { legend: { display: false } },
-                            scales: { y: { beginAtZero: true } }
-                        }
-                    });
-                }
-            }, 100);
-        }
-
-        function renderStackedTradesChart() {
-            const container = document.getElementById('stacked-trades-chart');
-            container.classList.remove('hidden');
-            
-            const data = selectedInsight.data;
-            
-            container.innerHTML = `
-                <div class="p-6 space-y-6">
-                    <div class="border-b border-gray-200 pb-4">
-                        <h1 class="text-xl font-bold text-gray-900">Stacked Trades Analysis</h1>
-                        <p class="text-gray-600">Multiple competing trades at same locations</p>
-                    </div>
-                    <div class="bg-white rounded-lg border p-4">
-                        <div style="height: 300px;">
-                            <canvas id="stackedTradesChartCanvas"></canvas>
-                        </div>
-                    </div>
-                    <div class="grid grid-cols-1 gap-4">
-                        ${data.map(entry => `
-                            <div class="bg-yellow-50 border border-yellow-200 rounded-lg p-4">
-                                <h3 class="font-semibold text-yellow-900">${entry.location} (${entry.date})</h3>
-                                <p class="text-yellow-700">${entry.count} competing trades: ${entry.trades.join(', ')}</p>
-                            </div>
-                        `).join('')}
-                    </div>
-                </div>
-            `;
-            
-            setTimeout(() => {
-                const ctx = document.getElementById('stackedTradesChartCanvas');
-                if (ctx) {
-                    new Chart(ctx, {
-                        type: 'bar',
-                        data: {
-                            labels: data.map(entry => entry.location),
-                            datasets: [{
-                                label: 'Competing Trades',
-                                data: data.map(entry => entry.count),
-                                backgroundColor: '#F59E0B'
-                            }]
-                        },
-                        options: {
-                            responsive: true,
-                            maintainAspectRatio: false,
-                            plugins: { legend: { display: false } },
-                            scales: { y: { beginAtZero: true } }
-                        }
-                    });
-                }
-            }, 100);
-        }
-
-        function renderBurstStartChart() {
-            const container = document.getElementById('burst-start-chart');
-            container.classList.remove('hidden');
-            
-            const data = selectedInsight.data;
-            
-            container.innerHTML = `
-                <div class="p-6 space-y-6">
-                    <div class="border-b border-gray-200 pb-4">
-                        <h1 class="text-xl font-bold text-gray-900">Burst Start Analysis</h1>
-                        <p class="text-gray-600">Periods of unusually high task initiation</p>
-                    </div>
-                    <div class="bg-white rounded-lg border p-4">
-                        <div style="height: 300px;">
-                            <canvas id="burstStartChartCanvas"></canvas>
-                        </div>
-                    </div>
-                </div>
-            `;
-            
-            setTimeout(() => {
-                const ctx = document.getElementById('burstStartChartCanvas');
-                if (ctx) {
-                    new Chart(ctx, {
-                        type: 'line',
-                        data: {
-                            labels: data.map(entry => entry[0]),
-                            datasets: [{
-                                label: 'Task Starts',
-                                data: data.map(entry => entry[1]),
-                                borderColor: '#8B5CF6',
-                                backgroundColor: 'rgba(139, 92, 246, 0.1)',
-                                tension: 0.4,
-                                fill: true
-                            }]
-                        },
-                        options: {
-                            responsive: true,
-                            maintainAspectRatio: false,
-                            scales: { y: { beginAtZero: true } }
-                        }
-                    });
-                }
-            }, 100);
-        }
-
-        function renderSwissCheeseChart() {
-            const container = document.getElementById('swiss-cheese-chart');
-            container.classList.remove('hidden');
-            
-            const data = selectedInsight.data;
-            
-            container.innerHTML = `
-                <div class="p-6 space-y-6">
-                    <div class="border-b border-gray-200 pb-4">
-                        <h1 class="text-xl font-bold text-gray-900">Swiss Cheese Flow Analysis</h1>
-                        <p class="text-gray-600">Locations with incomplete work patterns</p>
-                    </div>
-                    <div class="bg-white rounded-lg border p-4">
-                        <div style="height: 300px;">
-                            <canvas id="swissCheeseChartCanvas"></canvas>
-                        </div>
-                    </div>
-                    <div class="grid grid-cols-1 gap-4">
-                        ${data.map(location => `
-                            <div class="bg-orange-50 border border-orange-200 rounded-lg p-4">
-                                <h3 class="font-semibold text-orange-900">${location.location}</h3>
-                                <p class="text-orange-700">${location.percentage}% completion - incomplete work pattern</p>
-                            </div>
-                        `).join('')}
-                    </div>
-                </div>
-            `;
-            
-            setTimeout(() => {
-                const ctx = document.getElementById('swissCheeseChartCanvas');
-                if (ctx) {
-                    new Chart(ctx, {
-                        type: 'bar',
-                        data: {
-                            labels: data.map(location => location.location),
-                            datasets: [{
-                                label: 'Completion %',
-                                data: data.map(location => parseFloat(location.percentage)),
-                                backgroundColor: '#F97316'
-                            }]
-                        },
-                        options: {
-                            responsive: true,
-                            maintainAspectRatio: false,
-                            plugins: { legend: { display: false } },
-                            scales: { y: { beginAtZero: true, max: 100 } }
-                        }
-                    });
-                }
-            }, 100);
-        }
-
-        function renderTradeBlockageChart() {
-            const container = document.getElementById('trade-blockage-chart');
-            container.classList.remove('hidden');
-            
-            const data = selectedInsight.data;
-            
-            container.innerHTML = `
-                <div class="p-6 space-y-6">
-                    <div class="border-b border-gray-200 pb-4">
-                        <h1 class="text-xl font-bold text-gray-900">Trade Blockage Analysis</h1>
-                        <p class="text-gray-600">Sections with blocked trades</p>
-                    </div>
-                    <div class="grid grid-cols-1 gap-4">
-                        ${Object.entries(data).map(([section, trades]) => `
-                            <div class="bg-red-50 border border-red-200 rounded-lg p-4">
-                                <h3 class="font-semibold text-red-900">${section}</h3>
-                                <p class="text-red-700">Blocked trades: ${trades.join(', ')}</p>
-                            </div>
-                        `).join('')}
-                    </div>
-                </div>
-            `;
-        }
-
-        function renderPrematureStartChart() {
-            const container = document.getElementById('premature-start-chart');
-            container.classList.remove('hidden');
-            
-            container.innerHTML = `
-                <div class="p-6 space-y-6">
-                    <div class="border-b border-gray-200 pb-4">
-                        <h1 class="text-xl font-bold text-gray-900">Premature Start Analysis</h1>
-                        <p class="text-gray-600">Tasks started before prerequisites completed</p>
-                    </div>
-                    <div class="bg-blue-50 border border-blue-200 rounded-lg p-4">
-                        <p class="text-blue-700">No premature starts detected in current data.</p>
-                    </div>
-                </div>
-            `;
-        }
-
     </script>
 </body>
 </html>
