@@ -54,7 +54,7 @@
                 <div class="animate-spin w-12 h-12 border-4 border-blue-500 border-t-transparent rounded-full mx-auto mb-4"></div>
                 <h2 class="text-2xl font-bold text-gray-900 mb-2">Construction Intelligence Assistant</h2>
 
-                <p class="text-gray-600">Loading WhartonSmith project data...</p>
+                <p class="text-gray-600">Loading WhartonSmith SYNTHESIZED project data...</p>
             </div>
         </div>
     </div>
@@ -157,7 +157,7 @@
         async function autoLoadWhartonSmithData() {
             try {
                 showLoadingScreen();
-                const response = await fetch('WhartonSmith_Actualised_4_with_derived_dates.csv');
+                const response = await fetch('WhartonSmith_SYNTHESIZED.csv');
                 
                 if (!response.ok) {
                     throw new Error(`Failed to load data: ${response.status}`);
