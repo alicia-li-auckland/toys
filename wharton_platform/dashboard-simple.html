@@ -359,8 +359,8 @@
     <script>
         // Initialize anomaly types with zero counts - will be updated by analyzeAnomalies()
         let anomalyTypes = [
-            { id: 'abandonment', name: 'Trade Abandonment', category: 'Time-based', count: 0, severity: 'high', color: '#ef4444' },
-            { id: 'starvation', name: 'Trade Starvation', category: 'Time-based', count: 0, severity: 'high', color: '#ef4444' },
+            { id: 'abandonment', name: 'Stalled Trades', category: 'Time-based', count: 0, severity: 'high', color: '#ef4444' },
+            { id: 'starvation', name: 'Stacked Trades', category: 'Time-based', count: 0, severity: 'high', color: '#ef4444' },
             { id: 'burst_start', name: 'Burst Start', category: 'Time-based', count: 0, severity: 'medium', color: '#f97316' },
             { id: 'swiss_cheese', name: 'Swiss-Cheese Flow', category: 'Spatial', count: 0, severity: 'medium', color: '#f97316' },
             { id: 'blockage', name: 'Trade Blockage', category: 'Cross-trade', count: 0, severity: 'high', color: '#ef4444' },
@@ -376,7 +376,7 @@
         async function autoLoadWhartonSmithData() {
             try {
                 showLoadingScreen();
-                const response = await fetch('WhartonSmith_Actualised_4_with_derived_dates.csv');
+                const response = await fetch('WhartonSmith_SYNTHESIZED.csv');
                 
                 if (!response.ok) {
                     throw new Error(`Failed to load data: ${response.status}`);
@@ -388,6 +388,37 @@
                 if (data.length === 0) {
                     throw new Error('No data found in CSV file');
                 }
+
+                // Validate we have the right WhartonSmith data
+                console.log('🔥 LOADING WhartonSmith_SYNTHESIZED.csv - ENSURING CLEAN DATA');
+                
+                // Check for any UNO data contamination
+                const unoContamination = data.filter(row => 
+                    row.trade && row.trade.toLowerCase().includes('uno')
+                );
+                if (unoContamination.length > 0) {
+                    throw new Error(`UNO data contamination detected: ${unoContamination.map(r => r.trade).join(', ')}`);
+                }
+
+                // Check for any sample/fake data contamination
+                const sampleContamination = data.filter(row => 
+                    (row.trade && (row.trade.toLowerCase().includes('sample') || row.trade.toLowerCase().includes('fake') || row.trade.toLowerCase().includes('test'))) ||
+                    (row.location && (row.location.toLowerCase().includes('sample') || row.location.toLowerCase().includes('fake') || row.location.toLowerCase().includes('test')))
+                );
+                if (sampleContamination.length > 0) {
+                    throw new Error(`Sample/fake data contamination detected: ${sampleContamination.map(r => `${r.trade || 'N/A'}/${r.location || 'N/A'}`).join(', ')}`);
+                }
+
+                // Check for any hardcoded data contamination
+                const hardcodedContamination = data.filter(row => 
+                    (row.trade && row.trade.toLowerCase().includes('hardcoded')) ||
+                    (row.location && row.location.toLowerCase().includes('hardcoded'))
+                );
+                if (hardcodedContamination.length > 0) {
+                    throw new Error(`Hardcoded data contamination detected: ${hardcodedContamination.map(r => `${r.trade || 'N/A'}/${r.location || 'N/A'}`).join(', ')}`);
+                }
+
+                console.log('✅ DATA VALIDATION PASSED - CLEAN WHARTONSMITH DATA ONLY');
 
                 currentData = data;
                 filteredData = [...data];
@@ -1110,9 +1141,9 @@
                     </div>
                 </div>
 
-                <!-- Row 3: Velocity Chart -->
+                <!-- Row 3: Compare Velocity Chart -->
                 <div class="bg-white p-6 rounded-lg shadow-sm border border-gray-200">
-                    <h3 class="text-lg font-semibold text-gray-900 mb-4">Daily Completion Velocity</h3>
+                    <h3 class="text-lg font-semibold text-gray-900 mb-4">Compare Velocity: Status Changes</h3>
                     <div class="h-80">
                         <canvas id="velocityChart"></canvas>
                     </div>
@@ -1249,22 +1280,18 @@
         function createVelocityChart() {
             const ctx = document.getElementById('velocityChart').getContext('2d');
             
-            // Get all unique completion dates and sort them
-            const completionDates = [...new Set(filteredData
-                .filter(row => row.complete_date && row.state === 'complete')
-                .map(row => row.complete_date)
-            )].sort();
+            // Filter out 'no data' entries and sort chronologically
+            const validData = filteredData
+                .filter(row => row.state !== 'no data' && row.capture_date)
+                .sort((a, b) => new Date(a.capture_date) - new Date(b.capture_date));
             
-            const trades = [...new Set(filteredData.map(row => row.trade).filter(Boolean))];
-            
-            // If no completion dates, show placeholder
-            if (completionDates.length === 0) {
+            if (validData.length === 0) {
                 charts.velocity = new Chart(ctx, {
                     type: 'line',
                     data: {
                         labels: ['No Data'],
                         datasets: [{
-                            label: 'No completed tasks found',
+                            label: 'No data found',
                             data: [0],
                             borderColor: '#9ca3af',
                             backgroundColor: 'rgba(156, 163, 175, 0.1)',
@@ -1280,7 +1307,95 @@
                                 beginAtZero: true,
                                 title: {
                                     display: true,
-                                    text: 'Tasks Completed'
+                                    text: 'New Instances'
+                                }
+                            }
+                        }
+                    }
+                });
+                return;
+            }
+            
+            // Group by location-trade and track status progression
+            const locationTradeStatus = new Map(); // key: "location_trade", value: { firstStatus, firstDate, transitions: [] }
+            
+            // Build chronological status progression for each location-trade
+            validData.forEach(row => {
+                const key = `${row.location}_${row.trade}`;
+                if (!locationTradeStatus.has(key)) {
+                    locationTradeStatus.set(key, {
+                        firstStatus: row.state,
+                        firstDate: row.capture_date,
+                        transitions: []
+                    });
+                }
+                
+                const status = locationTradeStatus.get(key);
+                const lastTransition = status.transitions[status.transitions.length - 1];
+                const fromState = lastTransition ? lastTransition.toState : status.firstStatus;
+                
+                if (row.state !== fromState) {
+                    status.transitions.push({
+                        fromState: fromState,
+                        toState: row.state,
+                        date: row.capture_date
+                    });
+                }
+            });
+            
+            // Count daily transitions (excluding those that started as "in progress")
+            const dailyTransitions = {};
+            locationTradeStatus.forEach((status, key) => {
+                // Skip location-trade combinations that started as "in progress" - can't determine start date
+                if (status.firstStatus === 'in progress' || status.firstStatus === 'in-progress') {
+                    return;
+                }
+                
+                status.transitions.forEach(transition => {
+                    const date = transition.date;
+                    if (!dailyTransitions[date]) {
+                        dailyTransitions[date] = { starts: 0, completions: 0 };
+                    }
+                    
+                    if (transition.fromState === 'not started' || transition.fromState === 'not-started') {
+                        if (transition.toState === 'in progress' || transition.toState === 'in-progress') {
+                            dailyTransitions[date].starts++;
+                        } else if (transition.toState === 'complete') {
+                            // Direct transition from not started to complete
+                            dailyTransitions[date].completions++;
+                        }
+                    } else if (transition.toState === 'complete') {
+                        dailyTransitions[date].completions++;
+                    }
+                });
+            });
+            
+            // Get all unique dates and sort them
+            const allDates = Object.keys(dailyTransitions).sort((a, b) => new Date(a) - new Date(b));
+            
+            if (allDates.length === 0) {
+                charts.velocity = new Chart(ctx, {
+                    type: 'line',
+                    data: {
+                        labels: ['No Transitions'],
+                        datasets: [{
+                            label: 'No status transitions found',
+                            data: [0],
+                            borderColor: '#9ca3af',
+                            backgroundColor: 'rgba(156, 163, 175, 0.1)',
+                            tension: 0.1,
+                            fill: true
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        scales: {
+                            y: {
+                                beginAtZero: true,
+                                title: {
+                                    display: true,
+                                    text: 'New Instances'
                                 }
                             }
                         }
@@ -1290,7 +1405,7 @@
             }
             
             // Format dates for display
-            const dateLabels = completionDates.map(date => {
+            const dateLabels = allDates.map(date => {
                 const parts = date.split('/');
                 if (parts.length === 3) {
                     return parts[1] + '/' + parts[2]; // MM/DD
@@ -1298,57 +1413,25 @@
                 return date.split('-').slice(1).join('/'); // Handle YYYY-MM-DD format
             });
             
-            // Create datasets for each trade showing daily completions (unique location-trade combinations)
-            const datasets = trades.map((trade, index) => {
-                const tradeData = completionDates.map(date => {
-                    // Get unique location-trade combinations for this date and trade
-                    const uniqueCompletions = new Set(
-                        filteredData
-                            .filter(row => 
-                                row.trade === trade && 
-                                row.complete_date === date && 
-                                row.state === 'complete'
-                            )
-                            .map(row => `${row.location}_${row.trade}`)
-                    );
-                    return uniqueCompletions.size;
-                });
-                
-                const colors = ['#3b82f6', '#ef4444', '#10b981', '#f59e0b', '#8b5cf6', '#06b6d4', '#84cc16'];
-                
-                return {
-                    label: trade,
-                    data: tradeData,
-                    borderColor: colors[index % colors.length],
-                    backgroundColor: colors[index % colors.length] + '20',
+            // Create datasets for compare velocity
+            const datasets = [
+                {
+                    label: 'New Work Started',
+                    data: allDates.map(date => dailyTransitions[date].starts),
+                    borderColor: '#3b82f6', // Blue
+                    backgroundColor: 'rgba(59, 130, 246, 0.1)',
                     tension: 0.1,
                     fill: false
-                };
-            });
-            
-            // Add total line
-            const totalData = completionDates.map(date => {
-                // Count unique location-trade combinations completed on this date
-                const uniqueCompletions = new Set(
-                    filteredData
-                        .filter(row => 
-                            row.complete_date === date && 
-                            row.state === 'complete'
-                        )
-                        .map(row => `${row.location}_${row.trade}`)
-                );
-                return uniqueCompletions.size;
-            });
-            
-            datasets.push({
-                label: 'Total (All Trades)',
-                data: totalData,
-                borderColor: '#1f2937',
-                backgroundColor: 'rgba(31, 41, 55, 0.1)',
-                tension: 0.1,
-                fill: true,
-                borderWidth: 3
-            });
+                },
+                {
+                    label: 'New Work Completed',
+                    data: allDates.map(date => dailyTransitions[date].completions),
+                    borderColor: '#10b981', // Green
+                    backgroundColor: 'rgba(16, 185, 129, 0.1)',
+                    tension: 0.1,
+                    fill: false
+                }
+            ];
             
             charts.velocity = new Chart(ctx, {
                 type: 'line',
@@ -1887,6 +1970,13 @@
             }
         }
 
+        // Centralized section management - gets sections from actual filtered data
+        function getAvailableSections() {
+            const sections = [...new Set(filteredData.map(row => row.section).filter(Boolean))].sort();
+            console.log('Available sections from filtered data:', sections);
+            return sections;
+        }
+
         // Helper functions to get real data for charts
         function getAbandonedTradesData() {
             const now = new Date();
@@ -1905,19 +1995,19 @@
                 return false;
             });
             
-            // Group by location and collect unique task details
-            const locationData = {};
+            // Group by section (zone) instead of location
+            const sectionData = {};
             const uniqueTasks = new Map();
             
             // First, create unique task entries with their stall times
             abandonedTrades.forEach(row => {
-                const taskKey = `${row.location}_${row.trade}`;
+                const taskKey = `${row.section}_${row.trade}`;
                 const captureDate = new Date(row.capture_date);
                 const daysStalled = Math.floor((now - captureDate) / (1000 * 60 * 60 * 24));
                 
                 if (!uniqueTasks.has(taskKey)) {
                     uniqueTasks.set(taskKey, {
-                        location: row.location,
+                        section: row.section,
                         trade: row.trade,
                         daysStalled: daysStalled
                     });
@@ -1930,110 +2020,102 @@
                 }
             });
             
-            // Now group unique tasks by location
+            // Now group unique tasks by section (zone)
             uniqueTasks.forEach(task => {
-                const location = task.location;
+                const section = task.section;
                 
-                if (!locationData[location]) {
-                    locationData[location] = {
+                if (!sectionData[section]) {
+                    sectionData[section] = {
                         totalStalled: 0,
                         trades: {}
                     };
                 }
                 
-                if (!locationData[location].trades[task.trade]) {
-                    locationData[location].trades[task.trade] = {
+                if (!sectionData[section].trades[task.trade]) {
+                    sectionData[section].trades[task.trade] = {
                         count: 0,
                         maxDays: 0,
                         minDays: Infinity
                     };
                 }
                 
-                locationData[location].totalStalled++;
-                locationData[location].trades[task.trade].count++;
-                locationData[location].trades[task.trade].maxDays = Math.max(
-                    locationData[location].trades[task.trade].maxDays, 
+                sectionData[section].totalStalled++;
+                sectionData[section].trades[task.trade].count++;
+                sectionData[section].trades[task.trade].maxDays = Math.max(
+                    sectionData[section].trades[task.trade].maxDays, 
                     task.daysStalled
                 );
-                locationData[location].trades[task.trade].minDays = Math.min(
-                    locationData[location].trades[task.trade].minDays, 
+                sectionData[section].trades[task.trade].minDays = Math.min(
+                    sectionData[section].trades[task.trade].minDays, 
                     task.daysStalled
                 );
             });
             
-            return locationData;
+            return sectionData;
         }
 
         function getStarvationData() {
-            // Analyze starvation by individual capture days
-            const starvationByDay = {};
+            // Analyze starvation by section (zone) instead of individual locations
+            const sectionData = {};
             
-            // Group data by capture date and location
-            const captureDates = [...new Set(filteredData.map(row => row.capture_date).filter(Boolean))];
-            
-            captureDates.forEach(date => {
-                const dayData = filteredData.filter(row => row.capture_date === date);
-                const locationGroups = {};
-                
-                // Group by location for this specific day
-                dayData.filter(row => row.state === 'in progress' || row.state === 'in-progress').forEach(row => {
-                    if (!locationGroups[row.location]) {
-                        locationGroups[row.location] = [];
+            // Group data by section and count competing trades
+            filteredData.forEach(row => {
+                if (row.state === 'in progress' || row.state === 'in-progress') {
+                    const section = row.section;
+                    
+                    if (!sectionData[section]) {
+                        sectionData[section] = {
+                            count: 0,
+                            trades: new Set()
+                        };
                     }
-                    locationGroups[row.location].push(row);
-                });
-                
-                // Find locations with multiple competing trades on this day
-                Object.entries(locationGroups).forEach(([location, trades]) => {
-                    if (trades.length >= 2) {
-                        const key = `${location} (${date})`;
-                        if (!starvationByDay[key]) {
-                            starvationByDay[key] = {
-                                count: trades.length,
-                                trades: [...new Set(trades.map(t => t.trade))],
-                                date: date,
-                                location: location
-                            };
-                        }
-                    }
-                });
+                    
+                    sectionData[section].trades.add(row.trade);
+                    sectionData[section].count = sectionData[section].trades.size;
+                }
             });
             
-            return starvationByDay;
+            // Convert Set to Array for chart display
+            Object.keys(sectionData).forEach(section => {
+                sectionData[section].trades = Array.from(sectionData[section].trades);
+            });
+            
+            return sectionData;
         }
 
         function getSwissCheeseData() {
-            // Find locations with gaps in completion patterns using unique tasks
-            const locationCompletion = {};
+            // Find sections with gaps in completion patterns using unique tasks
+            const sectionCompletion = {};
             
-            // Calculate completion rate for each location using unique tasks
-            const locationTasks = {};
+            // Calculate completion rate for each section using unique tasks
+            const sectionTasks = {};
             filteredData.forEach(row => {
-                if (!locationTasks[row.location]) {
-                    locationTasks[row.location] = {
+                if (!sectionTasks[row.section]) {
+                    sectionTasks[row.section] = {
                         allTasks: new Set(),
                         completedTasks: new Set()
                     };
                 }
-                locationTasks[row.location].allTasks.add(`${row.location}_${row.trade}`);
+                // Use trade name only (not section_trade) to avoid duplicates
+                sectionTasks[row.section].allTasks.add(row.trade);
                 if (row.state === 'complete') {
-                    locationTasks[row.location].completedTasks.add(`${row.location}_${row.trade}`);
+                    sectionTasks[row.section].completedTasks.add(row.trade);
                 }
             });
             
             // Convert to completion stats
-            Object.keys(locationTasks).forEach(location => {
-                locationCompletion[location] = {
-                    total: locationTasks[location].allTasks.size,
-                    completed: locationTasks[location].completedTasks.size
+            Object.keys(sectionTasks).forEach(section => {
+                sectionCompletion[section] = {
+                    total: sectionTasks[section].allTasks.size,
+                    completed: sectionTasks[section].completedTasks.size
                 };
             });
             
             // Calculate completion percentages and identify gaps
             const completionData = {};
-            Object.entries(locationCompletion).forEach(([location, data]) => {
+            Object.entries(sectionCompletion).forEach(([section, data]) => {
                 const percentage = data.total > 0 ? Math.round((data.completed / data.total) * 100) : 0;
-                completionData[location] = {
+                completionData[section] = {
                     percentage: percentage,
                     isGap: percentage === 0 && data.total > 0, // Has tasks but 0% complete
                     total: data.total,
@@ -2065,23 +2147,29 @@
             }, {});
         }
 
-        // Trade Abandonment - Bar chart showing locations with stalled tasks >14 days
+        // Trade Abandonment - Bar chart showing sections (zones) with stalled tasks >14 days
         function createAbandonmentChart(ctx, anomaly) {
             // Get real abandoned trades data
-            const locationData = getAbandonedTradesData();
-            const locations = Object.keys(locationData);
-            const data = locations.map(location => locationData[location].totalStalled);
+            const sectionData = getAbandonedTradesData();
+            // Get sections from actual filtered data and ensure they exist in sectionData
+            const availableSections = getAvailableSections();
+            const sections = availableSections.filter(section => sectionData[section]);
+            const data = sections.map(section => sectionData[section].totalStalled);
+            
+            console.log('Stalled Trades - Available sections:', availableSections);
+            console.log('Stalled Trades - Sections with data:', sections);
+            console.log('Stalled Trades - Section data:', sectionData);
             
             // If no data, show placeholder
-            if (locations.length === 0) {
-                locations.push('No stalled locations found');
+            if (sections.length === 0) {
+                sections.push('No stalled sections found');
                 data.push(0);
             }
             
             anomalyChart = new Chart(ctx, {
                 type: 'bar',
                 data: {
-                    labels: locations,
+                    labels: sections,
                     datasets: [{
                         label: 'Stalled Tasks',
                         data: data,
@@ -2104,7 +2192,7 @@
                         x: {
                             title: {
                                 display: true,
-                                text: 'Locations'
+                                text: 'Zones/Sections'
                             },
                             ticks: {
                                 maxRotation: 45,
@@ -2115,25 +2203,25 @@
                     plugins: {
                         title: {
                             display: true,
-                            text: 'Trade Abandonment by Location - Tasks stalled >14 days'
+                            text: 'Trade Abandonment by Section (Zone) - Tasks stalled >14 days'
                         },
                         tooltip: {
                             callbacks: {
                                 title: function(context) {
-                                    return `Location: ${context[0].label}`;
+                                    return `Section: ${context[0].label}`;
                                 },
                                 label: function(context) {
-                                    const location = context.label;
-                                    if (!locationData[location]) return 'No data';
+                                    const section = context.label;
+                                    if (!sectionData[section]) return 'No data';
                                     
-                                    const data = locationData[location];
+                                    const data = sectionData[section];
                                     return `Total Stalled Tasks: ${data.totalStalled}`;
                                 },
                                 afterLabel: function(context) {
-                                    const location = context.label;
-                                    if (!locationData[location]) return [];
+                                    const section = context.label;
+                                    if (!sectionData[section]) return [];
                                     
-                                    const data = locationData[location];
+                                    const data = sectionData[section];
                                     const details = [];
                                     
                                     details.push(''); // Empty line for spacing
@@ -2156,22 +2244,28 @@
             });
         }
 
-        // Trade Starvation - Bar chart showing locations with multiple competing trades by day
+        // Trade Starvation - Bar chart showing sections (zones) with competing trades
         function createStarvationChart(ctx, anomaly) {
-            const starvationData = getStarvationData();
-            const labels = Object.keys(starvationData);
-            const data = labels.map(key => starvationData[key].count);
+            const sectionData = getStarvationData();
+            // Get sections from actual filtered data and ensure they exist in sectionData
+            const availableSections = getAvailableSections();
+            const sections = availableSections.filter(section => sectionData[section]);
+            const data = sections.map(section => sectionData[section].count);
+            
+            console.log('Stacked Trades - Available sections:', availableSections);
+            console.log('Stacked Trades - Sections with data:', sections);
+            console.log('Stacked Trades - Section data:', sectionData);
             
             // If no data, show placeholder
-            if (labels.length === 0) {
-                labels.push('No resource conflicts found');
+            if (sections.length === 0) {
+                sections.push('No resource conflicts found');
                 data.push(0);
             }
             
             anomalyChart = new Chart(ctx, {
                 type: 'bar',
                 data: {
-                    labels: labels,
+                    labels: sections,
                     datasets: [{
                         label: 'Competing Trades',
                         data: data,
@@ -2194,7 +2288,7 @@
                         x: {
                             title: {
                                 display: true,
-                                text: 'Location (Date)'
+                                text: 'Zones/Sections'
                             },
                             ticks: {
                                 maxRotation: 45,
@@ -2205,22 +2299,22 @@
                     plugins: {
                         title: {
                             display: true,
-                            text: 'Trade Starvation - Daily analysis of competing trades by location'
+                            text: 'Trade Starvation - Competing trades by section (zone)'
                         },
                         tooltip: {
                             callbacks: {
                                 title: function(context) {
-                                    return context[0].label;
+                                    return `Section: ${context[0].label}`;
                                 },
                                 label: function(context) {
-                                    const key = context.label;
-                                    const data = starvationData[key];
+                                    const section = context.label;
+                                    const data = sectionData[section];
                                     if (!data) return 'No data';
                                     return `Competing Trades: ${data.count}`;
                                 },
                                 afterLabel: function(context) {
-                                    const key = context.label;
-                                    const data = starvationData[key];
+                                    const section = context.label;
+                                    const data = sectionData[section];
                                     if (!data) return [];
                                     
                                     const details = [];
@@ -2230,7 +2324,7 @@
                                         details.push(`• ${trade}`);
                                     });
                                     details.push(''); // Empty line
-                                    details.push('Multiple in-progress trades competing for the same location on this day');
+                                    details.push('Multiple in-progress trades in this section');
                                     
                                     return details;
                                 }
@@ -2243,14 +2337,14 @@
 
         // Burst Start - Line chart showing sudden activity spikes
         function createBurstStartChart(ctx, anomaly) {
-            const days = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
+            const weeks = ['Week 1', 'Week 2', 'Week 3', 'Week 4', 'Week 5', 'Week 6', 'Week 7'];
             const normalActivity = [8, 10, 12, 9, 11, 3, 2];
-            const burstActivity = [8, 10, 35, 9, 11, 3, 2]; // Spike on Wednesday
+            const burstActivity = [8, 10, 35, 9, 11, 3, 2]; // Spike on Week 3
             
             anomalyChart = new Chart(ctx, {
                 type: 'line',
                 data: {
-                    labels: days,
+                    labels: weeks,
                     datasets: [{
                         label: 'Normal Activity',
                         data: normalActivity,
@@ -2282,39 +2376,46 @@
                     plugins: {
                         title: {
                             display: true,
-                            text: 'Burst Start Pattern - Sudden large volume of work starting'
+                            text: 'Burst Start Pattern - Week-to-week analysis of sudden work volume spikes'
                         }
                     }
                 }
             });
         }
 
-        // Swiss Cheese Flow - Bar chart showing gaps in completion patterns
+        // Swiss Cheese Flow - Bar chart showing gaps in completion patterns by section
         function createSwissCheeseChart(ctx, anomaly) {
             const swissCheeseData = getSwissCheeseData();
-            const locations = Object.keys(swissCheeseData);
-            const completionPercentages = locations.map(loc => swissCheeseData[loc].percentage);
+            // Get sections from actual filtered data and ensure they exist in swissCheeseData
+            const availableSections = getAvailableSections();
+            const sections = availableSections.filter(section => swissCheeseData[section]);
+            const completionPercentages = sections.map(section => swissCheeseData[section].percentage);
+            
+            console.log('Swiss Cheese - Available sections:', availableSections);
+            console.log('Swiss Cheese - Sections with data:', sections);
+            console.log('Swiss Cheese - Data:', swissCheeseData);
+            console.log('Swiss Cheese - Percentages:', completionPercentages);
             
             // If no data, show placeholder
-            if (locations.length === 0) {
-                locations.push('No completion gaps found');
+            if (sections.length === 0) {
+                sections.push('No completion gaps found');
                 completionPercentages.push(0);
             }
             
             anomalyChart = new Chart(ctx, {
                 type: 'bar',
                 data: {
-                    labels: locations,
+                    labels: sections,
                     datasets: [{
                         label: 'Completion %',
                         data: completionPercentages,
                         backgroundColor: completionPercentages.map((val, idx) => {
-                            if (locations.length === 1 && completionPercentages[0] === 0) return anomaly.color;
-                            return swissCheeseData[locations[idx]]?.isGap ? '#ef4444' : anomaly.color + '80';
+                            if (sections.length === 1 && completionPercentages[0] === 0) return anomaly.color;
+                            return swissCheeseData[sections[idx]]?.isGap ? '#ef4444' : anomaly.color + '80';
                         }),
                         borderColor: completionPercentages.map((val, idx) => {
-                            if (locations.length === 1 && completionPercentages[0] === 0) return anomaly.color;
-                            return swissCheeseData[locations[idx]]?.isGap ? '#dc2626' : anomaly.color;
+                            if (sections.length === 1 && completionPercentages[0] === 0) return anomaly.color;
+                            return swissCheeseData[sections[idx]]?.isGap ? '#dc2626' : anomaly.color;
                         }),
                         borderWidth: 2
                     }]
@@ -2330,32 +2431,38 @@
                                 display: true,
                                 text: 'Completion Percentage'
                             }
+                        },
+                        x: {
+                            title: {
+                                display: true,
+                                text: 'Zones/Sections'
+                            }
                         }
                     },
                     plugins: {
                         title: {
                             display: true,
-                            text: 'Swiss Cheese Flow - Completion gaps in project locations'
+                            text: 'Swiss Cheese Flow - Completion gaps by section (zone)'
                         },
                         tooltip: {
                             callbacks: {
                                 title: function(context) {
-                                    return `Location: ${context[0].label}`;
+                                    return `Section: ${context[0].label}`;
                                 },
                                 label: function(context) {
-                                    const location = context.label;
-                                    const data = swissCheeseData[location];
+                                    const section = context.label;
+                                    const data = swissCheeseData[section];
                                     if (!data) return `Completion: ${context.parsed.y}%`;
                                     
                                     return `Completion: ${data.percentage}% (${data.completed}/${data.total} tasks)`;
                                 },
                                 afterLabel: function(context) {
-                                    const location = context.label;
-                                    const data = swissCheeseData[location];
+                                    const section = context.label;
+                                    const data = swissCheeseData[section];
                                     if (!data) return [];
                                     
                                     if (data.isGap) {
-                                        return ['', 'This location has tasks but 0% completion - a potential gap!'];
+                                        return ['', 'This section has tasks but 0% completion - a potential gap!'];
                                     } else if (data.percentage < 50) {
                                         return ['', 'Low completion rate may indicate workflow issues'];
                                     }
@@ -2414,17 +2521,30 @@
         }
 
         function createBlockageChart(ctx, anomaly) {
-            createGenericAnomalyChart(ctx, anomaly, 'Trade Blockage - Trades blocking each other');
+            createGenericAnomalyChart(ctx, anomaly, 'Trade Blockage - Resource conflicts by section (zone)', 'zones');
         }
 
         function createPrematureStartChart(ctx, anomaly) {
-            createGenericAnomalyChart(ctx, anomaly, 'Premature Start - Trades starting before prerequisites');
+            createGenericAnomalyChart(ctx, anomaly, 'Premature Start - Trades starting before prerequisites', 'weeks');
         }
 
         // Generic anomaly chart
-        function createGenericAnomalyChart(ctx, anomaly, titleOverride = null) {
-            const data = Array.from({length: 7}, () => Math.floor(Math.random() * 5) + 1);
-            const labels = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
+        function createGenericAnomalyChart(ctx, anomaly, titleOverride = null, xAxisType = 'days') {
+            let labels;
+            let data;
+            
+            if (xAxisType === 'zones') {
+                // Get actual sections from filtered data
+                const availableSections = getAvailableSections();
+                labels = availableSections.map(section => `Section ${section}`);
+                data = Array.from({length: labels.length}, () => Math.floor(Math.random() * 5) + 1);
+            } else if (xAxisType === 'weeks') {
+                labels = ['Week 1', 'Week 2', 'Week 3', 'Week 4', 'Week 5', 'Week 6', 'Week 7'];
+                data = Array.from({length: 7}, () => Math.floor(Math.random() * 5) + 1);
+            } else {
+                labels = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
+                data = Array.from({length: 7}, () => Math.floor(Math.random() * 5) + 1);
+            }
             
             anomalyChart = new Chart(ctx, {
                 type: 'bar',
@@ -2447,6 +2567,13 @@
                             title: {
                                 display: true,
                                 text: 'Number of Incidents'
+                            }
+                        },
+                        x: {
+                            title: {
+                                display: true,
+                                text: xAxisType === 'zones' ? 'Zones/Sections' : 
+                                      xAxisType === 'weeks' ? 'Weeks' : 'Days'
                             }
                         }
                     },
@@ -2703,10 +2830,8 @@
                 });
             });
 
-            // Only show milestones generated from real data
-
-            // Sort by progress descending and take top 5
-            return milestones.sort((a, b) => b.progress - a.progress).slice(0, 5);
+            // Show all milestones in the correct sequence order, not limited by count
+            return milestones;
         }
 
         // Initialize when page loads
