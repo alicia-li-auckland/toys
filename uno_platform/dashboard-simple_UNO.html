@@ -376,7 +376,7 @@
         async function autoLoadUNOData() {
             try {
                 showLoadingScreen();
-                const response = await fetch('UNO_construction_data_fixed.csv');
+                const response = await fetch('UNO_synthesized.csv');
                 
                 if (!response.ok) {
                     throw new Error(`Failed to load data: ${response.status}`);
