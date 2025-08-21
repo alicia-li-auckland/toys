@@ -458,7 +458,27 @@
                 const data = [];
 
                 for (let i = 1; i < lines.length; i++) {
-                    const values = lines[i].split(',').map(v => v.replace(/"/g, '').trim());
+                    // Handle quoted fields properly
+                    const values = [];
+                    let currentValue = '';
+                    let inQuotes = false;
+                    let j = 0;
+                    
+                    while (j < lines[i].length) {
+                        const char = lines[i][j];
+                        
+                        if (char === '"') {
+                            inQuotes = !inQuotes;
+                        } else if (char === ',' && !inQuotes) {
+                            values.push(currentValue.trim());
+                            currentValue = '';
+                        } else {
+                            currentValue += char;
+                        }
+                        j++;
+                    }
+                    values.push(currentValue.trim()); // Add the last value
+                    
                     if (values.length === headers.length && values.some(v => v !== '')) {
                         const row = {};
                         headers.forEach((header, index) => {
@@ -504,9 +524,12 @@
                 console.log('🎯 Sample record:', currentData[0]);
                 
                 loadAndAnalyzeData();
+                
+                return data; // Return the parsed data
 
             } catch (error) {
                 showError('Error parsing CSV: ' + error.message);
+                return []; // Return empty array on error
             }
         }
 
