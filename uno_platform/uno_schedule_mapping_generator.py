@@ -2,6 +2,7 @@
 """
 UNO Schedule to Actualised Work Mapping Generator
 Uses intelligent activity name parsing to create comprehensive mapping CSV
+Matches schedule items to actual UNO construction data
 """
 
 import csv
@@ -13,47 +14,43 @@ class UNOActivityParser:
     """Intelligent parser for UNO construction activity names"""
     
     def __init__(self):
-        # Location hierarchy mapping
+        # Location hierarchy mapping - updated to match actual UNO data structure
         self.location_hierarchy = {
             'DCH1': {
                 'type': 'Data Centre Hall Zone 1',
-                'areas': [f'Area-{i}' for i in range(1, 9)],  # Areas 1-8
+                'locations': ['Zone 1-USS 1', 'Zone 1-USS 2', 'Zone 1-USS 3', 'Zone 1-USS 4', 'Zone 1-USS 5', 'Zone 1-USS 6', 'Zone 1-USS 7', 'Zone 1-USS 8'],
                 'description': 'Left section of building'
             },
             'DCH2': {
                 'type': 'Data Centre Hall Zone 2', 
-                'areas': [f'Area-{i}' for i in range(9, 15)],  # Areas 9-14
+                'locations': ['Zone 2-USS 1', 'Zone 2-USS 2', 'Zone 2-USS 3', 'Zone 2-USS 4', 'Zone 2-USS 5', 'Zone 2-USS 6'],
                 'description': 'Right section of building'
             },
             'EYD1': {
                 'type': 'Electrical Yard Zone 1',
                 'gen_yard': {
-                    'zones': ['Zone-1', 'Zone-2', 'Zone-3'],
-                    'pads': [f'Pad-{i}' for i in range(1, 10)]  # Pads 1-9
+                    'locations': ['Zone 1-Gen Yard-Pad1', 'Zone 1-Gen Yard-Pad2', 'Zone 1-Gen Yard-Pad3', 'Zone 1-Gen Yard-Pad4', 'Zone 1-Gen Yard-Pad5', 'Zone 1-Gen Yard-Pad6', 'Zone 1-Gen Yard-Pad7', 'Zone 1-Gen Yard-Pad8', 'Zone 1-Gen Yard-Pad9']
                 },
                 'uss_yard': {
-                    'modules': [f'USS-{i:02d}' for i in range(1, 27)]  # USS 01-26
+                    'locations': ['Zone 1-USS 1', 'Zone 1-USS 2', 'Zone 1-USS 3', 'Zone 1-USS 4', 'Zone 1-USS 5', 'Zone 1-USS 6', 'Zone 1-USS 7', 'Zone 1-USS 8', 'Zone 1-USS 9', 'Zone 1-USS 10', 'Zone 1-USS 11', 'Zone 1-USS 12', 'Zone 1-USS 13', 'Zone 1-USS 14', 'Zone 1-USS 15', 'Zone 1-USS 16', 'Zone 1-USS 17', 'Zone 1-USS 18', 'Zone 1-USS 19', 'Zone 1-USS 20', 'Zone 1-USS 21', 'Zone 1-USS 22', 'Zone 1-USS 23', 'Zone 1-USS 24', 'Zone 1-USS 25', 'Zone 1-USS 26']
                 }
             },
             'EYD2': {
                 'type': 'Electrical Yard Zone 2',
                 'gen_yard': {
-                    'zones': ['Zone-4', 'Zone-5', 'Zone-6'],
-                    'pads': [f'Pad-{i}' for i in range(10, 19)]  # Pads 10-18
+                    'locations': ['Zone 2-Gen Yard-Pad1', 'Zone 2-Gen Yard-Pad2', 'Zone 2-Gen Yard-Pad3', 'Zone 2-Gen Yard-Pad4', 'Zone 2-Gen Yard-Pad5', 'Zone 2-Gen Yard-Pad6', 'Zone 2-Gen Yard-Pad7', 'Zone 2-Gen Yard-Pad8', 'Zone 2-Gen Yard-Pad9']
                 },
                 'uss_yard': {
-                    'modules': [f'USS-{i:02d}' for i in range(27, 53)]  # USS 27-52
+                    'locations': ['Zone 2-USS 1', 'Zone 2-USS 2', 'Zone 2-USS 3', 'Zone 2-USS 4', 'Zone 2-USS 5', 'Zone 2-USS 6', 'Zone 2-USS 7', 'Zone 2-USS 8', 'Zone 2-USS 9', 'Zone 2-USS 10', 'Zone 2-USS 11', 'Zone 2-USS 12', 'Zone 2-USS 13', 'Zone 2-USS 14', 'Zone 2-USS 15', 'Zone 2-USS 16', 'Zone 2-USS 17', 'Zone 2-USS 18', 'Zone 2-USS 19', 'Zone 2-USS 20', 'Zone 2-USS 21', 'Zone 2-USS 22', 'Zone 2-USS 23', 'Zone 2-USS 24', 'Zone 2-USS 25', 'Zone 2-USS 26']
                 }
             },
             'MYD1': {
                 'type': 'Mechanical Yard Zone 1',
                 'mcp1': {
-                    'zones': ['Zone-1', 'Zone-2', 'Zone-3', 'Zone-4'],
-                    'pads': [f'MCP1-Pad-{i}' for i in range(1, 5)]  # Pads 1-4
+                    'locations': ['Zone 1-MCP-1', 'Zone 1-MCP-2', 'Zone 1-MCP-3', 'Zone 1-MCP-4']
                 },
                 'mcp2': {
-                    'zones': ['Zone-5', 'Zone-6', 'Zone-7'],
-                    'pads': [f'MCP2-Pad-{i}' for i in range(1, 4)]  # Pads 1-3
+                    'locations': ['Zone 2-MCP-1', 'Zone 2-MCP-2', 'Zone 2-MCP-3']
                 }
             }
         }
@@ -251,34 +248,59 @@ class UNOActivityParser:
         # Handle different location types
         if location_prefix.startswith('DCH'):
             if location_prefix == 'DCH1':
-                locations.extend(self.location_hierarchy['DCH1']['areas'])
+                locations.extend(self.location_hierarchy['DCH1']['locations'])
             elif location_prefix == 'DCH2':
-                locations.extend(self.location_hierarchy['DCH2']['areas'])
+                locations.extend(self.location_hierarchy['DCH2']['locations'])
         
         elif location_prefix.startswith('EYD'):
             if location_prefix == 'EYD1':
                 # Add all EYD1 locations
-                locations.extend(self.location_hierarchy['EYD1']['gen_yard']['pads'])
-                locations.extend(self.location_hierarchy['EYD1']['uss_yard']['modules'])
+                locations.extend(self.location_hierarchy['EYD1']['gen_yard']['locations'])
+                locations.extend(self.location_hierarchy['EYD1']['uss_yard']['locations'])
             elif location_prefix == 'EYD2':
                 # Add all EYD2 locations
-                locations.extend(self.location_hierarchy['EYD2']['gen_yard']['pads'])
-                locations.extend(self.location_hierarchy['EYD2']['uss_yard']['modules'])
+                locations.extend(self.location_hierarchy['EYD2']['gen_yard']['locations'])
+                locations.extend(self.location_hierarchy['EYD2']['uss_yard']['locations'])
         
         elif location_prefix.startswith('MYD'):
             if location_prefix == 'MYD1':
                 # Add all MCP locations
-                locations.extend(self.location_hierarchy['MYD1']['mcp1']['pads'])
-                locations.extend(self.location_hierarchy['MYD1']['mcp2']['pads'])
+                locations.extend(self.location_hierarchy['MYD1']['mcp1']['locations'])
+                locations.extend(self.location_hierarchy['MYD1']['mcp2']['locations'])
         
         elif location_prefix.startswith('Zone-'):
             # Conveyance zones
             zone_num = location_prefix.split('-')[1]
-            locations.append(f'Conveyance-Zone-{zone_num}')
+            locations.append(f'Zone {zone_num}-Conveyance {zone_num}')
         
         elif location_prefix in ['FSA', 'GPS', 'Loading Dock', 'Booster Pump System', 'Fire Pump House', 'DWTR']:
             # Single location items
             locations.append(location_prefix)
+        
+        # Add support for actual UNO location patterns
+        if not locations:
+            # Try to match based on actual data patterns
+            if 'DCH' in name or 'Data Centre' in name:
+                if '1' in name or 'Zone 1' in name:
+                    locations.extend(['Zone 1-USS 1', 'Zone 1-USS 2', 'Zone 1-USS 3', 'Zone 1-USS 4', 'Zone 1-USS 5', 'Zone 1-USS 6', 'Zone 1-USS 7', 'Zone 1-USS 8'])
+                elif '2' in name or 'Zone 2' in name:
+                    locations.extend(['Zone 2-USS 1', 'Zone 2-USS 2', 'Zone 2-USS 3', 'Zone 2-USS 4', 'Zone 2-USS 5', 'Zone 2-USS 6'])
+            elif 'EYD' in name or 'Electrical Yard' in name:
+                if '1' in name or 'Zone 1' in name:
+                    locations.extend(['Zone 1-Gen Yard-Pad1', 'Zone 1-Gen Yard-Pad2', 'Zone 1-Gen Yard-Pad3', 'Zone 1-Gen Yard-Pad4', 'Zone 1-Gen Yard-Pad5', 'Zone 1-Gen Yard-Pad6', 'Zone 1-Gen Yard-Pad7', 'Zone 1-Gen Yard-Pad8', 'Zone 1-Gen Yard-Pad9'])
+                    locations.extend(['Zone 1-USS 1', 'Zone 1-USS 2', 'Zone 1-USS 3', 'Zone 1-USS 4', 'Zone 1-USS 5', 'Zone 1-USS 6', 'Zone 1-USS 7', 'Zone 1-USS 8', 'Zone 1-USS 9', 'Zone 1-USS 10', 'Zone 1-USS 11', 'Zone 1-USS 12', 'Zone 1-USS 13', 'Zone 1-USS 14', 'Zone 1-USS 15', 'Zone 1-USS 16', 'Zone 1-USS 17', 'Zone 1-USS 18', 'Zone 1-USS 19', 'Zone 1-USS 20', 'Zone 1-USS 21', 'Zone 1-USS 22', 'Zone 1-USS 23', 'Zone 1-USS 24', 'Zone 1-USS 25', 'Zone 1-USS 26'])
+                elif '2' in name or 'Zone 2' in name:
+                    locations.extend(['Zone 2-Gen Yard-Pad1', 'Zone 2-Gen Yard-Pad2', 'Zone 2-Gen Yard-Pad3', 'Zone 2-Gen Yard-Pad4', 'Zone 2-Gen Yard-Pad5', 'Zone 2-Gen Yard-Pad6', 'Zone 2-Gen Yard-Pad7', 'Zone 2-Gen Yard-Pad8', 'Zone 2-Gen Yard-Pad9'])
+                    locations.extend(['Zone 2-USS 1', 'Zone 2-USS 2', 'Zone 2-USS 3', 'Zone 2-USS 4', 'Zone 2-USS 5', 'Zone 2-USS 6', 'Zone 2-USS 7', 'Zone 2-USS 8', 'Zone 2-USS 9', 'Zone 2-USS 10', 'Zone 2-USS 11', 'Zone 2-USS 12', 'Zone 2-USS 13', 'Zone 2-USS 14', 'Zone 2-USS 15', 'Zone 2-USS 16', 'Zone 2-USS 17', 'Zone 2-USS 18', 'Zone 2-USS 19', 'Zone 2-USS 20', 'Zone 2-USS 21', 'Zone 2-USS 22', 'Zone 2-USS 23', 'Zone 2-USS 24', 'Zone 2-USS 25', 'Zone 2-USS 26'])
+            elif 'MYD' in name or 'Mechanical Yard' in name:
+                if '1' in name or 'Zone 1' in name:
+                    locations.extend(['Zone 1-MCP-1', 'Zone 1-MCP-2', 'Zone 1-MCP-3', 'Zone 1-MCP-4'])
+                elif '2' in name or 'Zone 2' in name:
+                    locations.extend(['Zone 2-MCP-1', 'Zone 2-MCP-2', 'Zone 2-MCP-3'])
+            elif 'Conveyance' in name:
+                # Handle conveyance zones
+                for i in range(1, 9):  # Zones 1-8
+                    locations.append(f'Zone {i}-Conveyance {i}')
         
         # Filter by specific pad numbers if provided
         if pad_numbers:
@@ -307,8 +329,46 @@ class UNOActivityParser:
         
         return 'HIGH'
 
+def load_actual_uno_data():
+    """Load actual UNO construction data to analyze what's being tracked"""
+    try:
+        with open('UNO_construction_data_fixed.csv', 'r', encoding='utf-8') as f:
+            reader = csv.DictReader(f)
+            data = list(reader)
+        
+        print(f"✅ Loaded {len(data)} rows from UNO_construction_data_fixed.csv")
+        
+        # Analyze the data structure
+        unique_locations = set(row['location'] for row in data)
+        unique_trades = set(row['trade'] for row in data)
+        unique_sections = set(row['section'] for row in data)
+        
+        print(f"📍 Unique Locations: {len(unique_locations)}")
+        print(f"🔧 Unique Trades: {len(unique_trades)}")
+        print(f"🏗️ Unique Sections: {len(unique_sections)}")
+        
+        # Show sample of actual data
+        print(f"\n📊 Sample Actual Data:")
+        for i, row in enumerate(data[:5]):
+            print(f"  {i+1}. {row['location']} | {row['trade']} | {row['state']} | {row['section']}")
+        
+        return data
+        
+    except FileNotFoundError:
+        print("❌ UNO_construction_data_fixed.csv not found!")
+        return []
+    except Exception as e:
+        print(f"❌ Error loading data: {e}")
+        return []
+
 def generate_uno_schedule_mapping_csv():
     """Generate comprehensive CSV mapping between UNO schedule and actualised work"""
+    
+    # Load actual UNO construction data
+    actual_data = load_actual_uno_data()
+    if not actual_data:
+        print("❌ Cannot proceed without actual construction data")
+        return ""
     
     # Sample schedule data (you would load this from your actual schedule)
     schedule_data = [
@@ -374,7 +434,10 @@ def generate_uno_schedule_mapping_csv():
         'Confidence_Score',
         'Progress_Formula',
         'Is_Excluded',
-        'Mapping_Notes'
+        'Mapping_Notes',
+        'Actual_Data_Match_Quality',
+        'Actual_Locations_Found',
+        'Actual_Trades_Found'
     ]
     
     writer = csv.DictWriter(output, fieldnames=fieldnames)
@@ -384,6 +447,9 @@ def generate_uno_schedule_mapping_csv():
     for activity_id, name, location, trade, start, finish in schedule_data:
         # Parse the activity
         parsed = parser.parse_activity(activity_id, name, location, trade)
+        
+        # Check how well this matches actual data
+        actual_match_quality = _analyze_actual_data_match(parsed, actual_data)
         
         # Build the row
         row = {
@@ -402,12 +468,54 @@ def generate_uno_schedule_mapping_csv():
             'Confidence_Score': parsed['confidence_score'],
             'Progress_Formula': _generate_progress_formula(parsed),
             'Is_Excluded': 'Yes' if parsed['is_excluded'] else 'No',
-            'Mapping_Notes': _generate_mapping_notes(parsed)
+            'Mapping_Notes': _generate_mapping_notes(parsed),
+            'Actual_Data_Match_Quality': actual_match_quality['quality'],
+            'Actual_Locations_Found': actual_match_quality['locations_found'],
+            'Actual_Trades_Found': actual_match_quality['trades_found']
         }
         
         writer.writerow(row)
     
     return output.getvalue()
+
+def _analyze_actual_data_match(parsed, actual_data):
+    """Analyze how well the parsed activity matches actual construction data"""
+    
+    if parsed['is_excluded']:
+        return {
+            'quality': 'N/A - Excluded',
+            'locations_found': 0,
+            'trades_found': 0
+        }
+    
+    # Find matching locations in actual data
+    matching_locations = []
+    matching_trades = []
+    
+    for row in actual_data:
+        # Check location match
+        for parsed_location in parsed['matched_physical_locations']:
+            if parsed_location.lower() in row['location'].lower() or row['location'].lower() in parsed_location.lower():
+                matching_locations.append(row['location'])
+        
+        # Check trade match
+        for trade_component in parsed['trade_components']:
+            if trade_component.lower() in row['trade'].lower() or row['trade'].lower() in trade_component.lower():
+                matching_trades.append(row['trade'])
+    
+    # Calculate match quality
+    if len(matching_locations) > 0 and len(matching_trades) > 0:
+        quality = 'HIGH'
+    elif len(matching_locations) > 0 or len(matching_trades) > 0:
+        quality = 'MEDIUM'
+    else:
+        quality = 'LOW'
+    
+    return {
+        'quality': quality,
+        'locations_found': len(set(matching_locations)),
+        'trades_found': len(set(matching_trades))
+    }
 
 def _generate_progress_formula(parsed):
     """Generate formula for calculating progress"""
@@ -455,20 +563,23 @@ if __name__ == "__main__":
     # Generate the CSV
     csv_content = generate_uno_schedule_mapping_csv()
     
-    # Save to file
-    with open('uno_schedule_to_actualised_mapping.csv', 'w', newline='', encoding='utf-8') as f:
-        f.write(csv_content)
-    
-    print("✅ UNO Schedule Mapping CSV generated successfully!")
-    print("📁 File: uno_schedule_to_actualised_mapping.csv")
-    print("\n📊 Sample output:")
-    print(csv_content[:2000])  # Show first 2000 characters
-    
-    # Show summary statistics
-    lines = csv_content.strip().split('\n')
-    total_activities = len(lines) - 1  # Subtract header
-    
-    print(f"\n📈 Summary:")
-    print(f"Total Activities: {total_activities}")
-    print(f"CSV Fields: {len(lines[0].split(','))}")
-    print(f"File Size: {len(csv_content)} characters")
+    if csv_content:
+        # Save to file
+        with open('uno_schedule_to_actualised_mapping.csv', 'w', newline='', encoding='utf-8') as f:
+            f.write(csv_content)
+        
+        print("✅ UNO Schedule Mapping CSV generated successfully!")
+        print("📁 File: uno_schedule_to_actualised_mapping.csv")
+        print("\n📊 Sample output:")
+        print(csv_content[:2000])  # Show first 2000 characters
+        
+        # Show summary statistics
+        lines = csv_content.strip().split('\n')
+        total_activities = len(lines) - 1  # Subtract header
+        
+        print(f"\n📈 Summary:")
+        print(f"Total Activities: {total_activities}")
+        print(f"CSV Fields: {len(lines[0].split(','))}")
+        print(f"File Size: {len(csv_content)} characters")
+    else:
+        print("❌ Failed to generate CSV - check error messages above")
