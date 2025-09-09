@@ -1,0 +1,1607 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Schedule Converter</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <!-- Add library for Microsoft Project files -->
+  <script src="https://cdn.jsdelivr.net/npm/msparser@1.0.0/dist/msparser.min.js"></script>
+  <!-- Alternative MPP parser -->
+  <script src="https://unpkg.com/mpp-parser@latest/dist/mpp-parser.min.js"></script>
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+    }
+    .custom-scrollbar::-webkit-scrollbar {
+      width: 8px;
+      height: 8px;
+    }
+    .custom-scrollbar::-webkit-scrollbar-track {
+      background: #f1f5f9;
+    }
+    .custom-scrollbar::-webkit-scrollbar-thumb {
+      background: #94a3b8;
+      border-radius: 4px;
+    }
+    .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+      background: #64748b;
+    }
+    .table-container {
+      max-height: 60vh;
+      overflow-y: auto;
+    }
+    .fade-in {
+      animation: fadeIn 0.3s ease-in;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body class="bg-slate-100 text-slate-800 min-h-screen">
+  <!-- Global Sidebar will be injected here -->
+
+  <!-- Main Content -->
+  <div class="flex-1 flex flex-col overflow-hidden">
+      <!-- Top Navigation Bar with Filters -->
+      <div class="w-full flex items-center justify-between px-8 py-4 bg-white shadow-sm border-b border-slate-200">
+        <div class="flex items-center gap-3">
+          <i data-lucide="layout-dashboard" class="w-7 h-7 text-blue-600"></i>
+          <span class="text-xl font-bold text-slate-800">Schedule Converter</span>
+        </div>
+        <div class="flex items-center gap-3">
+          <div class="relative w-64">
+            <i data-lucide="search" class="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400"></i>
+            <input type="text" id="searchInput" placeholder="Search activities..." class="w-full pl-9 pr-4 py-2 text-sm border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none">
+          </div>
+          <div class="relative w-48">
+            <button id="locationFilterBtn" class="w-full px-3 py-2 text-sm border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none bg-white text-left flex items-center justify-between">
+              <span id="locationFilterText">All Locations</span>
+              <i data-lucide="chevron-down" class="w-4 h-4 text-slate-400"></i>
+            </button>
+            <div id="locationFilterDropdown" class="absolute top-full left-0 right-0 mt-1 bg-white border border-slate-300 rounded-lg shadow-lg z-50 max-h-96 overflow-y-auto" style="display:none;">
+              <div class="p-3">
+                <div class="flex items-center justify-between mb-2">
+                  <h4 class="text-sm font-semibold text-slate-800">Locations</h4>
+                  <button id="selectAllLocations" class="text-xs font-medium text-blue-600 hover:underline">Select All</button>
+                </div>
+                <div id="locationCheckboxes" class="grid grid-cols-1 gap-2 max-h-64 overflow-y-auto">
+                  <!-- Location checkboxes will be populated here by JS -->
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="relative w-48">
+            <select id="zoneFilter" class="w-full px-3 py-2 text-sm border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none bg-white">
+              <option value="">All Zones</option>
+              <!-- Options will be populated by JS -->
+            </select>
+          </div>
+          <div class="relative w-48">
+            <select id="durationFilter" class="w-full px-3 py-2 text-sm border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none bg-white">
+              <option value="exclude-zero">Exclude 0 Duration</option>
+              <option value="all">All Durations</option>
+              <option value="custom">Custom Range</option>
+            </select>
+          </div>
+          <div class="relative w-48">
+            <select id="completionFilter" class="w-full px-3 py-2 text-sm border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none bg-white">
+              <option value="exclude-complete">Exclude 100% Complete</option>
+              <option value="all">All Completion Rates</option>
+              <option value="in-progress">In Progress Only</option>
+            </select>
+          </div>
+          <div class="relative w-48">
+            <button id="tradeFilterBtn" class="w-full px-3 py-2 text-sm border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none bg-white text-left flex items-center justify-between">
+              <span id="tradeFilterText">All Trades/Areas</span>
+              <i data-lucide="chevron-down" class="w-4 h-4 text-slate-400"></i>
+            </button>
+            <div id="tradeFilterDropdown" class="absolute top-full left-0 right-0 mt-1 bg-white border border-slate-300 rounded-lg shadow-lg z-50 max-h-96 overflow-y-auto" style="display:none;">
+              <div class="p-3 border-b border-slate-200">
+                <div class="flex items-center justify-between mb-2">
+                  <h4 class="text-sm font-semibold text-slate-800">Trade Categories</h4>
+                  <button id="selectAllTrades" class="text-xs font-medium text-blue-600 hover:underline">Select All</button>
+                </div>
+                <div id="tradeCheckboxes" class="grid grid-cols-1 gap-2 max-h-64 overflow-y-auto"></div>
+              </div>
+              <div class="p-3 border-b border-slate-200">
+                <div class="flex items-center justify-between mb-2">
+                  <h4 class="text-sm font-semibold text-slate-800">Additional Keywords</h4>
+                  <button id="clearCustomKeywords" class="text-xs font-medium text-blue-600 hover:underline">Clear</button>
+                </div>
+                <input id="customKeywords" type="text" placeholder="e.g., demolition, site work" class="w-full px-2 py-1 text-sm border border-slate-300 rounded focus:ring-1 focus:ring-blue-500 focus:outline-none">
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="flex items-center gap-3">
+          <button id="exportBtn" class="px-4 py-2 rounded-lg bg-slate-100 text-slate-500 font-semibold text-sm flex items-center gap-2" disabled>
+            <i data-lucide="download" class="w-4 h-4"></i> Export CSV
+          </button>
+          <div class="w-9 h-9 rounded-full bg-slate-200 flex items-center justify-center text-slate-600 font-bold">U</div>
+        </div>
+      </div>
+
+      <!-- Main Content Area -->
+      <main class="flex-1 overflow-hidden">
+        <div class="p-4 lg:p-6 h-full">
+          <div class="bg-white rounded-xl shadow-sm h-full flex flex-col">
+            <!-- Upload Section with View Toggle on the Same Row -->
+            <div class="p-6 border-b border-slate-200">
+              <div class="flex items-center justify-between mb-4">
+                <div class="flex items-center gap-4">
+                  <div class="p-2 rounded-lg bg-blue-100">
+                    <i data-lucide="upload" class="text-blue-600 w-5 h-5"></i>
+                  </div>
+                  <div>
+                    <h2 class="text-lg font-semibold text-slate-800">Upload Schedule File</h2>
+                    <p class="text-sm text-slate-600">Supported formats: XML, XER, CSV, MPP, PP</p>
+                  </div>
+                </div>
+                <!-- View Mode Toggle on the right -->
+                <div class="flex items-center gap-2">
+                  <div class="flex bg-white rounded-lg border border-slate-300 p-1">
+                    <button id="standardViewBtn" class="px-4 py-2 text-sm font-medium rounded-md transition-colors bg-blue-600 text-white shadow-sm">Standard View</button>
+                    <button id="dataCentreViewBtn" class="px-4 py-2 text-sm font-medium rounded-md transition-colors text-slate-700 hover:bg-slate-100">Data Centre View</button>
+                  </div>
+                  <!-- Data Centre View Toggle (only visible when in Data Centre View) -->
+                  <div id="dataCentreToggle" class="flex bg-white rounded-lg border border-slate-300 p-1" style="display: none;">
+                    <button id="groupedViewBtn" class="px-4 py-2 text-sm font-medium rounded-md transition-colors bg-blue-600 text-white shadow-sm">Grouped View</button>
+                    <button id="tableViewBtn" class="px-4 py-2 text-sm font-medium rounded-md transition-colors text-slate-700 hover:bg-slate-100">Table View</button>
+                  </div>
+                </div>
+              </div>
+              <div class="flex items-center gap-4">
+                <div class="relative flex-1">
+                  <input type="file" id="fileInput" accept=".xml,.xer,.csv,.mpp,.pp" 
+                         class="block w-full text-sm text-slate-500 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-medium file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100 transition-colors">
+                </div>
+                <button id="processBtn" class="px-4 py-2 rounded-lg bg-blue-600 text-white font-semibold text-sm flex items-center gap-2 disabled:bg-slate-300 disabled:cursor-not-allowed" disabled>Process</button>
+              </div>
+            </div>
+
+            <!-- Exclude Keyword Section: Full Width -->
+            <div class="w-full px-6 py-4 border-b border-slate-200 bg-slate-50">
+              <div class="flex flex-col md:flex-row md:items-center gap-3 w-full">
+                <div class="flex flex-1 items-center gap-2">
+                  <input id="newExcludeKeyword" type="text" placeholder="Add keyword to exclude" class="w-full max-w-xs px-2 py-1 text-xs border border-slate-300 rounded focus:ring-1 focus:ring-blue-500 focus:outline-none">
+                  <button id="addExcludeKeyword" class="px-2 py-1 text-xs bg-red-600 hover:bg-red-700 text-white font-semibold rounded">Add</button>
+                  <button id="clearExcludeKeywords" class="px-2 py-1 text-xs bg-slate-600 hover:bg-slate-700 text-white font-semibold rounded">Clear</button>
+                </div>
+                <div class="flex-1 flex flex-wrap gap-1 items-center" id="excludeKeywordsTags"></div>
+              </div>
+            </div>
+
+            <!-- Message Display -->
+            <div id="message" class="px-6"></div>
+            
+            <!-- Toast Notification -->
+            <div id="toast" class="fixed bottom-4 right-4 z-50 transform translate-y-full transition-transform duration-300"></div>
+
+            <!-- Table Section -->
+            <div class="flex-1 overflow-hidden">
+              <div id="dataCentreView" style="display:none;" class="h-full overflow-y-auto custom-scrollbar"></div>
+              <div id="dataCentreTableView" style="display:none;" class="table-container custom-scrollbar">
+                <table id="dataCentreTable" class="w-full">
+                  <thead class="bg-slate-50 sticky top-0 z-10">
+                    <tr>
+                      <th class="px-4 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider border-b border-slate-200 cursor-pointer hover:bg-slate-100" data-sort="id">
+                        Activity ID
+                        <i data-lucide="chevron-up" class="w-3 h-3 inline ml-1 sort-icon" style="display: none;"></i>
+                        <i data-lucide="chevron-down" class="w-3 h-3 inline ml-1 sort-icon" style="display: none;"></i>
+                      </th>
+                      <th class="px-4 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider border-b border-slate-200 cursor-pointer hover:bg-slate-100" data-sort="name">
+                        Name
+                        <i data-lucide="chevron-up" class="w-3 h-3 inline ml-1 sort-icon" style="display: none;"></i>
+                        <i data-lucide="chevron-down" class="w-3 h-3 inline ml-1 sort-icon" style="display: none;"></i>
+                      </th>
+                      <th class="px-4 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider border-b border-slate-200 cursor-pointer hover:bg-slate-100" data-sort="startDate">
+                        Start
+                        <i data-lucide="chevron-up" class="w-3 h-3 inline ml-1 sort-icon" style="display: none;"></i>
+                        <i data-lucide="chevron-down" class="w-3 h-3 inline ml-1 sort-icon" style="display: none;"></i>
+                      </th>
+                      <th class="px-4 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider border-b border-slate-200 cursor-pointer hover:bg-slate-100" data-sort="finishDate">
+                        Finish
+                        <i data-lucide="chevron-up" class="w-3 h-3 inline ml-1 sort-icon" style="display: none;"></i>
+                        <i data-lucide="chevron-down" class="w-3 h-3 inline ml-1 sort-icon" style="display: none;"></i>
+                      </th>
+                      <th class="px-4 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider border-b border-slate-200 cursor-pointer hover:bg-slate-100" data-sort="duration">
+                        Duration
+                        <i data-lucide="chevron-up" class="w-3 h-3 inline ml-1 sort-icon" style="display: none;"></i>
+                        <i data-lucide="chevron-down" class="w-3 h-3 inline ml-1 sort-icon" style="display: none;"></i>
+                      </th>
+                      <th class="px-4 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider border-b border-slate-200 cursor-pointer hover:bg-slate-100" data-sort="wbs">
+                        Trade/Area
+                        <i data-lucide="chevron-up" class="w-3 h-3 inline ml-1 sort-icon" style="display: none;"></i>
+                        <i data-lucide="chevron-down" class="w-3 h-3 inline ml-1 sort-icon" style="display: none;"></i>
+                      </th>
+                      <th class="px-4 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider border-b border-slate-200 cursor-pointer hover:bg-slate-100" data-sort="location">
+                        Predicted Location
+                        <i data-lucide="chevron-up" class="w-3 h-3 inline ml-1 sort-icon" style="display: none;"></i>
+                        <i data-lucide="chevron-down" class="w-3 h-3 inline ml-1 sort-icon" style="display: none;"></i>
+                      </th>
+                      <th class="px-4 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider border-b border-slate-200 cursor-pointer hover:bg-slate-100" data-sort="tradeName">
+                        Predicted Trade Name
+                        <i data-lucide="chevron-up" class="w-3 h-3 inline ml-1 sort-icon" style="display: none;"></i>
+                        <i data-lucide="chevron-down" class="w-3 h-3 inline ml-1 sort-icon" style="display: none;"></i>
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody class="bg-white divide-y divide-slate-200"></tbody>
+                </table>
+              </div>
+              <div class="table-container custom-scrollbar">
+                <table id="activitiesTable" class="w-full" style="display:none;">
+                  <thead class="bg-slate-50 sticky top-0 z-10">
+                    <tr>
+                      <th class="px-4 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider border-b border-slate-200 cursor-pointer hover:bg-slate-100" data-sort="id">
+                        Activity ID
+                        <i data-lucide="chevron-up" class="w-3 h-3 inline ml-1 sort-icon" style="display: none;"></i>
+                        <i data-lucide="chevron-down" class="w-3 h-3 inline ml-1 sort-icon" style="display: none;"></i>
+                      </th>
+                      <th class="px-4 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider border-b border-slate-200 cursor-pointer hover:bg-slate-100" data-sort="name">
+                        Name
+                        <i data-lucide="chevron-up" class="w-3 h-3 inline ml-1 sort-icon" style="display: none;"></i>
+                        <i data-lucide="chevron-down" class="w-3 h-3 inline ml-1 sort-icon" style="display: none;"></i>
+                      </th>
+                      <th class="px-4 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider border-b border-slate-200 cursor-pointer hover:bg-slate-100" data-sort="startDate">
+                        Start
+                        <i data-lucide="chevron-up" class="w-3 h-3 inline ml-1 sort-icon" style="display: none;"></i>
+                        <i data-lucide="chevron-down" class="w-3 h-3 inline ml-1 sort-icon" style="display: none;"></i>
+                      </th>
+                      <th class="px-4 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider border-b border-slate-200 cursor-pointer hover:bg-slate-100" data-sort="finishDate">
+                        Finish
+                        <i data-lucide="chevron-up" class="w-3 h-3 inline ml-1 sort-icon" style="display: none;"></i>
+                        <i data-lucide="chevron-down" class="w-3 h-3 inline ml-1 sort-icon" style="display: none;"></i>
+                      </th>
+                      <th class="px-4 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider border-b border-slate-200 cursor-pointer hover:bg-slate-100" data-sort="duration">
+                        Duration
+                        <i data-lucide="chevron-up" class="w-3 h-3 inline ml-1 sort-icon" style="display: none;"></i>
+                        <i data-lucide="chevron-down" class="w-3 h-3 inline ml-1 sort-icon" style="display: none;"></i>
+                      </th>
+                      <th class="px-4 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider border-b border-slate-200 cursor-pointer hover:bg-slate-100" data-sort="wbs">
+                        Trade/Area
+                        <i data-lucide="chevron-up" class="w-3 h-3 inline ml-1 sort-icon" style="display: none;"></i>
+                        <i data-lucide="chevron-down" class="w-3 h-3 inline ml-1 sort-icon" style="display: none;"></i>
+                      </th>
+                      <th class="px-4 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider border-b border-slate-200 cursor-pointer hover:bg-slate-100" data-sort="location">
+                        Predicted Location
+                        <i data-lucide="chevron-up" class="w-3 h-3 inline ml-1 sort-icon" style="display: none;"></i>
+                        <i data-lucide="chevron-down" class="w-3 h-3 inline ml-1 sort-icon" style="display: none;"></i>
+                      </th>
+                      <th class="px-4 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider border-b border-slate-200 cursor-pointer hover:bg-slate-100" data-sort="tradeName">
+                        Predicted Trade Name
+                        <i data-lucide="chevron-up" class="w-3 h-3 inline ml-1 sort-icon" style="display: none;"></i>
+                        <i data-lucide="chevron-down" class="w-3 h-3 inline ml-1 sort-icon" style="display: none;"></i>
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody class="bg-white divide-y divide-slate-200"></tbody>
+                </table>
+              </div>
+            </div>
+
+            <!-- Empty State -->
+            <div id="emptyState" class="flex-1 flex items-center justify-center p-8">
+              <div class="text-center">
+                <div class="mx-auto w-16 h-16 bg-slate-100 rounded-full flex items-center justify-center mb-4">
+                  <i data-lucide="file-text" class="w-8 h-8 text-slate-400"></i>
+                </div>
+                <h3 class="text-lg font-medium text-slate-900 mb-2">No schedule data</h3>
+                <p class="text-slate-500">Upload a P6 schedule file to get started</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      // Initialize Lucide Icons
+      lucide.createIcons();
+
+      // --- Utility Functions ---
+      function formatDate(dateString) {
+        if (!dateString) return '';
+        try {
+          const date = new Date(dateString);
+          return isNaN(date.getTime()) ? dateString : date.toISOString().split('T')[0];
+        } catch { return dateString; }
+      }
+      
+      function escapeCSV(val) {
+        if (val == null) return '';
+        return '"' + String(val).replace(/"/g, '""') + '"';
+      }
+
+      function extractLocationFromWBS(name, wbs) {
+        if (!name && !wbs) return '';
+        // Combine name and wbs for scanning
+        const activityText = `${name || ''} ${wbs || ''}`.toLowerCase();
+        
+        // Updated location keywords mapping based on TradesLocations.csv
+        const locationKeywords = {
+          'DCH': ['dch', 'dch1', 'dch2', 'dch3', 'dch4'],
+          'EYD': ['eyd', 'eyd1', 'eyd2', 'eyd3', 'eyd4'],
+          'MYD': ['myd', 'myd1', 'myd2', 'myd3', 'myd4', 'myd1 block 1', 'myd1 blk 1', 'myd1 block 2', 'myd1 blk 2'],
+          'Conveyance': ['conveyance', 'conveyor'],
+          'DWTR': ['dwtr', 'water treatment'],
+          'Fire Pump House': ['fire pump house', 'fire pump', 'pump house'],
+          'GPS': ['gps'],
+          'SSS': ['sss'],
+          'GEN YARD': ['gen yard', 'gen yard-pad', 'gen yard pad'],
+          'USS YARD': ['uss yard', 'uss'],
+          'MCP': ['mcp'],
+          'Loading Dock': ['loading dock', 'loading bay', 'dock']
+        };
+        
+        // Scan for matches
+        for (const [locationCode, keywords] of Object.entries(locationKeywords)) {
+          if (keywords.some(keyword => activityText.includes(keyword))) {
+            return locationCode;
+          }
+        }
+        return '';
+      }
+
+      // --- Parsing Functions ---
+      function parseXMLData(xmlContent) {
+        const parser = new DOMParser();
+        const xmlDoc = parser.parseFromString(xmlContent, 'text/xml');
+        if (xmlDoc.getElementsByTagName('parsererror').length) throw new Error('Failed to parse XML file.');
+        const activities = Array.from(xmlDoc.getElementsByTagName('Activity'));
+        if (!activities.length) throw new Error('No activities found in XML file.');
+        
+        function getText(parent, tag) {
+          const el = parent.getElementsByTagName(tag)[0];
+          return el ? el.textContent : '';
+        }
+        
+        return activities.map((activity, i) => {
+          const activityName = getText(activity, 'Name') || getText(activity, 'ActivityName') || 'Unnamed Activity';
+          const wbs = getText(activity, 'WBSName') || getText(activity, 'WBSCode') || '';
+          const location = extractLocationFromWBS(activityName, wbs);
+          const detectedTrade = detectTradeFromActivity(activityName);
+          const tradeName = detectedTrade ? getTradeName(detectedTrade) : '';
+          
+          return {
+            id: getText(activity, 'Id') || getText(activity, 'ActivityId') || `ACT-${i+1}`,
+            name: activityName,
+            startDate: formatDate(getText(activity, 'PlannedStartDate') || getText(activity, 'StartDate')),
+            finishDate: formatDate(getText(activity, 'PlannedFinishDate') || getText(activity, 'FinishDate')),
+            duration: getText(activity, 'PlannedDuration') || getText(activity, 'Duration') || '0',
+            percentComplete: getText(activity, 'PercentComplete') || '0',
+            totalFloat: getText(activity, 'TotalFloat') || '0',
+            status: getText(activity, 'Status') || 'Not Started',
+            wbs: wbs,
+            location: location,
+            detectedTrade: detectedTrade,
+            tradeName: tradeName
+          };
+        });
+      }
+
+      function parseXERData(xerContent) {
+        const lines = xerContent.split('\n');
+        let isTaskSection = false, headers = [], taskData = [];
+        
+        for (const line of lines) {
+          const trimmed = line.trim();
+          if (trimmed.startsWith('%T') && trimmed.includes('TASK')) { isTaskSection = true; continue; }
+          if (isTaskSection && trimmed.startsWith('%F')) { headers = trimmed.substring(3).split('\t').map(h => h.trim()); continue; }
+          if (isTaskSection && trimmed.startsWith('%R')) {
+            const values = trimmed.substring(3).split('\t');
+            const activity = {};
+            headers.forEach((header, i) => activity[header] = values[i] ? values[i].trim() : '');
+            taskData.push(activity);
+          }
+          if (isTaskSection && trimmed.startsWith('%T') && !trimmed.includes('TASK')) break;
+        }
+        
+        if (taskData.length === 0) throw new Error('No TASK records found in the XER file.');
+        
+        return taskData.map((a, i) => {
+          const activityName = a.task_name || 'Unnamed Activity';
+          const wbs = a.wbs_id || '';
+          const location = extractLocationFromWBS(activityName, wbs);
+          const detectedTrade = detectTradeFromActivity(activityName);
+          const tradeName = detectedTrade ? getTradeName(detectedTrade) : '';
+          
+          return {
+            id: a.task_code || `XER-ACT-${i+1}`,
+            name: activityName,
+            startDate: formatDate(a.early_start_date),
+            finishDate: formatDate(a.early_end_date),
+            duration: a.target_drtn_hr_cnt || '0',
+            percentComplete: a.phys_complete_pct || '0',
+            totalFloat: a.total_float_hr_cnt || '0',
+            status: a.status_code || 'Not Started',
+            wbs: wbs,
+            location: location,
+            detectedTrade: detectedTrade,
+            tradeName: tradeName
+          };
+        });
+      }
+
+      function parseCSVData(csvContent) {
+        const lines = csvContent.split(/\r?\n/).filter(line => line.trim() !== '');
+        if (lines.length < 2) throw new Error('CSV file must have a header and at least one data row.');
+        
+        function parseRow(row) {
+          const result = [], len = row.length;
+          let current = '', inQuotes = false;
+          for (let i = 0; i < len; i++) {
+            const char = row[i];
+            if (char === '"') inQuotes = !inQuotes;
+            else if (char === ',' && !inQuotes) { result.push(current); current = ''; }
+            else current += char;
+          }
+          result.push(current);
+          return result.map(v => v.trim().replace(/^"|"$/g, '').replace(/""/g, '"'));
+        }
+        
+        const headers = parseRow(lines[0]).map(h => h.toLowerCase().trim());
+        const findIdx = names => { for (const n of names) { const idx = headers.indexOf(n.toLowerCase()); if (idx !== -1) return idx; } return -1; };
+        
+        const idIdx = findIdx(['activity id','id','task id']);
+        const nameIdx = findIdx(['activity name','name','task name']);
+        const startIdx = findIdx(['start','start date','planned start']);
+        const finishIdx = findIdx(['finish','finish date','planned finish']);
+        const durIdx = findIdx(['original duration','duration']);
+        const pctIdx = findIdx(['activity % complete','% complete','percent complete']);
+        const statusIdx = findIdx(['activity status','status']);
+        const floatIdx = findIdx(['total float','total float (days)']);
+        const wbsIdx = findIdx(['wbs name','wbs','wbs code']);
+        
+        const activities = [];
+        for (let i = 1; i < lines.length; i++) {
+          const values = parseRow(lines[i]);
+          if (values.length < headers.length) continue;
+          const wbs = values[wbsIdx] || '';
+          const activityName = values[nameIdx] || 'Unnamed Activity';
+          const location = extractLocationFromWBS(activityName, wbs);
+          const detectedTrade = detectTradeFromActivity(activityName);
+          const tradeName = detectedTrade ? getTradeName(detectedTrade) : '';
+          
+          activities.push({
+            id: values[idIdx] || `CSV-ACT-${i}`,
+            name: activityName,
+            startDate: formatDate(values[startIdx]),
+            finishDate: formatDate(values[finishIdx]),
+            duration: values[durIdx] || '0',
+            percentComplete: values[pctIdx] || '0',
+            totalFloat: values[floatIdx] || '0',
+            status: values[statusIdx] || 'Not Started',
+            wbs: wbs,
+            location: location,
+            detectedTrade: detectedTrade,
+            tradeName: tradeName
+          });
+        }
+        
+        if (activities.length === 0) throw new Error('Could not parse any valid activity rows from the CSV file.');
+        return activities;
+      }
+
+      function parseMPPData(arrayBuffer) {
+        try {
+          let project;
+          let parserUsed = '';
+          
+          // Try MSParser first
+          if (typeof MSParser !== 'undefined') {
+            try {
+              const msp = new MSParser(arrayBuffer);
+              project = msp.parse();
+              parserUsed = 'MSParser';
+            } catch (mspError) {
+              console.warn('MSParser failed:', mspError);
+            }
+          }
+          
+          // Try alternative parser if MSParser failed
+          if (!project && typeof MPPParser !== 'undefined') {
+            try {
+              const mppParser = new MPPParser();
+              project = mppParser.parse(arrayBuffer);
+              parserUsed = 'MPPParser';
+            } catch (mppError) {
+              console.warn('MPPParser failed:', mppError);
+            }
+          }
+          
+          // If both libraries failed, provide helpful error
+          if (!project) {
+            throw new Error('Unable to parse Microsoft Project file. Please ensure the file is not corrupted and try converting it to XML format first.');
+          }
+          
+          console.log(`Successfully parsed MPP file using ${parserUsed}`);
+          
+          if (!project.tasks || !Array.isArray(project.tasks)) {
+            throw new Error('No tasks found in Microsoft Project file.');
+          }
+          
+          return project.tasks.map((task, index) => {
+            // Skip summary tasks (tasks with subtasks)
+            if (task.subtasks && task.subtasks.length > 0) {
+              return null;
+            }
+            
+            // Convert Microsoft Project dates to our format
+            const startDate = task.start ? formatDate(new Date(task.start)) : '';
+            const finishDate = task.finish ? formatDate(new Date(task.finish)) : '';
+            
+            // Calculate duration in days
+            let duration = '0';
+            if (startDate && finishDate) {
+              const start = new Date(startDate);
+              const finish = new Date(finishDate);
+              const diffTime = Math.abs(finish - start);
+              const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+              duration = diffDays.toString();
+            }
+            
+            // Determine status based on percent complete
+            let status = 'Not Started';
+            if (task.percentComplete) {
+              const pct = parseFloat(task.percentComplete);
+              if (pct >= 100) status = 'Complete';
+              else if (pct > 0) status = 'In Progress';
+            }
+            
+            // Extract WBS from outline number or name
+            const wbs = task.outlineNumber || task.name || '';
+            const activityName = task.name || 'Unnamed Activity';
+            const location = extractLocationFromWBS(activityName, wbs);
+            const detectedTrade = detectTradeFromActivity(activityName);
+            const tradeName = detectedTrade ? getTradeName(detectedTrade) : '';
+            
+            return {
+              id: task.id || task.uniqueID || `MPP-ACT-${index + 1}`,
+              name: activityName,
+              startDate: startDate,
+              finishDate: finishDate,
+              duration: duration,
+              percentComplete: task.percentComplete || '0',
+              totalFloat: task.totalSlack || '0',
+              status: status,
+              wbs: wbs,
+              location: location,
+              detectedTrade: detectedTrade,
+              tradeName: tradeName
+            };
+          }).filter(task => task !== null); // Remove null entries (summary tasks)
+          
+        } catch (error) {
+          console.error('Error parsing MPP file:', error);
+          throw new Error(`Failed to parse Microsoft Project file: ${error.message}`);
+        }
+      }
+
+      // --- Trade Filter System (Updated with TradesLocations.csv data) ---
+      const tradeKeywords = {
+        backfill: ['backfill', 'fill', 'earth', 'soil'],
+        booster_pump_system: ['booster pump', 'pump system', 'booster pump system installation'],
+        concrete_formwork: ['formwork', 'form', 'shoring', 'falsework', 'scaffolding', 'concrete formwork'],
+        concrete_pour: ['pour', 'concrete pour', 'placement', 'concrete placement', 'slab', 'footing'],
+        concrete_rebar: ['rebar', 'reinforc', 'steel reinforc', 'reinforcing', 'bar', 'concrete rebar'],
+        conveyance: ['conveyance', 'conveyor', 'material handling'],
+        dwtr_installation: ['dwtr', 'dwtr installation', 'water treatment'],
+        electrical_conduit: ['electrical yard equipment conduit', 'conduit', 'electrical conduit'],
+        electrical_placement: ['electrical yard equipment placement', 'electrical equipment', 'electrical placement'],
+        generator_placement: ['generator placement', 'generator', 'gen'],
+        mwt_installation: ['mwt', 'mwt installation', 'water treatment'],
+        mechanical_placement: ['mechanical yard equipment placement', 'mechanical equipment', 'mechanical placement'],
+        roofing_flashing: ['roofing flashing', 'flashing', 'roof flashing'],
+        roofing_insulation: ['roofing insulation', 'insulation', 'roof insulation'],
+        roofing_membrane: ['roofing membrane', 'membrane', 'roof membrane'],
+        roofing_metal_deck: ['roofing metal deck', 'metal deck', 'roof deck'],
+        structural_piles: ['structural piles', 'piles', 'foundation', 'caisson', 'pier'],
+        structural_steel: ['structural steel', 'steel', 'beam', 'column', 'frame', 'erection', 'welding']
+      };
+
+      // Trade filter state
+      let selectedTrades = {
+        backfill: false, booster_pump_system: false, concrete_formwork: false, concrete_pour: false,
+        concrete_rebar: false, conveyance: false, dwtr_installation: false, electrical_conduit: false,
+        electrical_placement: false, generator_placement: false, mwt_installation: false,
+        mechanical_placement: false, roofing_flashing: false, roofing_insulation: false,
+        roofing_membrane: false, roofing_metal_deck: false, structural_piles: false, structural_steel: false
+      };
+      let customKeywords = '';
+      let excludeKeywords = ['rfp', 'rfi', 'approval', 'submittal', 'review', 'meeting', 'mobilization', 
+                            'demobilization', 'permit', 'inspection', 'testing', 'close out', 'closeout',
+                            'procurement', 'ordering', 'delivery', 'schedule', 'planning', 'coordination',
+                            'procure', 'po', 'design', 'lead time', 'inventory'];
+
+      // --- Trade-Location Validation Database ---
+      let tradesLocationsDB = {};
+      
+      // Load the TradesLocations.csv database
+      async function loadTradesLocationsDB() {
+        try {
+          const response = await fetch('../TradesLocations.csv');
+          const csvText = await response.text();
+          const lines = csvText.split('\n').filter(line => line.trim());
+          
+          if (lines.length < 2) {
+            console.warn('TradesLocations.csv not found or invalid, using fallback validation');
+            return;
+          }
+          
+          const headers = lines[0].split(',').map(h => h.trim());
+          const trades = headers.slice(1); // First column is Location
+          
+          for (let i = 1; i < lines.length; i++) {
+            const values = lines[i].split(',').map(v => v.trim());
+            const location = values[0];
+            tradesLocationsDB[location] = {};
+            
+            for (let j = 1; j < values.length; j++) {
+              const trade = trades[j - 1];
+              tradesLocationsDB[location][trade] = values[j] === 'Y';
+            }
+          }
+          
+          console.log('TradesLocations database loaded:', tradesLocationsDB);
+        } catch (error) {
+          console.warn('Could not load TradesLocations.csv:', error);
+        }
+      }
+
+
+
+      // Detect trade from activity name
+      function detectTradeFromActivity(activityName) {
+        const activityText = activityName.toLowerCase();
+        
+        for (const [tradeKey, keywords] of Object.entries(tradeKeywords)) {
+          if (keywords.some(keyword => activityText.includes(keyword))) {
+            return tradeKey;
+          }
+        }
+        return null;
+      }
+
+      // Translate trade codes to common language names
+      function getTradeName(tradeCode) {
+        const tradeNameMap = {
+          'backfill': 'Backfill',
+          'booster_pump_system': 'Booster Pump System Installation',
+          'concrete_formwork': 'Concrete Formwork',
+          'concrete_pour': 'Concrete Pour',
+          'concrete_rebar': 'Concrete Rebar',
+          'conveyance': 'Conveyance',
+          'dwtr_installation': 'DWTR Installation',
+          'electrical_conduit': 'Electrical Yard Equipment Conduit',
+          'electrical_placement': 'Electrical Yard Equipment Placement',
+          'generator_placement': 'Generator Placement',
+          'mwt_installation': 'MWT Installation',
+          'mechanical_placement': 'Mechanical Yard Equipment Placement',
+          'roofing_flashing': 'Roofing Flashing',
+          'roofing_insulation': 'Roofing Insulation',
+          'roofing_membrane': 'Roofing Membrane',
+          'roofing_metal_deck': 'Roofing Metal Deck',
+          'structural_piles': 'Structural Piles',
+          'structural_steel': 'Structural Steel'
+        };
+        
+        return tradeNameMap[tradeCode] || tradeCode;
+      }
+
+      // --- Location Multiselect Logic (Updated with TradesLocations.csv data) ---
+      const locationCodes = [
+        'DCH', 'EYD', 'MYD', 'Conveyance', 'DWTR', 'Fire Pump House', 'GPS', 'SSS', 'GEN YARD', 'USS YARD', 'MCP', 'Loading Dock'
+      ];
+      let selectedLocations = [...locationCodes]; // Default: all selected
+
+      const locationFilterBtn = document.getElementById('locationFilterBtn');
+      const locationFilterDropdown = document.getElementById('locationFilterDropdown');
+      const locationFilterText = document.getElementById('locationFilterText');
+      const locationCheckboxes = document.getElementById('locationCheckboxes');
+      const selectAllLocations = document.getElementById('selectAllLocations');
+
+      function updateLocationCheckboxes() {
+        locationCheckboxes.innerHTML = locationCodes.map(code => `
+          <label class="flex items-center space-x-2 cursor-pointer p-2 rounded-lg hover:bg-slate-100">
+            <input type="checkbox" data-location="${code}" class="h-4 w-4 rounded border-slate-300 text-blue-600 focus:ring-blue-500" ${selectedLocations.includes(code) ? 'checked' : ''}>
+            <span class="text-sm text-slate-700">${code}</span>
+          </label>
+        `).join('');
+      }
+
+      function updateLocationFilterText() {
+        if (selectedLocations.length === 0 || selectedLocations.length === locationCodes.length) {
+          locationFilterText.textContent = 'All Locations';
+        } else if (selectedLocations.length === 1) {
+          locationFilterText.textContent = selectedLocations[0];
+        } else {
+          locationFilterText.textContent = `${selectedLocations.length} Locations`;
+        }
+      }
+
+      function handleLocationCheckboxChange(e) {
+        const code = e.target.dataset.location;
+        if (e.target.checked) {
+          if (!selectedLocations.includes(code)) selectedLocations.push(code);
+        } else {
+          selectedLocations = selectedLocations.filter(l => l !== code);
+        }
+        updateLocationFilterText();
+        filterActivities();
+      }
+
+      function handleSelectAllLocations() {
+        if (selectedLocations.length === locationCodes.length) {
+          selectedLocations = [];
+        } else {
+          selectedLocations = [...locationCodes];
+        }
+        updateLocationCheckboxes();
+        updateLocationFilterText();
+        filterActivities();
+      }
+
+      locationFilterBtn.addEventListener('click', () => {
+        locationFilterDropdown.style.display = locationFilterDropdown.style.display === 'none' ? 'block' : 'none';
+        lucide.createIcons();
+      });
+      document.addEventListener('click', (e) => {
+        if (!locationFilterBtn.contains(e.target) && !locationFilterDropdown.contains(e.target)) {
+          locationFilterDropdown.style.display = 'none';
+        }
+      });
+      locationCheckboxes.addEventListener('change', handleLocationCheckboxChange);
+      selectAllLocations.addEventListener('click', handleSelectAllLocations);
+
+      function initializeLocationFilter() {
+        updateLocationCheckboxes();
+        updateLocationFilterText();
+      }
+      // --- END Location Multiselect Logic ---
+
+      // --- UI Logic ---
+      let allActivities = [], filteredActivities = [];
+      const fileInput = document.getElementById('fileInput');
+      const exportBtn = document.getElementById('exportBtn');
+      const table = document.getElementById('activitiesTable');
+      const tbody = table.querySelector('tbody');
+      const message = document.getElementById('message');
+      const emptyState = document.getElementById('emptyState');
+      const tradeFilterBtn = document.getElementById('tradeFilterBtn');
+      const tradeFilterDropdown = document.getElementById('tradeFilterDropdown');
+      const tradeFilterText = document.getElementById('tradeFilterText');
+      const tradeCheckboxes = document.getElementById('tradeCheckboxes');
+      const selectAllTrades = document.getElementById('selectAllTrades');
+      const customKeywordsInput = document.getElementById('customKeywords');
+      const clearCustomKeywords = document.getElementById('clearCustomKeywords');
+      const excludeKeywordsTags = document.getElementById('excludeKeywordsTags');
+      const newExcludeKeyword = document.getElementById('newExcludeKeyword');
+      const addExcludeKeyword = document.getElementById('addExcludeKeyword');
+      const clearExcludeKeywords = document.getElementById('clearExcludeKeywords');
+      const zoneFilter = document.getElementById('zoneFilter');
+      const durationFilter = document.getElementById('durationFilter');
+      const dataCentreCodes = ['DCH','EYD','MYD','Conveyance','DWTR','Fire Pump House','GPS','SSS','GEN YARD','USS YARD','MCP','Loading Dock'];
+      let viewMode = 'standard'; // 'standard' or 'dataCentre'
+      let currentSort = { field: 'startDate', direction: 'asc' }; // Default sort by start date ascending
+      const standardViewBtn = document.getElementById('standardViewBtn');
+      const dataCentreViewBtn = document.getElementById('dataCentreViewBtn');
+      const dataCentreViewDiv = document.getElementById('dataCentreView');
+      const dataCentreTableViewDiv = document.getElementById('dataCentreTableView');
+      const dataCentreTable = document.getElementById('dataCentreTable');
+      const dataCentreTableTbody = dataCentreTable.querySelector('tbody');
+      const dataCentreToggle = document.getElementById('dataCentreToggle');
+      const groupedViewBtn = document.getElementById('groupedViewBtn');
+      const tableViewBtn = document.getElementById('tableViewBtn');
+      const processBtn = document.getElementById('processBtn');
+      let selectedFile = null;
+      let dataCentreViewMode = 'grouped'; // 'grouped' or 'table'
+
+      function showMessage(msg, type) {
+        const bgColor = type === 'error' ? 'bg-red-50 border-red-200 text-red-800' : 'bg-green-50 border-green-200 text-green-800';
+        const icon = type === 'error' ? 'alert-circle' : 'check-circle';
+        
+        // Show in main message area for errors
+        if (type === 'error') {
+          message.innerHTML = `
+            <div class="mx-6 mb-4 p-4 border rounded-lg ${bgColor} flex items-center gap-3 fade-in">
+              <i data-lucide="${icon}" class="w-5 h-5"></i>
+              <span class="text-sm font-medium">${msg}</span>
+            </div>
+          `;
+          lucide.createIcons();
+        } else {
+          // Show success messages as toast notification
+          const toast = document.getElementById('toast');
+          toast.innerHTML = `
+            <div class="bg-white border border-gray-200 rounded-lg shadow-lg p-4 flex items-center gap-3 min-w-80">
+              <i data-lucide="${icon}" class="w-5 h-5 text-green-600"></i>
+              <span class="text-sm font-medium text-gray-800">${msg}</span>
+              <button onclick="hideToast()" class="ml-auto text-gray-400 hover:text-gray-600">
+                <i data-lucide="x" class="w-4 h-4"></i>
+              </button>
+            </div>
+          `;
+          lucide.createIcons();
+          
+          // Show toast
+          toast.classList.remove('translate-y-full');
+          toast.classList.add('translate-y-0');
+          
+          // Auto-hide after 3 seconds
+          setTimeout(() => {
+            hideToast();
+          }, 3000);
+        }
+      }
+
+      function hideToast() {
+        const toast = document.getElementById('toast');
+        toast.classList.remove('translate-y-0');
+        toast.classList.add('translate-y-full');
+      }
+
+      function clearMessage() { 
+        message.innerHTML = ''; 
+      }
+
+      // --- View Mode Functions ---
+      function setViewMode(mode) {
+        viewMode = mode;
+        
+        if (mode === 'standard') {
+          standardViewBtn.className = 'px-4 py-2 text-sm font-medium rounded-md transition-colors bg-blue-600 text-white shadow-sm';
+          dataCentreViewBtn.className = 'px-4 py-2 text-sm font-medium rounded-md transition-colors text-slate-700 hover:bg-slate-100';
+          dataCentreViewDiv.style.display = 'none';
+          dataCentreTableViewDiv.style.display = 'none';
+          dataCentreToggle.style.display = 'none';
+          table.style.display = 'table';
+        } else {
+          standardViewBtn.className = 'px-4 py-2 text-sm font-medium rounded-md transition-colors text-slate-700 hover:bg-slate-100';
+          dataCentreViewBtn.className = 'px-4 py-2 text-sm font-medium rounded-md transition-colors bg-blue-600 text-white shadow-sm';
+          dataCentreToggle.style.display = 'flex';
+          table.style.display = 'none';
+          setDataCentreViewMode(dataCentreViewMode);
+        }
+        
+        // Re-render based on current view
+        if (allActivities.length > 0) {
+          if (mode === 'dataCentre') {
+            renderDataCentreView();
+          } else {
+            renderTable(filteredActivities);
+          }
+        }
+      }
+
+      function setDataCentreViewMode(mode) {
+        dataCentreViewMode = mode;
+        
+        if (mode === 'grouped') {
+          groupedViewBtn.className = 'px-4 py-2 text-sm font-medium rounded-md transition-colors bg-blue-600 text-white shadow-sm';
+          tableViewBtn.className = 'px-4 py-2 text-sm font-medium rounded-md transition-colors text-slate-700 hover:bg-slate-100';
+          dataCentreViewDiv.style.display = 'block';
+          dataCentreTableViewDiv.style.display = 'none';
+        } else {
+          groupedViewBtn.className = 'px-4 py-2 text-sm font-medium rounded-md transition-colors text-slate-700 hover:bg-slate-100';
+          tableViewBtn.className = 'px-4 py-2 text-sm font-medium rounded-md transition-colors bg-blue-600 text-white shadow-sm';
+          dataCentreViewDiv.style.display = 'none';
+          dataCentreTableViewDiv.style.display = 'block';
+        }
+        
+        // Re-render based on current view
+        if (allActivities.length > 0 && viewMode === 'dataCentre') {
+          if (mode === 'grouped') {
+            renderDataCentreView();
+          } else {
+            renderDataCentreTable();
+          }
+        }
+      }
+
+      // --- Trade Filter Functions ---
+      function initializeTradeFilter() {
+        // Populate trade checkboxes
+        tradeCheckboxes.innerHTML = Object.keys(tradeKeywords).map(trade => `
+          <label class="flex items-center space-x-2 cursor-pointer p-2 rounded-lg hover:bg-slate-100">
+            <input type="checkbox" data-trade="${trade}" class="h-4 w-4 rounded border-slate-300 text-blue-600 focus:ring-blue-500">
+            <span class="text-sm text-slate-700 capitalize">${trade.replace(/_/g, ' ')}</span>
+          </label>
+        `).join('');
+
+        // Populate exclude keywords tags
+        updateExcludeKeywordsTags();
+
+        // Add event listeners
+        tradeCheckboxes.addEventListener('change', handleTradeCheckboxChange);
+        selectAllTrades.addEventListener('click', handleSelectAllTrades);
+        customKeywordsInput.addEventListener('input', handleCustomKeywordsChange);
+        clearCustomKeywords.addEventListener('click', handleClearCustomKeywords);
+        addExcludeKeyword.addEventListener('click', handleAddExcludeKeyword);
+        clearExcludeKeywords.addEventListener('click', handleClearExcludeKeywords);
+        newExcludeKeyword.addEventListener('keypress', (e) => {
+          if (e.key === 'Enter') handleAddExcludeKeyword();
+        });
+
+        // Toggle dropdown
+        tradeFilterBtn.addEventListener('click', () => {
+          tradeFilterDropdown.style.display = tradeFilterDropdown.style.display === 'none' ? 'block' : 'none';
+          lucide.createIcons(); // Recreate icons after showing dropdown
+        });
+
+        // Close dropdown when clicking outside
+        document.addEventListener('click', (e) => {
+          if (!tradeFilterBtn.contains(e.target) && !tradeFilterDropdown.contains(e.target)) {
+            tradeFilterDropdown.style.display = 'none';
+          }
+        });
+      }
+
+      function handleTradeCheckboxChange(e) {
+        const trade = e.target.dataset.trade;
+        selectedTrades[trade] = e.target.checked;
+        updateTradeFilterText();
+        filterActivities();
+      }
+
+      function handleSelectAllTrades() {
+        const allSelected = Object.values(selectedTrades).every(Boolean);
+        const newState = Object.keys(selectedTrades).reduce((acc, trade) => {
+          acc[trade] = !allSelected;
+          return acc;
+        }, {});
+        selectedTrades = newState;
+        
+        // Update checkboxes
+        tradeCheckboxes.querySelectorAll('input[type="checkbox"]').forEach(checkbox => {
+          checkbox.checked = selectedTrades[checkbox.dataset.trade];
+        });
+        
+        updateTradeFilterText();
+        filterActivities();
+      }
+
+      function handleCustomKeywordsChange(e) {
+        customKeywords = e.target.value;
+        filterActivities();
+      }
+
+      function handleClearCustomKeywords() {
+        customKeywords = '';
+        customKeywordsInput.value = '';
+        filterActivities();
+      }
+
+      function handleAddExcludeKeyword() {
+        const keyword = newExcludeKeyword.value.trim().toLowerCase();
+        if (keyword && !excludeKeywords.includes(keyword)) {
+          excludeKeywords.push(keyword);
+          updateExcludeKeywordsTags();
+          newExcludeKeyword.value = '';
+          filterActivities();
+        }
+      }
+
+      function handleClearExcludeKeywords() {
+        excludeKeywords = [];
+        updateExcludeKeywordsTags();
+        filterActivities();
+      }
+
+      function updateExcludeKeywordsTags() {
+        excludeKeywordsTags.innerHTML = excludeKeywords.map(keyword => `
+          <span class="bg-red-100 text-red-800 text-xs font-medium px-2.5 py-1 rounded-full flex items-center">
+            ${keyword}
+            <button onclick="removeExcludeKeyword('${keyword}')" class="ml-1.5 text-red-500 hover:text-red-700">
+              <i data-lucide="x" class="w-3 h-3"></i>
+            </button>
+          </span>
+        `).join('');
+        lucide.createIcons();
+      }
+
+      function removeExcludeKeyword(keyword) {
+        excludeKeywords = excludeKeywords.filter(k => k !== keyword);
+        updateExcludeKeywordsTags();
+        filterActivities();
+      }
+
+      function updateTradeFilterText() {
+        const selectedCount = Object.values(selectedTrades).filter(Boolean).length;
+        const totalCount = Object.keys(selectedTrades).length;
+        
+        if (selectedCount === 0) {
+          tradeFilterText.textContent = 'All Trades/Areas';
+        } else if (selectedCount === totalCount) {
+          tradeFilterText.textContent = 'All Trades Selected';
+        } else {
+          tradeFilterText.textContent = `${selectedCount} Trade${selectedCount > 1 ? 's' : ''} Selected`;
+        }
+      }
+
+      function renderTable(data) {
+        tbody.innerHTML = '';
+        if (!data.length) { 
+          table.style.display = 'none';
+          emptyState.style.display = 'flex';
+          return; 
+        }
+        
+        table.style.display = '';
+        emptyState.style.display = 'none';
+        
+        data.forEach((a, index) => {
+          const tr = document.createElement('tr');
+          tr.className = 'hover:bg-slate-50 transition-colors fade-in';
+          tr.style.animationDelay = `${index * 0.05}s`;
+          
+          const getStatusColor = (status) => {
+            const statusLower = status.toLowerCase();
+            if (statusLower.includes('complete')) return 'bg-green-100 text-green-800';
+            if (statusLower.includes('progress')) return 'bg-blue-100 text-blue-800';
+            if (statusLower.includes('not started')) return 'bg-slate-100 text-slate-800';
+            return 'bg-yellow-100 text-yellow-800';
+          };
+
+          // Updated column order: Activity ID, Name, Start, Finish, Duration, Trade/Area, Predicted Location, Predicted Trade Name
+          tr.innerHTML = `
+            <td class="px-4 py-3 text-sm font-medium text-slate-900">${a.id}</td>
+            <td class="px-4 py-3 text-sm text-slate-900">${a.name}</td>
+            <td class="px-4 py-3 text-sm text-slate-600">${a.startDate}</td>
+            <td class="px-4 py-3 text-sm text-slate-600">${a.finishDate}</td>
+            <td class="px-4 py-3 text-sm text-slate-600">${a.duration}</td>
+            <td class="px-4 py-3 text-sm text-slate-600">${a.wbs}</td>
+            <td class="px-4 py-3 text-sm text-slate-600">${a.location || ''}</td>
+            <td class="px-4 py-3 text-sm text-slate-600">${a.tradeName || ''}</td>
+          `;
+          tbody.appendChild(tr);
+        });
+        
+        // Update sort icons after rendering
+        updateSortIcons();
+      }
+
+      function renderDataCentreTable() {
+        // Filter activities to only include those with trade names
+        const tradeFilteredActivities = filteredActivities.filter(a => a.tradeName && a.tradeName.trim() !== '');
+        
+        dataCentreTableTbody.innerHTML = '';
+        if (!tradeFilteredActivities.length) { 
+          dataCentreTable.style.display = 'none';
+          return; 
+        }
+        
+        dataCentreTable.style.display = 'table';
+        
+        tradeFilteredActivities.forEach((a, index) => {
+          const tr = document.createElement('tr');
+          tr.className = 'hover:bg-slate-50 transition-colors fade-in';
+          tr.style.animationDelay = `${index * 0.05}s`;
+          
+          const getStatusColor = (status) => {
+            const statusLower = status.toLowerCase();
+            if (statusLower.includes('complete')) return 'bg-green-100 text-green-800';
+            if (statusLower.includes('progress')) return 'bg-blue-100 text-blue-800';
+            if (statusLower.includes('not started')) return 'bg-slate-100 text-slate-800';
+            return 'bg-yellow-100 text-yellow-800';
+          };
+
+          // Updated column order: Activity ID, Name, Start, Finish, Duration, Trade/Area, Predicted Location, Predicted Trade Name
+          tr.innerHTML = `
+            <td class="px-4 py-3 text-sm font-medium text-slate-900">${a.id}</td>
+            <td class="px-4 py-3 text-sm text-slate-900">${a.name}</td>
+            <td class="px-4 py-3 text-sm text-slate-600">${a.startDate}</td>
+            <td class="px-4 py-3 text-sm text-slate-600">${a.finishDate}</td>
+            <td class="px-4 py-3 text-sm text-slate-600">${a.duration}</td>
+            <td class="px-4 py-3 text-sm text-slate-600">${a.wbs}</td>
+            <td class="px-4 py-3 text-sm text-slate-600">${a.location || ''}</td>
+            <td class="px-4 py-3 text-sm text-slate-600">${a.tradeName || ''}</td>
+          `;
+          dataCentreTableTbody.appendChild(tr);
+        });
+        
+        // Update sort icons for data centre table
+        updateSortIcons();
+      }
+
+      function extractZone(trade) {
+        const match = trade.match(/Zone\s*\d+/i);
+        return match ? match[0].trim() : '';
+      }
+
+      function extractLocation(trade) {
+        // Look for known codes or patterns (e.g., 'USS', 'MCP', 'MYD', 'EYD', 'Gen Yard-Pad', etc.)
+        const codes = ['USS', 'MCP', 'MYD', 'EYD', 'Gen Yard-Pad', 'SSS', 'DCH', 'DWTR', 'GPS', 'Loading Dock', 'Booster Pump System', 'Fire Pump House', 'Tank Yard', 'Conveyance'];
+        for (const code of codes) {
+          if (trade.toUpperCase().includes(code.replace(/ /g, '').toUpperCase())) return code;
+        }
+        // Fallback: try to extract a word after 'Zone X-' or the first word
+        const afterZone = trade.split('-')[1];
+        if (afterZone) return afterZone.split(' ')[0];
+        return trade.split(' ')[0];
+      }
+
+      function updateZoneFilterOptions() {
+        const zoneSet = new Set();
+        allActivities.forEach(a => {
+          if (a.wbs && extractZone(a.wbs)) zoneSet.add(extractZone(a.wbs));
+        });
+        const options = ['<option value="">All Zones</option>'];
+        Array.from(zoneSet).sort().forEach(zone => {
+          options.push(`<option value="${zone}">${zone}</option>`);
+        });
+        zoneFilter.innerHTML = options.join('');
+      }
+
+      function updateAllFilters() {
+        updateZoneFilterOptions();
+      }
+
+      function groupByDataCentre(activities) {
+        const groups = {};
+        dataCentreCodes.forEach(code => { groups[code] = []; });
+        activities.forEach(a => {
+          if (a.location && a.tradeName) { // Only include activities with both location and trade name
+            // Check if the location matches any of our data centre codes
+            const found = dataCentreCodes.find(code => a.location.toUpperCase().includes(code.toUpperCase()));
+            if (found) groups[found].push(a);
+          }
+        });
+        return groups;
+      }
+
+      // Data Centre view state
+      let selectedItems = new Set();
+      let hiddenItems = new Set();
+      let openGroups = new Set();
+
+      function renderDataCentreView() {
+        const groups = groupByDataCentre(filteredActivities);
+        // Only add new group codes to openGroups if not already present
+        const groupCodes = Object.keys(groups).filter(code => groups[code].length > 0);
+        groupCodes.forEach(code => {
+          if (!openGroups.has(code)) openGroups.add(code);
+        });
+        let html = '';
+        let hasAny = false;
+        html += '<div class="p-6">';
+        html += `
+          <div class="flex items-center gap-4 mb-4">
+            <span class="text-sm">Selected: <span id="selectedCount">0</span></span>
+            <span class="text-sm">Hidden: <span id="hiddenCount">0</span></span>
+          </div>
+        `;
+        Object.keys(groups).sort().forEach(code => {
+          const group = groups[code];
+          if (group.length) {
+            hasAny = true;
+            const visibleActivities = group.filter(a => !hiddenItems.has(a.id));
+            if (hiddenItems.has(code) || visibleActivities.length === 0) return;
+            const allInGroupSelected = visibleActivities.length > 0 && visibleActivities.every(a => selectedItems.has(a.id));
+            const isOpen = openGroups.has(code);
+            html += `
+              <div class="mb-4 border border-gray-200 rounded-lg overflow-hidden">
+                <div class="bg-gray-50 px-4 py-3 border-b border-gray-200 flex items-center w-full">
+                  <input type="checkbox" 
+                    class="h-4 w-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500 mr-3"
+                    ${allInGroupSelected ? 'checked' : ''}
+                    onchange="event.stopPropagation(); handleGroupSelect('${code}', ${JSON.stringify(visibleActivities.map(a => a.id))})"
+                  />
+                  <span class="flex-1 font-semibold text-gray-800">${code}</span>
+                  <span class="text-sm text-gray-600 mr-2">${visibleActivities.length} activities</span>
+                  <button type="button" class="ml-2" onclick="toggleGroup('${code}')" tabindex="0" aria-label="Toggle group">
+                    <svg class="w-5 h-5 transform transition-transform ${isOpen ? '' : 'rotate-180'}" id="icon-${code}" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                    </svg>
+                  </button>
+                </div>
+                <div class="p-4" id="content-${code}" style="display:${isOpen ? 'block' : 'none'};">
+                  <ul class="space-y-2">
+                    ${visibleActivities.map(activity => `
+                      <li class="flex items-center text-sm">
+                        <input type="checkbox" 
+                          class="h-4 w-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500 mr-3"
+                          ${selectedItems.has(activity.id) ? 'checked' : ''}
+                          onchange="handleItemSelect('${activity.id}')"
+                        />
+                        <span class="text-gray-800">${activity.name} (${activity.startDate || 'No Date'})</span>
+                      </li>
+                    `).join('')}
+                  </ul>
+                </div>
+              </div>
+            `;
+          }
+        });
+        if (!hasAny) {
+          html = `<div class='text-slate-500 text-center py-8'>No activities found for any data centre.</div>`;
+        }
+        html += '</div>';
+        dataCentreViewDiv.innerHTML = html;
+        updateCounts();
+      }
+
+      function toggleGroup(code) {
+        if (openGroups.has(code)) {
+          openGroups.delete(code);
+        } else {
+          openGroups.add(code);
+        }
+        renderDataCentreView();
+      }
+
+      function handleGroupSelect(groupKey, activityIds) {
+        const allSelected = activityIds.every(id => selectedItems.has(id));
+        
+        if (allSelected) {
+          activityIds.forEach(id => selectedItems.delete(id));
+        } else {
+          activityIds.forEach(id => selectedItems.add(id));
+        }
+        
+        renderDataCentreView(); // Refresh the view
+      }
+
+      function handleItemSelect(id) {
+        if (selectedItems.has(id)) {
+          selectedItems.delete(id);
+        } else {
+          selectedItems.add(id);
+        }
+        
+        renderDataCentreView(); // Refresh the view
+      }
+
+      function handleHideSelected() {
+        hiddenItems = new Set([...hiddenItems, ...selectedItems]);
+        selectedItems.clear();
+        renderDataCentreView();
+      }
+
+      function handleShowAll() {
+        hiddenItems.clear();
+        renderDataCentreView();
+      }
+
+      function updateCounts() {
+        document.getElementById('selectedCount').textContent = selectedItems.size;
+        document.getElementById('hiddenCount').textContent = hiddenItems.size;
+        
+        // Update button states
+        const hideButton = document.querySelector('button[onclick="handleHideSelected()"]');
+        const showButton = document.querySelector('button[onclick="handleShowAll()"]');
+        
+        if (hideButton) hideButton.disabled = selectedItems.size === 0;
+        if (showButton) showButton.disabled = hiddenItems.size === 0;
+      }
+
+      function exportDataCentreCSV() {
+        const groups = groupByDataCentre(filteredActivities);
+        const csvRows = [];
+        const headers = ['Activity ID','Name','Start','Finish','Duration','Trade/Area','Predicted Location','Predicted Trade Name'];
+        csvRows.push(headers.join(','));
+        
+        const sortedLocationKeys = Object.keys(groups).sort();
+        
+        for (const locationKey of sortedLocationKeys) {
+          const location = groups[locationKey];
+          
+          for (const activity of location) {
+            const row = [
+              `"${activity.id}"`,
+              `"${activity.name.replace(/"/g, '""')}"`,
+              `"${activity.startDate || ''}"`,
+              `"${activity.finishDate || ''}"`,
+              `"${activity.duration || '0'}"`,
+              `"${activity.wbs || ''}"`,
+              `"${activity.location || ''}"`,
+              `"${activity.tradeName || ''}"`
+            ];
+            csvRows.push(row.join(','));
+          }
+        }
+        
+        const blob = new Blob([csvRows.join('\n')], { type: 'text/csv;charset=utf-8;' });
+        const link = document.createElement('a');
+        link.href = URL.createObjectURL(blob);
+        link.download = `DataCentre_structured_export_${new Date().toISOString().split('T')[0]}.csv`;
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        URL.revokeObjectURL(link.href);
+        
+        showMessage(`Exported Data Centre view to CSV`, 'success');
+      }
+
+      function filterActivities() {
+        const q = searchInput.value.trim().toLowerCase();
+        const zone = zoneFilter.value;
+        const locations = selectedLocations;
+        const durationFilterValue = durationFilter.value;
+        const completionFilterValue = completionFilter.value;
+        
+        // Trade filtering logic from TSX version
+        const anyTradeSelected = Object.values(selectedTrades).some(isSelected => isSelected);
+        const hasCustomKeywords = customKeywords.trim() !== '';
+        
+        filteredActivities = allActivities.filter(a => {
+          // Basic search filtering
+          const matchesSearch = !q || a.id.toLowerCase().includes(q) || a.name.toLowerCase().includes(q) || (a.wbs && a.wbs.toLowerCase().includes(q));
+          const matchesZone = !zone || (a.wbs && extractZone(a.wbs) === zone);
+          const matchesLocation = locations.length === 0 || (a.location && locations.includes(a.location));
+          
+          // Duration filter
+          const duration = parseFloat(a.duration) || 0;
+          let matchesDuration = true;
+          if (durationFilterValue === 'exclude-zero') {
+            matchesDuration = duration > 0;
+          } else if (durationFilterValue === 'custom') {
+            // For now, keep all - could be expanded with custom range inputs
+            matchesDuration = true;
+          }
+          
+          // Completion filter
+          const percentComplete = parseFloat(a.percentComplete) || 0;
+          let matchesCompletion = true;
+          if (completionFilterValue === 'exclude-complete') {
+            matchesCompletion = percentComplete < 100;
+          } else if (completionFilterValue === 'in-progress') {
+            matchesCompletion = percentComplete > 0 && percentComplete < 100;
+          }
+          
+          // Trade filtering (from TSX logic)
+          const activityText = `${a.name || ''} ${a.wbs || ''}`.toLowerCase();
+          
+          // Check exclude keywords first
+          if (excludeKeywords.some(k => activityText.includes(k))) return false;
+          
+          // If no trade filters are active, show all activities
+          if (!anyTradeSelected && !hasCustomKeywords) {
+            return matchesSearch && matchesZone && matchesLocation && matchesDuration && matchesCompletion;
+          }
+          
+          // Check trade matches
+          const matchesTrade = anyTradeSelected && Object.entries(selectedTrades).some(([trade, selected]) => 
+            selected && tradeKeywords[trade]?.some(k => activityText.includes(k))
+          );
+          
+          // Check custom keywords
+          const matchesCustom = hasCustomKeywords && customKeywords.toLowerCase().split(',').map(k => k.trim()).filter(Boolean).some(k => activityText.includes(k));
+          
+          return matchesSearch && matchesZone && matchesLocation && matchesDuration && matchesCompletion && (matchesTrade || matchesCustom);
+        });
+        
+        // Apply sorting
+        sortActivities();
+        
+        exportBtn.disabled = filteredActivities.length === 0;
+        if (viewMode === 'dataCentre') {
+          if (dataCentreViewMode === 'grouped') {
+            renderDataCentreView();
+          } else {
+            renderDataCentreTable();
+          }
+        } else {
+          renderTable(filteredActivities);
+        }
+      }
+
+      function sortActivities() {
+        filteredActivities.sort((a, b) => {
+          let aVal, bVal;
+          
+          switch (currentSort.field) {
+            case 'id':
+              aVal = a.id || '';
+              bVal = b.id || '';
+              break;
+            case 'location':
+              aVal = a.location || '';
+              bVal = b.location || '';
+              break;
+            case 'name':
+              aVal = a.name || '';
+              bVal = b.name || '';
+              break;
+            case 'startDate':
+              aVal = a.startDate ? new Date(a.startDate) : new Date(0);
+              bVal = b.startDate ? new Date(b.startDate) : new Date(0);
+              break;
+            case 'finishDate':
+              aVal = a.finishDate ? new Date(a.finishDate) : new Date(0);
+              bVal = b.finishDate ? new Date(b.finishDate) : new Date(0);
+              break;
+            case 'duration':
+              aVal = parseFloat(a.duration) || 0;
+              bVal = parseFloat(b.duration) || 0;
+              break;
+            case 'percentComplete':
+              aVal = parseFloat(a.percentComplete) || 0;
+              bVal = parseFloat(b.percentComplete) || 0;
+              break;
+            case 'totalFloat':
+              aVal = parseFloat(a.totalFloat) || 0;
+              bVal = parseFloat(b.totalFloat) || 0;
+              break;
+            case 'status':
+              aVal = a.status || '';
+              bVal = b.status || '';
+              break;
+            case 'wbs':
+              aVal = a.wbs || '';
+              bVal = b.wbs || '';
+              break;
+            case 'tradeName':
+              aVal = a.tradeName || '';
+              bVal = b.tradeName || '';
+              break;
+            default:
+              return 0;
+          }
+          
+          if (aVal < bVal) return currentSort.direction === 'asc' ? -1 : 1;
+          if (aVal > bVal) return currentSort.direction === 'asc' ? 1 : -1;
+          return 0;
+        });
+      }
+
+      function updateSortIcons() {
+        // Clear all sort icons
+        document.querySelectorAll('.sort-icon').forEach(icon => {
+          icon.style.display = 'none';
+        });
+        
+        // Show the current sort icon
+        const currentHeader = document.querySelector(`[data-sort="${currentSort.field}"]`);
+        if (currentHeader) {
+          const icons = currentHeader.querySelectorAll('.sort-icon');
+          if (currentSort.direction === 'asc') {
+            icons[0].style.display = 'inline'; // chevron-up
+          } else {
+            icons[1].style.display = 'inline'; // chevron-down
+          }
+        }
+      }
+
+      // Event Listeners
+      fileInput.addEventListener('change', e => {
+        selectedFile = e.target.files[0] || null;
+        processBtn.disabled = !selectedFile;
+        console.log('File selected:', selectedFile ? selectedFile.name : 'none');
+      });
+      processBtn.addEventListener('click', async () => {
+        console.log('Process button clicked. Selected file:', selectedFile ? selectedFile.name : 'none');
+        if (!selectedFile) return;
+        clearMessage();
+        const ext = selectedFile.name.split('.').pop().toLowerCase();
+        let content;
+        try {
+          content = await selectedFile.text();
+          let activities;
+          if (ext === 'xml') activities = parseXMLData(content);
+          else if (ext === 'xer') activities = parseXERData(content);
+          else if (ext === 'csv') activities = parseCSVData(content);
+          else if (ext === 'mpp' || ext === 'pp') {
+            // MSParser expects a binary file for MPP/PP
+            const arrayBuffer = await selectedFile.arrayBuffer();
+            activities = parseMPPData(arrayBuffer);
+          }
+          else throw new Error('Unsupported file format. Please upload XML, XER, CSV, MPP, or PP.');
+          allActivities = activities;
+          searchInput.value = '';
+          updateAllFilters();
+          filterActivities();
+          showMessage(`Successfully parsed ${activities.length} activities`, 'success');
+        } catch (err) {
+          allActivities = [];
+          filterActivities();
+          showMessage('Error: ' + err.message, 'error');
+        }
+      });
+
+      searchInput.addEventListener('input', filterActivities);
+      durationFilter.addEventListener('change', filterActivities);
+      completionFilter.addEventListener('change', filterActivities);
+
+      // Add sorting event listeners to table headers
+      document.querySelectorAll('[data-sort]').forEach(header => {
+        header.addEventListener('click', () => {
+          const sortField = header.getAttribute('data-sort');
+          if (currentSort.field === sortField) {
+            // Toggle direction if same field
+            currentSort.direction = currentSort.direction === 'asc' ? 'desc' : 'asc';
+          } else {
+            // New field, default to ascending
+            currentSort.field = sortField;
+            currentSort.direction = 'asc';
+          }
+          updateSortIcons();
+          filterActivities(); // This will apply the new sort
+        });
+      });
+
+      exportBtn.addEventListener('click', () => {
+        if (!filteredActivities.length) return;
+        
+        // Export the columns in the new order
+        const headers = ['Activity ID','Name','Start','Finish','Duration','Trade/Area','Predicted Location','Predicted Trade Name'];
+        const rows = [headers.map(escapeCSV).join(',')];
+        
+        filteredActivities.forEach(a => {
+          rows.push([
+            a.id,
+            a.name,
+            a.startDate,
+            a.finishDate,
+            a.duration,
+            a.wbs,
+            a.location || '',
+            a.tradeName || ''
+          ].map(escapeCSV).join(','));
+        });
+        
+        const blob = new Blob([rows.join('\n')], {type:'text/csv'});
+        const link = document.createElement('a');
+        link.href = URL.createObjectURL(blob);
+        link.download = 'filtered_schedule.csv';
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        URL.revokeObjectURL(link.href);
+        
+        showMessage(`Exported ${filteredActivities.length} activities to CSV`, 'success');
+      });
+
+      zoneFilter.addEventListener('change', filterActivities);
+
+      // View mode toggle buttons
+      standardViewBtn.addEventListener('click', () => setViewMode('standard'));
+      dataCentreViewBtn.addEventListener('click', () => setViewMode('dataCentre'));
+      
+      // Data centre view mode toggle buttons
+      groupedViewBtn.addEventListener('click', () => setDataCentreViewMode('grouped'));
+      tableViewBtn.addEventListener('click', () => setDataCentreViewMode('table'));
+
+      // Initialize trade filter system
+      initializeTradeFilter();
+      
+      // Initialize location filter
+      initializeLocationFilter();
+      
+      // Load the trades-locations database
+      loadTradesLocationsDB();
+      
+      // Initial state
+      updateSortIcons(); // Set default sort icon
+      filterActivities();
+      
+      // Initialize data centre table sorting
+      lucide.createIcons();
+
+      // Expose toggleGroup, handleGroupSelect, and handleItemSelect as global functions
+      window.toggleGroup = toggleGroup;
+      window.handleGroupSelect = handleGroupSelect;
+      window.handleItemSelect = handleItemSelect;
+    });
+  </script>
+
+  <!-- Global Sidebar Script -->
+  <script src="../global-sidebar.js"></script>
+  <script>
+    // Initialize Lucide icons
+    lucide.createIcons();
+  </script>
+</body>
+</html>
+
+
+
