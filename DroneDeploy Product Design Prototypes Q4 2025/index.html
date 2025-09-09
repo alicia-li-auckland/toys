@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>UNO Construction Analytics Platform</title>
+    <title>DroneDeploy Product Design Prototypes Q4 2025</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🏗️</text></svg>">
 </head>
@@ -15,12 +15,12 @@
                 <div class="w-20 h-20 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-6">
                     <span class="text-4xl">🔒</span>
                 </div>
-                <h2 class="text-3xl font-bold text-gray-900 mb-3">UNO Platform</h2>
-                <p class="text-gray-600">Enter password to access construction analytics</p>
+                <h2 class="text-3xl font-bold text-gray-900 mb-3">IDW Product Design Prototypes Q4 2025</h2>
+                <p class="text-gray-600">Enter password to access prototypes</p>
             </div>
             
             <div class="space-y-6">
-                <input type="password" id="password-input" placeholder="Enter UNO platform password" 
+                <input type="password" id="password-input" placeholder="Enter password" 
                        class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-lg"
                        onkeypress="if(event.key==='Enter') checkPassword()">
                 <button onclick="checkPassword()" 
@@ -41,7 +41,7 @@
             <!-- Header -->
             <div class="text-center mb-16">
                 <h1 class="text-6xl font-bold text-gray-900 mb-4">
-                    UNO Construction Analytics
+                    DroneDeploy Product Design Prototypes Q4 2025
                 </h1>
                 <button onclick="logout()" class="text-sm text-gray-500 hover:text-gray-700 underline">
                     🔓 Logout
@@ -49,7 +49,7 @@
             </div>
 
             <!-- Main Applications -->
-            <div class="grid md:grid-cols-2 gap-8">
+            <div class="grid md:grid-cols-2 gap-8 mb-12">
                 <!-- Dashboard Application -->
                 <div class="bg-white rounded-2xl shadow-xl overflow-hidden hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2">
                     <div class="bg-gradient-to-r from-blue-600 to-blue-700 p-8 text-center">
@@ -57,7 +57,7 @@
                             <span class="text-3xl">📊</span>
                         </div>
                         <h2 class="text-3xl font-bold text-white mb-6">Analytics Dashboard</h2>
-                        <a href="https://alicia-li-auckland.github.io/toys/uno_platform/dashboard-simple_UNO.html" class="inline-block bg-white text-blue-600 px-8 py-3 rounded-lg font-semibold hover:bg-blue-50 transition-colors duration-200">
+                        <a href="dashboard-simple.html" class="inline-block bg-white text-blue-600 px-8 py-3 rounded-lg font-semibold hover:bg-blue-50 transition-colors duration-200">
                             Open Dashboard
                         </a>
                     </div>
@@ -70,9 +70,54 @@
                             <span class="text-3xl">🤖</span>
                         </div>
                         <h2 class="text-3xl font-bold text-white mb-6">Intelligence Assistant</h2>
-                        <a href="https://alicia-li-auckland.github.io/toys/uno_platform/chat_UNO.html" class="inline-block bg-white text-green-600 px-8 py-3 rounded-lg font-semibold hover:bg-green-50 transition-colors duration-200">
+                        <a href="chat.html" class="inline-block bg-white text-green-600 px-8 py-3 rounded-lg font-semibold hover:bg-green-50 transition-colors duration-200">
                             Open Assistant
                         </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Internal Tools -->
+            <div class="mb-8">
+                <h3 class="text-2xl font-bold text-gray-800 mb-6 text-center">Internal Tools</h3>
+                <div class="grid md:grid-cols-3 gap-6">
+                    <!-- Schedule Converter Tool -->
+                    <div class="bg-white rounded-2xl shadow-xl overflow-hidden hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2">
+                        <div class="bg-gradient-to-r from-purple-600 to-purple-700 p-6 text-center">
+                            <div class="w-16 h-16 bg-white bg-opacity-20 rounded-full flex items-center justify-center mx-auto mb-4">
+                                <span class="text-3xl">📅</span>
+                            </div>
+                            <h2 class="text-2xl font-bold text-white mb-4">Schedule Converter</h2>
+                            <a href="scheduleconverter/" class="inline-block bg-white text-purple-600 px-6 py-2 rounded-lg font-semibold hover:bg-purple-50 transition-colors duration-200">
+                                Open Converter
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Tags Tool -->
+                    <div class="bg-white rounded-2xl shadow-xl overflow-hidden hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2">
+                        <div class="bg-gradient-to-r from-orange-600 to-orange-700 p-6 text-center">
+                            <div class="w-16 h-16 bg-white bg-opacity-20 rounded-full flex items-center justify-center mx-auto mb-4">
+                                <span class="text-3xl">🏷️</span>
+                            </div>
+                            <h2 class="text-2xl font-bold text-white mb-4">Tags Manager</h2>
+                            <a href="tags/" class="inline-block bg-white text-orange-600 px-6 py-2 rounded-lg font-semibold hover:bg-orange-50 transition-colors duration-200">
+                                Open Tags
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Timeline Tool -->
+                    <div class="bg-white rounded-2xl shadow-xl overflow-hidden hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2">
+                        <div class="bg-gradient-to-r from-indigo-600 to-indigo-700 p-6 text-center">
+                            <div class="w-16 h-16 bg-white bg-opacity-20 rounded-full flex items-center justify-center mx-auto mb-4">
+                                <span class="text-3xl">⏱️</span>
+                            </div>
+                            <h2 class="text-2xl font-bold text-white mb-4">Timeline Viewer</h2>
+                            <a href="timeline/" class="inline-block bg-white text-indigo-600 px-6 py-2 rounded-lg font-semibold hover:bg-indigo-50 transition-colors duration-200">
+                                Open Timeline
+                            </a>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -90,7 +135,7 @@
             const errorMessage = document.getElementById('error-message');
             
             // UNO Platform Password: "UNO2024"
-            if (password === 'UNO2024') {
+            if (password === 'Q42025_DD') {
                 localStorage.setItem('uno_authenticated', 'true');
                 showMainContent();
                 errorMessage.classList.add('hidden');
