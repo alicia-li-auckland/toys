@@ -1,0 +1,1130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Momentum</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Crimson+Text:ital,wght@0,400;0,600;1,400&family=DM+Serif+Display&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Crimson Text', Georgia, serif;
+            background: linear-gradient(180deg, #F5E6D3 0%, #E8D5C4 50%, #F0E2D5 100%);
+            min-height: 100vh;
+            color: #5A5651;
+            font-size: 18px;
+            line-height: 1.6;
+        }
+
+        .app-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 30px;
+        }
+
+        .header {
+            background: rgba(255, 253, 248, 0.95);
+            border-radius: 30px;
+            padding: 35px;
+            margin-bottom: 30px;
+            box-shadow: 0 8px 30px rgba(139, 125, 107, 0.08);
+            border: 1px solid rgba(216, 201, 186, 0.3);
+        }
+
+        .header h1 {
+            font-family: 'DM Serif Display', serif;
+            color: #7B9A8C;
+            font-size: 42px;
+            margin-bottom: 15px;
+            font-weight: 400;
+            letter-spacing: 0.5px;
+        }
+
+        .countdown-bar {
+            background: linear-gradient(135deg, #F8F4EE 0%, #FAF7F2 100%);
+            border-radius: 20px;
+            padding: 20px;
+            margin-bottom: 15px;
+            text-align: center;
+            border: 1px solid rgba(188, 166, 138, 0.15);
+        }
+
+        .countdown-bar h2 {
+            font-family: 'Crimson Text', serif;
+            color: #8B7D6B;
+            font-size: 26px;
+            margin-bottom: 8px;
+            font-weight: 600;
+            font-style: italic;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 24px;
+            background: rgba(216, 201, 186, 0.2);
+            border-radius: 1000px;
+            overflow: hidden;
+            margin-top: 15px;
+            border: 1px solid rgba(188, 166, 138, 0.1);
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #A8C4B8 0%, #7B9A8C 50%, #94B5A6 100%);
+            transition: width 0.6s ease;
+            border-radius: 1000px;
+        }
+
+        .motivation-message {
+            background: linear-gradient(135deg, #FFF5E6 0%, #FFE8D1 100%);
+            border-left: 4px solid #D4A574;
+            padding: 20px 25px;
+            border-radius: 20px;
+            margin-top: 15px;
+            font-style: italic;
+            color: #7A6A58;
+            font-size: 17px;
+            line-height: 1.6;
+        }
+
+        .main-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+
+        @media (max-width: 768px) {
+            .main-content {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .card {
+            background: rgba(255, 253, 248, 0.95);
+            border-radius: 30px;
+            padding: 30px;
+            box-shadow: 0 8px 30px rgba(139, 125, 107, 0.08);
+            border: 1px solid rgba(216, 201, 186, 0.3);
+        }
+
+        .card h3 {
+            font-family: 'DM Serif Display', serif;
+            color: #7B9A8C;
+            margin-bottom: 20px;
+            font-size: 26px;
+            font-weight: 400;
+            letter-spacing: 0.3px;
+        }
+
+        .setup-section {
+            grid-column: 1 / -1;
+        }
+
+        .setup-section textarea {
+            width: 100%;
+            min-height: 250px;
+            padding: 18px;
+            border: 2px solid rgba(188, 166, 138, 0.2);
+            border-radius: 20px;
+            font-size: 16px;
+            resize: vertical;
+            font-family: 'Crimson Text', serif;
+            color: #5A5651;
+            background: rgba(255, 255, 255, 0.7);
+            transition: border-color 0.3s ease;
+        }
+
+        .setup-section textarea:focus {
+            outline: none;
+            border-color: #A8C4B8;
+        }
+
+        .btn {
+            background: linear-gradient(135deg, #A8C4B8 0%, #7B9A8C 100%);
+            color: white;
+            border: none;
+            padding: 14px 32px;
+            border-radius: 1000px;
+            font-size: 17px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 15px;
+            font-family: 'Crimson Text', serif;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            box-shadow: 0 4px 15px rgba(123, 154, 140, 0.2);
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(123, 154, 140, 0.3);
+        }
+
+        .btn-secondary {
+            background: linear-gradient(135deg, #BCA68A 0%, #9B8670 100%);
+            margin-left: 15px;
+        }
+
+        .daily-tasks {
+            grid-column: 1 / -1;
+        }
+
+        .task-item {
+            background: linear-gradient(135deg, #FDFBF7 0%, #FAF8F3 100%);
+            border-left: 4px solid #A8C4B8;
+            padding: 20px;
+            margin-bottom: 15px;
+            border-radius: 20px;
+            display: flex;
+            align-items: start;
+            gap: 15px;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(216, 201, 186, 0.2);
+        }
+
+        .task-item:hover {
+            box-shadow: 0 4px 15px rgba(139, 125, 107, 0.1);
+        }
+
+        .task-item input[type="checkbox"] {
+            width: 24px;
+            height: 24px;
+            cursor: pointer;
+            margin-top: 2px;
+            accent-color: #7B9A8C;
+        }
+
+        .task-content {
+            flex: 1;
+        }
+
+        .task-title {
+            font-weight: 600;
+            margin-bottom: 6px;
+            color: #5A5651;
+            font-size: 17px;
+        }
+
+        .task-category {
+            color: #9B8670;
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-style: italic;
+        }
+
+        .evidence-input {
+            width: 100%;
+            padding: 10px 14px;
+            border: 1px solid rgba(188, 166, 138, 0.25);
+            border-radius: 12px;
+            margin-top: 10px;
+            font-size: 15px;
+            font-family: 'Crimson Text', serif;
+            background: rgba(255, 255, 255, 0.7);
+            transition: border-color 0.3s ease;
+        }
+
+        .evidence-input:focus {
+            outline: none;
+            border-color: #A8C4B8;
+        }
+
+        .communication-section {
+            grid-column: 1 / -1;
+        }
+
+        .comm-tabs {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .comm-tab {
+            padding: 10px 24px;
+            background: linear-gradient(135deg, #F8F4EE 0%, #F0E8DD 100%);
+            border-radius: 1000px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 16px;
+            font-weight: 600;
+            color: #7A6A58;
+            border: 1px solid rgba(188, 166, 138, 0.2);
+        }
+
+        .comm-tab:hover {
+            box-shadow: 0 4px 12px rgba(139, 125, 107, 0.15);
+        }
+
+        .comm-tab.active {
+            background: linear-gradient(135deg, #A8C4B8 0%, #7B9A8C 100%);
+            color: white;
+            border-color: transparent;
+        }
+
+        .comm-template {
+            background: linear-gradient(135deg, #FDFBF7 0%, #FAF8F3 100%);
+            padding: 25px;
+            border-radius: 20px;
+            white-space: pre-wrap;
+            font-family: 'Crimson Text', serif;
+            font-size: 16px;
+            line-height: 1.8;
+            min-height: 250px;
+            position: relative;
+            border: 1px solid rgba(216, 201, 186, 0.2);
+            color: #5A5651;
+        }
+
+        .copy-btn {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            padding: 8px 18px;
+            background: linear-gradient(135deg, #A8C4B8 0%, #7B9A8C 100%);
+            color: white;
+            border: none;
+            border-radius: 1000px;
+            font-size: 14px;
+            cursor: pointer;
+            font-family: 'Crimson Text', serif;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .copy-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(123, 154, 140, 0.3);
+        }
+
+        .calendar-view {
+            grid-column: 1 / -1;
+            max-height: 450px;
+            overflow-y: auto;
+            padding-right: 10px;
+        }
+
+        .calendar-view::-webkit-scrollbar {
+            width: 10px;
+        }
+
+        .calendar-view::-webkit-scrollbar-track {
+            background: rgba(216, 201, 186, 0.1);
+            border-radius: 1000px;
+        }
+
+        .calendar-view::-webkit-scrollbar-thumb {
+            background: rgba(168, 196, 184, 0.5);
+            border-radius: 1000px;
+        }
+
+        .calendar-day {
+            background: linear-gradient(135deg, #FDFBF7 0%, #FAF8F3 100%);
+            padding: 18px;
+            margin-bottom: 12px;
+            border-radius: 16px;
+            border-left: 3px solid #A8C4B8;
+            border: 1px solid rgba(216, 201, 186, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .calendar-day:hover {
+            box-shadow: 0 4px 12px rgba(139, 125, 107, 0.1);
+        }
+
+        .calendar-day-header {
+            font-weight: 600;
+            color: #7B9A8C;
+            margin-bottom: 10px;
+            font-size: 17px;
+            font-style: italic;
+        }
+
+        .calendar-task {
+            margin-left: 25px;
+            margin-bottom: 6px;
+            color: #6B645C;
+            font-size: 16px;
+        }
+
+        .calendar-link {
+            color: #7B9A8C;
+            text-decoration: none;
+            font-size: 14px;
+            margin-left: 10px;
+            font-style: italic;
+            transition: color 0.3s ease;
+        }
+
+        .calendar-link:hover {
+            text-decoration: underline;
+            color: #5A7A6C;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        /* Password Protection Styles */
+        .password-container {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 30px;
+        }
+
+        .password-card {
+            background: rgba(255, 253, 248, 0.95);
+            border-radius: 30px;
+            padding: 50px;
+            box-shadow: 0 12px 40px rgba(139, 125, 107, 0.12);
+            border: 1px solid rgba(216, 201, 186, 0.3);
+            text-align: center;
+            max-width: 400px;
+            width: 100%;
+        }
+
+        .password-card h1 {
+            font-family: 'DM Serif Display', serif;
+            color: #7B9A8C;
+            font-size: 42px;
+            margin-bottom: 15px;
+            font-weight: 400;
+            letter-spacing: 0.5px;
+        }
+
+        .password-card p {
+            color: #8B7D6B;
+            margin-bottom: 30px;
+            font-size: 18px;
+            font-style: italic;
+        }
+
+        .password-card input {
+            width: 100%;
+            padding: 16px 20px;
+            border: 2px solid rgba(188, 166, 138, 0.2);
+            border-radius: 20px;
+            font-size: 18px;
+            font-family: 'Crimson Text', serif;
+            color: #5A5651;
+            background: rgba(255, 255, 255, 0.8);
+            margin-bottom: 25px;
+            transition: border-color 0.3s ease;
+            text-align: center;
+            letter-spacing: 2px;
+        }
+
+        .password-card input:focus {
+            outline: none;
+            border-color: #A8C4B8;
+        }
+
+        .password-card button {
+            background: linear-gradient(135deg, #A8C4B8 0%, #7B9A8C 100%);
+            color: white;
+            border: none;
+            padding: 16px 40px;
+            border-radius: 1000px;
+            font-size: 18px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: 'Crimson Text', serif;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            box-shadow: 0 4px 15px rgba(123, 154, 140, 0.2);
+        }
+
+        .password-card button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(123, 154, 140, 0.3);
+        }
+
+        .error-message {
+            color: #D4A574;
+            margin-top: 15px;
+            font-style: italic;
+            font-size: 16px;
+        }
+
+        .requirement-item {
+            background: linear-gradient(135deg, #FDFBF7 0%, #FAF8F3 100%);
+            padding: 16px;
+            margin-bottom: 12px;
+            border-radius: 16px;
+            border-left: 3px solid #D4A574;
+            border: 1px solid rgba(216, 201, 186, 0.2);
+        }
+
+        .requirement-category {
+            color: #9B8670;
+            font-size: 13px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 6px;
+            font-style: italic;
+        }
+
+        .requirement-text {
+            font-size: 16px;
+            color: #5A5651;
+            line-height: 1.5;
+        }
+
+        .portfolio-prompt {
+            background: linear-gradient(135deg, #FFF5E6 0%, #FFE8D1 100%);
+            border: 2px solid #D4A574;
+            padding: 30px;
+            border-radius: 25px;
+            margin-top: 30px;
+            text-align: center;
+            box-shadow: 0 8px 25px rgba(212, 165, 116, 0.15);
+        }
+
+        .portfolio-prompt h3 {
+            font-family: 'DM Serif Display', serif;
+            color: #8B7D6B;
+            margin-bottom: 15px;
+            font-size: 28px;
+            font-weight: 400;
+        }
+
+        .portfolio-prompt p {
+            color: #7A6A58;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        .portfolio-buttons {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Password Protection -->
+    <div id="password-screen" class="password-container">
+        <div class="password-card">
+            <h1>Momentum</h1>
+            <p>Enter access code to continue</p>
+            <input type="password" id="password-input" placeholder="Access Code" autocomplete="off">
+            <button onclick="checkPassword()">Enter</button>
+            <div id="error-message" class="error-message hidden">Invalid access code</div>
+        </div>
+    </div>
+
+    <div id="main-content" class="app-container hidden">
+        <div class="header">
+            <h1>Momentum</h1>
+            <div id="countdownSection" class="hidden">
+                <div class="countdown-bar">
+                    <h2 id="countdownText">Day 1 of 30</h2>
+                    <div class="progress-bar">
+                        <div id="progressFill" class="progress-fill" style="width: 3.33%"></div>
+                    </div>
+                </div>
+                <div id="motivationMessage" class="motivation-message">
+                    Welcome to Momentum! Today marks the beginning of your transformation journey. You've got this! ✨
+                </div>
+            </div>
+        </div>
+
+        <div id="setupSection" class="card setup-section">
+            <h3>Let's Begin Your Journey</h3>
+            <textarea id="pipInput" placeholder="Paste your performance improvement plan here, and I'll help you transform it into manageable daily actions..."></textarea>
+            <button class="btn" onclick="parsePIP()">Create My Plan</button>
+            <button class="btn btn-secondary" onclick="useSamplePIP()">Try Sample Plan</button>
+        </div>
+
+        <div id="parsedRequirements" class="card hidden">
+            <h3>Your Requirements</h3>
+            <div id="requirementsList"></div>
+            <button class="btn" onclick="startPlan()">Begin My 30-Day Journey</button>
+        </div>
+
+        <div class="main-content">
+            <div id="dailyTasks" class="card daily-tasks hidden">
+                <h3>Today's Focus Areas</h3>
+                <div id="tasksList"></div>
+            </div>
+
+            <div id="communicationSection" class="card communication-section hidden">
+                <h3>Your Update Templates</h3>
+                <div class="comm-tabs">
+                    <div class="comm-tab active" onclick="switchCommTab('manager')">Manager Update</div>
+                    <div class="comm-tab" onclick="switchCommTab('executive')">Executive Update</div>
+                </div>
+                <div id="managerTemplate" class="comm-template">
+                    <button class="copy-btn" onclick="copyToClipboard('managerTemplate')">Copy</button>
+                    <div id="managerContent"></div>
+                </div>
+                <div id="executiveTemplate" class="comm-template hidden">
+                    <button class="copy-btn" onclick="copyToClipboard('executiveTemplate')">Copy</button>
+                    <div id="executiveContent"></div>
+                </div>
+            </div>
+
+            <div id="calendarView" class="card calendar-view hidden">
+                <h3>Your Progress Story</h3>
+                <button class="btn" onclick="exportCalendar()">Export My Journey</button>
+                <div id="calendarContent"></div>
+            </div>
+        </div>
+
+        <div id="portfolioPrompt" class="portfolio-prompt hidden">
+            <h3>How are you feeling about your progress?</h3>
+            <p>You're in the home stretch! Would you like help showcasing all the excellent work you've accomplished?</p>
+            <div class="portfolio-buttons">
+                <button class="btn" onclick="activatePortfolioHelp()">Yes, help me showcase this work</button>
+                <button class="btn btn-secondary" onclick="dismissPortfolioPrompt()">Not right now</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // App State
+        let appState = {
+            pipRequirements: [],
+            currentDay: 1,
+            dailyTasks: [],
+            completedTasks: [],
+            calendarData: {},
+            startDate: null,
+            isActive: false
+        };
+
+        // Load saved state
+        function loadState() {
+            const saved = localStorage.getItem('momentumState');
+            if (saved) {
+                appState = JSON.parse(saved);
+                if (appState.isActive) {
+                    showActiveUI();
+                    updateCountdown();
+                    generateDailyTasks();
+                    generateCommunicationTemplates();
+                    updateCalendar();
+                }
+            }
+        }
+
+        // Save state
+        function saveState() {
+            localStorage.setItem('momentumState', JSON.stringify(appState));
+        }
+
+        // Parse PIP Document
+        function parsePIP() {
+            const input = document.getElementById('pipInput').value;
+            if (!input) {
+                alert('Please share your performance plan first so we can create your action items');
+                return;
+            }
+
+            // Parse requirements (simplified for demo - in production, use Claude API)
+            const requirements = extractRequirements(input);
+            appState.pipRequirements = requirements;
+            
+            displayParsedRequirements(requirements);
+            saveState();
+        }
+
+        // Extract requirements from text
+        function extractRequirements(text) {
+            // Simplified parsing - in production, use AI
+            const categories = {
+                'communication': ['communication', 'stakeholder', 'update', 'report', 'meeting'],
+                'delivery': ['deliver', 'deadline', 'complete', 'ship', 'launch'],
+                'quality': ['quality', 'review', 'iteration', 'feedback', 'design'],
+                'process': ['process', 'documentation', 'workflow', 'handoff']
+            };
+
+            const requirements = [];
+            const lines = text.split('\n').filter(line => line.trim());
+            
+            lines.forEach(line => {
+                if (line.length > 20) {
+                    let category = 'general';
+                    for (const [cat, keywords] of Object.entries(categories)) {
+                        if (keywords.some(keyword => line.toLowerCase().includes(keyword))) {
+                            category = cat;
+                            break;
+                        }
+                    }
+                    
+                    requirements.push({
+                        text: line.trim(),
+                        category: category,
+                        priority: line.toLowerCase().includes('must') || line.toLowerCase().includes('critical') ? 'high' : 'normal'
+                    });
+                }
+            });
+
+            return requirements.length > 0 ? requirements : getSampleRequirements();
+        }
+
+        // Sample PIP requirements
+        function getSampleRequirements() {
+            return [
+                { text: "Improve stakeholder communication by providing weekly status updates", category: "communication", priority: "high" },
+                { text: "Deliver all design iterations on time with documented rationale", category: "delivery", priority: "high" },
+                { text: "Increase design quality through systematic feedback incorporation", category: "quality", priority: "normal" },
+                { text: "Document design decisions in Figma for better team collaboration", category: "process", priority: "normal" },
+                { text: "Conduct user research sessions and share insights with the team", category: "quality", priority: "normal" },
+                { text: "Improve handoff process with engineering team", category: "process", priority: "high" }
+            ];
+        }
+
+        // Use sample PIP
+        function useSamplePIP() {
+            const sampleText = `Performance Improvement Plan - Senior Product Designer
+
+Required Improvements:
+1. Improve stakeholder communication by providing weekly status updates to CPO and direct manager
+2. Deliver all design iterations on time with documented rationale in Figma
+3. Increase design quality through systematic feedback incorporation from cross-functional partners
+4. Document all design decisions in Figma for better team collaboration
+5. Conduct user research sessions and share insights with the team within 48 hours
+6. Improve handoff process with engineering team using detailed specifications
+
+Success Metrics:
+- 100% on-time delivery for all design assignments
+- Weekly updates sent by EOD Friday
+- All designs include documentation
+- Positive feedback from engineering on handoff quality`;
+
+            document.getElementById('pipInput').value = sampleText;
+            parsePIP();
+        }
+
+        // Display parsed requirements
+        function displayParsedRequirements(requirements) {
+            const container = document.getElementById('requirementsList');
+            container.innerHTML = '';
+            
+            requirements.forEach(req => {
+                const item = document.createElement('div');
+                item.className = 'requirement-item';
+                item.innerHTML = `
+                    <div class="requirement-category">${req.category} · ${req.priority} priority</div>
+                    <div class="requirement-text">${req.text}</div>
+                `;
+                container.appendChild(item);
+            });
+
+            document.getElementById('setupSection').classList.add('hidden');
+            document.getElementById('parsedRequirements').classList.remove('hidden');
+        }
+
+        // Start the 30-day plan
+        function startPlan() {
+            appState.isActive = true;
+            appState.startDate = new Date();
+            appState.currentDay = 1;
+            saveState();
+            showActiveUI();
+            updateCountdown();
+            generateDailyTasks();
+            generateCommunicationTemplates();
+        }
+
+        // Show active UI
+        function showActiveUI() {
+            document.getElementById('setupSection').classList.add('hidden');
+            document.getElementById('parsedRequirements').classList.add('hidden');
+            document.getElementById('countdownSection').classList.remove('hidden');
+            document.getElementById('dailyTasks').classList.remove('hidden');
+            document.getElementById('communicationSection').classList.remove('hidden');
+            document.getElementById('calendarView').classList.remove('hidden');
+            
+            // Show portfolio prompt if day > 20
+            if (appState.currentDay > 20) {
+                document.getElementById('portfolioPrompt').classList.remove('hidden');
+            }
+        }
+
+        // Update countdown
+        function updateCountdown() {
+            const day = appState.currentDay;
+            const progress = (day / 30) * 100;
+            
+            document.getElementById('countdownText').textContent = `Day ${day} of 30`;
+            document.getElementById('progressFill').style.width = `${progress}%`;
+            
+            // Update motivation message
+            const messages = getMotivationalMessages();
+            const message = messages[Math.min(day - 1, messages.length - 1)];
+            document.getElementById('motivationMessage').textContent = message;
+        }
+
+        // Get motivational messages
+        function getMotivationalMessages() {
+            return [
+                "Welcome to Momentum! Today marks the beginning of your transformation journey. You've got this! ✨",
+                "Day 2: Like a garden, growth takes time. You're planting seeds of success today. 🌱",
+                "Day 3: Three days of consistent progress. That's already something to celebrate!",
+                "Day 4: You're building something meaningful, one thoughtful step at a time.",
+                "Day 5: Friday milestone! This week's progress deserves recognition.",
+                "Day 8: A full week of growth! You're 26% through - that's genuine momentum.",
+                "Day 10: Double digits! Your consistency is building real results.",
+                "Day 15: HALFWAY THERE! 🌟 The progress you've made is remarkable.",
+                "Day 20: The final stretch begins! Look at everything you've accomplished.",
+                "Day 22: The momentum is undeniable! The finish line is in sight.",
+                "Day 25: Five days remaining! Your transformation is inspiring.",
+                "Day 28: Almost there! Your dedication throughout this journey is impressive.",
+                "Day 29: Tomorrow is day 30. The finish line awaits.",
+                "Day 30: YOU DID IT! 30 days of consistent excellence. Outstanding work! 🎉✨"
+            ];
+        }
+
+        // Generate daily tasks
+        function generateDailyTasks() {
+            const tasksList = document.getElementById('tasksList');
+            tasksList.innerHTML = '';
+            
+            // Generate 3 tasks based on requirements
+            const tasks = [];
+            const categories = [...new Set(appState.pipRequirements.map(r => r.category))];
+            
+            // Sample tasks - in production, use AI to generate specific tasks
+            const taskTemplates = {
+                communication: [
+                    "Craft this week's status update with your wins and learnings",
+                    "Schedule a casual coffee chat with your engineering partner",
+                    "Document today's design decisions with clear rationale"
+                ],
+                delivery: [
+                    "Complete the next iteration of your current design flow",
+                    "Review and incorporate feedback from yesterday's session",
+                    "Finalize mockups and prepare for team review"
+                ],
+                quality: [
+                    "Conduct a quick usability check with 3 colleagues",
+                    "Document the 'why' behind your design choices",
+                    "Review and refine component consistency"
+                ],
+                process: [
+                    "Organize your Figma files for easy team navigation",
+                    "Create clear handoff notes for development",
+                    "Update your design system documentation"
+                ]
+            };
+
+            // Get diverse tasks
+            let taskCount = 0;
+            categories.forEach(category => {
+                if (taskCount < 3 && taskTemplates[category]) {
+                    const categoryTasks = taskTemplates[category];
+                    const task = categoryTasks[appState.currentDay % categoryTasks.length];
+                    tasks.push({
+                        id: `task-${Date.now()}-${taskCount}`,
+                        text: task,
+                        category: category,
+                        completed: false,
+                        evidence: ''
+                    });
+                    taskCount++;
+                }
+            });
+
+            appState.dailyTasks = tasks;
+            
+            // Render tasks
+            tasks.forEach(task => {
+                const taskElement = document.createElement('div');
+                taskElement.className = 'task-item';
+                taskElement.innerHTML = `
+                    <input type="checkbox" id="${task.id}" onchange="toggleTask('${task.id}')">
+                    <div class="task-content">
+                        <div class="task-title">${task.text}</div>
+                        <div class="task-category">${task.category}</div>
+                        <input type="text" class="evidence-input" placeholder="Add a link to your work (optional)" 
+                               id="evidence-${task.id}" onblur="saveEvidence('${task.id}')">
+                    </div>
+                `;
+                tasksList.appendChild(taskElement);
+            });
+            
+            saveState();
+        }
+
+        // Toggle task completion
+        function toggleTask(taskId) {
+            const task = appState.dailyTasks.find(t => t.id === taskId);
+            if (task) {
+                task.completed = document.getElementById(taskId).checked;
+                if (task.completed) {
+                    const today = new Date().toDateString();
+                    if (!appState.calendarData[today]) {
+                        appState.calendarData[today] = [];
+                    }
+                    appState.calendarData[today].push({
+                        text: task.text,
+                        category: task.category,
+                        evidence: task.evidence
+                    });
+                    updateCalendar();
+                }
+                saveState();
+            }
+        }
+
+        // Save evidence link
+        function saveEvidence(taskId) {
+            const task = appState.dailyTasks.find(t => t.id === taskId);
+            if (task) {
+                task.evidence = document.getElementById(`evidence-${taskId}`).value;
+                saveState();
+            }
+        }
+
+        // Generate communication templates
+        function generateCommunicationTemplates() {
+            const completedToday = appState.dailyTasks.filter(t => t.completed);
+            const weeklyCompleted = getWeeklyCompleted();
+            
+            // Manager update (casual professional)
+            const managerUpdate = `Hi [Manager Name],
+
+Happy to share this week's progress update!
+
+This Week's Accomplishments:
+${weeklyCompleted.map(t => `• ${t.text}${t.evidence ? ' (Link: ' + t.evidence + ')' : ''}`).join('\n')}
+
+What I'm Most Proud Of:
+• Maintained consistent delivery across all assignments
+• Strengthened collaboration with cross-functional partners
+• Created comprehensive documentation for better team alignment
+
+Next Week's Focus:
+• Continue iterating on our mobile experience
+• Deepen my research insights for upcoming features
+• Enhance our design-to-development handoff process
+
+I'm feeling really positive about the momentum I'm building. Thank you for your continued support and guidance.
+
+Warmly,
+[Your Name]`;
+
+            // Executive update (formal, metrics-focused)
+            const executiveUpdate = `Subject: Week ${Math.ceil(appState.currentDay / 7)} Performance Update
+
+Team,
+
+Please find below my performance metrics and business impact for Week ${Math.ceil(appState.currentDay / 7)}:
+
+KEY METRICS:
+• Delivery Rate: 100% on-time (${completedToday.length} deliverables completed)
+• Stakeholder Updates: Weekly cadence maintained
+• Design Documentation: All work includes comprehensive rationale
+
+BUSINESS IMPACT:
+• Accelerated feature development through improved engineering collaboration
+• Reduced design iterations by 40% via proactive stakeholder engagement
+• Enhanced team efficiency through systematic documentation
+
+COMPLETED DELIVERABLES:
+${weeklyCompleted.slice(0, 3).map(t => `• ${t.text}`).join('\n')}
+
+All work is documented and accessible in our shared Figma workspace. I remain committed to maintaining this performance trajectory.
+
+Best regards,
+[Your Name]`;
+
+            document.getElementById('managerContent').textContent = managerUpdate;
+            document.getElementById('executiveContent').textContent = executiveUpdate;
+        }
+
+        // Get weekly completed tasks
+        function getWeeklyCompleted() {
+            const weekTasks = [];
+            const today = new Date();
+            for (let i = 0; i < 7; i++) {
+                const date = new Date(today);
+                date.setDate(date.getDate() - i);
+                const dateStr = date.toDateString();
+                if (appState.calendarData[dateStr]) {
+                    weekTasks.push(...appState.calendarData[dateStr]);
+                }
+            }
+            return weekTasks;
+        }
+
+        // Switch communication tab
+        function switchCommTab(type) {
+            document.querySelectorAll('.comm-tab').forEach(tab => tab.classList.remove('active'));
+            event.target.classList.add('active');
+            
+            if (type === 'manager') {
+                document.getElementById('managerTemplate').classList.remove('hidden');
+                document.getElementById('executiveTemplate').classList.add('hidden');
+            } else {
+                document.getElementById('managerTemplate').classList.add('hidden');
+                document.getElementById('executiveTemplate').classList.remove('hidden');
+            }
+        }
+
+        // Copy to clipboard
+        function copyToClipboard(templateId) {
+            const content = templateId === 'managerTemplate' 
+                ? document.getElementById('managerContent').textContent
+                : document.getElementById('executiveContent').textContent;
+            
+            navigator.clipboard.writeText(content).then(() => {
+                event.target.textContent = 'Copied!';
+                setTimeout(() => {
+                    event.target.textContent = 'Copy';
+                }, 2000);
+            });
+        }
+
+        // Update calendar
+        function updateCalendar() {
+            const calendarContent = document.getElementById('calendarContent');
+            calendarContent.innerHTML = '';
+            
+            const sortedDates = Object.keys(appState.calendarData).sort((a, b) => new Date(b) - new Date(a));
+            
+            sortedDates.forEach(date => {
+                const dayDiv = document.createElement('div');
+                dayDiv.className = 'calendar-day';
+                
+                const tasks = appState.calendarData[date];
+                dayDiv.innerHTML = `
+                    <div class="calendar-day-header">${date}</div>
+                    ${tasks.map(task => `
+                        <div class="calendar-task">
+                            • ${task.text}
+                            ${task.evidence ? `<a href="${task.evidence}" class="calendar-link" target="_blank">View Work</a>` : ''}
+                        </div>
+                    `).join('')}
+                `;
+                
+                calendarContent.appendChild(dayDiv);
+            });
+        }
+
+        // Export calendar
+        function exportCalendar() {
+            let html = `
+                <html>
+                <head>
+                    <title>My Progress Journey - ${new Date().toLocaleDateString()}</title>
+                    <style>
+                        body { font-family: 'Crimson Text', Georgia, serif; padding: 30px; color: #5A5651; }
+                        h1 { color: #7B9A8C; font-size: 32px; }
+                        .day { margin-bottom: 25px; padding: 20px; background: #FAF8F3; border-left: 3px solid #A8C4B8; border-radius: 12px; }
+                        .day-header { font-weight: bold; color: #7B9A8C; margin-bottom: 12px; font-size: 18px; }
+                        .task { margin-left: 25px; margin-bottom: 8px; }
+                        a { color: #7B9A8C; }
+                    </style>
+                </head>
+                <body>
+                    <h1>30-Day Progress Journey</h1>
+                    <p>Generated: ${new Date().toLocaleString()}</p>
+                    <p>Days Completed: ${appState.currentDay} of 30</p>
+                    <hr>
+            `;
+            
+            const sortedDates = Object.keys(appState.calendarData).sort((a, b) => new Date(a) - new Date(b));
+            sortedDates.forEach(date => {
+                const tasks = appState.calendarData[date];
+                html += `
+                    <div class="day">
+                        <div class="day-header">${date}</div>
+                        ${tasks.map(task => `
+                            <div class="task">
+                                • ${task.text}
+                                ${task.evidence ? `<a href="${task.evidence}">View Work</a>` : ''}
+                            </div>
+                        `).join('')}
+                    </div>
+                `;
+            });
+            
+            html += '</body></html>';
+            
+            const blob = new Blob([html], { type: 'text/html' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `My_Progress_Journey_${new Date().toISOString().split('T')[0]}.html`;
+            a.click();
+        }
+
+        // Portfolio help
+        function activatePortfolioHelp() {
+            alert('Portfolio Showcase Assistant ✨\n\nStrategies for highlighting your accomplishments:\n\n1. Create a "30-Day Transformation" case study\n2. Highlight measurable improvements and metrics\n3. Show evolution with before/after examples\n4. Include stakeholder feedback and testimonials\n5. Document your systematic approach to improvement\n\nYour completed tasks and evidence links provide excellent portfolio material. This focused work demonstrates your growth and capabilities effectively.');
+            document.getElementById('portfolioPrompt').classList.add('hidden');
+        }
+
+        function dismissPortfolioPrompt() {
+            document.getElementById('portfolioPrompt').classList.add('hidden');
+        }
+
+        // Password Protection
+        function checkPassword() {
+            const password = document.getElementById('password-input').value;
+            const errorMessage = document.getElementById('error-message');
+            
+            // Momentum Access Code: "MOMENTUM_2025"
+            if (password === 'MOMENTUM_2025') {
+                localStorage.setItem('momentum_authenticated', 'true');
+                showMainContent();
+                errorMessage.classList.add('hidden');
+            } else {
+                errorMessage.classList.remove('hidden');
+                document.getElementById('password-input').value = '';
+                document.getElementById('password-input').focus();
+            }
+        }
+
+        function showMainContent() {
+            document.getElementById('password-screen').classList.add('hidden');
+            document.getElementById('main-content').classList.remove('hidden');
+        }
+
+        function checkAuthentication() {
+            const isAuthenticated = localStorage.getItem('momentum_authenticated') === 'true';
+            if (isAuthenticated) {
+                showMainContent();
+            } else {
+                document.getElementById('password-screen').classList.remove('hidden');
+                document.getElementById('main-content').classList.add('hidden');
+                
+                // Focus password input
+                setTimeout(() => {
+                    document.getElementById('password-input').focus();
+                }, 100);
+            }
+        }
+
+        // Handle Enter key in password input
+        document.addEventListener('DOMContentLoaded', function() {
+            const passwordInput = document.getElementById('password-input');
+            if (passwordInput) {
+                passwordInput.addEventListener('keypress', function(e) {
+                    if (e.key === 'Enter') {
+                        checkPassword();
+                    }
+                });
+            }
+        });
+
+        // Initialize app
+        checkAuthentication();
+        loadState();
+    </script>
+</body>
+</html>

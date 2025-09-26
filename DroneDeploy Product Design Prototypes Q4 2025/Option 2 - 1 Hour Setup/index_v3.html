@@ -1,0 +1,2866 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>1-Hour Setup - Progress AI Construction Monitoring</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #f8fafc;
+            min-height: 100vh;
+            margin: 0;
+            padding: 0;
+        }
+
+        .header {
+            background: #1f1f1f;
+            padding: 16px 24px;
+            border-bottom: 1px solid #333;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .header h1 {
+            font-size: 20px;
+            font-weight: 600;
+            color: white;
+        }
+
+        .header-right {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+        }
+
+        .status-badge {
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 500;
+        }
+
+        .status-progress {
+            background: #dcfce7;
+            color: #16a34a;
+        }
+
+        .btn-primary {
+            background: #2563eb;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 6px;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .btn-primary:hover {
+            background: #1d4ed8;
+        }
+
+        .btn-secondary {
+            background: #374151;
+            color: white;
+            border: 1px solid #4b5563;
+            padding: 8px 16px;
+            border-radius: 6px;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .btn-secondary:hover {
+            background: #4b5563;
+            border-color: #6b7280;
+        }
+
+        .main-content {
+            display: grid;
+            grid-template-columns: 20% 20% 60%;
+            height: calc(100vh - 64px);
+            overflow: hidden;
+        }
+
+        .setup-panel {
+            background: white;
+            border-right: 1px solid #e2e8f0;
+            padding: 32px;
+            overflow-y: auto;
+        }
+
+        .ai-panel {
+            background: white;
+            border-right: 1px solid #e2e8f0;
+            padding: 32px;
+            overflow-y: auto;
+        }
+
+        .output-panel {
+            flex: 1;
+            background: white;
+            padding: 32px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+
+        .panel-title {
+            font-size: 20px;
+            font-weight: 600;
+            color: #1f2937;
+            margin-bottom: 8px;
+        }
+
+        .panel-subtitle {
+            font-size: 14px;
+            color: #6b7280;
+            margin-bottom: 24px;
+        }
+
+        .step-section {
+            margin-bottom: 32px;
+        }
+
+        .step-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 16px;
+        }
+
+        .step-number {
+            width: 28px;
+            height: 28px;
+            background: #3b82f6;
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            font-size: 14px;
+            margin-right: 12px;
+        }
+
+        .step-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: #1f2937;
+        }
+
+        .template-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .template-btn {
+            background: white;
+            border: 2px solid #e5e7eb;
+            border-radius: 8px;
+            padding: 16px;
+            cursor: pointer;
+            transition: all 0.2s;
+            text-align: left;
+        }
+
+        .template-btn:hover {
+            border-color: #3b82f6;
+            background: #f8fafc;
+        }
+
+        .template-btn.selected {
+            border-color: #3b82f6;
+            background: #eff6ff;
+        }
+
+        .template-btn-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: #1f2937;
+            margin-bottom: 4px;
+        }
+
+        .template-btn-count {
+            font-size: 12px;
+            color: #6b7280;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-label {
+            display: block;
+            font-size: 14px;
+            font-weight: 500;
+            color: #374151;
+            margin-bottom: 8px;
+        }
+
+        .form-input, .form-select {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e5e7eb;
+            border-radius: 6px;
+            font-size: 14px;
+            transition: border-color 0.2s;
+        }
+
+        .form-input:focus, .form-select:focus {
+            outline: none;
+            border-color: #3b82f6;
+        }
+
+        .btn-generate {
+            background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
+            color: white;
+            border: none;
+            padding: 14px 24px;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            width: 100%;
+            margin-top: 24px;
+        }
+
+        .btn-generate:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 6px 12px rgba(59, 130, 246, 0.3);
+        }
+
+        .btn-generate:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
+        /* Timeline Gantt Chart Styles */
+        .timeline-gantt-wrapper {
+            background: white;
+            border: 1px solid #e5e7eb;
+            border-radius: 8px;
+            overflow: hidden;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            min-height: 0;
+        }
+
+
+        .timeline-grid-wrapper {
+            display: grid;
+            grid-template-columns: minmax(280px, max-content) 1fr;
+            overflow: auto;
+            flex: 1;
+            position: relative;
+        }
+
+        .timeline-corner {
+            background: #f1f5f9;
+            border-right: 1px solid #cbd5e1;
+            border-bottom: 1px solid #cbd5e1;
+            padding: 8px 16px;
+            font-weight: 600;
+            color: #475569;
+            position: sticky;
+            top: 0;
+            left: 0;
+            z-index: 30;
+            font-size: 12px;
+            min-width: 280px;
+            white-space: nowrap;
+        }
+
+        .timeline-header {
+            background: #f1f5f9;
+            border-bottom: 1px solid #cbd5e1;
+            display: flex;
+            position: sticky;
+            top: 0;
+            z-index: 20;
+        }
+
+        .timeline-week {
+            min-width: 80px;
+            padding: 8px 12px;
+            border-right: 1px solid #cbd5e1;
+            text-align: center;
+            font-size: 11px;
+        }
+
+        .timeline-activities {
+            position: sticky;
+            left: 0;
+            z-index: 10;
+            background: white;
+        }
+
+        .timeline-activity-row {
+            display: contents;
+        }
+        
+        .timeline-activity-name {
+            padding: 8px 16px;
+            border-bottom: 1px solid #f1f5f9;
+            border-right: 1px solid #cbd5e1;
+            background: white;
+            position: sticky;
+            left: 0;
+            z-index: 10;
+            display: flex;
+            align-items: center;
+            min-height: 32px;
+            cursor: pointer;
+            transition: background-color 0.2s;
+            min-width: 280px;
+        }
+        
+        .timeline-activity-bars {
+            padding: 8px 0;
+            border-bottom: 1px solid #f1f5f9;
+            min-height: 32px;
+            position: relative;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+
+        .timeline-activity-name:nth-child(even),
+        .timeline-activity-bars:nth-child(even) {
+            background-color: #f8fafc;
+        }
+
+        .timeline-bars-container {
+            overflow: visible;
+        }
+
+        .timeline-bars {
+            position: relative;
+            height: 100%;
+        }
+
+        .timeline-grid-lines {
+            position: absolute;
+            top: 0;
+            height: 100%;
+            width: 100%;
+        }
+
+        .timeline-grid-line {
+            position: absolute;
+            top: 0;
+            height: 100%;
+            width: 1px;
+            background: #e5e7eb;
+        }
+
+        .timeline-bar-row {
+            height: 44px;
+            position: relative;
+            border-bottom: 1px solid #f1f5f9;
+        }
+
+        .timeline-bar {
+            position: absolute;
+            height: 20px;
+            top: 12px;
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 10px;
+            color: white;
+            font-weight: 500;
+            cursor: ew-resize;
+            user-select: none;
+            transition: box-shadow 0.2s;
+        }
+
+        .timeline-bar:hover {
+            box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+            z-index: 10;
+        }
+
+        .timeline-bar.dragging {
+            opacity: 0.8;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+            z-index: 20;
+        }
+
+        .timeline-bar-resize-handle {
+            position: absolute;
+            right: -2px;
+            top: 0;
+            width: 8px;
+            height: 100%;
+            cursor: ew-resize;
+            background: rgba(255,255,255,0.3);
+            border-radius: 0 4px 4px 0;
+            opacity: 0;
+            transition: opacity 0.2s;
+        }
+
+        .timeline-bar:hover .timeline-bar-resize-handle {
+            opacity: 1;
+        }
+
+        /* Trade category colors */
+        .excavation { background: #8b5cf6; }
+        .concrete { background: #06b6d4; }
+        .structural { background: #10b981; }
+        .mechanical { background: #f59e0b; }
+        .mechanical--hvac---plumbing- { background: #f59e0b; }
+        .electrical { background: #ef4444; }
+        .roofing { background: #84cc16; }
+        .plumbing { background: #6366f1; }
+        .general { background: #64748b; }
+        .equipment { background: #f97316; }
+        .equipment-placement { background: #f97316; }
+        .specialty-equipment---misc- { background: #f97316; }
+        .sitework { background: #a855f7; }
+        .sitework---earthwork { background: #a855f7; }
+        .framing { background: #059669; }
+        .insulation { background: #dc2626; }
+        .finishes { background: #7c3aed; }
+        .fire-protection { background: #be123c; }
+        .masonry---roofing---cladding { background: #84cc16; }
+        .masonry---exterior { background: #10b981; }
+        .ceilings { background: #818cf8; }
+
+        /* Gantt selection and actions */
+
+        .timeline-activity-name:hover,
+        .timeline-activity-bars:hover {
+            background-color: #e0f2fe !important;
+        }
+
+        .timeline-activity-name.selected {
+            background-color: #bfdbfe !important;
+            border-left: 4px solid #2563eb;
+        }
+
+        .timeline-activity-name.trade-status-accepted {
+            background-color: #f0fdf4;
+            border-left: 3px solid #10b981;
+        }
+
+        .timeline-activity-name.trade-status-rejected {
+            background-color: #fef2f2;
+            border-left: 3px solid #ef4444;
+            opacity: 0.6;
+        }
+
+        .timeline-activity-bars.trade-status-accepted .timeline-bar {
+            border: 2px solid #10b981;
+            box-shadow: 0 0 0 1px #10b981;
+        }
+
+        .timeline-activity-bars.trade-status-rejected .timeline-bar {
+            border: 2px solid #ef4444;
+            box-shadow: 0 0 0 1px #ef4444;
+            opacity: 0.6;
+        }
+
+        .bulk-actions-toolbar {
+            display: none;
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            padding: 12px;
+            margin-bottom: 16px;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .bulk-actions-info {
+            font-size: 14px;
+            color: #374151;
+            font-weight: 500;
+        }
+
+        .bulk-actions-buttons {
+            display: flex;
+            gap: 8px;
+        }
+
+        .btn-accept {
+            background: #10b981;
+            color: white;
+            border: none;
+            padding: 6px 12px;
+            border-radius: 6px;
+            font-size: 12px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .btn-reject {
+            background: #ef4444;
+            color: white;
+            border: none;
+            padding: 6px 12px;
+            border-radius: 6px;
+            font-size: 12px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .btn-accept:hover {
+            background: #059669;
+        }
+
+        .btn-reject:hover {
+            background: #dc2626;
+        }
+
+        .parsing-section {
+            margin-bottom: 20px;
+        }
+
+        .parsing-item {
+            background: white;
+            border: 1px solid #e5e7eb;
+            border-radius: 6px;
+            padding: 12px;
+            margin-bottom: 8px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .parsing-content {
+            flex: 1;
+            font-size: 14px;
+        }
+
+        .parsing-actions {
+            display: flex;
+            gap: 8px;
+        }
+
+        /* Animation styles */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes slideDown {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Visual indicators for accepted/rejected trades */
+        .trade-status-accepted::after {
+            content: '✓';
+            position: absolute;
+            right: 8px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #16a34a;
+            font-weight: bold;
+            font-size: 14px;
+        }
+
+        .trade-status-rejected {
+            opacity: 0.5;
+            text-decoration: line-through;
+        }
+
+        .timeline-activity-name {
+            position: relative;
+        }
+
+        /* Drag and drop styles */
+        .timeline-bar {
+            cursor: move;
+            transition: transform 0.1s ease;
+        }
+
+        .timeline-bar:hover {
+            transform: translateY(-1px);
+        }
+
+        .timeline-bar.dragging {
+            transform: scale(1.05);
+            z-index: 10;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+        }
+
+        .timeline-bar.resizing {
+            z-index: 10;
+        }
+
+        .timeline-bar-resize-handle {
+            position: absolute;
+            right: 0;
+            top: 0;
+            width: 8px;
+            height: 100%;
+            background: rgba(255,255,255,0.5);
+            cursor: ew-resize;
+            opacity: 0;
+            transition: opacity 0.2s ease;
+        }
+
+        .timeline-bar:hover .timeline-bar-resize-handle {
+            opacity: 1;
+        }
+        
+        .timeline-activity-bars.selected {
+            background-color: #bfdbfe !important;
+        }
+
+        .bulk-actions-toolbar {
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            padding: 12px;
+            margin-bottom: 16px;
+            display: none;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .bulk-actions-info {
+            font-size: 14px;
+            color: #374151;
+            font-weight: 500;
+        }
+
+        .bulk-actions-buttons {
+            display: flex;
+            gap: 8px;
+        }
+
+        .btn-accept {
+            background: #16a34a;
+            color: white;
+            border: none;
+            padding: 6px 12px;
+            border-radius: 4px;
+            font-size: 12px;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .btn-accept:hover {
+            background: #15803d;
+        }
+
+        .btn-reject {
+            background: #dc2626;
+            color: white;
+            border: none;
+            padding: 6px 12px;
+            border-radius: 4px;
+            font-size: 12px;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .btn-reject:hover {
+            background: #b91c1c;
+        }
+
+        .trade-status-accepted {
+            position: relative;
+        }
+
+        .trade-status-accepted::after {
+            content: '✓';
+            position: absolute;
+            right: 8px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #16a34a;
+            font-weight: bold;
+        }
+
+        .trade-status-rejected {
+            opacity: 0.5;
+            text-decoration: line-through;
+        }
+
+        /* Review Modal Styles */
+        .review-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .review-modal-content {
+            background: white;
+            border-radius: 12px;
+            padding: 24px;
+            width: 90%;
+            max-width: 800px;
+            max-height: 90vh;
+            overflow-y: auto;
+            position: relative;
+        }
+
+        .review-modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 16px;
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        .review-modal-title {
+            font-size: 20px;
+            font-weight: 600;
+            color: #1f2937;
+        }
+
+        .review-modal-close {
+            background: none;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+            color: #6b7280;
+            padding: 4px;
+            border-radius: 4px;
+            transition: background 0.2s;
+        }
+
+        .review-modal-close:hover {
+            background: #f3f4f6;
+        }
+
+        .review-modal-body {
+            margin-bottom: 24px;
+        }
+
+        .review-section {
+            margin-bottom: 24px;
+        }
+
+        .review-section-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: #374151;
+            margin-bottom: 12px;
+        }
+
+        .gantt-screenshot {
+            border: 1px solid #e5e7eb;
+            border-radius: 8px;
+            overflow: hidden;
+            margin-bottom: 16px;
+            background: white;
+        }
+
+        .email-field {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #d1d5db;
+            border-radius: 6px;
+            font-size: 14px;
+            transition: border-color 0.2s;
+        }
+
+        .email-field:focus {
+            outline: none;
+            border-color: #3b82f6;
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+        }
+
+        .review-modal-footer {
+            display: flex;
+            justify-content: flex-end;
+            gap: 12px;
+            padding-top: 16px;
+            border-top: 1px solid #e5e7eb;
+        }
+
+        .btn-cancel {
+            background: #f9fafb;
+            color: #374151;
+            border: 1px solid #d1d5db;
+            padding: 8px 16px;
+            border-radius: 6px;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .btn-cancel:hover {
+            background: #f3f4f6;
+        }
+        .file-upload-area {
+            border: 2px dashed #d1d5db;
+            border-radius: 8px;
+            padding: 32px;
+            text-align: center;
+            transition: all 0.2s;
+            cursor: pointer;
+        }
+
+        .file-upload-area:hover {
+            border-color: #2563eb;
+            background: #f8fafc;
+        }
+
+        .file-upload-area.drag-over {
+            border-color: #2563eb;
+            background: #eff6ff;
+        }
+
+        .file-list {
+            margin-top: 16px;
+            padding: 16px;
+            background: #f9fafb;
+            border-radius: 8px;
+        }
+
+        .file-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 8px 12px;
+            background: white;
+            border: 1px solid #e5e7eb;
+            border-radius: 6px;
+            margin-bottom: 8px;
+        }
+
+        .file-remove {
+            color: #ef4444;
+            cursor: pointer;
+            font-weight: bold;
+            padding: 4px 8px;
+        }
+
+        .spinner {
+            width: 32px;
+            height: 32px;
+            border: 3px solid #e5e7eb;
+            border-top: 3px solid #2563eb;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <div class="header">
+        <h1>🤖 1-Hour Project Setup</h1>
+        <div class="header-right">
+            <span class="status-badge status-progress">Ready</span>
+            <button class="btn-secondary" onclick="window.location.href='../'">Back to Dashboard</button>
+            <button class="btn-secondary">Save Draft</button>
+            <button class="btn-primary" onclick="openReviewModal()">Send for Review</button>
+        </div>
+    </div>
+
+    <div class="main-content">
+            <!-- Setup Panel -->
+            <div class="setup-panel">
+          
+
+                <!-- Step 1: Building Type -->
+                <div class="step-section">
+                    <div class="step-header">
+                        <div class="step-number">1</div>
+                        <div class="step-title">Select building type</div>
+                    </div>
+                    <div class="template-buttons">
+                        <div class="template-btn" id="commercialTemplate" onclick="selectTemplate('commercial')">
+                            <div class="template-btn-title">🏢 Commercial / Mixed Use</div>
+                            <div class="template-btn-count">34 Progress AI trades across 5 construction stages</div>
+                        </div>
+                        <div class="template-btn" id="datacentersTemplate" onclick="selectTemplate('datacenters')">
+                            <div class="template-btn-title">🖥️ Data Centers</div>
+                            <div class="template-btn-count">45 specialized trades for data center construction</div>
+                        </div>
+                        <div class="template-btn" id="energyTemplate" onclick="selectTemplate('energy')">
+                            <div class="template-btn-title">⚡ Energy / Power / Water Treatment</div>
+                            <div class="template-btn-count">35 specialized trades for energy infrastructure</div>
+                        </div>
+                        <div class="template-btn" id="healthcareTemplate" onclick="selectTemplate('healthcare')">
+                            <div class="template-btn-title">🏥 Healthcare</div>
+                            <div class="template-btn-count">34 Progress AI trades with complex MEP systems</div>
+                        </div>
+                        <div class="template-btn" id="hospitalityTemplate" onclick="selectTemplate('hospitality')">
+                            <div class="template-btn-title">🏨 Hospitality</div>
+                            <div class="template-btn-count">34 Progress AI trades for hospitality construction</div>
+                        </div>
+                        <div class="template-btn" id="infrastructureTemplate" onclick="selectTemplate('infrastructure')">
+                            <div class="template-btn-title">🚧 Infrastructure / Heavy Civil</div>
+                            <div class="template-btn-count">34 Progress AI trades for heavy civil projects</div>
+                        </div>
+                        <div class="template-btn" id="institutionalTemplate" onclick="selectTemplate('institutional')">
+                            <div class="template-btn-title">🏛️ Institutional / Education</div>
+                            <div class="template-btn-count">34 Progress AI trades for institutional projects</div>
+                        </div>
+                        <div class="template-btn" id="manufacturingTemplate" onclick="selectTemplate('manufacturing')">
+                            <div class="template-btn-title">🏭 Manufacturing / Industrial</div>
+                            <div class="template-btn-count">34 Progress AI trades for industrial construction</div>
+                        </div>
+                        <div class="template-btn" id="multifamilyTemplate" onclick="selectTemplate('multifamily')">
+                            <div class="template-btn-title">🏠 Multi Family / Residential</div>
+                            <div class="template-btn-count">34 Progress AI trades for residential projects</div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <!-- Step 2: Upload Schedule -->
+                <div class="step-section">
+                    <div class="step-header">
+                        <span class="step-number">2</span>
+                        <span class="step-title">Upload Schedule</span>
+                    </div>
+                    <div class="file-upload-area" id="fileDropArea">
+                        <div class="file-upload-content">
+                            <div style="font-size: 48px; margin-bottom: 16px;">📄</div>
+                            <div style="font-size: 16px; font-weight: 600; margin-bottom: 8px;">Drop your schedule file here</div>
+                            <div style="font-size: 14px; color: #6b7280; margin-bottom: 16px;">Supports .XER, .CSV, .XLSX files</div>
+                            <button type="button" class="btn-generate" onclick="document.getElementById('fileInput').click()">Browse Files</button>
+                            <input type="file" id="fileInput" style="display: none;" accept=".xer,.csv,.xlsx" multiple onchange="handleFileSelect(event)">
+                    </div>
+                    </div>
+                    <div id="fileList" class="file-list" style="display: none;">
+                        <!-- Uploaded files will appear here -->
+                    </div>
+                </div>
+
+                <!-- Step 3: Pre-Processing Filters -->
+                <div class="step-section">
+                    <div class="step-header">
+                        <span class="step-number">3</span>
+                        <span class="step-title">Pre-Processing Filters</span>
+                    </div>
+                    
+                    <div class="bg-gray-50 p-3 rounded border">
+                        <div class="mb-3">
+                            <label class="flex items-center text-sm">
+                                <input type="checkbox" id="filterZeroDays" checked class="mr-2">
+                                Exclude 0-day duration activities
+                            </label>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label class="block text-xs font-medium text-gray-600 mb-1">
+                                Exclude Keywords (applied automatically):
+                            </label>
+                            <div class="text-xs text-gray-500 max-h-16 overflow-y-auto bg-white p-2 rounded border">
+                                <span id="excludeKeywordsList">rfp, rfi, approval, submittal, review, meeting, mobilization, demobilization, permit, inspection, testing, close out, closeout, procurement, ordering, delivery, schedule, planning, coordination, procure, po, design, lead time, inventory, offsite, deliver</span>
+                            </div>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label class="flex items-center text-sm">
+                                <input type="checkbox" id="filterCONActivities" checked class="mr-2">
+                                Only analyze activities with ID starting with "CON"
+                            </label>
+                        </div>
+                        
+                        <div class="text-xs text-blue-600">
+                            ℹ️ These filters run before AI analysis to improve accuracy
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Generate Button -->
+                <button class="btn-generate" onclick="generateProject()" id="generateBtn" disabled>
+                    Complete Steps 1-3 Above
+                </button>
+            </div>
+
+            <!-- AI Parsing Panel -->
+            <div class="ai-panel">
+                <!-- Initial State -->
+                <div id="aiInitialState" style="text-align: center; padding: 60px 20px; color: #6b7280;">
+                    <div style="font-size: 48px; margin-bottom: 16px;">🤖</div>
+                    <div style="font-size: 18px; font-weight: 600; margin-bottom: 8px;">Ready for AI Analysis</div>
+                    <div style="font-size: 14px;">Upload schedule files to begin AI parsing and trade matching</div>
+                </div>
+
+                <!-- AI Processing State -->
+                <div id="aiProcessingState" style="display: none; text-align: center; padding: 60px 20px;">
+                    <div style="font-size: 48px; margin-bottom: 16px;">⚡</div>
+                    <div style="font-size: 18px; font-weight: 600; margin-bottom: 8px; color: #2563eb;">AI Processing...</div>
+                    <div style="font-size: 14px; color: #6b7280; margin-bottom: 16px;">Analyzing schedule and matching activities to trades</div>
+                    <div class="spinner" style="margin: 0 auto;"></div>
+                </div>
+
+                <!-- AI Results State -->
+                <div id="aiResultsState" style="display: none;">
+                    <div style="padding: 0 0 20px 0; border-bottom: 1px solid #e5e7eb;">
+                        <h3 style="margin: 0; font-size: 18px; color: #1f2937;">AI Parsing Results</h3>
+                        <p style="margin: 8px 0 0 0; font-size: 14px; color: #6b7280;">Review and approve the AI's trade matches</p>
+                    </div>
+                    <div id="aiResults" style="padding-top: 16px;">
+                        <!-- AI results will be populated here -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- Output Panel -->
+            <div class="output-panel">
+                <!-- Initial State -->
+                <div id="outputInitialState" style="text-align: center; padding: 60px 20px; color: #6b7280;">
+                    <div style="font-size: 48px; margin-bottom: 16px;">📈</div>
+                    <div style="font-size: 18px; font-weight: 600; margin-bottom: 8px;">Ready to Generate Timeline</div>
+                    <div style="font-size: 14px;">Approve AI matches to generate your project timeline</div>
+                </div>
+
+                <!-- Gantt Chart Output -->
+                <div id="ganttOutput" style="display: none;">
+                    <div style="padding: 0 0 20px 0; border-bottom: 1px solid #e5e7eb;">
+                        <h3 style="margin: 0; font-size: 18px; color: #1f2937;">Project Timeline</h3>
+                        <p style="margin: 8px 0 0 0; font-size: 14px; color: #6b7280;">Your project timeline based on AI-matched trades</p>
+                    </div>
+                    <!-- Bulk Actions Toolbar -->
+                    <div id="bulkActionsToolbar" class="bulk-actions-toolbar">
+                        <div class="bulk-actions-info">
+                            <span id="selectedCount">0</span> trade(s) selected
+                            <span style="font-size: 11px; color: #6b7280; margin-left: 8px;" title="Click to select single item, Ctrl+click (Cmd+click on Mac) to select multiple items">ℹ️</span>
+                        </div>
+                        <div class="bulk-actions-buttons">
+                            <button class="btn-accept" onclick="bulkAcceptSelected()">✓ Accept Selected</button>
+                            <button class="btn-reject" onclick="bulkRejectSelected()">✗ Reject Selected</button>
+                            <button class="btn-secondary" onclick="clearGanttSelection()" style="background: #6b7280; color: white; border: none; padding: 6px 12px; border-radius: 6px; font-size: 12px; cursor: pointer;">Clear Selection</button>
+                        </div>
+                    </div>
+
+                    <div id="ganttChart" style="padding-top: 16px; overflow-x: auto;">
+                        <!-- Gantt chart will be populated here -->
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    <!-- API Key Modal -->
+    <div id="apiKeyModal" class="review-modal" style="display: flex;">
+        <div class="review-modal-content">
+            <div class="review-modal-header">
+                <h3 class="review-modal-title">🤖 Gemini API Key Required</h3>
+            </div>
+            
+            <div class="review-modal-body">
+                <div class="review-section">
+                    <p style="margin-bottom: 20px; color: #6b7280; line-height: 1.5;">
+                        To use AI-powered schedule analysis, please enter your Gemini API key. 
+                        This will only be stored temporarily and not saved.
+                    </p>
+                    
+                    <div class="form-group">
+                        <label style="display: block; margin-bottom: 8px; font-weight: 600; color: #374151;">Gemini API Key</label>
+                        <input 
+                            type="password" 
+                            id="geminiApiKey" 
+                            class="email-field" 
+                            placeholder="Enter your Gemini API key"
+                            style="font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace; font-size: 13px;"
+                        >
+                        <div style="font-size: 12px; color: #6b7280; margin-top: 8px;">
+                            💡 Get your free API key from <a href="https://makersuite.google.com/app/apikey" target="_blank" style="color: #2563eb; text-decoration: none;">Google AI Studio</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="review-modal-footer">
+                <button class="review-modal-btn review-modal-btn-primary" onclick="saveApiKey()" id="saveApiKeyBtn">
+                    Save and Continue
+                </button>
+            </div>
+            </div>
+        </div>
+
+    <!-- Review Modal -->
+    <div id="reviewModal" class="review-modal">
+        <div class="review-modal-content">
+            <div class="review-modal-header">
+                <h3 class="review-modal-title">📧 Send Project for Review</h3>
+                <button class="review-modal-close" onclick="closeReviewModal()">&times;</button>
+            </div>
+            
+            <div class="review-modal-body">
+                <div class="review-section">
+                    <div class="review-section-title">Project Timeline Preview</div>
+                    <div id="ganttScreenshot" class="gantt-screenshot">
+                        <!-- Screenshot will be inserted here -->
+                    </div>
+                </div>
+                
+                <div class="review-section">
+                    <div class="review-section-title">Send to Email</div>
+                    <input 
+                        type="email" 
+                        id="reviewEmail" 
+                        class="email-field" 
+                        placeholder="Enter reviewer's email address"
+                        required>
+                </div>
+            </div>
+            
+            <div class="review-modal-footer">
+                <button class="btn-cancel" onclick="closeReviewModal()">Cancel</button>
+                <button class="btn-primary" onclick="sendForReview()">📤 Send for Review</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Application State
+        const AppState = {
+            selectedBuildingType: null,
+            uploadedFiles: [],
+            generatedTrades: [],
+            selectedGanttItems: new Set(),
+            acceptedTrades: new Set(),
+            rejectedTrades: new Set(),
+            aiResults: [],
+            scheduleData: [],
+            projectStartDate: '2025-01-01',
+            projectEndDate: '2025-07-01'
+        };
+
+        // Global variables for AI parsing
+        let parsedItems = [];
+        let rejectedMappings = [];
+        let loadedScheduleActivities = [];
+
+        // Exclusion filters (copied from scheduleconverter)
+        const EXCLUSION_KEYWORDS = [
+            'rfp', 'rfi', 'approval', 'submittal', 'review', 'meeting', 'mobilization',
+            'demobilization', 'permit', 'inspection', 'testing', 'close out', 'closeout',
+            'procurement', 'ordering', 'delivery', 'schedule', 'planning', 'coordination',
+            'procure', 'po', 'design', 'lead time', 'inventory', 'offsite', 'deliver'
+        ];
+
+        // Updated trades database from CSV file
+        const progressAITrades = [
+            // Energy / Power / Water Treatment Specific
+            { id: 69, category: 'Specialty Equipment / Misc.', trade: 'Tank Installation', projectTypes: ['Energy'], stage: 'preparation', duration: 21 },
+            
+            // Data Center Specific Trades
+            { id: 47, category: 'Equipment Placement', trade: 'Mechanical Yard - Equipment Placement', projectTypes: ['Data Center'], stage: 'finishes', duration: 14 },
+            { id: 99, category: 'Equipment Placement', trade: 'Generator Placement', projectTypes: ['Data Center'], stage: 'finishes', duration: 10 },
+            { id: 109, category: 'Masonry / Roofing / Cladding', trade: 'Roofing', projectTypes: ['Data Center'], stage: 'envelope', duration: 21 },
+            { id: 112, category: 'Masonry / Roofing / Cladding', trade: 'Roofing Metal Deck', projectTypes: ['Data Center'], stage: 'envelope', duration: 14 },
+            { id: 114, category: 'Masonry / Roofing / Cladding', trade: 'Roofing Membrane', projectTypes: ['Data Center'], stage: 'superstructure', duration: 10 },
+            { id: 113, category: 'Masonry / Roofing / Cladding', trade: 'Roofing Insulation', projectTypes: ['Data Center'], stage: 'superstructure', duration: 7 },
+            { id: 39, category: 'Masonry / Exterior', trade: 'Structural Steel', projectTypes: ['Data Center'], stage: 'superstructure', duration: 28 },
+            { id: 56, category: 'Sitework / Earthwork', trade: 'Structural Piles', projectTypes: ['Data Center'], stage: 'preparation', duration: 14 },
+            { id: 87, category: 'Concrete', trade: 'Concrete Formwork', projectTypes: ['Data Center'], stage: 'preparation', duration: 10 },
+            { id: 48, category: 'Equipment Placement', trade: 'Electrical Yard – Equipment Placement', projectTypes: ['Data Center'], stage: 'finishes', duration: 14 },
+            { id: 108, category: 'Electrical', trade: 'Electrical Yard Equipment Conduit', projectTypes: ['Data Center'], stage: 'finishes', duration: 7 },
+
+            // Universal Trades (for all building types)
+            { id: 93, category: 'Concrete', trade: 'Concrete Foundation Pour', projectTypes: ['Commercial', 'Data Center', 'Energy', 'Healthcare', 'Hospitality', 'Infrastructure', 'Institutional', 'Manufacturing', 'Multi Family', 'Other'], stage: 'superstructure', duration: 7 },
+            { id: 33, category: 'Sitework / Earthwork', trade: 'Vapor Barrier', projectTypes: ['Commercial', 'Data Center', 'Energy', 'Healthcare', 'Hospitality', 'Infrastructure', 'Institutional', 'Manufacturing', 'Multi Family', 'Other'], stage: 'preparation', duration: 3 },
+            { id: 21, category: 'Fire Protection', trade: 'Overhead Fire Protection', projectTypes: ['Commercial', 'Data Center', 'Energy', 'Healthcare', 'Hospitality', 'Infrastructure', 'Institutional', 'Manufacturing', 'Multi Family', 'Other'], stage: 'fitout', duration: 14 },
+            { id: 90, category: 'Electrical', trade: 'Overhead Electrical Rough In', projectTypes: ['Commercial', 'Data Center', 'Energy', 'Healthcare', 'Hospitality', 'Infrastructure', 'Institutional', 'Manufacturing', 'Multi Family', 'Other'], stage: 'fitout', duration: 10 },
+            { id: 30, category: 'Sitework / Earthwork', trade: 'Excavation', projectTypes: ['Commercial', 'Data Center', 'Energy', 'Healthcare', 'Hospitality', 'Infrastructure', 'Institutional', 'Manufacturing', 'Multi Family', 'Other'], stage: 'preparation', duration: 7 },
+            { id: 94, category: 'Mechanical (HVAC / Plumbing)', trade: 'Overhead Plumbing', projectTypes: ['Commercial', 'Data Center', 'Energy', 'Healthcare', 'Hospitality', 'Infrastructure', 'Institutional', 'Manufacturing', 'Multi Family', 'Other'], stage: 'fitout', duration: 10 },
+            { id: 31, category: 'Sitework / Earthwork', trade: 'Batterboards', projectTypes: ['Commercial', 'Data Center', 'Energy', 'Healthcare', 'Hospitality', 'Infrastructure', 'Institutional', 'Manufacturing', 'Multi Family', 'Other'], stage: 'preparation', duration: 5 },
+            { id: 88, category: 'Concrete', trade: 'Concrete Rebar', projectTypes: ['Commercial', 'Data Center', 'Energy', 'Healthcare', 'Hospitality', 'Infrastructure', 'Institutional', 'Manufacturing', 'Multi Family', 'Other'], stage: 'superstructure', duration: 7 },
+            { id: 63, category: 'Concrete', trade: 'Concrete Pour', projectTypes: ['Commercial', 'Data Center', 'Energy', 'Healthcare', 'Hospitality', 'Infrastructure', 'Institutional', 'Manufacturing', 'Multi Family', 'Other'], stage: 'superstructure', duration: 5 },
+            { id: 20, category: 'Electrical', trade: 'In Wall Electrical', projectTypes: ['Commercial', 'Data Center', 'Energy', 'Healthcare', 'Hospitality', 'Infrastructure', 'Institutional', 'Manufacturing', 'Multi Family', 'Other'], stage: 'fitout', duration: 14 },
+            { id: 85, category: 'Finishes', trade: 'Wall Painting', projectTypes: ['Commercial', 'Data Center', 'Energy', 'Healthcare', 'Hospitality', 'Infrastructure', 'Institutional', 'Manufacturing', 'Multi Family', 'Other'], stage: 'finishes', duration: 10 },
+            { id: 1, category: 'Fire Protection', trade: 'Wall Framing', projectTypes: ['Commercial', 'Data Center', 'Energy', 'Healthcare', 'Hospitality', 'Infrastructure', 'Institutional', 'Manufacturing', 'Multi Family', 'Other'], stage: 'fitout', duration: 14 },
+            { id: 2, category: 'Insulation', trade: 'In Wall Insulation', projectTypes: ['Commercial', 'Data Center', 'Energy', 'Healthcare', 'Hospitality', 'Infrastructure', 'Institutional', 'Manufacturing', 'Multi Family', 'Other'], stage: 'fitout', duration: 7 },
+            { id: 72, category: 'Mechanical (HVAC / Plumbing)', trade: 'Overhead Duct Rough In', projectTypes: ['Commercial', 'Data Center', 'Energy', 'Healthcare', 'Hospitality', 'Infrastructure', 'Institutional', 'Manufacturing', 'Multi Family', 'Other'], stage: 'fitout', duration: 14 },
+            { id: 36, category: 'Sitework / Earthwork', trade: 'Underground Utilities', projectTypes: ['Commercial', 'Data Center', 'Energy', 'Healthcare', 'Hospitality', 'Infrastructure', 'Institutional', 'Manufacturing', 'Multi Family', 'Other'], stage: 'preparation', duration: 10 },
+            { id: 15, category: 'Mechanical (HVAC / Plumbing)', trade: 'In Wall Plumbing', projectTypes: ['Commercial', 'Data Center', 'Energy', 'Healthcare', 'Hospitality', 'Infrastructure', 'Institutional', 'Manufacturing', 'Multi Family', 'Other'], stage: 'fitout', duration: 10 },
+            { id: 3, category: 'Fire Protection', trade: 'Wall Drywall', projectTypes: ['Commercial', 'Data Center', 'Energy', 'Healthcare', 'Hospitality', 'Infrastructure', 'Institutional', 'Manufacturing', 'Multi Family', 'Other'], stage: 'fitout', duration: 14 },
+            { id: 79, category: 'Fire Protection', trade: 'Overhead Drywall', projectTypes: ['Commercial', 'Data Center', 'Energy', 'Healthcare', 'Hospitality', 'Infrastructure', 'Institutional', 'Manufacturing', 'Multi Family', 'Other'], stage: 'fitout', duration: 10 },
+            { id: 92, category: 'Finishes', trade: 'Carpet Flooring', projectTypes: ['Commercial', 'Data Center', 'Energy', 'Healthcare', 'Hospitality', 'Infrastructure', 'Institutional', 'Manufacturing', 'Multi Family', 'Other'], stage: 'finishes', duration: 7 },
+            { id: 95, category: 'Ceilings', trade: 'Overhead Ceiling Grid', projectTypes: ['Commercial', 'Data Center', 'Energy', 'Healthcare', 'Hospitality', 'Infrastructure', 'Institutional', 'Manufacturing', 'Multi Family', 'Other'], stage: 'fitout', duration: 7 },
+            { id: 97, category: 'Finishes', trade: 'Stone Base Flooring', projectTypes: ['Commercial', 'Data Center', 'Energy', 'Healthcare', 'Hospitality', 'Infrastructure', 'Institutional', 'Manufacturing', 'Multi Family', 'Other'], stage: 'finishes', duration: 5 },
+            { id: 86, category: 'Fire Protection', trade: 'Wall Taping & Mudding', projectTypes: ['Commercial', 'Data Center', 'Energy', 'Healthcare', 'Hospitality', 'Infrastructure', 'Institutional', 'Manufacturing', 'Multi Family', 'Other'], stage: 'fitout', duration: 10 },
+            { id: 28, category: 'Finishes', trade: 'Windows and doors installation', projectTypes: ['Commercial', 'Data Center', 'Energy', 'Healthcare', 'Hospitality', 'Infrastructure', 'Institutional', 'Manufacturing', 'Multi Family', 'Other'], stage: 'fitout', duration: 14 },
+            { id: 16, category: 'Mechanical (HVAC / Plumbing)', trade: 'Overhead HVAC Pipe Insulation', projectTypes: ['Commercial', 'Data Center', 'Energy', 'Healthcare', 'Hospitality', 'Infrastructure', 'Institutional', 'Manufacturing', 'Multi Family', 'Other'], stage: 'fitout', duration: 7 },
+            { id: 41, category: 'Mechanical (HVAC / Plumbing)', trade: 'Roof HVAC Units', projectTypes: ['Commercial', 'Data Center', 'Energy', 'Healthcare', 'Hospitality', 'Infrastructure', 'Institutional', 'Manufacturing', 'Multi Family', 'Other'], stage: 'fitout', duration: 10 },
+            { id: 80, category: 'Finishes', trade: 'Overhead Finishes', projectTypes: ['Commercial', 'Data Center', 'Energy', 'Healthcare', 'Hospitality', 'Infrastructure', 'Institutional', 'Manufacturing', 'Multi Family', 'Other'], stage: 'finishes', duration: 7 },
+            { id: 81, category: 'Fire Protection', trade: 'Overhead Framing', projectTypes: ['Commercial', 'Data Center', 'Energy', 'Healthcare', 'Hospitality', 'Infrastructure', 'Institutional', 'Manufacturing', 'Multi Family', 'Other'], stage: 'fitout', duration: 10 },
+            { id: 42, category: 'Mechanical (HVAC / Plumbing)', trade: 'Roof HVAC Piping', projectTypes: ['Commercial', 'Data Center', 'Energy', 'Healthcare', 'Hospitality', 'Infrastructure', 'Institutional', 'Manufacturing', 'Multi Family', 'Other'], stage: 'fitout', duration: 7 },
+            { id: 89, category: 'Mechanical (HVAC / Plumbing)', trade: 'Overhead Duct Insulation', projectTypes: ['Commercial', 'Data Center', 'Energy', 'Healthcare', 'Hospitality', 'Infrastructure', 'Institutional', 'Manufacturing', 'Multi Family', 'Other'], stage: 'fitout', duration: 7 },
+            { id: 91, category: 'Fire Protection', trade: 'Wall Drywall Finish', projectTypes: ['Commercial', 'Data Center', 'Energy', 'Healthcare', 'Hospitality', 'Infrastructure', 'Institutional', 'Manufacturing', 'Multi Family', 'Other'], stage: 'fitout', duration: 10 },
+            { id: 14, category: 'Mechanical (HVAC / Plumbing)', trade: 'In Wall Plumbing Insulation', projectTypes: ['Commercial', 'Data Center', 'Energy', 'Healthcare', 'Hospitality', 'Infrastructure', 'Institutional', 'Manufacturing', 'Multi Family', 'Other'], stage: 'fitout', duration: 5 },
+            { id: 54, category: 'Finishes', trade: 'Millwork and Install', projectTypes: ['Commercial', 'Data Center', 'Energy', 'Healthcare', 'Hospitality', 'Infrastructure', 'Institutional', 'Manufacturing', 'Multi Family', 'Other'], stage: 'finishes', duration: 14 },
+            { id: 98, category: 'Electrical', trade: 'PODs Placement', projectTypes: ['Commercial', 'Data Center', 'Energy', 'Healthcare', 'Hospitality', 'Infrastructure', 'Institutional', 'Manufacturing', 'Multi Family', 'Other'], stage: 'fitout', duration: 5 },
+            { id: 96, category: 'Finishes', trade: 'Wall Prime Paint', projectTypes: ['Commercial', 'Data Center', 'Energy', 'Healthcare', 'Hospitality', 'Infrastructure', 'Institutional', 'Manufacturing', 'Multi Family', 'Other'], stage: 'finishes', duration: 7 },
+            { id: 49, category: 'Concrete', trade: 'Tilt-Up Wall Panels', projectTypes: ['Commercial', 'Data Center', 'Energy', 'Healthcare', 'Hospitality', 'Infrastructure', 'Institutional', 'Manufacturing', 'Multi Family', 'Other'], stage: 'superstructure', duration: 14 },
+            { id: 83, category: 'Finishes', trade: 'Overhead Painting', projectTypes: ['Commercial', 'Data Center', 'Energy', 'Healthcare', 'Hospitality', 'Infrastructure', 'Institutional', 'Manufacturing', 'Multi Family', 'Other'], stage: 'finishes', duration: 7 },
+            { id: 50, category: 'Ceilings', trade: 'Metal Ceiling Panels', projectTypes: ['Commercial', 'Data Center', 'Energy', 'Healthcare', 'Hospitality', 'Infrastructure', 'Institutional', 'Manufacturing', 'Multi Family', 'Other'], stage: 'finishes', duration: 5 }
+        ];
+
+        // Template selection
+        function selectTemplate(type) {
+            AppState.selectedBuildingType = type;
+            
+            // Update UI
+            document.querySelectorAll('.template-btn').forEach(btn => btn.classList.remove('selected'));
+            document.getElementById(type + 'Template').classList.add('selected');
+            
+            updateGenerateButton();
+        }
+
+        // Form event listeners
+
+        function updateGenerateButton() {
+            const btn = document.getElementById('generateBtn');
+            const isReady = AppState.selectedBuildingType && AppState.uploadedFiles.length > 0;
+            
+            btn.disabled = !isReady;
+            btn.style.opacity = isReady ? '1' : '0.5';
+            
+            if (isReady) {
+                btn.textContent = '🤖 AI Enhance';
+            } else {
+                btn.textContent = 'Complete Steps 1-3 Above';
+            }
+        }
+
+        // File upload handling
+        function handleFileSelect(event) {
+            const files = Array.from(event.target.files);
+            processFiles(files);
+        }
+
+        function processFiles(files) {
+            files.forEach(file => {
+                AppState.uploadedFiles.push(file);
+            });
+            updateFileList();
+            updateGenerateButton();
+        }
+
+        function updateFileList() {
+            const fileList = document.getElementById('fileList');
+            const fileDropArea = document.getElementById('fileDropArea');
+            
+            if (AppState.uploadedFiles.length === 0) {
+                fileList.style.display = 'none';
+                return;
+            }
+            
+            fileList.style.display = 'block';
+            fileList.innerHTML = '<h4 style="margin: 0 0 12px 0; font-size: 14px; color: #374151;">Uploaded Files:</h4>';
+            
+            AppState.uploadedFiles.forEach((file, index) => {
+                const fileItem = document.createElement('div');
+                fileItem.className = 'file-item';
+                fileItem.innerHTML = 
+                    '<span style="font-size: 14px; color: #1f2937;">' + file.name + '</span>' +
+                    '<span class="file-remove" onclick="removeFile(' + index + ')">&times;</span>';
+                
+                fileList.appendChild(fileItem);
+            });
+        }
+
+        function removeFile(index) {
+            AppState.uploadedFiles.splice(index, 1);
+            updateFileList();
+            updateGenerateButton();
+        }
+
+        // Duplicate function removed - using the first definition above
+
+        // Drag and drop
+        const fileDropArea = document.getElementById('fileDropArea');
+        if (fileDropArea) {
+            fileDropArea.addEventListener('dragover', function(e) {
+                e.preventDefault();
+                fileDropArea.classList.add('drag-over');
+            });
+
+            fileDropArea.addEventListener('dragleave', function(e) {
+                e.preventDefault();
+                fileDropArea.classList.remove('drag-over');
+            });
+
+            fileDropArea.addEventListener('drop', function(e) {
+                e.preventDefault();
+                fileDropArea.classList.remove('drag-over');
+                const files = Array.from(e.dataTransfer.files);
+                processFiles(files);
+            });
+        }
+
+        // Generate project timeline - now triggers AI enhancement
+        async function generateProject() {
+            if (!AppState.selectedBuildingType || AppState.uploadedFiles.length === 0) return;
+            
+            console.log('🚀 Starting AI Enhancement...');
+            console.log('Building type:', AppState.selectedBuildingType);
+            console.log('Files:', AppState.uploadedFiles.map(f => f.name));
+            
+            // Show AI processing state
+            document.getElementById('aiInitialState').style.display = 'none';
+            document.getElementById('aiProcessingState').style.display = 'block';
+            document.getElementById('aiResultsState').style.display = 'none';
+            
+            try {
+                // Parse uploaded file
+                const file = AppState.uploadedFiles[0];
+                console.log('📄 Parsing file:', file.name);
+                
+                const scheduleData = await parseScheduleFile(file);
+                console.log('📊 Parsed schedule data:', scheduleData.length, 'activities');
+                
+                // Filter and process data
+                const filteredData = filterScheduleData(scheduleData);
+                console.log('🔍 Filtered data:', filteredData.length, 'construction activities');
+                
+                // Use first 50 items for analysis (reduced from 100)
+                const dataForAnalysis = filteredData.slice(0, 50);
+                console.log('🤖 Analyzing', dataForAnalysis.length, 'activities with Gemini...');
+                
+                // Process with Gemini AI
+                await processWithGemini(dataForAnalysis);
+                
+            } catch (error) {
+                console.error('❌ Error processing file:', error);
+                alert('Error processing file: ' + error.message);
+                
+                // Reset to initial state
+                document.getElementById('aiProcessingState').style.display = 'none';
+                document.getElementById('aiInitialState').style.display = 'block';
+            }
+        }
+
+
+        function acceptResult(index) {
+            // Use the integrated acceptMapping function
+            acceptMapping(index);
+        }
+
+        function rejectResult(index) {
+            // Use the integrated rejectMapping function
+            rejectMapping(index);
+        }
+
+        // File parsing functions
+        async function parseScheduleFile(file) {
+            const fileExtension = file.name.split('.').pop().toLowerCase();
+            const text = await file.text();
+            
+            switch (fileExtension) {
+                case 'csv':
+                    return parseCSV(text);
+                case 'xer':
+                    return parseXER(text);
+                default:
+                    throw new Error('Unsupported file type. Please upload .CSV or .XER files.');
+            }
+        }
+
+        function parseCSV(text) {
+            const lines = text.trim().split('\n');
+            const headers = lines[0].split(',').map(h => h.trim().replace(/"/g, ''));
+            
+            console.log('📋 CSV Headers:', headers);
+            
+            const data = [];
+            for (let i = 1; i < lines.length; i++) {
+                const values = lines[i].split(',').map(v => v.trim().replace(/"/g, ''));
+                const row = {};
+                
+                headers.forEach((header, index) => {
+                    row[header] = values[index] || '';
+                });
+                
+                data.push(row);
+            }
+            
+            return data;
+        }
+
+        function parseXER(text) {
+            // Use the working XER parser from scheduleconverter
+            const lines = text.split('\n');
+            let isTaskSection = false;
+            let headers = [];
+            let taskData = [];
+            
+            console.log('📋 XER file has', lines.length, 'lines');
+            
+            for (const line of lines) {
+                const trimmed = line.trim();
+                
+                // Start of TASK section
+                if (trimmed.startsWith('%T') && trimmed.includes('TASK')) {
+                    isTaskSection = true;
+                    console.log('📋 Found TASK section at line');
+                    continue;
+                }
+                
+                // Headers section (starts with %F)
+                if (isTaskSection && trimmed.startsWith('%F')) {
+                    headers = trimmed.substring(3).split('\t').map(h => h.trim());
+                    console.log('📋 Found headers:', headers.length, 'fields -', headers.slice(0, 10));
+                    continue;
+                }
+                
+                // Data rows (start with %R)
+                if (isTaskSection && trimmed.startsWith('%R')) {
+                    const values = trimmed.substring(3).split('\t');
+                    const activity = {};
+                    
+                    headers.forEach((header, i) => {
+                        activity[header] = values[i] ? values[i].trim() : '';
+                    });
+                    
+                    taskData.push(activity);
+                    
+                    // Log first few rows for debugging
+                    if (taskData.length <= 3) {
+                        console.log('📋 Sample activity', taskData.length, ':', {
+                            task_name: activity.task_name,
+                            task_code: activity.task_code,
+                            target_drtn_hr_cnt: activity.target_drtn_hr_cnt,
+                            wbs_id: activity.wbs_id
+                        });
+                    }
+                }
+                
+                // End of TASK section
+                if (isTaskSection && trimmed.startsWith('%T') && !trimmed.includes('TASK')) {
+                    console.log('📋 End of TASK section with', taskData.length, 'activities');
+                    break;
+                }
+            }
+            
+            if (taskData.length === 0) {
+                throw new Error('No TASK records found in the XER file.');
+            }
+            
+            // Convert to our format
+            const convertedData = taskData.map((a, i) => {
+                const activityName = a.task_name || 'Unnamed Activity';
+                
+                return {
+                    'Activity Name': activityName,
+                    'task_name': activityName,
+                    'task_code': a.task_code || `XER-ACT-${i+1}`,
+                    'Duration': a.target_drtn_hr_cnt || '0',
+                    'duration': a.target_drtn_hr_cnt || '0',
+                    'target_drtn_hr_cnt': a.target_drtn_hr_cnt || '0',
+                    'WBS': a.wbs_id || '',
+                    'wbs_id': a.wbs_id || '',
+                    'early_start_date': a.early_start_date || '',
+                    'early_end_date': a.early_end_date || '',
+                    'phys_complete_pct': a.phys_complete_pct || '0',
+                    'status_code': a.status_code || 'Not Started'
+                };
+            });
+            
+            console.log('📋 XER parsing complete:', convertedData.length, 'activities found');
+            return convertedData;
+        }
+
+        function filterScheduleData(data) {
+            if (!data || data.length === 0) return [];
+            
+            console.log('🔍 Starting schedule data filtering...');
+            console.log(`📊 Original data count: ${data.length}`);
+            
+            let currentData = [...data];
+            
+            // Filter out 0-day duration activities
+            const filterZeroDays = document.getElementById('filterZeroDays')?.checked !== false;
+            if (filterZeroDays) {
+                const beforeZero = currentData.length;
+                currentData = currentData.filter(item => getDuration(item) > 0);
+                console.log(`⏱️ After removing 0-day duration: ${currentData.length} items (removed ${beforeZero - currentData.length})`);
+            }
+            
+            // Filter by CON activity ID prefix
+            const filterCONActivities = document.getElementById('filterCONActivities')?.checked !== false;
+            if (filterCONActivities) {
+                const beforeCON = currentData.length;
+                currentData = currentData.filter(item => {
+                    // Use the correct field name for Activity ID
+                    const activityId = item['task_code'] || item['Activity ID'] || item['actv_id'] || item['task_id'] || 
+                                     item['ACTV_ID'] || item['TASK_ID'] || item['ActivityID'] || 
+                                     item['activity_id'] || item['Id'] || item['ID'] || '';
+                    
+                    // Debug: log first few items to see what fields are available
+                    if (beforeCON - currentData.length < 3) {
+                        console.log('🔍 Sample item fields:', Object.keys(item));
+                        console.log('🔍 Sample item values:', Object.values(item));
+                        console.log('🔍 Activity ID found:', activityId);
+                        console.log('🔍 Full item object:', item);
+                    }
+                    
+                    return activityId && activityId.toString().toUpperCase().startsWith('CON');
+                });
+                console.log(`🏗️ After CON ID filter: ${currentData.length} items (removed ${beforeCON - currentData.length})`);
+            }
+            
+            // Filter based on exclusion keywords
+            const beforeKeywords = currentData.length;
+            currentData = currentData.filter(item => {
+                const name = getActivityName(item);
+                if (name) {
+                    const nameToCheck = name.toLowerCase();
+                    const hasExclusionKeyword = EXCLUSION_KEYWORDS.some(keyword => 
+                        nameToCheck.includes(keyword.toLowerCase())
+                    );
+                    return !hasExclusionKeyword;
+                }
+                return true;
+            });
+            console.log(`🚫 After keyword exclusions: ${currentData.length} items (removed ${beforeKeywords - currentData.length})`);
+            
+            // Filter based on WBS code and activity name
+            const beforeWBS = currentData.length;
+            currentData = currentData.filter(item => {
+                const wbs = getWBS(item);
+                if (wbs && isNonConstructionWBS(wbs)) return false;
+                
+                const name = getActivityName(item);
+                if (name && isNonConstructionActivity(name)) return false;
+                
+                return true;
+            });
+            console.log(`📋 After WBS/activity name filter: ${currentData.length} items (removed ${beforeWBS - currentData.length})`);
+            
+            console.log(`✅ Final filtered count: ${currentData.length} (${Math.round((currentData.length/data.length)*100)}% of original)`);
+            return currentData;
+        }
+
+        function getDuration(item) {
+            // Try different possible duration field names
+            const durationFields = ['Duration', 'duration', 'DURATION', 'target_drtn_hr_cnt', 'drtn_hr_cnt'];
+            for (const field of durationFields) {
+                if (item[field] !== undefined) {
+                    const duration = parseFloat(item[field]) || 0;
+                    return duration;
+                }
+            }
+            return 0;
+        }
+
+        function getWBS(item) {
+            // Try different possible WBS field names
+            const wbsFields = ['WBS', 'wbs', 'wbs_id', 'WBS_ID', 'wbs_short_name'];
+            for (const field of wbsFields) {
+                if (item[field]) return item[field];
+            }
+            return '';
+        }
+
+        function getActivityName(item) {
+            // Try different possible activity name fields
+            const nameFields = ['Activity Name', 'task_name', 'Activity', 'Name', 'task_code', 'TASK_NAME'];
+            for (const field of nameFields) {
+                if (item[field]) return item[field];
+            }
+            return '';
+        }
+
+        function isNonConstructionWBS(wbs) {
+            // WBS codes that typically indicate non-construction activities
+            const nonConstructionPatterns = [
+                /^0\d/,      // Often administrative/project management
+                /^9\d/,      // Often closeout/commissioning
+                /^\d{2}\.0/, // Summary/header activities
+                /ADMIN/i,
+                /MGMT/i,
+                /CLOSEOUT/i,
+                /SUBMITTAL/i,
+                /PROCUREMENT/i
+            ];
+            
+            return nonConstructionPatterns.some(pattern => pattern.test(wbs));
+        }
+
+        function isNonConstructionActivity(name) {
+            // Activity names that indicate non-construction work
+            const nonConstructionKeywords = [
+                'submittal', 'procurement', 'approval', 'review', 'mobilization', 
+                'demobilization', 'project management', 'coordination', 'meeting',
+                'milestone', 'notice', 'substantial completion', 'punch list',
+                'commissioning', 'training', 'warranty', 'closeout'
+            ];
+            
+            const lowerName = name.toLowerCase();
+            return nonConstructionKeywords.some(keyword => lowerName.includes(keyword));
+        }
+
+        // Gemini AI processing
+        async function processWithGemini(scheduleData) {
+            try {
+                // Load trades list from CSV
+                const tradesResponse = await fetch('Alicia - Progress AI Standard Trades List - WIP - All Trades (Table) (3).csv');
+                const tradesCSV = await tradesResponse.text();
+                const tradesList = parseCSV(tradesCSV);
+                
+                // Filter trades for selected building type
+                const buildingTypeMapping = {
+                    'commercial': 'Commercial',
+                    'datacenters': 'Data Center',
+                    'energy': 'Energy',
+                    'healthcare': 'Healthcare',
+                    'hospitality': 'Hospitality',
+                    'infrastructure': 'Infrastructure',
+                    'institutional': 'Institutional',
+                    'manufacturing': 'Manufacturing',
+                    'multifamily': 'Multi Family'
+                };
+                
+                const targetProjectType = buildingTypeMapping[AppState.selectedBuildingType];
+                const relevantTrades = tradesList.filter(trade => {
+                    const projectTypes = trade['Applicable Project Type(s)'] || trade['Applicable Project Type Selection'] || '';
+                    return projectTypes.includes(targetProjectType) || projectTypes.includes('Other');
+                });
+                
+                console.log(`🎯 Using ${relevantTrades.length} trades for ${targetProjectType} projects`);
+                console.log('📋 Available exact trade names:', relevantTrades.map(t => `"${t.Trade}"`).join(', '));
+                console.log('📊 Available categories:', [...new Set(relevantTrades.map(t => t.Category))].join(', '));
+                
+                // Process activities with Gemini
+                const batchSize = 10;
+                const results = [];
+                
+                for (let i = 0; i < scheduleData.length; i += batchSize) {
+                    const batch = scheduleData.slice(i, i + batchSize);
+                    console.log(`🤖 Processing batch ${Math.floor(i/batchSize) + 1}/${Math.ceil(scheduleData.length/batchSize)}`);
+                    
+                    const batchResults = await processGeminiBatch(batch, relevantTrades, targetProjectType);
+                    results.push(...batchResults);
+                    
+                    // Small delay between batches
+                    await new Promise(resolve => setTimeout(resolve, 500));
+                }
+                
+                // Store results and show them
+                AppState.aiResults = results;
+                showAIResults(results);
+                
+                // Generate Gantt chart data
+                generateGanttData(results, scheduleData);
+                
+            } catch (error) {
+                console.error('❌ Gemini processing error:', error);
+                throw error;
+            }
+        }
+
+        async function processGeminiBatch(scheduleActivities, tradesList, buildingType = 'selected building') {
+            // Prepare the prompt for Gemini
+            const activitiesText = scheduleActivities.map((activity, index) => {
+                const name = getActivityName(activity);
+                const wbs = getWBS(activity);
+                const duration = getDuration(activity);
+                return `${index + 1}. "${name}" (WBS: ${wbs}, Duration: ${duration} days)`;
+            }).join('\n');
+            
+            const tradesText = tradesList.map(trade => {
+                return `- ${trade.Trade} (Category: ${trade.Category})`;
+            }).join('\n');
+            
+            // For Data Centers, use the specific trade list you provided
+            const dataCenterTrades = [
+                "Mechanical Yard - Equipment Placement",
+                "Generator Placement", 
+                "Concrete Foundation Pour",
+                "Vapor Barrier",
+                "Overhead Fire Protection",
+                "Overhead Electrical Rough In",
+                "Excavation",
+                "Overhead Plumbing",
+                "Batterboards",
+                "Concrete Rebar",
+                "Concrete Pour",
+                "In Wall Electrical",
+                "Wall Painting",
+                "Wall Framing",
+                "In Wall Insulation",
+                "Roofing",
+                "In Wall Plumbing",
+                "Concrete Formwork",
+                "Roofing Metal Deck",
+                "Structural Steel",
+                "Roofing Membrane",
+                "Roofing Insulation",
+                "Electrical Yard – Equipment Placement",
+                "Structural Piles",
+                "Electrical Yard Equipment Conduit"
+            ];
+            
+            const tradeNamesForPrompt = buildingType === 'Data Center' ? 
+                dataCenterTrades.map(trade => `"${trade}"`).join(', ') :
+                tradesList.map(trade => `"${trade.Trade}"`).join(', ');
+            
+            const prompt = `
+You are a construction scheduling expert. Match these schedule activities to construction trades from the EXACT list provided.
+
+SCHEDULE ACTIVITIES TO MATCH:
+${activitiesText}
+
+EXACT TRADE NAMES TO CHOOSE FROM (${buildingType} project):
+${tradeNamesForPrompt}
+
+CRITICAL MATCHING RULES:
+1. You MUST use ONLY the exact trade names listed above (copy them word-for-word)
+2. Do NOT create new trade names or modify existing ones
+3. Do NOT use generic terms - use the precise names from the list
+4. If no good match exists (confidence < 30), use "No Match"
+
+CORRECT DATA CENTER TRADE EXAMPLES:
+- "Mechanical Yard - Equipment Placement" ✓
+- "Generator Placement" ✓ 
+- "Concrete Foundation Pour" ✓
+- "Overhead Electrical Rough In" ✓
+- "Electrical Yard – Equipment Placement" ✓
+- "Structural Steel" ✓
+- "Excavation" ✓
+
+WRONG EXAMPLES:
+- "Steel Erection" ✗ (should be "Structural Steel")
+- "Generator Installation" ✗ (should be "Generator Placement")
+- "Equipment Placement" ✗ (should be "Mechanical Yard - Equipment Placement")
+
+Respond in JSON format:
+{
+  "matches": [
+    {
+      "activityIndex": 1,
+      "originalName": "activity name from schedule",
+      "suggestedTrade": "EXACT trade name from list above",
+      "category": "Equipment Placement",
+      "confidence": 85,
+      "reasoning": "why this exact trade matches this activity"
+    }
+  ]
+}
+
+MATCHING CRITERIA:
+- Confidence: 30-100 (below 30 = "No Match")
+- Copy trade names exactly as shown above
+- Match based on construction activity type
+            `;
+            
+            try {
+                // Call Gemini API
+                const response = await callGeminiAPI(prompt);
+                console.log('🤖 Raw Gemini response:', response.substring(0, 200) + '...');
+                
+                // Clean and parse JSON response
+                let cleanResponse = response.trim();
+                
+                // Remove markdown code blocks if present
+                cleanResponse = cleanResponse.replace(/```json\s*/g, '').replace(/```\s*/g, '');
+                
+                // Try to find JSON object
+                const jsonMatch = cleanResponse.match(/\{[\s\S]*\}/);
+                if (jsonMatch) {
+                    cleanResponse = jsonMatch[0];
+                }
+                
+                console.log('🧹 Cleaned response for parsing:', cleanResponse.substring(0, 200) + '...');
+                
+                const result = JSON.parse(cleanResponse);
+                return result.matches || result || [];
+                
+            } catch (error) {
+                console.error('❌ Batch processing error:', error);
+                console.log('📄 Failed response content:', error.message);
+                
+                return scheduleActivities.map((_, index) => ({
+                    activityIndex: index + 1,
+                    originalName: getActivityName(scheduleActivities[index]),
+                    suggestedTrade: 'Processing Error',
+                    category: 'Unknown',
+                    confidence: 0,
+                    reasoning: 'JSON parsing failed: ' + error.message
+                }));
+            }
+        }
+
+        // Test function to list available models
+        async function listAvailableModels() {
+            if (!geminiApiKey) return;
+            
+            const LIST_URL = `https://generativelanguage.googleapis.com/v1beta/models?key=${geminiApiKey}`;
+            try {
+                const response = await fetch(LIST_URL);
+                const data = await response.json();
+                console.log('🤖 Available Gemini models:', data.models?.map(m => m.name) || 'No models found');
+            } catch (error) {
+                console.log('❌ Could not list models:', error.message);
+            }
+        }
+
+        async function callGeminiAPI(prompt) {
+            // Use the stored Gemini API key
+            if (!geminiApiKey) {
+                throw new Error('Gemini API key not found. Please refresh the page and enter your API key.');
+            }
+            
+            const API_KEY = geminiApiKey;
+            
+            // Try multiple model names in order of preference (using correct 2025 model names)
+            const modelNames = [
+                'gemini-2.5-flash',
+                'gemini-1.5-flash', 
+                'gemini-1.5-pro',
+                'gemini-pro'
+            ];
+            
+            for (const modelName of modelNames) {
+                const API_URL = `https://generativelanguage.googleapis.com/v1beta/models/${modelName}:generateContent`;
+                console.log(`🤖 Trying model: ${modelName}`);
+                
+                try {
+                const response = await fetch(API_URL, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'x-goog-api-key': API_KEY
+                    },
+                    body: JSON.stringify({
+                        contents: [{
+                            parts: [{
+                                text: prompt
+                            }]
+                        }],
+                        generationConfig: {
+                            temperature: 0.1,
+                            topK: 40,
+                            topP: 0.95,
+                            maxOutputTokens: 8192,
+                        }
+                    })
+                });
+                
+                if (!response.ok) {
+                    const errorData = await response.text();
+                    console.error('🚨 Gemini API Error Details:');
+                    console.error('Status:', response.status);
+                    console.error('Status Text:', response.statusText);
+                    console.error('Response Body:', errorData);
+                    console.error('API URL:', API_URL.replace(API_KEY, 'HIDDEN_KEY'));
+                    
+                    if (response.status === 404) {
+                        throw new Error('API endpoint not found. Check if your API key is valid and has access to Gemini models.');
+                    } else if (response.status === 403) {
+                        throw new Error('API key unauthorized. Please check your Gemini API key permissions.');
+                    } else {
+                        throw new Error(`API Error ${response.status}: ${response.statusText}`);
+                    }
+                }
+                
+                const data = await response.json();
+                
+                if (!data.candidates || !data.candidates[0] || !data.candidates[0].content) {
+                    throw new Error('Invalid response from Gemini API');
+                }
+                
+                const content = data.candidates[0].content.parts[0].text;
+                console.log('🤖 Gemini response:', content);
+                
+                    console.log(`✅ Success with model: ${modelName}`);
+                    return content;
+                    
+                } catch (modelError) {
+                    console.log(`❌ Failed with model ${modelName}:`, modelError.message);
+                    
+                    // If this is the last model, throw the error
+                    if (modelName === modelNames[modelNames.length - 1]) {
+                        throw modelError;
+                    }
+                    // Otherwise, continue to next model
+                }
+            }
+            
+            throw new Error('All model attempts failed');
+        }
+
+        function showAIResults(results) {
+            // Hide processing state and show results
+            document.getElementById('aiProcessingState').style.display = 'none';
+            document.getElementById('aiResultsState').style.display = 'block';
+            
+            // Populate parsedItems for integration with Gantt chart
+            parsedItems = results.map((result, index) => ({
+                id: index + 1,
+                original: result.originalName,
+                suggested: result.suggestedTrade,
+                confidence: result.confidence,
+                trade: result.suggestedTrade,
+                category: result.category || 'General',
+                reasoning: result.reasoning || 'AI matched based on activity description',
+                status: 'Pending Review',
+                userAction: null
+            }));
+            
+            // Generate trades for Gantt chart from high-confidence matches
+            const acceptedTrades = results.filter(r => r.confidence >= 70);
+            AppState.generatedTrades = acceptedTrades.map((result, index) => ({
+                id: index + 1,
+                trade: result.suggestedTrade,
+                category: result.category || 'General',
+                startDay: index * 14, // Stagger start dates
+                duration: 21 + (index * 7) // Varying durations
+            }));
+            
+            // Show the Gantt chart output
+            document.getElementById('ganttOutput').style.display = 'block';
+            
+            // Render both the parsing results and update Gantt chart
+            renderParsedItems();
+            updateGanttChart();
+            
+            console.log('✅ Real AI Analysis complete - ' + results.length + ' activities processed');
+            console.log('📊 Generated', AppState.generatedTrades.length, 'trades for Gantt chart');
+        }
+
+        function generateGanttData(aiResults, scheduleData) {
+            // Convert AI results to Gantt chart format
+            const ganttData = [];
+            
+            aiResults.forEach((result, index) => {
+                if (result.confidence >= 30 && result.suggestedTrade !== 'No Match') {
+                    const originalActivity = scheduleData[result.activityIndex - 1];
+                    const duration = getDuration(originalActivity);
+                    
+                    ganttData.push({
+                        id: index + 1,
+                        trade: result.suggestedTrade,
+                        category: result.category,
+                        originalName: result.originalName,
+                        duration: duration,
+                        startDay: index * 7, // Simple spacing for now
+                        confidence: result.confidence
+                    });
+                }
+            });
+            
+            // Store in AppState and update the output panel
+            AppState.generatedTrades = ganttData;
+            updateOutputPanel();
+            
+            console.log('📊 Generated Gantt data for', ganttData.length, 'activities');
+        }
+
+        function updateOutputPanel() {
+            // Show the Gantt chart in the output panel
+            document.getElementById('outputInitialState').style.display = 'none';
+            document.getElementById('ganttOutput').style.display = 'block';
+            
+            updateGanttChart();
+        }
+
+
+        // Old generateProject function renamed for 5-minute compatibility
+        // Removed unused oldGenerateProject() function
+
+        function generateTradeTimeline(trades) {
+            const startDate = new Date(AppState.projectStartDate);
+            const endDate = new Date(AppState.projectEndDate);
+            const totalDays = Math.ceil((endDate - startDate) / (1000 * 60 * 60 * 24));
+            
+            // Stage timing
+            const stageTiming = {
+                'site-prep': { start: 0, duration: 0.15 },
+                'superstructure': { start: 0.15, duration: 0.35 },
+                'interior': { start: 0.40, duration: 0.30 },
+                'envelope': { start: 0.50, duration: 0.25 },
+                'finishes': { start: 0.70, duration: 0.30 }
+            };
+
+            // Group trades by stage
+            const tradesByStage = {};
+            trades.forEach(trade => {
+                if (!tradesByStage[trade.stage]) {
+                    tradesByStage[trade.stage] = [];
+                }
+                tradesByStage[trade.stage].push(trade);
+            });
+
+            const timeline = [];
+            
+            Object.keys(stageTiming).forEach(stage => {
+                if (!tradesByStage[stage]) return;
+                
+                const stageInfo = stageTiming[stage];
+                const stageStartDay = Math.floor(totalDays * stageInfo.start);
+                const stageDuration = Math.floor(totalDays * stageInfo.duration);
+                
+                let currentOffset = 0;
+                tradesByStage[stage].forEach((trade, index) => {
+                    const tradeStartDay = stageStartDay + currentOffset;
+                    const tradeEndDay = Math.min(tradeStartDay + trade.duration, stageStartDay + stageDuration);
+                    
+                    timeline.push({
+                        ...trade,
+                        startDay: tradeStartDay,
+                        duration: tradeEndDay - tradeStartDay,
+                        stage: stage
+                    });
+                    
+                    // Stagger trades
+                    currentOffset += Math.floor(trade.duration * 0.3);
+                });
+            });
+
+            return timeline.sort((a, b) => a.startDay - b.startDay);
+        }
+
+        function getStageNames() {
+            return {
+                'site-prep': 'Site Prep',
+                'superstructure': 'Structure',
+                'interior': 'Interior',
+                'envelope': 'Envelope',
+                'finishes': 'Finishes'
+            };
+        }
+
+        function updateSummaryCards() {
+            const outputPanel = document.querySelector('.output-panel');
+            const totalWeeks = Math.ceil((new Date(AppState.projectEndDate) - new Date(AppState.projectStartDate)) / (1000 * 60 * 60 * 24 * 7));
+            
+            outputPanel.innerHTML = `
+                <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin-bottom: 32px;">
+                    <div style="padding: 20px; background: #f9fafb; border-radius: 8px; text-align: center;">
+                        <div style="font-size: 32px; font-weight: 700; color: #1f2937;">${AppState.generatedTrades.length}</div>
+                        <div style="font-size: 14px; color: #6b7280;">Total Trades</div>
+                    </div>
+                    <div style="padding: 20px; background: #f9fafb; border-radius: 8px; text-align: center;">
+                        <div style="font-size: 32px; font-weight: 700; color: #1f2937;">${totalWeeks}</div>
+                        <div style="font-size: 14px; color: #6b7280;">Total Weeks</div>
+                    </div>
+                    <div style="padding: 20px; background: #f9fafb; border-radius: 8px; text-align: center;">
+                        <div style="font-size: 32px; font-weight: 700; color: #1f2937;">${getStageNames()[AppState.constructionStage]}</div>
+                        <div style="font-size: 14px; color: #6b7280;">Current Stage</div>
+                    </div>
+                </div>
+                
+                <!-- Bulk Actions Toolbar -->
+                <div id="bulkActionsToolbar" class="bulk-actions-toolbar">
+                    <div class="bulk-actions-info">
+                        <span id="selectedCount">0</span> trade(s) selected
+                    </div>
+                    <div class="bulk-actions-buttons">
+                        <button class="btn-accept" onclick="bulkAcceptSelected()">✓ Accept Selected</button>
+                        <button class="btn-reject" onclick="bulkRejectSelected()">✗ Reject Selected</button>
+                        <button class="btn-secondary" onclick="clearGanttSelection()" style="font-size: 12px; padding: 6px 12px;">Clear Selection</button>
+                    </div>
+                </div>
+                
+                <div class="timeline-gantt-wrapper" id="ganttChart">
+                    <!-- Gantt chart will be populated here -->
+                </div>
+            `;
+        }
+
+        function updateGanttChart() {
+            const ganttChart = document.getElementById('ganttChart');
+            
+            if (AppState.generatedTrades.length === 0) {
+                ganttChart.innerHTML = `
+                    <div style="text-align: center; padding: 60px 20px; color: #6b7280;">
+                        <div style="font-size: 48px; margin-bottom: 16px;">📊</div>
+                        <div style="font-size: 18px; font-weight: 600; margin-bottom: 8px;">Ready to Generate Timeline</div>
+                        <div style="font-size: 14px;">Complete the setup steps to generate your project timeline</div>
+                    </div>
+                `;
+                return;
+            }
+
+            // Calculate timeline parameters
+            const startDate = new Date(AppState.projectStartDate);
+            const endDate = new Date(AppState.projectEndDate);
+            const totalDays = Math.ceil((endDate - startDate) / (1000 * 60 * 60 * 24));
+            const totalWeeks = Math.ceil(totalDays / 7);
+            const weekWidth = Math.max(80, Math.min(120, 1000 / totalWeeks));
+
+            // Generate week headers
+            const weekHeaders = Array.from({length: totalWeeks}, (_, i) => {
+                const weekStart = new Date(startDate.getTime() + i * 7 * 24 * 60 * 60 * 1000);
+                const monthDay = weekStart.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+                return `<div class="timeline-week" style="min-width: ${weekWidth}px;" title="Week starting ${weekStart.toLocaleDateString()}">
+                    <div style="font-weight: 600; font-size: 11px;">Week ${i + 1}</div>
+                    <div style="font-size: 9px; color: #64748b;">${monthDay}</div>
+                </div>`;
+            }).join('');
+
+            // Generate activity rows
+            const activityRows = AppState.generatedTrades.map((trade, index) => {
+                const isSelected = AppState.selectedGanttItems.has(index);
+                const isAccepted = AppState.acceptedTrades.has(index);
+                const isRejected = AppState.rejectedTrades.has(index);
+                
+                let statusClass = '';
+                if (isAccepted) statusClass = 'trade-status-accepted';
+                if (isRejected) statusClass = 'trade-status-rejected';
+                if (isSelected) statusClass += ' selected';
+                
+                return `
+                    <div class="timeline-activity-name ${statusClass}" onclick="toggleGanttSelection(${index}, event)">
+                        <div style="display: flex; align-items: center; flex: 1; min-width: 0;">
+                            <span style="color: #64748b; font-size: 11px; margin-right: 8px; font-weight: 600; flex-shrink: 0;">T${String(trade.id).padStart(3, '0')}</span>
+                            <span style="color: #1f2937; font-size: 12px; font-weight: 500; flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">${trade.trade}</span>
+                            <span style="color: #6366f1; font-size: 10px; margin-left: 8px; background: #eef2ff; padding: 2px 6px; border-radius: 3px; flex-shrink: 0;">${trade.category}</span>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+
+            // Generate timeline bars
+            const timelineBars = AppState.generatedTrades.map((trade, index) => {
+                const startWeek = Math.floor(trade.startDay / 7);
+                const durationWeeks = Math.max(1, Math.ceil(trade.duration / 7));
+                const leftPos = startWeek * weekWidth;
+                const width = durationWeeks * weekWidth - 2;
+                
+                const categoryClass = trade.category.toLowerCase().replace(/[^a-z0-9]/g, '-');
+                
+                const isSelected = AppState.selectedGanttItems.has(index);
+                const statusClass = isSelected ? 'selected' : '';
+                
+                return `
+                    <div class="timeline-activity-bars ${statusClass}" onclick="toggleGanttSelection(${index}, event)">
+                        <div class="timeline-bar ${categoryClass}" 
+                             data-trade-index="${index}"
+                             style="left: ${leftPos}px; width: ${width}px; position: absolute; top: 4px; height: 24px;"
+                             title="${trade.trade} - ${trade.duration} days"
+                             onmousedown="startDrag(event, ${index})"
+                             ontouchstart="startDrag(event, ${index})">
+                            <div class="timeline-bar-resize-handle" 
+                                 onmousedown="startResize(event, ${index})"
+                                 ontouchstart="startResize(event, ${index})"></div>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+
+            // Grid lines
+            const gridLines = Array.from({length: totalWeeks + 1}, (_, i) => 
+                `<div class="timeline-grid-line" style="left: ${i * weekWidth}px;"></div>`
+            ).join('');
+
+            // Interleave activity names and bars for proper grid layout
+            let gridContent = `
+                <div class="timeline-corner">Trade Activity</div>
+                <div class="timeline-header">${weekHeaders}</div>
+            `;
+            
+            // Add each activity row (name + bars)
+            for (let i = 0; i < AppState.generatedTrades.length; i++) {
+                const trade = AppState.generatedTrades[i];
+                
+                // Use AppState for consistent status across both interfaces
+                const isAccepted = AppState.acceptedTrades.has(i);
+                const isRejected = AppState.rejectedTrades.has(i);
+                const isSelected = AppState.selectedGanttItems.has(i);
+                
+                let statusClass = '';
+                if (isAccepted) statusClass = 'trade-status-accepted';
+                if (isRejected) statusClass = 'trade-status-rejected';
+                if (isSelected) statusClass += ' selected';
+                
+                // Activity name (left column)
+                gridContent += `
+                    <div class="timeline-activity-name ${statusClass}" onclick="toggleGanttSelection(${i}, event)">
+                        <div style="display: flex; align-items: center; flex: 1; min-width: 0;">
+                            <span style="color: #64748b; font-size: 11px; margin-right: 8px; font-weight: 600; flex-shrink: 0;">T${String(trade.id).padStart(3, '0')}</span>
+                            <span style="color: #1f2937; font-size: 12px; font-weight: 500; flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">${trade.trade}</span>
+                            <span style="color: #6366f1; font-size: 10px; margin-left: 8px; background: #eef2ff; padding: 2px 6px; border-radius: 3px; flex-shrink: 0;">${trade.category}</span>
+                            ${isAccepted ? '<span style="color: #10b981; font-size: 11px; margin-left: 4px;">✓</span>' : ''}
+                            ${isRejected ? '<span style="color: #ef4444; font-size: 11px; margin-left: 4px;">✗</span>' : ''}
+                        </div>
+                    </div>
+                `;
+                
+                // Activity bars (right column)
+                const startWeek = Math.floor(trade.startDay / 7);
+                const durationWeeks = Math.max(1, Math.ceil(trade.duration / 7));
+                const leftPos = startWeek * weekWidth;
+                const width = durationWeeks * weekWidth - 2;
+                const categoryClass = trade.category.toLowerCase().replace(/[^a-z0-9]/g, '-');
+                
+                gridContent += `
+                    <div class="timeline-activity-bars ${statusClass}" onclick="toggleGanttSelection(${i}, event)">
+                        <div class="timeline-grid-lines">${gridLines}</div>
+                        <div class="timeline-bar ${categoryClass}" 
+                             data-trade-index="${i}"
+                             style="left: ${leftPos}px; width: ${width}px; position: absolute; top: 4px; height: 24px;"
+                             title="${trade.trade} - ${trade.duration} days"
+                             onmousedown="startDrag(event, ${i})"
+                             ontouchstart="startDrag(event, ${i})">
+                            <div class="timeline-bar-resize-handle" 
+                                 onmousedown="startResize(event, ${i})"
+                                 ontouchstart="startResize(event, ${i})"></div>
+                        </div>
+                    </div>
+                `;
+            }
+
+            ganttChart.innerHTML = `
+                <div class="timeline-grid-wrapper">
+                    ${gridContent}
+                </div>
+            `;
+        }
+
+        // Gantt chart selection and action functions
+        function toggleGanttSelection(itemIndex, event) {
+            console.log('🔍 toggleGanttSelection called:', { itemIndex, hasEvent: !!event });
+            
+            // Prevent event bubbling
+            if (event) {
+                event.stopPropagation();
+                event.preventDefault();
+            }
+            
+            // Allow Ctrl+click for multi-selection, regular click for single selection
+            if (!event || !event.ctrlKey && !event.metaKey) {
+                // Single selection mode - clear other selections first
+                if (!AppState.selectedGanttItems.has(itemIndex)) {
+                    AppState.selectedGanttItems.clear();
+                }
+            }
+            
+            if (AppState.selectedGanttItems.has(itemIndex)) {
+                AppState.selectedGanttItems.delete(itemIndex);
+            } else {
+                AppState.selectedGanttItems.add(itemIndex);
+            }
+            
+            updateGanttChart();
+            updateBulkActionsToolbar();
+        }
+        
+        function updateBulkActionsToolbar() {
+            const toolbar = document.getElementById('bulkActionsToolbar');
+            const selectedCount = document.getElementById('selectedCount');
+            
+            if (AppState.selectedGanttItems.size > 0) {
+                toolbar.style.display = 'flex';
+                selectedCount.textContent = AppState.selectedGanttItems.size;
+            } else {
+                toolbar.style.display = 'none';
+            }
+        }
+        
+        function bulkAcceptSelected() {
+            if (AppState.selectedGanttItems.size === 0) {
+                alert('No items selected.');
+                return;
+            }
+            
+            const selectedCount = AppState.selectedGanttItems.size;
+            AppState.selectedGanttItems.forEach(itemIndex => {
+                // Accept the corresponding parsed item
+                if (parsedItems[itemIndex]) {
+                    acceptMapping(itemIndex);
+                }
+            });
+            
+            clearGanttSelection();
+            console.log(`✅ Bulk accepted ${selectedCount} items from Gantt chart`);
+        }
+        
+        function bulkRejectSelected() {
+            if (AppState.selectedGanttItems.size === 0) {
+                alert('No items selected.');
+                return;
+            }
+            
+            const selectedCount = AppState.selectedGanttItems.size;
+            AppState.selectedGanttItems.forEach(itemIndex => {
+                // Reject the corresponding parsed item
+                if (parsedItems[itemIndex]) {
+                    rejectMapping(itemIndex);
+                }
+            });
+            
+            clearGanttSelection();
+            console.log(`❌ Bulk rejected ${selectedCount} items from Gantt chart`);
+        }
+        
+        function clearGanttSelection() {
+            AppState.selectedGanttItems.clear();
+            updateGanttChart();
+            updateBulkActionsToolbar();
+        }
+
+        // Sync individual accept/reject actions with Gantt chart
+        function acceptMapping(index) {
+            // Get the accepted item
+            const acceptedItem = parsedItems[index];
+            
+            // Update the item to accepted state
+            parsedItems[index] = { 
+                ...acceptedItem, 
+                status: 'User Accepted',
+                acceptedByUser: true,
+                userAction: 'accepted'
+            };
+            
+            // Sync with AppState for Gantt chart
+            AppState.acceptedTrades.add(index);
+            AppState.rejectedTrades.delete(index);
+            
+            // Check for similar activities and offer bulk action
+            checkForSimilarItemsAction(index, 'accept');
+            
+            // Update UI with animation to show synchronization
+            renderParsedItems();
+            updateGanttChart();
+            
+            // Show brief notification of synchronization
+            showSyncNotification(`Accepted "${acceptedItem.original}" - updated in both panels`);
+            
+            console.log(`✅ User accepted: "${acceptedItem.original}" → "${acceptedItem.suggested}"`);
+        }
+
+        function rejectMapping(index) {
+            // Get the rejected item
+            const rejectedItem = parsedItems[index];
+            
+            // Add to rejection draft list for download
+            rejectedMappings.push({
+                original: rejectedItem.original,
+                suggested: rejectedItem.suggested,
+                trade: rejectedItem.trade,
+                confidence: rejectedItem.confidence,
+                reason: 'User manually rejected',
+                timestamp: new Date().toISOString(),
+                buildingType: AppState.selectedBuildingType || 'Unknown'
+            });
+            
+            // Add to learning database if it was a valid trade match
+            if (rejectedItem.tradeId && rejectedItem.suggested !== 'No Match') {
+                addRejectionToLearning(
+                    rejectedItem.original, 
+                    rejectedItem.suggested, 
+                    rejectedItem.tradeId, 
+                    'User manually rejected'
+                );
+            }
+            
+            // Update the item to rejected state
+            parsedItems[index] = { 
+                ...rejectedItem, 
+                confidence: 0, 
+                suggested: 'Rejected', 
+                status: 'User Rejected',
+                rejectedByUser: true,
+                userAction: 'rejected'
+            };
+            
+            // Sync with AppState for Gantt chart
+            AppState.rejectedTrades.add(index);
+            AppState.acceptedTrades.delete(index);
+            
+            // Check for similar activities and offer bulk action
+            checkForSimilarItemsAction(index, 'reject');
+            
+            // Update UI with animation to show synchronization
+            renderParsedItems();
+            updateGanttChart();
+            
+            // Show brief notification of synchronization
+            showSyncNotification(`Rejected "${rejectedItem.original}" - removed from both panels`);
+            
+            console.log(`❌ User rejected: "${rejectedItem.original}" → "${rejectedItem.suggested}"`);
+            
+            // Update rejection count in button
+            updateRejectionCount();
+        }
+
+        // Show sync notification
+        function showSyncNotification(message) {
+            // Create notification element
+            const notification = document.createElement('div');
+            notification.style.cssText = `
+                position: fixed;
+                top: 20px;
+                right: 20px;
+                background: #10b981;
+                color: white;
+                padding: 12px 16px;
+                border-radius: 8px;
+                box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+                z-index: 1000;
+                font-size: 14px;
+                opacity: 0;
+                transform: translateX(100%);
+                transition: all 0.3s ease;
+            `;
+            notification.textContent = message;
+            
+            document.body.appendChild(notification);
+            
+            // Animate in
+            setTimeout(() => {
+                notification.style.opacity = '1';
+                notification.style.transform = 'translateX(0)';
+            }, 100);
+            
+            // Animate out and remove
+            setTimeout(() => {
+                notification.style.opacity = '0';
+                notification.style.transform = 'translateX(100%)';
+                setTimeout(() => {
+                    if (notification.parentNode) {
+                        notification.parentNode.removeChild(notification);
+                    }
+                }, 300);
+            }, 2000);
+        }
+        
+        function acceptTrade(itemIndex) {
+            // Use the new acceptMapping function for consistency
+            acceptMapping(itemIndex);
+        }
+        
+        function rejectTrade(itemIndex) {
+            // Use the new rejectMapping function for consistency
+            rejectMapping(itemIndex);
+        }
+
+        // Add missing functions for AI parsing integration
+        function checkForSimilarItemsAction(index, actionType) {
+            // This function can be implemented to suggest bulk actions for similar items
+            // For now, just a placeholder to prevent errors
+            console.log(`💡 Could check for similar items to ${actionType} for index ${index}`);
+        }
+
+        function addRejectionToLearning(original, suggested, tradeId, reason) {
+            // Add rejection to learning database
+            console.log(`📚 Learning: "${original}" → "${suggested}" was rejected (${reason})`);
+        }
+
+        function updateRejectionCount() {
+            const rejectBtn = document.getElementById('downloadRejectedBtn');
+            if (rejectBtn && rejectedMappings.length > 0) {
+                rejectBtn.textContent = `Download Rejected List (${rejectedMappings.length})`;
+                rejectBtn.style.display = 'inline-flex';
+            } else if (rejectBtn) {
+                rejectBtn.textContent = 'Download Rejected List';
+                rejectBtn.style.display = 'none';
+            }
+        }
+
+        // Render parsed items function with reorganized sections
+        function renderParsedItems() {
+            const container = document.getElementById('aiResults');
+            if (!container || !parsedItems.length) return;
+
+            // Group items by status
+            const pending = parsedItems.filter(item => !item.userAction && item.confidence >= 30);
+            const excluded = parsedItems.filter(item => !item.userAction && item.confidence < 30);
+            const accepted = parsedItems.filter(item => item.userAction === 'accepted');
+            const rejected = parsedItems.filter(item => item.userAction === 'rejected');
+
+            let html = '';
+
+            // Pending items (need review) - AT TOP
+            if (pending.length > 0) {
+                html += `<div class="parsing-section">
+                    <h4 style="color: #f59e0b; margin-bottom: 12px; display: flex; align-items: center; gap: 8px;">
+                        ⏳ Needs Review (${pending.length})
+                        <span style="font-size: 12px; font-weight: normal; color: #6b7280;">Click accept/reject to move items to bottom</span>
+                    </h4>`;
+                pending.forEach((item, idx) => {
+                    const originalIndex = parsedItems.indexOf(item);
+                    html += `
+                        <div class="parsing-item" style="border-left: 3px solid #f59e0b; animation: fadeIn 0.3s ease;">
+                            <div class="parsing-content">
+                                <strong>${item.original}</strong> → ${item.suggested} 
+                                <span style="color: #6b7280;">(${item.confidence}% confident)</span>
+                            </div>
+                            <div class="parsing-actions">
+                                <button onclick="acceptMapping(${originalIndex})" class="btn-accept">Accept</button>
+                                <button onclick="rejectMapping(${originalIndex})" class="btn-reject">Reject</button>
+                            </div>
+                        </div>`;
+                });
+                html += '</div>';
+            }
+
+            // Excluded items
+            if (excluded.length > 0) {
+                html += `<div class="parsing-section">
+                    <h4 style="color: #6b7280; margin-bottom: 12px;">🚫 Excluded (${excluded.length})</h4>`;
+                excluded.forEach(item => {
+                    html += `
+                        <div class="parsing-item excluded" style="border-left: 3px solid #6b7280; background: #f9fafb;">
+                            <div class="parsing-content">
+                                <strong>${item.original}</strong> → <span style="color: #6b7280;">No match found</span>
+                            </div>
+                        </div>`;
+                });
+                html += '</div>';
+            }
+
+            // SEPARATOR
+            if ((pending.length > 0 || excluded.length > 0) && (accepted.length > 0 || rejected.length > 0)) {
+                html += `
+                    <div style="margin: 24px 0; text-align: center;">
+                        <div style="height: 1px; background: linear-gradient(to right, transparent, #e5e7eb, transparent);"></div>
+                        <span style="background: white; padding: 0 16px; color: #6b7280; font-size: 12px; position: relative; top: -10px;">Completed Actions</span>
+                    </div>
+                `;
+            }
+
+            // Accepted items - AT BOTTOM
+            if (accepted.length > 0) {
+                html += `<div class="parsing-section">
+                    <h4 style="color: #10b981; margin-bottom: 12px;">✅ Accepted (${accepted.length})</h4>`;
+                accepted.forEach(item => {
+                    html += `
+                        <div class="parsing-item accepted" style="border-left: 3px solid #10b981; background: #f0fdf4; animation: slideDown 0.5s ease;">
+                            <div class="parsing-content">
+                                <strong>${item.original}</strong> → ${item.suggested}
+                                <span style="color: #10b981; margin-left: 8px;">✓</span>
+                            </div>
+                        </div>`;
+                });
+                html += '</div>';
+            }
+
+            // Rejected items - AT BOTTOM
+            if (rejected.length > 0) {
+                html += `<div class="parsing-section">
+                    <h4 style="color: #ef4444; margin-bottom: 12px;">❌ Rejected (${rejected.length})</h4>`;
+                rejected.forEach(item => {
+                    html += `
+                        <div class="parsing-item rejected" style="border-left: 3px solid #ef4444; background: #fef2f2; animation: slideDown 0.5s ease;">
+                            <div class="parsing-content">
+                                <strong>${item.original}</strong> → <span style="color: #6b7280; text-decoration: line-through;">Rejected</span>
+                                <span style="color: #ef4444; margin-left: 8px;">✗</span>
+                            </div>
+                        </div>`;
+                });
+                html += '</div>';
+            }
+
+            container.innerHTML = html;
+        }
+
+        // Drag and drop functionality
+        let dragState = {
+            isDragging: false,
+            isResizing: false,
+            tradeIndex: null,
+            startX: 0,
+            startLeft: 0,
+            startWidth: 0,
+            weekWidth: 80
+        };
+
+        function startDrag(event, tradeIndex) {
+            if (event.target.classList.contains('timeline-bar-resize-handle')) {
+                return; // Don't drag when clicking resize handle
+            }
+            
+            event.preventDefault();
+            event.stopPropagation();
+            
+            const clientX = event.touches ? event.touches[0].clientX : event.clientX;
+            const bar = event.currentTarget;
+            
+            dragState.isDragging = true;
+            dragState.tradeIndex = tradeIndex;
+            dragState.startX = clientX;
+            dragState.startLeft = parseInt(bar.style.left);
+            dragState.weekWidth = calculateWeekWidth();
+            
+            bar.classList.add('dragging');
+            
+            document.addEventListener('mousemove', handleDrag);
+            document.addEventListener('mouseup', stopDrag);
+            document.addEventListener('touchmove', handleDrag, { passive: false });
+            document.addEventListener('touchend', stopDrag);
+        }
+
+        function startResize(event, tradeIndex) {
+            event.preventDefault();
+            event.stopPropagation();
+            
+            const clientX = event.touches ? event.touches[0].clientX : event.clientX;
+            const bar = event.target.closest('.timeline-bar');
+            
+            dragState.isResizing = true;
+            dragState.tradeIndex = tradeIndex;
+            dragState.startX = clientX;
+            dragState.startLeft = parseInt(bar.style.left);
+            dragState.startWidth = parseInt(bar.style.width);
+            dragState.weekWidth = calculateWeekWidth();
+            
+            bar.classList.add('resizing');
+            
+            document.addEventListener('mousemove', handleResize);
+            document.addEventListener('mouseup', stopResize);
+            document.addEventListener('touchmove', handleResize, { passive: false });
+            document.addEventListener('touchend', stopResize);
+        }
+
+        function handleDrag(event) {
+            if (!dragState.isDragging) return;
+            
+            event.preventDefault();
+            const clientX = event.touches ? event.touches[0].clientX : event.clientX;
+            const deltaX = clientX - dragState.startX;
+            const newLeft = Math.max(0, dragState.startLeft + deltaX);
+            
+            // Snap to week boundaries
+            const weekPosition = Math.round(newLeft / dragState.weekWidth);
+            const snappedLeft = weekPosition * dragState.weekWidth;
+            
+            const bar = document.querySelector(`[data-trade-index="${dragState.tradeIndex}"]`);
+            if (bar) {
+                bar.style.left = snappedLeft + 'px';
+            }
+        }
+
+        function handleResize(event) {
+            if (!dragState.isResizing) return;
+            
+            event.preventDefault();
+            const clientX = event.touches ? event.touches[0].clientX : event.clientX;
+            const deltaX = clientX - dragState.startX;
+            const newWidth = Math.max(dragState.weekWidth, dragState.startWidth + deltaX);
+            
+            // Snap to week boundaries
+            const weekWidth = Math.round(newWidth / dragState.weekWidth);
+            const snappedWidth = Math.max(1, weekWidth) * dragState.weekWidth - 2;
+            
+            const bar = document.querySelector(`[data-trade-index="${dragState.tradeIndex}"]`);
+            if (bar) {
+                bar.style.width = snappedWidth + 'px';
+            }
+        }
+
+        function stopDrag(event) {
+            if (!dragState.isDragging) return;
+            
+            const bar = document.querySelector(`[data-trade-index="${dragState.tradeIndex}"]`);
+            if (bar) {
+                bar.classList.remove('dragging');
+                
+                // Update the trade data
+                const newLeft = parseInt(bar.style.left);
+                const newStartDay = Math.round(newLeft / dragState.weekWidth) * 7;
+                
+                if (AppState.generatedTrades[dragState.tradeIndex]) {
+                    AppState.generatedTrades[dragState.tradeIndex].startDay = newStartDay;
+                    console.log(`📅 Updated start day for ${AppState.generatedTrades[dragState.tradeIndex].trade}: ${newStartDay}`);
+                }
+            }
+            
+            dragState.isDragging = false;
+            document.removeEventListener('mousemove', handleDrag);
+            document.removeEventListener('mouseup', stopDrag);
+            document.removeEventListener('touchmove', handleDrag);
+            document.removeEventListener('touchend', stopDrag);
+        }
+
+        function stopResize(event) {
+            if (!dragState.isResizing) return;
+            
+            const bar = document.querySelector(`[data-trade-index="${dragState.tradeIndex}"]`);
+            if (bar) {
+                bar.classList.remove('resizing');
+                
+                // Update the trade data
+                const newWidth = parseInt(bar.style.width);
+                const newDuration = Math.round((newWidth + 2) / dragState.weekWidth) * 7;
+                
+                if (AppState.generatedTrades[dragState.tradeIndex]) {
+                    AppState.generatedTrades[dragState.tradeIndex].duration = Math.max(1, newDuration);
+                    console.log(`⏱️ Updated duration for ${AppState.generatedTrades[dragState.tradeIndex].trade}: ${newDuration} days`);
+                }
+            }
+            
+            dragState.isResizing = false;
+            document.removeEventListener('mousemove', handleResize);
+            document.removeEventListener('mouseup', stopResize);
+            document.removeEventListener('touchmove', handleResize);
+            document.removeEventListener('touchend', stopResize);
+        }
+
+
+        // Review Modal Functions
+        function openReviewModal() {
+            if (AppState.generatedTrades.length === 0) {
+                alert('Please generate a project timeline first before sending for review.');
+                return;
+            }
+            
+            // Capture Gantt chart screenshot
+            captureGanttScreenshot();
+            
+            // Show modal
+            document.getElementById('reviewModal').style.display = 'flex';
+        }
+
+        function closeReviewModal() {
+            document.getElementById('reviewModal').style.display = 'none';
+            document.getElementById('reviewEmail').value = '';
+        }
+
+        function captureGanttScreenshot() {
+            const ganttChart = document.getElementById('ganttChart');
+            const screenshotContainer = document.getElementById('ganttScreenshot');
+            
+            if (ganttChart) {
+                // Clone the Gantt chart for screenshot
+                const clone = ganttChart.cloneNode(true);
+                clone.style.transform = 'scale(0.6)';
+                clone.style.transformOrigin = 'top left';
+                clone.style.width = '166.67%'; // Compensate for scale
+                clone.style.height = 'auto';
+                clone.style.maxHeight = '400px';
+                clone.style.overflow = 'hidden';
+                
+                // Clear previous screenshot
+                screenshotContainer.innerHTML = '';
+                screenshotContainer.appendChild(clone);
+            } else {
+                screenshotContainer.innerHTML = `
+                    <div style="padding: 40px; text-align: center; color: #6b7280;">
+                        <div style="font-size: 48px; margin-bottom: 16px;">📊</div>
+                        <div>No timeline generated yet</div>
+                    </div>
+                `;
+            }
+        }
+
+        function sendForReview() {
+            const email = document.getElementById('reviewEmail').value;
+            
+            if (!email) {
+                alert('Please enter a reviewer email address.');
+                return;
+            }
+            
+            if (!email.match(/^[^\s@]+@[^\s@]+\.[^\s@]+$/)) {
+                alert('Please enter a valid email address.');
+                return;
+            }
+            
+            // Simulate sending email
+            const projectData = {
+                buildingType: AppState.selectedBuildingType,
+                constructionStage: AppState.constructionStage,
+                startDate: AppState.projectStartDate,
+                endDate: AppState.projectEndDate,
+                trades: AppState.generatedTrades.length,
+                acceptedTrades: AppState.acceptedTrades.size,
+                rejectedTrades: AppState.rejectedTrades.size
+            };
+            
+            console.log('📧 Sending project for review:', {
+                email: email,
+                project: projectData
+            });
+            
+            // Show success message
+            alert(`✅ Project timeline sent successfully to ${email}!\n\nIncludes:\n• ${projectData.trades} trades\n• ${projectData.acceptedTrades} accepted\n• ${projectData.rejectedTrades} rejected\n• Timeline from ${projectData.startDate} to ${projectData.endDate}`);
+            
+            // Close modal
+            closeReviewModal();
+        }
+
+        // Close modal when clicking outside
+        document.addEventListener('click', function(event) {
+            const modal = document.getElementById('reviewModal');
+            if (event.target === modal) {
+                closeReviewModal();
+            }
+        });
+
+        // API Key Management
+        let geminiApiKey = null;
+
+        function showApiKeyModal() {
+            // Always show modal - no storage
+            document.getElementById('apiKeyModal').style.display = 'flex';
+        }
+
+        function saveApiKey() {
+            const keyInput = document.getElementById('geminiApiKey');
+            const key = keyInput.value.trim();
+            
+            if (!key) {
+                alert('Please enter your Gemini API key');
+                return;
+            }
+            
+            if (!key.startsWith('AIza')) {
+                alert('Invalid API key format. Gemini API keys should start with "AIza"');
+                return;
+            }
+            
+            // Store the key (in memory only - no persistence)
+            geminiApiKey = key;
+            
+            // Hide modal
+            document.getElementById('apiKeyModal').style.display = 'none';
+            
+            console.log('🔑 API key saved successfully');
+            
+            // Test available models
+            listAvailableModels();
+        }
+
+        // Add keyboard support for API key modal
+        document.addEventListener('DOMContentLoaded', function() {
+            const apiKeyInput = document.getElementById('geminiApiKey');
+            if (apiKeyInput) {
+                apiKeyInput.addEventListener('keypress', function(e) {
+                    if (e.key === 'Enter') {
+                        saveApiKey();
+                    }
+                });
+            }
+        });
+
+        // Initialize application
+        console.log('🚀 1-Hour Setup loaded successfully!');
+        
+        // Show API key modal on page load
+        setTimeout(() => {
+            showApiKeyModal();
+        }, 500);
+    </script>
+</body>
+</html>

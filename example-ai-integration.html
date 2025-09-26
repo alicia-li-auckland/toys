@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Integration Example</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+        
+        .ai-feature {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+        }
+        
+        .demo-section {
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+            background: #f8f9fa;
+        }
+        
+        button {
+            background: #667eea;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 14px;
+            margin: 5px;
+            transition: all 0.3s ease;
+        }
+        
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3);
+        }
+        
+        textarea {
+            width: 100%;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            font-family: inherit;
+            resize: vertical;
+            min-height: 100px;
+        }
+        
+        .response {
+            background: white;
+            border: 1px solid #e9ecef;
+            border-radius: 10px;
+            padding: 20px;
+            margin-top: 15px;
+            white-space: pre-wrap;
+            line-height: 1.6;
+        }
+        
+        .status {
+            padding: 10px;
+            border-radius: 5px;
+            margin: 10px 0;
+            text-align: center;
+        }
+        
+        .status.success { background: #d4edda; color: #155724; border: 1px solid #c3e6cb; }
+        .status.error { background: #f8d7da; color: #721c24; border: 1px solid #f5c6cb; }
+        .status.loading { background: #d1ecf1; color: #0c5460; border: 1px solid #bee5eb; }
+    </style>
+</head>
+<body>
+    <!-- Include the configuration and API files -->
+    <script src="config.js"></script>
+    <script src="gemini-api.js"></script>
+
+    <div class="container">
+        <h1>🤖 AI Integration Example</h1>
+        <p>This demonstrates how to integrate Gemini AI into your prototypes.</p>
+
+        <div class="ai-feature">
+            <h2>✨ AI-Powered Features Ready!</h2>
+            <p>Your Gemini API is configured and ready to enhance your applications with intelligent insights.</p>
+        </div>
+
+        <div class="demo-section">
+            <h3>🧪 Test Your API Connection</h3>
+            <button onclick="testConnection()">Test Gemini API</button>
+            <div id="connection-status"></div>
+        </div>
+
+        <div class="demo-section">
+            <h3>💬 Chat with AI</h3>
+            <textarea id="chat-input" placeholder="Ask me anything about construction, project management, or data analysis..."></textarea>
+            <br>
+            <button onclick="sendChatMessage()">🚀 Send Message</button>
+            <div id="chat-response"></div>
+        </div>
+
+        <div class="demo-section">
+            <h3>📊 Construction Data Analysis</h3>
+            <p>Upload or paste construction data for AI analysis:</p>
+            <textarea id="data-input" placeholder='Paste JSON data or describe your construction project data here...'></textarea>
+            <br>
+            <textarea id="question-input" placeholder="What would you like to know about this data?"></textarea>
+            <br>
+            <button onclick="analyzeData()">🔍 Analyze Data</button>
+            <div id="analysis-response"></div>
+        </div>
+
+        <div class="demo-section">
+            <h3>🎯 Anomaly Detection Insights</h3>
+            <textarea id="anomaly-input" placeholder='Describe anomalies or issues in your project (e.g., "delayed trades", "resource conflicts", etc.)'></textarea>
+            <br>
+            <button onclick="getAnomalyInsights()">🚨 Get Insights</button>
+            <div id="anomaly-response"></div>
+        </div>
+
+        <div class="demo-section">
+            <h3>📋 Integration Guide</h3>
+            <h4>How to add AI to your existing prototypes:</h4>
+            <ol>
+                <li><strong>Include the scripts:</strong>
+                    <pre><code>&lt;script src="config.js"&gt;&lt;/script&gt;
+&lt;script src="gemini-api.js"&gt;&lt;/script&gt;</code></pre>
+                </li>
+                <li><strong>Add AI button anywhere:</strong>
+                    <pre><code>addAIButton('your-container-id', '🤖 Ask AI');</code></pre>
+                </li>
+                <li><strong>Call AI directly:</strong>
+                    <pre><code>const response = await window.GeminiAPI.chat('Your question here');</code></pre>
+                </li>
+                <li><strong>Analyze specific data:</strong>
+                    <pre><code>const insights = await window.GeminiAPI.analyzeConstructionData(data, question);</code></pre>
+                </li>
+            </ol>
+        </div>
+    </div>
+
+    <script>
+        // Demo functions
+        async function testConnection() {
+            const status = document.getElementById('connection-status');
+            status.innerHTML = '<div class="status loading">🔄 Testing connection...</div>';
+            
+            try {
+                const response = await window.testGeminiAPI();
+                status.innerHTML = `<div class="status success">✅ Connection successful!</div><div class="response">${response}</div>`;
+            } catch (error) {
+                status.innerHTML = `<div class="status error">❌ Connection failed: ${error.message}</div>`;
+            }
+        }
+
+        async function sendChatMessage() {
+            const input = document.getElementById('chat-input');
+            const response = document.getElementById('chat-response');
+            
+            if (!input.value.trim()) {
+                alert('Please enter a message');
+                return;
+            }
+            
+            response.innerHTML = '<div class="status loading">🤖 AI is thinking...</div>';
+            
+            try {
+                const aiResponse = await window.GeminiAPI.chat(input.value);
+                response.innerHTML = `<div class="response">${aiResponse}</div>`;
+            } catch (error) {
+                response.innerHTML = `<div class="status error">❌ Error: ${error.message}</div>`;
+            }
+        }
+
+        async function analyzeData() {
+            const dataInput = document.getElementById('data-input');
+            const questionInput = document.getElementById('question-input');
+            const response = document.getElementById('analysis-response');
+            
+            if (!dataInput.value.trim() || !questionInput.value.trim()) {
+                alert('Please provide both data and a question');
+                return;
+            }
+            
+            response.innerHTML = '<div class="status loading">📊 Analyzing data...</div>';
+            
+            try {
+                let data;
+                try {
+                    data = JSON.parse(dataInput.value);
+                } catch {
+                    data = dataInput.value; // Use as plain text if not JSON
+                }
+                
+                const aiResponse = await window.GeminiAPI.analyzeConstructionData(data, questionInput.value);
+                response.innerHTML = `<div class="response">${aiResponse}</div>`;
+            } catch (error) {
+                response.innerHTML = `<div class="status error">❌ Error: ${error.message}</div>`;
+            }
+        }
+
+        async function getAnomalyInsights() {
+            const input = document.getElementById('anomaly-input');
+            const response = document.getElementById('anomaly-response');
+            
+            if (!input.value.trim()) {
+                alert('Please describe the anomalies or issues');
+                return;
+            }
+            
+            response.innerHTML = '<div class="status loading">🚨 Generating insights...</div>';
+            
+            try {
+                const anomalies = { description: input.value, timestamp: new Date().toISOString() };
+                const aiResponse = await window.GeminiAPI.generateAnomalyInsights(anomalies);
+                response.innerHTML = `<div class="response">${aiResponse}</div>`;
+            } catch (error) {
+                response.innerHTML = `<div class="status error">❌ Error: ${error.message}</div>`;
+            }
+        }
+
+        // Auto-add AI button to existing elements (example)
+        document.addEventListener('DOMContentLoaded', function() {
+            // You can uncomment this to automatically add AI buttons to existing containers
+            // addAIButton('container', '🤖 Ask AI About This');
+        });
+    </script>
+</body>
+</html>
