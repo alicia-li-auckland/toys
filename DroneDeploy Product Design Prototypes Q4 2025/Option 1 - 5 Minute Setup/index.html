@@ -1,0 +1,1523 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>5-Minute Setup - Progress AI Construction Monitoring</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #f8fafc;
+            min-height: 100vh;
+            margin: 0;
+            padding: 0;
+        }
+
+        .header {
+            background: #1f1f1f;
+            padding: 16px 24px;
+            border-bottom: 1px solid #333;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .header h1 {
+            font-size: 20px;
+            font-weight: 600;
+            color: white;
+        }
+
+        .header-right {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+        }
+
+        .status-badge {
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 500;
+        }
+
+        .status-progress {
+            background: #dcfce7;
+            color: #16a34a;
+        }
+
+        .btn-primary {
+            background: #2563eb;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 6px;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .btn-primary:hover {
+            background: #1d4ed8;
+        }
+
+        .btn-secondary {
+            background: #374151;
+            color: white;
+            border: 1px solid #4b5563;
+            padding: 8px 16px;
+            border-radius: 6px;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .btn-secondary:hover {
+            background: #4b5563;
+            border-color: #6b7280;
+        }
+
+        .main-content {
+            display: flex;
+            height: calc(100vh - 64px);
+            overflow: hidden;
+        }
+
+        .setup-panel {
+            flex: 0 0 30%;
+            background: white;
+            border-right: 1px solid #e2e8f0;
+            padding: 32px;
+            overflow-y: auto;
+            position: sticky;
+            top: 0;
+            height: 100%;
+        }
+
+        .output-panel {
+            flex: 1;
+            background: white;
+            padding: 32px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+
+        .panel-title {
+            font-size: 20px;
+            font-weight: 600;
+            color: #1f2937;
+            margin-bottom: 8px;
+        }
+
+        .panel-subtitle {
+            font-size: 14px;
+            color: #6b7280;
+            margin-bottom: 24px;
+        }
+
+        .step-section {
+            margin-bottom: 32px;
+        }
+
+        .step-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 16px;
+        }
+
+        .step-number {
+            width: 28px;
+            height: 28px;
+            background: #3b82f6;
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            font-size: 14px;
+            margin-right: 12px;
+        }
+
+        .step-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: #1f2937;
+        }
+
+        .template-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .template-btn {
+            background: white;
+            border: 2px solid #e5e7eb;
+            border-radius: 8px;
+            padding: 16px;
+            cursor: pointer;
+            transition: all 0.2s;
+            text-align: left;
+        }
+
+        .template-btn:hover {
+            border-color: #3b82f6;
+            background: #f8fafc;
+        }
+
+        .template-btn.selected {
+            border-color: #3b82f6;
+            background: #eff6ff;
+        }
+
+        .template-btn-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: #1f2937;
+            margin-bottom: 4px;
+        }
+
+        .template-btn-count {
+            font-size: 12px;
+            color: #6b7280;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-label {
+            display: block;
+            font-size: 14px;
+            font-weight: 500;
+            color: #374151;
+            margin-bottom: 8px;
+        }
+
+        .form-input, .form-select {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e5e7eb;
+            border-radius: 6px;
+            font-size: 14px;
+            transition: border-color 0.2s;
+        }
+
+        .form-input:focus, .form-select:focus {
+            outline: none;
+            border-color: #3b82f6;
+        }
+
+        .btn-generate {
+            background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
+            color: white;
+            border: none;
+            padding: 14px 24px;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            width: 100%;
+            margin-top: 24px;
+        }
+
+        .btn-generate:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 6px 12px rgba(59, 130, 246, 0.3);
+        }
+
+        .btn-generate:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
+        /* Timeline Gantt Chart Styles */
+        .timeline-gantt-wrapper {
+            background: white;
+            border: 1px solid #e5e7eb;
+            border-radius: 8px;
+            overflow: hidden;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            min-height: 0;
+        }
+
+
+        .timeline-grid-wrapper {
+            display: grid;
+            grid-template-columns: minmax(280px, max-content) 1fr;
+            overflow: auto;
+            flex: 1;
+            position: relative;
+        }
+
+        .timeline-corner {
+            background: #f1f5f9;
+            border-right: 1px solid #cbd5e1;
+            border-bottom: 1px solid #cbd5e1;
+            padding: 8px 16px;
+            font-weight: 600;
+            color: #475569;
+            position: sticky;
+            top: 0;
+            left: 0;
+            z-index: 30;
+            font-size: 12px;
+            min-width: 280px;
+            white-space: nowrap;
+        }
+
+        .timeline-header {
+            background: #f1f5f9;
+            border-bottom: 1px solid #cbd5e1;
+            display: flex;
+            position: sticky;
+            top: 0;
+            z-index: 20;
+        }
+
+        .timeline-week {
+            min-width: 80px;
+            padding: 8px 12px;
+            border-right: 1px solid #cbd5e1;
+            text-align: center;
+            font-size: 11px;
+        }
+
+        .timeline-activities {
+            position: sticky;
+            left: 0;
+            z-index: 10;
+            background: white;
+        }
+
+        .timeline-activity-row {
+            display: contents;
+        }
+        
+        .timeline-activity-name {
+            padding: 8px 16px;
+            border-bottom: 1px solid #f1f5f9;
+            border-right: 1px solid #cbd5e1;
+            background: white;
+            position: sticky;
+            left: 0;
+            z-index: 10;
+            display: flex;
+            align-items: center;
+            min-height: 32px;
+            cursor: pointer;
+            transition: background-color 0.2s;
+            min-width: 280px;
+        }
+        
+        .timeline-activity-bars {
+            padding: 8px 0;
+            border-bottom: 1px solid #f1f5f9;
+            min-height: 32px;
+            position: relative;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+
+        .timeline-activity-name:nth-child(even),
+        .timeline-activity-bars:nth-child(even) {
+            background-color: #f8fafc;
+        }
+
+        .timeline-bars-container {
+            overflow: visible;
+        }
+
+        .timeline-bars {
+            position: relative;
+            height: 100%;
+        }
+
+        .timeline-grid-lines {
+            position: absolute;
+            top: 0;
+            height: 100%;
+            width: 100%;
+        }
+
+        .timeline-grid-line {
+            position: absolute;
+            top: 0;
+            height: 100%;
+            width: 1px;
+            background: #e5e7eb;
+        }
+
+        .timeline-bar-row {
+            height: 44px;
+            position: relative;
+            border-bottom: 1px solid #f1f5f9;
+        }
+
+        .timeline-bar {
+            position: absolute;
+            height: 20px;
+            top: 12px;
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 10px;
+            color: white;
+            font-weight: 500;
+            cursor: ew-resize;
+            user-select: none;
+            transition: box-shadow 0.2s;
+        }
+
+        .timeline-bar:hover {
+            box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+            z-index: 10;
+        }
+
+        .timeline-bar.dragging {
+            opacity: 0.8;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+            z-index: 20;
+        }
+
+        .timeline-bar-resize-handle {
+            position: absolute;
+            right: -2px;
+            top: 0;
+            width: 8px;
+            height: 100%;
+            cursor: ew-resize;
+            background: rgba(255,255,255,0.3);
+            border-radius: 0 4px 4px 0;
+            opacity: 0;
+            transition: opacity 0.2s;
+        }
+
+        .timeline-bar:hover .timeline-bar-resize-handle {
+            opacity: 1;
+        }
+
+        /* Trade category colors */
+        .excavation { background: #8b5cf6; }
+        .concrete { background: #06b6d4; }
+        .structural { background: #10b981; }
+        .mechanical { background: #f59e0b; }
+        .mechanical--hvac---plumbing- { background: #f59e0b; }
+        .electrical { background: #ef4444; }
+        .roofing { background: #84cc16; }
+        .plumbing { background: #6366f1; }
+        .general { background: #64748b; }
+        .equipment { background: #f97316; }
+        .equipment-placement { background: #f97316; }
+        .specialty-equipment---misc- { background: #f97316; }
+        .sitework { background: #a855f7; }
+        .sitework---earthwork { background: #a855f7; }
+        .framing { background: #059669; }
+        .insulation { background: #dc2626; }
+        .finishes { background: #7c3aed; }
+        .fire-protection { background: #be123c; }
+        .masonry---roofing---cladding { background: #84cc16; }
+        .masonry---exterior { background: #10b981; }
+        .ceilings { background: #818cf8; }
+
+        /* Gantt selection and actions */
+
+        .timeline-activity-name:hover,
+        .timeline-activity-bars:hover {
+            background-color: #e0f2fe !important;
+        }
+
+        .timeline-activity-name.selected {
+            background-color: #bfdbfe !important;
+            border-left: 4px solid #2563eb;
+        }
+        
+        .timeline-activity-bars.selected {
+            background-color: #bfdbfe !important;
+        }
+
+        .bulk-actions-toolbar {
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            padding: 12px;
+            margin-bottom: 16px;
+            display: none;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .bulk-actions-info {
+            font-size: 14px;
+            color: #374151;
+            font-weight: 500;
+        }
+
+        .bulk-actions-buttons {
+            display: flex;
+            gap: 8px;
+        }
+
+        .btn-accept {
+            background: #16a34a;
+            color: white;
+            border: none;
+            padding: 6px 12px;
+            border-radius: 4px;
+            font-size: 12px;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .btn-accept:hover {
+            background: #15803d;
+        }
+
+        .btn-reject {
+            background: #dc2626;
+            color: white;
+            border: none;
+            padding: 6px 12px;
+            border-radius: 4px;
+            font-size: 12px;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .btn-reject:hover {
+            background: #b91c1c;
+        }
+
+        .trade-status-accepted {
+            position: relative;
+        }
+
+        .trade-status-accepted::after {
+            content: '✓';
+            position: absolute;
+            right: 8px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #16a34a;
+            font-weight: bold;
+        }
+
+        .trade-status-rejected {
+            opacity: 0.5;
+            text-decoration: line-through;
+        }
+
+        /* Review Modal Styles */
+        .review-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .review-modal-content {
+            background: white;
+            border-radius: 12px;
+            padding: 24px;
+            width: 90%;
+            max-width: 800px;
+            max-height: 90vh;
+            overflow-y: auto;
+            position: relative;
+        }
+
+        .review-modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 16px;
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        .review-modal-title {
+            font-size: 20px;
+            font-weight: 600;
+            color: #1f2937;
+        }
+
+        .review-modal-close {
+            background: none;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+            color: #6b7280;
+            padding: 4px;
+            border-radius: 4px;
+            transition: background 0.2s;
+        }
+
+        .review-modal-close:hover {
+            background: #f3f4f6;
+        }
+
+        .review-modal-body {
+            margin-bottom: 24px;
+        }
+
+        .review-section {
+            margin-bottom: 24px;
+        }
+
+        .review-section-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: #374151;
+            margin-bottom: 12px;
+        }
+
+        .gantt-screenshot {
+            border: 1px solid #e5e7eb;
+            border-radius: 8px;
+            overflow: hidden;
+            margin-bottom: 16px;
+            background: white;
+        }
+
+        .email-field {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #d1d5db;
+            border-radius: 6px;
+            font-size: 14px;
+            transition: border-color 0.2s;
+        }
+
+        .email-field:focus {
+            outline: none;
+            border-color: #3b82f6;
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+        }
+
+        .review-modal-footer {
+            display: flex;
+            justify-content: flex-end;
+            gap: 12px;
+            padding-top: 16px;
+            border-top: 1px solid #e5e7eb;
+        }
+
+        .btn-cancel {
+            background: #f9fafb;
+            color: #374151;
+            border: 1px solid #d1d5db;
+            padding: 8px 16px;
+            border-radius: 6px;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .btn-cancel:hover {
+            background: #f3f4f6;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <div class="header">
+        <h1>⚡ 5-Minute Project Setup</h1>
+        <div class="header-right">
+            <span class="status-badge status-progress">Ready</span>
+            <button class="btn-secondary" onclick="window.location.href='../'">Back to Dashboard</button>
+            <button class="btn-secondary">Save Draft</button>
+            <button class="btn-primary" onclick="openReviewModal()">Send for Review</button>
+        </div>
+    </div>
+
+    <div class="main-content">
+            <!-- Setup Panel -->
+            <div class="setup-panel">
+          
+
+                <!-- Step 1: Building Type -->
+                <div class="step-section">
+                    <div class="step-header">
+                        <div class="step-number">1</div>
+                        <div class="step-title">Select building type</div>
+                    </div>
+                <div class="template-buttons">
+                    <div class="template-btn" id="commercialTemplate" onclick="selectTemplate('commercial')">
+                        <div class="template-btn-title">🏢 Commercial / Mixed Use</div>
+                            <div class="template-btn-count">34 Progress AI trades across 5 construction stages</div>
+                    </div>
+                    <div class="template-btn" id="datacentersTemplate" onclick="selectTemplate('datacenters')">
+                        <div class="template-btn-title">🖥️ Data Centers</div>
+                            <div class="template-btn-count">45 specialized trades for data center construction</div>
+                        </div>
+                        <div class="template-btn" id="energyTemplate" onclick="selectTemplate('energy')">
+                            <div class="template-btn-title">⚡ Energy / Power / Water Treatment</div>
+                            <div class="template-btn-count">35 specialized trades for energy infrastructure</div>
+                    </div>
+                    <div class="template-btn" id="healthcareTemplate" onclick="selectTemplate('healthcare')">
+                        <div class="template-btn-title">🏥 Healthcare</div>
+                            <div class="template-btn-count">34 Progress AI trades with complex MEP systems</div>
+                    </div>
+                        <div class="template-btn" id="hospitalityTemplate" onclick="selectTemplate('hospitality')">
+                            <div class="template-btn-title">🏨 Hospitality</div>
+                            <div class="template-btn-count">34 Progress AI trades for hospitality construction</div>
+                </div>
+                        <div class="template-btn" id="infrastructureTemplate" onclick="selectTemplate('infrastructure')">
+                            <div class="template-btn-title">🚧 Infrastructure / Heavy Civil</div>
+                            <div class="template-btn-count">34 Progress AI trades for heavy civil projects</div>
+                    </div>
+                        <div class="template-btn" id="institutionalTemplate" onclick="selectTemplate('institutional')">
+                            <div class="template-btn-title">🏛️ Institutional / Education</div>
+                            <div class="template-btn-count">34 Progress AI trades for institutional projects</div>
+                </div>
+                        <div class="template-btn" id="manufacturingTemplate" onclick="selectTemplate('manufacturing')">
+                            <div class="template-btn-title">🏭 Manufacturing / Industrial</div>
+                            <div class="template-btn-count">34 Progress AI trades for industrial construction</div>
+                    </div>
+                        <div class="template-btn" id="multifamilyTemplate" onclick="selectTemplate('multifamily')">
+                            <div class="template-btn-title">🏠 Multi Family / Residential</div>
+                            <div class="template-btn-count">34 Progress AI trades for residential projects</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Step 2: Construction Stage -->
+                <div class="step-section">
+                    <div class="step-header">
+                        <div class="step-number">2</div>
+                        <div class="step-title">Construction stage</div>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Current stage of construction</label>
+                        <select class="form-select" id="constructionStage">
+                            <option value="">Select stage...</option>
+                            <option value="site-prep">1 - Site Preparation</option>
+                            <option value="superstructure">2 - Superstructure</option>
+                            <option value="interior">3 - Interior Fit-Out</option>
+                            <option value="envelope">4 - Building Envelope</option>
+                            <option value="finishes">5 - Finishes</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Step 3: Project Timeline -->
+                <div class="step-section">
+                    <div class="step-header">
+                        <div class="step-number">3</div>
+                        <div class="step-title">Project timeline</div>
+                        </div>
+                    <div class="form-group">
+                        <label class="form-label">Project start date</label>
+                        <input type="date" class="form-input" id="projectStartDate">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Project end date</label>
+                        <input type="date" class="form-input" id="projectEndDate">
+            </div>
+        </div>
+
+                <!-- Generate Button -->
+                <button class="btn-generate" onclick="generateProject()" id="generateBtn" disabled>
+                    🚀 Generate Project Timeline
+                    </button>
+        </div>
+
+        <!-- Output Panel -->
+            <div class="output-panel">
+                <div style="text-align: center; padding: 60px 20px; color: #6b7280;">
+                    <div style="font-size: 48px; margin-bottom: 16px;">📊</div>
+                    <div style="font-size: 18px; font-weight: 600; margin-bottom: 8px;">Ready to Generate Timeline</div>
+                    <div style="font-size: 14px;">Complete the setup steps to generate your project timeline</div>
+            </div>
+                        </div>
+                    </div>
+                    
+    <!-- Review Modal -->
+    <div id="reviewModal" class="review-modal">
+        <div class="review-modal-content">
+            <div class="review-modal-header">
+                <h3 class="review-modal-title">📧 Send Project for Review</h3>
+                <button class="review-modal-close" onclick="closeReviewModal()">&times;</button>
+                    </div>
+                    
+            <div class="review-modal-body">
+                <div class="review-section">
+                    <div class="review-section-title">Project Timeline Preview</div>
+                    <div id="ganttScreenshot" class="gantt-screenshot">
+                        <!-- Screenshot will be inserted here -->
+                    </div>
+                </div>
+                
+                <div class="review-section">
+                    <div class="review-section-title">Send to Email</div>
+                    <input 
+                        type="email" 
+                        id="reviewEmail" 
+                        class="email-field" 
+                        placeholder="Enter reviewer's email address"
+                        required>
+                    </div>
+                </div>
+                
+            <div class="review-modal-footer">
+                <button class="btn-cancel" onclick="closeReviewModal()">Cancel</button>
+                <button class="btn-primary" onclick="sendForReview()">📤 Send for Review</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Application State
+        const AppState = {
+            selectedBuildingType: null,
+            constructionStage: null,
+            projectStartDate: null,
+            projectEndDate: null,
+            generatedTrades: [],
+            selectedGanttItems: new Set(),
+            acceptedTrades: new Set(),
+            rejectedTrades: new Set()
+        };
+
+        // Updated trades database from CSV file
+        const progressAITrades = [
+            // Energy / Power / Water Treatment Specific
+            { id: 69, category: 'Specialty Equipment / Misc.', trade: 'Tank Installation', projectTypes: ['Energy'], stage: 'preparation', duration: 21 },
+            
+            // Data Center Specific Trades
+            { id: 47, category: 'Equipment Placement', trade: 'Mechanical Yard - Equipment Placement', projectTypes: ['Data Center'], stage: 'finishes', duration: 14 },
+            { id: 99, category: 'Equipment Placement', trade: 'Generator Placement', projectTypes: ['Data Center'], stage: 'finishes', duration: 10 },
+            { id: 109, category: 'Masonry / Roofing / Cladding', trade: 'Roofing', projectTypes: ['Data Center'], stage: 'envelope', duration: 21 },
+            { id: 112, category: 'Masonry / Roofing / Cladding', trade: 'Roofing Metal Deck', projectTypes: ['Data Center'], stage: 'envelope', duration: 14 },
+            { id: 114, category: 'Masonry / Roofing / Cladding', trade: 'Roofing Membrane', projectTypes: ['Data Center'], stage: 'superstructure', duration: 10 },
+            { id: 113, category: 'Masonry / Roofing / Cladding', trade: 'Roofing Insulation', projectTypes: ['Data Center'], stage: 'superstructure', duration: 7 },
+            { id: 39, category: 'Masonry / Exterior', trade: 'Structural Steel', projectTypes: ['Data Center'], stage: 'superstructure', duration: 28 },
+            { id: 56, category: 'Sitework / Earthwork', trade: 'Structural Piles', projectTypes: ['Data Center'], stage: 'preparation', duration: 14 },
+            { id: 87, category: 'Concrete', trade: 'Concrete Formwork', projectTypes: ['Data Center'], stage: 'preparation', duration: 10 },
+            { id: 48, category: 'Equipment Placement', trade: 'Electrical Yard – Equipment Placement', projectTypes: ['Data Center'], stage: 'finishes', duration: 14 },
+            { id: 108, category: 'Electrical', trade: 'Electrical Yard Equipment Conduit', projectTypes: ['Data Center'], stage: 'finishes', duration: 7 },
+
+            // Universal Trades (for all building types)
+            { id: 93, category: 'Concrete', trade: 'Concrete Foundation Pour', projectTypes: ['Commercial', 'Data Center', 'Energy', 'Healthcare', 'Hospitality', 'Infrastructure', 'Institutional', 'Manufacturing', 'Multi Family', 'Other'], stage: 'superstructure', duration: 7 },
+            { id: 33, category: 'Sitework / Earthwork', trade: 'Vapor Barrier', projectTypes: ['Commercial', 'Data Center', 'Energy', 'Healthcare', 'Hospitality', 'Infrastructure', 'Institutional', 'Manufacturing', 'Multi Family', 'Other'], stage: 'preparation', duration: 3 },
+            { id: 21, category: 'Fire Protection', trade: 'Overhead Fire Protection', projectTypes: ['Commercial', 'Data Center', 'Energy', 'Healthcare', 'Hospitality', 'Infrastructure', 'Institutional', 'Manufacturing', 'Multi Family', 'Other'], stage: 'fitout', duration: 14 },
+            { id: 90, category: 'Electrical', trade: 'Overhead Electrical Rough In', projectTypes: ['Commercial', 'Data Center', 'Energy', 'Healthcare', 'Hospitality', 'Infrastructure', 'Institutional', 'Manufacturing', 'Multi Family', 'Other'], stage: 'fitout', duration: 10 },
+            { id: 30, category: 'Sitework / Earthwork', trade: 'Excavation', projectTypes: ['Commercial', 'Data Center', 'Energy', 'Healthcare', 'Hospitality', 'Infrastructure', 'Institutional', 'Manufacturing', 'Multi Family', 'Other'], stage: 'preparation', duration: 7 },
+            { id: 94, category: 'Mechanical (HVAC / Plumbing)', trade: 'Overhead Plumbing', projectTypes: ['Commercial', 'Data Center', 'Energy', 'Healthcare', 'Hospitality', 'Infrastructure', 'Institutional', 'Manufacturing', 'Multi Family', 'Other'], stage: 'fitout', duration: 10 },
+            { id: 31, category: 'Sitework / Earthwork', trade: 'Batterboards', projectTypes: ['Commercial', 'Data Center', 'Energy', 'Healthcare', 'Hospitality', 'Infrastructure', 'Institutional', 'Manufacturing', 'Multi Family', 'Other'], stage: 'preparation', duration: 5 },
+            { id: 88, category: 'Concrete', trade: 'Concrete Rebar', projectTypes: ['Commercial', 'Data Center', 'Energy', 'Healthcare', 'Hospitality', 'Infrastructure', 'Institutional', 'Manufacturing', 'Multi Family', 'Other'], stage: 'superstructure', duration: 7 },
+            { id: 63, category: 'Concrete', trade: 'Concrete Pour', projectTypes: ['Commercial', 'Data Center', 'Energy', 'Healthcare', 'Hospitality', 'Infrastructure', 'Institutional', 'Manufacturing', 'Multi Family', 'Other'], stage: 'superstructure', duration: 5 },
+            { id: 20, category: 'Electrical', trade: 'In Wall Electrical', projectTypes: ['Commercial', 'Data Center', 'Energy', 'Healthcare', 'Hospitality', 'Infrastructure', 'Institutional', 'Manufacturing', 'Multi Family', 'Other'], stage: 'fitout', duration: 14 },
+            { id: 85, category: 'Finishes', trade: 'Wall Painting', projectTypes: ['Commercial', 'Data Center', 'Energy', 'Healthcare', 'Hospitality', 'Infrastructure', 'Institutional', 'Manufacturing', 'Multi Family', 'Other'], stage: 'finishes', duration: 10 },
+            { id: 1, category: 'Fire Protection', trade: 'Wall Framing', projectTypes: ['Commercial', 'Data Center', 'Energy', 'Healthcare', 'Hospitality', 'Infrastructure', 'Institutional', 'Manufacturing', 'Multi Family', 'Other'], stage: 'fitout', duration: 14 },
+            { id: 2, category: 'Insulation', trade: 'In Wall Insulation', projectTypes: ['Commercial', 'Data Center', 'Energy', 'Healthcare', 'Hospitality', 'Infrastructure', 'Institutional', 'Manufacturing', 'Multi Family', 'Other'], stage: 'fitout', duration: 7 },
+            { id: 72, category: 'Mechanical (HVAC / Plumbing)', trade: 'Overhead Duct Rough In', projectTypes: ['Commercial', 'Data Center', 'Energy', 'Healthcare', 'Hospitality', 'Infrastructure', 'Institutional', 'Manufacturing', 'Multi Family', 'Other'], stage: 'fitout', duration: 14 },
+            { id: 36, category: 'Sitework / Earthwork', trade: 'Underground Utilities', projectTypes: ['Commercial', 'Data Center', 'Energy', 'Healthcare', 'Hospitality', 'Infrastructure', 'Institutional', 'Manufacturing', 'Multi Family', 'Other'], stage: 'preparation', duration: 10 },
+            { id: 15, category: 'Mechanical (HVAC / Plumbing)', trade: 'In Wall Plumbing', projectTypes: ['Commercial', 'Data Center', 'Energy', 'Healthcare', 'Hospitality', 'Infrastructure', 'Institutional', 'Manufacturing', 'Multi Family', 'Other'], stage: 'fitout', duration: 10 },
+            { id: 3, category: 'Fire Protection', trade: 'Wall Drywall', projectTypes: ['Commercial', 'Data Center', 'Energy', 'Healthcare', 'Hospitality', 'Infrastructure', 'Institutional', 'Manufacturing', 'Multi Family', 'Other'], stage: 'fitout', duration: 14 },
+            { id: 79, category: 'Fire Protection', trade: 'Overhead Drywall', projectTypes: ['Commercial', 'Data Center', 'Energy', 'Healthcare', 'Hospitality', 'Infrastructure', 'Institutional', 'Manufacturing', 'Multi Family', 'Other'], stage: 'fitout', duration: 10 },
+            { id: 92, category: 'Finishes', trade: 'Carpet Flooring', projectTypes: ['Commercial', 'Data Center', 'Energy', 'Healthcare', 'Hospitality', 'Infrastructure', 'Institutional', 'Manufacturing', 'Multi Family', 'Other'], stage: 'finishes', duration: 7 },
+            { id: 95, category: 'Ceilings', trade: 'Overhead Ceiling Grid', projectTypes: ['Commercial', 'Data Center', 'Energy', 'Healthcare', 'Hospitality', 'Infrastructure', 'Institutional', 'Manufacturing', 'Multi Family', 'Other'], stage: 'fitout', duration: 7 },
+            { id: 97, category: 'Finishes', trade: 'Stone Base Flooring', projectTypes: ['Commercial', 'Data Center', 'Energy', 'Healthcare', 'Hospitality', 'Infrastructure', 'Institutional', 'Manufacturing', 'Multi Family', 'Other'], stage: 'finishes', duration: 5 },
+            { id: 86, category: 'Fire Protection', trade: 'Wall Taping & Mudding', projectTypes: ['Commercial', 'Data Center', 'Energy', 'Healthcare', 'Hospitality', 'Infrastructure', 'Institutional', 'Manufacturing', 'Multi Family', 'Other'], stage: 'fitout', duration: 10 },
+            { id: 28, category: 'Finishes', trade: 'Windows and doors installation', projectTypes: ['Commercial', 'Data Center', 'Energy', 'Healthcare', 'Hospitality', 'Infrastructure', 'Institutional', 'Manufacturing', 'Multi Family', 'Other'], stage: 'fitout', duration: 14 },
+            { id: 16, category: 'Mechanical (HVAC / Plumbing)', trade: 'Overhead HVAC Pipe Insulation', projectTypes: ['Commercial', 'Data Center', 'Energy', 'Healthcare', 'Hospitality', 'Infrastructure', 'Institutional', 'Manufacturing', 'Multi Family', 'Other'], stage: 'fitout', duration: 7 },
+            { id: 41, category: 'Mechanical (HVAC / Plumbing)', trade: 'Roof HVAC Units', projectTypes: ['Commercial', 'Data Center', 'Energy', 'Healthcare', 'Hospitality', 'Infrastructure', 'Institutional', 'Manufacturing', 'Multi Family', 'Other'], stage: 'fitout', duration: 10 },
+            { id: 80, category: 'Finishes', trade: 'Overhead Finishes', projectTypes: ['Commercial', 'Data Center', 'Energy', 'Healthcare', 'Hospitality', 'Infrastructure', 'Institutional', 'Manufacturing', 'Multi Family', 'Other'], stage: 'finishes', duration: 7 },
+            { id: 81, category: 'Fire Protection', trade: 'Overhead Framing', projectTypes: ['Commercial', 'Data Center', 'Energy', 'Healthcare', 'Hospitality', 'Infrastructure', 'Institutional', 'Manufacturing', 'Multi Family', 'Other'], stage: 'fitout', duration: 10 },
+            { id: 42, category: 'Mechanical (HVAC / Plumbing)', trade: 'Roof HVAC Piping', projectTypes: ['Commercial', 'Data Center', 'Energy', 'Healthcare', 'Hospitality', 'Infrastructure', 'Institutional', 'Manufacturing', 'Multi Family', 'Other'], stage: 'fitout', duration: 7 },
+            { id: 89, category: 'Mechanical (HVAC / Plumbing)', trade: 'Overhead Duct Insulation', projectTypes: ['Commercial', 'Data Center', 'Energy', 'Healthcare', 'Hospitality', 'Infrastructure', 'Institutional', 'Manufacturing', 'Multi Family', 'Other'], stage: 'fitout', duration: 7 },
+            { id: 91, category: 'Fire Protection', trade: 'Wall Drywall Finish', projectTypes: ['Commercial', 'Data Center', 'Energy', 'Healthcare', 'Hospitality', 'Infrastructure', 'Institutional', 'Manufacturing', 'Multi Family', 'Other'], stage: 'fitout', duration: 10 },
+            { id: 14, category: 'Mechanical (HVAC / Plumbing)', trade: 'In Wall Plumbing Insulation', projectTypes: ['Commercial', 'Data Center', 'Energy', 'Healthcare', 'Hospitality', 'Infrastructure', 'Institutional', 'Manufacturing', 'Multi Family', 'Other'], stage: 'fitout', duration: 5 },
+            { id: 54, category: 'Finishes', trade: 'Millwork and Install', projectTypes: ['Commercial', 'Data Center', 'Energy', 'Healthcare', 'Hospitality', 'Infrastructure', 'Institutional', 'Manufacturing', 'Multi Family', 'Other'], stage: 'finishes', duration: 14 },
+            { id: 98, category: 'Electrical', trade: 'PODs Placement', projectTypes: ['Commercial', 'Data Center', 'Energy', 'Healthcare', 'Hospitality', 'Infrastructure', 'Institutional', 'Manufacturing', 'Multi Family', 'Other'], stage: 'fitout', duration: 5 },
+            { id: 96, category: 'Finishes', trade: 'Wall Prime Paint', projectTypes: ['Commercial', 'Data Center', 'Energy', 'Healthcare', 'Hospitality', 'Infrastructure', 'Institutional', 'Manufacturing', 'Multi Family', 'Other'], stage: 'finishes', duration: 7 },
+            { id: 49, category: 'Concrete', trade: 'Tilt-Up Wall Panels', projectTypes: ['Commercial', 'Data Center', 'Energy', 'Healthcare', 'Hospitality', 'Infrastructure', 'Institutional', 'Manufacturing', 'Multi Family', 'Other'], stage: 'superstructure', duration: 14 },
+            { id: 83, category: 'Finishes', trade: 'Overhead Painting', projectTypes: ['Commercial', 'Data Center', 'Energy', 'Healthcare', 'Hospitality', 'Infrastructure', 'Institutional', 'Manufacturing', 'Multi Family', 'Other'], stage: 'finishes', duration: 7 },
+            { id: 50, category: 'Ceilings', trade: 'Metal Ceiling Panels', projectTypes: ['Commercial', 'Data Center', 'Energy', 'Healthcare', 'Hospitality', 'Infrastructure', 'Institutional', 'Manufacturing', 'Multi Family', 'Other'], stage: 'finishes', duration: 5 }
+        ];
+
+        // Template selection
+        function selectTemplate(type) {
+            AppState.selectedBuildingType = type;
+            
+            // Update UI
+            document.querySelectorAll('.template-btn').forEach(btn => btn.classList.remove('selected'));
+            document.getElementById(type + 'Template').classList.add('selected');
+            
+            updateGenerateButton();
+        }
+
+        // Form event listeners
+        document.getElementById('constructionStage').addEventListener('change', function() {
+            AppState.constructionStage = this.value;
+            updateGenerateButton();
+        });
+
+        document.getElementById('projectStartDate').addEventListener('change', function() {
+            AppState.projectStartDate = this.value;
+            updateGenerateButton();
+        });
+
+        document.getElementById('projectEndDate').addEventListener('change', function() {
+            AppState.projectEndDate = this.value;
+            updateGenerateButton();
+        });
+
+        function updateGenerateButton() {
+            const btn = document.getElementById('generateBtn');
+            const isReady = AppState.selectedBuildingType && 
+                           AppState.constructionStage && 
+                           AppState.projectStartDate && 
+                           AppState.projectEndDate;
+            
+            btn.disabled = !isReady;
+            btn.style.opacity = isReady ? '1' : '0.5';
+        }
+
+        // Generate project timeline
+        function generateProject() {
+            if (!AppState.selectedBuildingType) return;
+
+            // Get relevant trades for the selected building type
+            const buildingTypeMapping = {
+                'commercial': 'Commercial',
+                'datacenters': 'Data Center',
+                'energy': 'Energy',
+                'healthcare': 'Healthcare',
+                'hospitality': 'Hospitality',
+                'infrastructure': 'Infrastructure',
+                'institutional': 'Institutional',
+                'manufacturing': 'Manufacturing',
+                'multifamily': 'Multi Family'
+            };
+            
+            const targetProjectType = buildingTypeMapping[AppState.selectedBuildingType];
+            
+            // Filter trades
+            const relevantTrades = progressAITrades.filter(trade => {
+                return trade.projectTypes.includes(targetProjectType) || 
+                       trade.projectTypes.includes('Other'); // Include universal trades
+            });
+
+            // Generate timeline
+            AppState.generatedTrades = generateTradeTimeline(relevantTrades);
+            
+            // Update UI with summary and Gantt chart
+            updateSummaryCards();
+            updateGanttChart();
+            
+            console.log('Generated project timeline:', AppState.generatedTrades);
+        }
+
+        function generateTradeTimeline(trades) {
+            const startDate = new Date(AppState.projectStartDate);
+            const endDate = new Date(AppState.projectEndDate);
+            const totalDays = Math.ceil((endDate - startDate) / (1000 * 60 * 60 * 24));
+            
+            // Stage timing
+            const stageTiming = {
+                'site-prep': { start: 0, duration: 0.15 },
+                'superstructure': { start: 0.15, duration: 0.35 },
+                'interior': { start: 0.40, duration: 0.30 },
+                'envelope': { start: 0.50, duration: 0.25 },
+                'finishes': { start: 0.70, duration: 0.30 }
+            };
+
+            // Group trades by stage
+            const tradesByStage = {};
+            trades.forEach(trade => {
+                if (!tradesByStage[trade.stage]) {
+                    tradesByStage[trade.stage] = [];
+                }
+                tradesByStage[trade.stage].push(trade);
+            });
+
+            const timeline = [];
+            
+            Object.keys(stageTiming).forEach(stage => {
+                if (!tradesByStage[stage]) return;
+                
+                const stageInfo = stageTiming[stage];
+                const stageStartDay = Math.floor(totalDays * stageInfo.start);
+                const stageDuration = Math.floor(totalDays * stageInfo.duration);
+                
+                let currentOffset = 0;
+                tradesByStage[stage].forEach((trade, index) => {
+                    const tradeStartDay = stageStartDay + currentOffset;
+                    const tradeEndDay = Math.min(tradeStartDay + trade.duration, stageStartDay + stageDuration);
+                    
+                    timeline.push({
+                        ...trade,
+                        startDay: tradeStartDay,
+                        duration: tradeEndDay - tradeStartDay,
+                        stage: stage
+                    });
+                    
+                    // Stagger trades
+                    currentOffset += Math.floor(trade.duration * 0.3);
+                });
+            });
+
+            return timeline.sort((a, b) => a.startDay - b.startDay);
+        }
+
+        function getStageNames() {
+                        return {
+                'site-prep': 'Site Prep',
+                'superstructure': 'Structure',
+                'interior': 'Interior',
+                'envelope': 'Envelope',
+                'finishes': 'Finishes'
+            };
+        }
+
+        function updateSummaryCards() {
+            const outputPanel = document.querySelector('.output-panel');
+            const totalWeeks = Math.ceil((new Date(AppState.projectEndDate) - new Date(AppState.projectStartDate)) / (1000 * 60 * 60 * 24 * 7));
+            
+            outputPanel.innerHTML = `
+                <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin-bottom: 32px;">
+                    <div style="padding: 20px; background: #f9fafb; border-radius: 8px; text-align: center;">
+                        <div style="font-size: 32px; font-weight: 700; color: #1f2937;">${AppState.generatedTrades.length}</div>
+                        <div style="font-size: 14px; color: #6b7280;">Total Trades</div>
+                    </div>
+                    <div style="padding: 20px; background: #f9fafb; border-radius: 8px; text-align: center;">
+                        <div style="font-size: 32px; font-weight: 700; color: #1f2937;">${totalWeeks}</div>
+                        <div style="font-size: 14px; color: #6b7280;">Total Weeks</div>
+                        </div>
+                    <div style="padding: 20px; background: #f9fafb; border-radius: 8px; text-align: center;">
+                        <div style="font-size: 32px; font-weight: 700; color: #1f2937;">${getStageNames()[AppState.constructionStage]}</div>
+                        <div style="font-size: 14px; color: #6b7280;">Current Stage</div>
+                    </div>
+                </div>
+                
+                <!-- Bulk Actions Toolbar -->
+                <div id="bulkActionsToolbar" class="bulk-actions-toolbar">
+                    <div class="bulk-actions-info">
+                        <span id="selectedCount">0</span> trade(s) selected
+                        </div>
+                    <div class="bulk-actions-buttons">
+                        <button class="btn-accept" onclick="bulkAcceptSelected()">✓ Accept Selected</button>
+                        <button class="btn-reject" onclick="bulkRejectSelected()">✗ Reject Selected</button>
+                        <button class="btn-secondary" onclick="clearGanttSelection()" style="font-size: 12px; padding: 6px 12px;">Clear Selection</button>
+                        </div>
+                        </div>
+                
+                <div class="timeline-gantt-wrapper" id="ganttChart">
+                    <!-- Gantt chart will be populated here -->
+                    </div>
+                `;
+        }
+
+        function updateGanttChart() {
+            const ganttChart = document.getElementById('ganttChart');
+            
+            if (AppState.generatedTrades.length === 0) {
+                ganttChart.innerHTML = `
+                    <div style="text-align: center; padding: 60px 20px; color: #6b7280;">
+                        <div style="font-size: 48px; margin-bottom: 16px;">📊</div>
+                        <div style="font-size: 18px; font-weight: 600; margin-bottom: 8px;">Ready to Generate Timeline</div>
+                        <div style="font-size: 14px;">Complete the setup steps to generate your project timeline</div>
+                        </div>
+                    `;
+                return;
+            }
+            
+            // Calculate timeline parameters
+            const startDate = new Date(AppState.projectStartDate);
+            const endDate = new Date(AppState.projectEndDate);
+            const totalDays = Math.ceil((endDate - startDate) / (1000 * 60 * 60 * 24));
+            const totalWeeks = Math.ceil(totalDays / 7);
+            const weekWidth = Math.max(80, Math.min(120, 1000 / totalWeeks));
+
+            // Generate week headers
+            const weekHeaders = Array.from({length: totalWeeks}, (_, i) => {
+                const weekStart = new Date(startDate.getTime() + i * 7 * 24 * 60 * 60 * 1000);
+                                    const monthDay = weekStart.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+                return `<div class="timeline-week" style="min-width: ${weekWidth}px;" title="Week starting ${weekStart.toLocaleDateString()}">
+                                        <div style="font-weight: 600; font-size: 11px;">Week ${i + 1}</div>
+                                        <div style="font-size: 9px; color: #64748b;">${monthDay}</div>
+                                    </div>`;
+            }).join('');
+
+            // Generate activity rows
+            const activityRows = AppState.generatedTrades.map((trade, index) => {
+                const isSelected = AppState.selectedGanttItems.has(index);
+                const isAccepted = AppState.acceptedTrades.has(index);
+                const isRejected = AppState.rejectedTrades.has(index);
+                
+                let statusClass = '';
+                if (isAccepted) statusClass = 'trade-status-accepted';
+                if (isRejected) statusClass = 'trade-status-rejected';
+                if (isSelected) statusClass += ' selected';
+                
+                                    return `
+                    <div class="timeline-activity-name ${statusClass}" onclick="toggleGanttSelection(${index}, event)">
+                        <div style="display: flex; align-items: center; flex: 1; min-width: 0;">
+                            <span style="color: #64748b; font-size: 11px; margin-right: 8px; font-weight: 600; flex-shrink: 0;">T${String(trade.id).padStart(3, '0')}</span>
+                            <span style="color: #1f2937; font-size: 12px; font-weight: 500; flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">${trade.trade}</span>
+                            <span style="color: #6366f1; font-size: 10px; margin-left: 8px; background: #eef2ff; padding: 2px 6px; border-radius: 3px; flex-shrink: 0;">${trade.category}</span>
+                                        </div>
+                            </div>
+                `;
+            }).join('');
+
+            // Generate timeline bars
+            const timelineBars = AppState.generatedTrades.map((trade, index) => {
+                const startWeek = Math.floor(trade.startDay / 7);
+                const durationWeeks = Math.max(1, Math.ceil(trade.duration / 7));
+                const leftPos = startWeek * weekWidth;
+                const width = durationWeeks * weekWidth - 2;
+                
+                const categoryClass = trade.category.toLowerCase().replace(/[^a-z0-9]/g, '-');
+                
+                const isSelected = AppState.selectedGanttItems.has(index);
+                const statusClass = isSelected ? 'selected' : '';
+                                        
+                                        return `
+                    <div class="timeline-activity-bars ${statusClass}" onclick="toggleGanttSelection(${index}, event)">
+                        <div class="timeline-bar ${categoryClass}" 
+                             data-trade-index="${index}"
+                             style="left: ${leftPos}px; width: ${width}px; position: absolute; top: 4px; height: 24px;"
+                             title="${trade.trade} - ${trade.duration} days"
+                             onmousedown="startDrag(event, ${index})"
+                             ontouchstart="startDrag(event, ${index})">
+                            <div class="timeline-bar-resize-handle" 
+                                 onmousedown="startResize(event, ${index})"
+                                 ontouchstart="startResize(event, ${index})"></div>
+                                                </div>
+                                            </div>
+                                        `;
+            }).join('');
+
+            // Grid lines
+            const gridLines = Array.from({length: totalWeeks + 1}, (_, i) => 
+                `<div class="timeline-grid-line" style="left: ${i * weekWidth}px;"></div>`
+            ).join('');
+
+            // Interleave activity names and bars for proper grid layout
+            let gridContent = `
+                <div class="timeline-corner">Trade Activity</div>
+                <div class="timeline-header">${weekHeaders}</div>
+            `;
+            
+            // Add each activity row (name + bars)
+            for (let i = 0; i < AppState.generatedTrades.length; i++) {
+                const trade = AppState.generatedTrades[i];
+                const isAccepted = AppState.acceptedTrades.has(i);
+                const isRejected = AppState.rejectedTrades.has(i);
+                const isSelected = AppState.selectedGanttItems.has(i);
+                
+                let statusClass = '';
+                if (isAccepted) statusClass = 'trade-status-accepted';
+                if (isRejected) statusClass = 'trade-status-rejected';
+                if (isSelected) statusClass += ' selected';
+                
+                // Activity name (left column)
+                gridContent += `
+                    <div class="timeline-activity-name ${statusClass}" onclick="toggleGanttSelection(${i}, event)">
+                        <div style="display: flex; align-items: center; flex: 1; min-width: 0;">
+                            <span style="color: #64748b; font-size: 11px; margin-right: 8px; font-weight: 600; flex-shrink: 0;">T${String(trade.id).padStart(3, '0')}</span>
+                            <span style="color: #1f2937; font-size: 12px; font-weight: 500; flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">${trade.trade}</span>
+                            <span style="color: #6366f1; font-size: 10px; margin-left: 8px; background: #eef2ff; padding: 2px 6px; border-radius: 3px; flex-shrink: 0;">${trade.category}</span>
+                        </div>
+                    </div>
+                `;
+                
+                // Activity bars (right column)
+                const startWeek = Math.floor(trade.startDay / 7);
+                const durationWeeks = Math.max(1, Math.ceil(trade.duration / 7));
+                const leftPos = startWeek * weekWidth;
+                const width = durationWeeks * weekWidth - 2;
+                const categoryClass = trade.category.toLowerCase().replace(/[^a-z0-9]/g, '-');
+                
+                gridContent += `
+                    <div class="timeline-activity-bars ${statusClass}" onclick="toggleGanttSelection(${i}, event)">
+                        <div class="timeline-grid-lines">${gridLines}</div>
+                        <div class="timeline-bar ${categoryClass}" 
+                             data-trade-index="${i}"
+                             style="left: ${leftPos}px; width: ${width}px; position: absolute; top: 4px; height: 24px;"
+                             title="${trade.trade} - ${trade.duration} days"
+                             onmousedown="startDrag(event, ${i})"
+                             ontouchstart="startDrag(event, ${i})">
+                            <div class="timeline-bar-resize-handle" 
+                                 onmousedown="startResize(event, ${i})"
+                                 ontouchstart="startResize(event, ${i})"></div>
+                    </div>
+                </div>
+            `;
+            }
+
+            ganttChart.innerHTML = `
+                <div class="timeline-grid-wrapper">
+                    ${gridContent}
+                </div>
+            `;
+        }
+
+        // Gantt chart selection and action functions
+        function toggleGanttSelection(itemIndex, event) {
+            console.log('🔍 toggleGanttSelection called:', { itemIndex, hasEvent: !!event });
+            
+            // Prevent event bubbling
+            if (event) {
+                event.stopPropagation();
+                event.preventDefault();
+            }
+            
+            // Allow Ctrl+click for multi-selection, regular click for single selection
+            if (!event || !event.ctrlKey && !event.metaKey) {
+                // Single selection mode - clear other selections first
+                if (!AppState.selectedGanttItems.has(itemIndex)) {
+                    AppState.selectedGanttItems.clear();
+                }
+            }
+            
+            if (AppState.selectedGanttItems.has(itemIndex)) {
+                AppState.selectedGanttItems.delete(itemIndex);
+            } else {
+                AppState.selectedGanttItems.add(itemIndex);
+            }
+            
+            updateGanttChart();
+            updateBulkActionsToolbar();
+        }
+        
+        function updateBulkActionsToolbar() {
+            const toolbar = document.getElementById('bulkActionsToolbar');
+            const selectedCount = document.getElementById('selectedCount');
+            
+            if (AppState.selectedGanttItems.size > 0) {
+                toolbar.style.display = 'flex';
+                selectedCount.textContent = AppState.selectedGanttItems.size;
+            } else {
+                toolbar.style.display = 'none';
+            }
+        }
+        
+        function bulkAcceptSelected() {
+            if (AppState.selectedGanttItems.size === 0) {
+                alert('No items selected.');
+                    return;
+                }
+
+            const selectedCount = AppState.selectedGanttItems.size;
+            AppState.selectedGanttItems.forEach(itemIndex => {
+                AppState.acceptedTrades.add(itemIndex);
+                AppState.rejectedTrades.delete(itemIndex); // Remove from rejected if it was there
+            });
+            
+            clearGanttSelection();
+            console.log(`✅ Bulk accepted ${selectedCount} items`);
+        }
+        
+        function bulkRejectSelected() {
+            if (AppState.selectedGanttItems.size === 0) {
+                alert('No items selected.');
+                return;
+            }
+            
+            const selectedCount = AppState.selectedGanttItems.size;
+            AppState.selectedGanttItems.forEach(itemIndex => {
+                AppState.rejectedTrades.add(itemIndex);
+                AppState.acceptedTrades.delete(itemIndex); // Remove from accepted if it was there
+            });
+            
+            clearGanttSelection();
+            console.log(`❌ Bulk rejected ${selectedCount} items`);
+        }
+        
+        function clearGanttSelection() {
+            AppState.selectedGanttItems.clear();
+            updateGanttChart();
+            updateBulkActionsToolbar();
+        }
+        
+        function acceptTrade(itemIndex) {
+            AppState.acceptedTrades.add(itemIndex);
+            AppState.rejectedTrades.delete(itemIndex);
+            updateGanttChart();
+            console.log(`✅ Accepted trade: ${AppState.generatedTrades[itemIndex].trade}`);
+        }
+        
+        function rejectTrade(itemIndex) {
+            AppState.rejectedTrades.add(itemIndex);
+            AppState.acceptedTrades.delete(itemIndex);
+            updateGanttChart();
+            console.log(`❌ Rejected trade: ${AppState.generatedTrades[itemIndex].trade}`);
+        }
+
+        // Drag and drop functionality
+        let dragState = {
+            isDragging: false,
+            isResizing: false,
+            tradeIndex: null,
+            startX: 0,
+            startLeft: 0,
+            startWidth: 0,
+            weekWidth: 80
+        };
+
+        function startDrag(event, tradeIndex) {
+            if (event.target.classList.contains('timeline-bar-resize-handle')) {
+                return; // Don't drag when clicking resize handle
+            }
+            
+            event.preventDefault();
+            event.stopPropagation();
+            
+            const clientX = event.touches ? event.touches[0].clientX : event.clientX;
+            const bar = event.currentTarget;
+            
+            dragState.isDragging = true;
+            dragState.tradeIndex = tradeIndex;
+            dragState.startX = clientX;
+            dragState.startLeft = parseInt(bar.style.left);
+            dragState.weekWidth = calculateWeekWidth();
+            
+            bar.classList.add('dragging');
+            
+            document.addEventListener('mousemove', handleDrag);
+            document.addEventListener('mouseup', stopDrag);
+            document.addEventListener('touchmove', handleDrag, { passive: false });
+            document.addEventListener('touchend', stopDrag);
+        }
+
+        function startResize(event, tradeIndex) {
+            event.preventDefault();
+            event.stopPropagation();
+            
+            const clientX = event.touches ? event.touches[0].clientX : event.clientX;
+            const bar = event.currentTarget.parentElement;
+            
+            dragState.isResizing = true;
+            dragState.tradeIndex = tradeIndex;
+            dragState.startX = clientX;
+            dragState.startWidth = parseInt(bar.style.width);
+            dragState.weekWidth = calculateWeekWidth();
+            
+            bar.classList.add('dragging');
+            
+            document.addEventListener('mousemove', handleResize);
+            document.addEventListener('mouseup', stopResize);
+            document.addEventListener('touchmove', handleResize, { passive: false });
+            document.addEventListener('touchend', stopResize);
+        }
+
+        function handleDrag(event) {
+            if (!dragState.isDragging) return;
+            
+            event.preventDefault();
+            const clientX = event.touches ? event.touches[0].clientX : event.clientX;
+            const deltaX = clientX - dragState.startX;
+            const newLeft = Math.max(0, dragState.startLeft + deltaX);
+            
+            const bar = document.querySelector(`[data-trade-index="${dragState.tradeIndex}"]`);
+            if (bar) {
+                bar.style.left = `${newLeft}px`;
+            }
+        }
+
+        function handleResize(event) {
+            if (!dragState.isResizing) return;
+            
+            event.preventDefault();
+            const clientX = event.touches ? event.touches[0].clientX : event.clientX;
+            const deltaX = clientX - dragState.startX;
+            const newWidth = Math.max(dragState.weekWidth, dragState.startWidth + deltaX);
+            
+            const bar = document.querySelector(`[data-trade-index="${dragState.tradeIndex}"]`);
+            if (bar) {
+                bar.style.width = `${newWidth}px`;
+            }
+        }
+
+        function stopDrag(event) {
+            if (!dragState.isDragging) return;
+            
+            const bar = document.querySelector(`[data-trade-index="${dragState.tradeIndex}"]`);
+            if (bar) {
+                bar.classList.remove('dragging');
+                
+                // Update the trade data
+                const newLeft = parseInt(bar.style.left);
+                const newStartWeek = Math.round(newLeft / dragState.weekWidth);
+                const newStartDay = newStartWeek * 7;
+                
+                AppState.generatedTrades[dragState.tradeIndex].startDay = newStartDay;
+                
+                console.log(`📅 Moved ${AppState.generatedTrades[dragState.tradeIndex].trade} to start on day ${newStartDay}`);
+            }
+            
+            dragState.isDragging = false;
+            dragState.tradeIndex = null;
+            
+            document.removeEventListener('mousemove', handleDrag);
+            document.removeEventListener('mouseup', stopDrag);
+            document.removeEventListener('touchmove', handleDrag);
+            document.removeEventListener('touchend', stopDrag);
+        }
+
+        function stopResize(event) {
+            if (!dragState.isResizing) return;
+            
+            const bar = document.querySelector(`[data-trade-index="${dragState.tradeIndex}"]`);
+            if (bar) {
+                bar.classList.remove('dragging');
+                
+                // Update the trade data
+                const newWidth = parseInt(bar.style.width);
+                const newDurationWeeks = Math.max(1, Math.round(newWidth / dragState.weekWidth));
+                const newDuration = newDurationWeeks * 7;
+                
+                AppState.generatedTrades[dragState.tradeIndex].duration = newDuration;
+                
+                console.log(`⏱️ Resized ${AppState.generatedTrades[dragState.tradeIndex].trade} to ${newDuration} days`);
+            }
+            
+            dragState.isResizing = false;
+            dragState.tradeIndex = null;
+            
+            document.removeEventListener('mousemove', handleResize);
+            document.removeEventListener('mouseup', stopResize);
+            document.removeEventListener('touchmove', handleResize);
+            document.removeEventListener('touchend', stopResize);
+        }
+
+        function calculateWeekWidth() {
+            const startDate = new Date(AppState.projectStartDate);
+            const endDate = new Date(AppState.projectEndDate);
+            const totalDays = Math.ceil((endDate - startDate) / (1000 * 60 * 60 * 24));
+            const totalWeeks = Math.ceil(totalDays / 7);
+            return Math.max(80, Math.min(120, 1000 / totalWeeks));
+        }
+
+        // Review Modal Functions
+        function openReviewModal() {
+            if (AppState.generatedTrades.length === 0) {
+                alert('Please generate a project timeline first before sending for review.');
+                return;
+            }
+            
+            // Capture Gantt chart screenshot
+            captureGanttScreenshot();
+            
+            // Show modal
+            document.getElementById('reviewModal').style.display = 'flex';
+        }
+
+        function closeReviewModal() {
+            document.getElementById('reviewModal').style.display = 'none';
+            document.getElementById('reviewEmail').value = '';
+        }
+
+        function captureGanttScreenshot() {
+            const ganttChart = document.getElementById('ganttChart');
+            const screenshotContainer = document.getElementById('ganttScreenshot');
+            
+            if (ganttChart) {
+                // Clone the Gantt chart for screenshot
+                const clone = ganttChart.cloneNode(true);
+                clone.style.transform = 'scale(0.6)';
+                clone.style.transformOrigin = 'top left';
+                clone.style.width = '166.67%'; // Compensate for scale
+                clone.style.height = 'auto';
+                clone.style.maxHeight = '400px';
+                clone.style.overflow = 'hidden';
+                
+                // Clear previous screenshot
+                screenshotContainer.innerHTML = '';
+                screenshotContainer.appendChild(clone);
+            } else {
+                screenshotContainer.innerHTML = `
+                    <div style="padding: 40px; text-align: center; color: #6b7280;">
+                        <div style="font-size: 48px; margin-bottom: 16px;">📊</div>
+                        <div>No timeline generated yet</div>
+                    </div>
+                `;
+            }
+        }
+
+        function sendForReview() {
+            const email = document.getElementById('reviewEmail').value;
+            
+            if (!email) {
+                alert('Please enter a reviewer email address.');
+                return;
+            }
+            
+            if (!email.match(/^[^\s@]+@[^\s@]+\.[^\s@]+$/)) {
+                alert('Please enter a valid email address.');
+                return;
+            }
+            
+            // Simulate sending email
+            const projectData = {
+                buildingType: AppState.selectedBuildingType,
+                constructionStage: AppState.constructionStage,
+                startDate: AppState.projectStartDate,
+                endDate: AppState.projectEndDate,
+                trades: AppState.generatedTrades.length,
+                acceptedTrades: AppState.acceptedTrades.size,
+                rejectedTrades: AppState.rejectedTrades.size
+            };
+            
+            console.log('📧 Sending project for review:', {
+                email: email,
+                project: projectData
+            });
+            
+            // Show success message
+            alert(`✅ Project timeline sent successfully to ${email}!\n\nIncludes:\n• ${projectData.trades} trades\n• ${projectData.acceptedTrades} accepted\n• ${projectData.rejectedTrades} rejected\n• Timeline from ${projectData.startDate} to ${projectData.endDate}`);
+            
+            // Close modal
+            closeReviewModal();
+        }
+
+        // Close modal when clicking outside
+        document.addEventListener('click', function(event) {
+            const modal = document.getElementById('reviewModal');
+            if (event.target === modal) {
+                closeReviewModal();
+            }
+        });
+
+        // Set default dates on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            const today = new Date();
+            const endDate = new Date(today.getTime() + 30 * 24 * 60 * 60 * 1000); // 30 days from now
+            
+            document.getElementById('projectStartDate').value = today.toISOString().split('T')[0];
+            document.getElementById('projectEndDate').value = endDate.toISOString().split('T')[0];
+            
+            AppState.projectStartDate = today.toISOString().split('T')[0];
+            AppState.projectEndDate = endDate.toISOString().split('T')[0];
+        });
+    </script>
+</body>
+</html>
