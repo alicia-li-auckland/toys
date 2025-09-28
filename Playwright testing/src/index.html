@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Figma Design Implementation</title>
+    <!-- Hanken Grotesk font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;600&display=swap" rel="stylesheet">
+    <!-- Remix Icon (design system default icon set) -->
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
+    <link rel="stylesheet" href="./tokens.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        html { scroll-behavior: smooth; }
+        body {
+            font-family: 'Hanken Grotesk', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #fafafa;
+            min-height: 100vh;
+            display: block;
+        }
+
+        /* Layout similar to Atlassian DS: left nav + right content */
+        .ds-shell {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 32px 24px;
+            display: grid;
+            grid-template-columns: 240px 1fr;
+            gap: 24px;
+        }
+
+        .sidebar {
+            position: sticky;
+            top: 24px;
+            align-self: start;
+            background: #ffffff;
+            border: 1px solid var(--neutral-grey-300);
+            border-radius: 8px;
+            padding: 12px;
+        }
+        .sidebar h3 { font-size: 12px; color: var(--neutral-grey-700); margin: 8px 8px 4px; text-transform: uppercase; letter-spacing: .04em; }
+        .nav { list-style: none; padding: 0; margin: 0; }
+        .nav a { display: block; padding: 8px 10px; border-radius: 6px; color: var(--neutral-black); text-decoration: none; font-size: 13px; }
+        .nav a:hover { background: var(--neutral-grey-100); }
+
+        .container {
+            background: white;
+            padding: 32px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.06);
+        }
+        
+        .placeholder {
+            text-align: center;
+            color: #555;
+            padding: 4rem 2rem;
+            border: 2px dashed #ddd;
+            border-radius: 8px;
+        }
+        
+        .figma-info {
+            background: #f8f9fa;
+            padding: 1rem;
+            border-radius: 4px;
+            margin-top: 2rem;
+            font-size: 0.9rem;
+            color: #666;
+        }
+
+        /* --- Figma Button System (from Scaffold WEB LIBRARY) --- */
+        :root {
+            --neutral-black: #1f1f1f;
+            --neutral-white: #ffffff;
+            --neutral-grey-100: #f7f7f8;
+            --neutral-grey-300: #dedede;
+            --neutral-grey-700: #757575;
+
+            --blue-600: #3f48e9; /* Primary */
+            --blue-700: #363dc6; /* Primary Hover */
+            --blue-300: #acb0f6; /* Primary Disabled */
+
+            --red-600: #d93f3f; /* Destructive */
+            --red-700: #b83636; /* Destructive Hover */
+            --red-300: #efacac; /* Destructive Disabled */
+        }
+
+        .section {
+            margin-top: 24px;
+        }
+
+        .buttons-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+            gap: 12px 18px;
+            align-items: start;
+            margin-top: 12px;
+        }
+
+        .label {
+            font-size: 12px;
+            color: var(--neutral-grey-700);
+            margin-top: 16px;
+        }
+
+        .page-title { font-weight: var(--type-hxl-weight); font-size: var(--type-hxl-size); line-height: var(--type-hxl-line); margin: 0 0 16px; }
+        .section-title { font-weight: var(--type-h2-weight); font-size: var(--type-h2-size); line-height: var(--type-h2-line); margin: 0 0 8px; color: var(--neutral-black); }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 4px;
+            border-radius: 2px;
+            font-family: "Hanken Grotesk", -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, sans-serif;
+            font-weight: 600;
+            font-size: 13px;
+            line-height: 18px;
+            padding: 12px 16px;
+            border: 1px solid transparent;
+            cursor: pointer;
+            user-select: none;
+            transition: background .15s ease, color .15s ease, border-color .15s ease, box-shadow .15s ease;
+        }
+
+        .btn--sm { padding: 8px 12px; font-weight: 400; font-size: 12px; line-height: 16px; }
+
+        .btn__icon { width: 18px; height: 18px; display: inline-flex; align-items: center; justify-content: center; }
+        .btn__icon i { font-size: 18px; line-height: 1; }
+        .btn--sm .btn__icon { width: 12px; height: 12px; }
+        .btn--sm .btn__icon i { font-size: 12px; }
+
+        /* Primary */
+        .btn--primary { background: var(--blue-600); color: var(--neutral-white); }
+        .btn--primary:hover { background: var(--blue-700); }
+        .btn--primary.is-disabled, .btn--primary[disabled] { background: var(--blue-300); color: var(--neutral-white); pointer-events: none; }
+
+        /* Secondary */
+        .btn--secondary { background: var(--neutral-white); color: var(--neutral-black); border-color: var(--neutral-grey-300); }
+        .btn--secondary:hover { background: var(--neutral-grey-100); }
+        .btn--secondary.is-disabled, .btn--secondary[disabled] { background: var(--neutral-grey-100); color: var(--neutral-grey-300); pointer-events: none; }
+
+        /* Text */
+        .btn--text { background: transparent; color: var(--blue-600); }
+        .btn--text:hover { color: var(--blue-700); }
+        .btn--text.is-disabled, .btn--text[disabled] { color: var(--blue-300); pointer-events: none; }
+
+        /* Tertiary */
+        .btn--tertiary { background: transparent; color: var(--neutral-grey-700); }
+        .btn--tertiary:hover { color: var(--neutral-black); }
+        .btn--tertiary.is-disabled, .btn--tertiary[disabled] { color: var(--neutral-grey-300); pointer-events: none; }
+
+        /* Destructive */
+        .btn--destructive { background: var(--red-600); color: var(--neutral-white); }
+        .btn--destructive:hover { background: var(--red-700); }
+        .btn--destructive.is-disabled, .btn--destructive[disabled] { background: var(--red-300); color: var(--neutral-white); pointer-events: none; }
+
+        /* Ghost (for dark backgrounds) */
+        .btn--ghost { background: transparent; color: var(--neutral-white); border-color: var(--neutral-white); border-width: 1px; }
+
+        .dark-card { background: #1f1f1f; color: #fff; padding: 16px; border-radius: 6px; display: inline-block; }
+
+        .swatch {
+            display: flex; gap: 8px; align-items: center; font-size: 12px; color: #555;
+        }
+
+        /* Icon utilities */
+        .icon { display: inline-flex; align-items: center; justify-content: center; line-height: 1; }
+        .icon i { line-height: 1; }
+        .icon-16 i { font-size: 16px; }
+        .icon-20 i { font-size: 20px; }
+        .icon-24 i { font-size: 24px; }
+        .icon-left { margin-right: 8px; }
+        .icon-right { margin-left: 8px; }
+        .icons-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 12px; margin-top: 12px; }
+        .icon-card { display: flex; gap: 8px; align-items: center; padding: 8px 12px; border: 1px solid var(--neutral-grey-300); border-radius: 6px; background: var(--neutral-white); }
+
+        /* --- Forms --- */
+        .form-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 16px; margin-top: 12px; }
+        .field { display: flex; flex-direction: column; gap: 6px; }
+        .label { font-size: 12px; color: var(--neutral-grey-700); }
+        .help { font-size: 12px; color: var(--neutral-grey-700); }
+        .error { color: #b91c1c; }
+        .success { color: #15803d; }
+        .input, .textarea, .select {
+            font-family: var(--font-family-primary);
+            font-size: 13px;
+            line-height: 18px;
+            padding: 10px 12px;
+            border: 1px solid var(--neutral-grey-300);
+            border-radius: 6px;
+            background: var(--neutral-white);
+            color: var(--neutral-black);
+            outline: none;
+            transition: box-shadow .15s ease, border-color .15s ease, background .15s ease;
+        }
+        .input:focus, .textarea:focus, .select:focus, .is-focus.input {
+            border-color: var(--blue-600);
+            box-shadow: 0 0 0 3px rgba(63,72,233,.12);
+        }
+        .input.is-error, .textarea.is-error, .select.is-error { border-color: #ef4444; box-shadow: 0 0 0 3px rgba(239,68,68,.12); }
+        .input.is-success, .textarea.is-success, .select.is-success { border-color: #10b981; box-shadow: 0 0 0 3px rgba(16,185,129,.12); }
+        .input:disabled, .textarea:disabled, .select:disabled { background: var(--neutral-grey-100); color: var(--neutral-grey-700); cursor: not-allowed; }
+
+        .checkbox, .radio { display: flex; align-items: center; gap: 8px; font-size: 13px; }
+        .checkbox input[type="checkbox"], .radio input[type="radio"] { width: 16px; height: 16px; }
+        /* Match Figma brand color for checked state */
+        .checkbox input[type="checkbox"], .radio input[type="radio"] {
+            accent-color: var(--blue-600);
+            background: var(--neutral-white);
+            border: 1px solid var(--neutral-grey-300);
+        }
+        .checkbox input[type="checkbox"]:hover, .radio input[type="radio"]:hover {
+            border-color: var(--neutral-grey-700);
+        }
+        .checkbox input[type="checkbox"]:focus-visible, .radio input[type="radio"]:focus-visible {
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(63,72,233,.18);
+            border-color: var(--blue-600);
+        }
+        .checkbox input[type="checkbox"][disabled], .radio input[type="radio"][disabled] {
+            accent-color: var(--neutral-grey-300);
+            border-color: var(--neutral-grey-300);
+            background: var(--neutral-grey-100);
+            cursor: not-allowed;
+        }
+
+        .switch { display: inline-flex; align-items: center; gap: 8px; }
+        .switch input { appearance: none; width: 36px; height: 20px; background: var(--neutral-grey-300); border-radius: 999px; position: relative; outline: none; transition: background .15s ease; }
+        .switch input::after { content: ""; position: absolute; top: 2px; left: 2px; width: 16px; height: 16px; background: #fff; border-radius: 50%; transition: transform .15s ease; box-shadow: 0 1px 2px rgba(0,0,0,.2); }
+        .switch input:checked { background: var(--blue-600); }
+        .switch input:checked::after { transform: translateX(16px); }
+
+        /* --- Tabs --- */
+        .tabs { display: flex; gap: 16px; border-bottom: 1px solid var(--neutral-grey-300); }
+        .tab { padding: 10px 2px; font-size: 13px; color: var(--neutral-grey-700); border-bottom: 2px solid transparent; cursor: pointer; }
+        .tab:hover { color: var(--neutral-black); }
+        .tab.active { color: var(--neutral-black); border-bottom-color: var(--blue-600); font-weight: 600; }
+        .tab.disabled { color: var(--neutral-grey-300); cursor: not-allowed; }
+
+        /* --- Alerts --- */
+        .alerts { display: grid; gap: 12px; margin-top: 12px; }
+        .alert { display: flex; gap: 10px; align-items: flex-start; padding: 12px 14px; border-radius: 6px; position: relative; border: 1px solid transparent; }
+        .alert i { margin-top: 2px; }
+        .alert .close { margin-left: auto; cursor: pointer; opacity: .7; }
+        .alert .close:hover { opacity: 1; }
+        .alert::before { content: ""; position: absolute; left: 0; top: 0; bottom: 0; width: 4px; border-top-left-radius: 6px; border-bottom-left-radius: 6px; }
+        .alert.info { background: #EFF6FF; color: #1D4ED8; border-color: #BFDBFE; }
+        .alert.info::before { background: #3B82F6; }
+        .alert.success { background: #ECFDF5; color: #059669; border-color: #A7F3D0; }
+        .alert.success::before { background: #10B981; }
+        .alert.warn { background: #FFFBEB; color: #B45309; border-color: #FDE68A; }
+        .alert.warn::before { background: #F59E0B; }
+        .alert.error { background: #FEF2F2; color: #B91C1C; border-color: #FECACA; }
+        .alert.error::before { background: #EF4444; }
+
+        /* --- Chips & Badges --- */
+        .chips, .badges { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
+        .chip { display: inline-flex; align-items: center; gap: 6px; padding: 6px 10px; border-radius: 999px; background: var(--neutral-grey-100); color: var(--neutral-black); font-size: 12px; }
+        .chip .close { cursor: pointer; }
+        /* Selection chip pattern */
+        .chip.selectable { background: #fff; border: 1px solid var(--neutral-grey-300); }
+        .chip.selectable:hover { border-color: var(--neutral-grey-700); }
+        .chip.selectable.selected { background: #EEF2FF; border-color: var(--blue-600); }
+        .chip.selectable.selected i.ri-check-line { color: var(--blue-600); }
+        .badge { display: inline-flex; align-items: center; padding: 2px 8px; border-radius: 999px; font-size: 12px; font-weight: 600; }
+        .badge.blue { background: #EEF2FF; color: #3730A3; }
+        .badge.green { background: #ECFDF5; color: #047857; }
+        .badge.red { background: #FEF2F2; color: #B91C1C; }
+    </style>
+</head>
+<body>
+    <div class="ds-shell">
+        <nav class="sidebar" aria-label="Components">
+            <h3>Foundations</h3>
+            <ul class="nav">
+                <li><a href="#typography-section">Typography</a></li>
+                <li><a href="#icons-section">Icons</a></li>
+            </ul>
+            <h3>Components</h3>
+            <ul class="nav">
+                <li><a href="#forms-section">Form inputs</a></li>
+                <li><a href="#buttons-section">Buttons</a></li>
+                <li><a href="#tabs-section">Tabs</a></li>
+                <li><a href="#alerts-section">Alerts</a></li>
+                <li><a href="#chips-badges-section">Chips & Badges</a></li>
+            </ul>
+        </nav>
+        <div class="container">
+        <h1 class="page-title">DroneDeploy Scaffold Design System</h1>
+
+        <!-- Typography preview -->
+        <div id="typography-section" class="section" style="margin-top: 32px;">
+            <h2 class="section-title">Typography</h2>
+            <div style="font-weight: var(--type-hxl-weight); font-size: var(--type-hxl-size); line-height: var(--type-hxl-line); font-family: var(--font-family-primary); color: var(--neutral-black);">Hanken Grotesk</div>
+            <div style="font-weight: var(--font-weight-regular); font-size: var(--type-p-std-size); line-height: var(--type-p-std-line); font-family: var(--font-family-primary); color: var(--neutral-grey-700); margin-top: 4px;">(default to standard system font)</div>
+            <div style="font: var(--type-h1-weight) var(--type-h1-size)/var(--type-h1-line) var(--font-family-primary); color: var(--neutral-black); margin-top: 12px;">H1 · Modal titles</div>
+            <div style="font: var(--type-h2-weight) var(--type-h2-size)/var(--type-h2-line) var(--font-family-primary); color: var(--neutral-black); margin-top: 8px;">H2 · Section headers</div>
+            <div style="font: var(--type-p-semi-weight) var(--type-p-semi-size)/var(--type-p-semi-line) var(--font-family-primary); color: var(--neutral-black); margin-top: 8px;">P · SemiBold</div>
+            <div style="font: var(--type-p-std-weight) var(--type-p-std-size)/var(--type-p-std-line) var(--font-family-primary); color: var(--neutral-black); margin-top: 6px;">P · Standard</div>
+            <div style="font: var(--type-p-sm-weight) var(--type-p-sm-size)/var(--type-p-sm-line) var(--font-family-primary); color: var(--neutral-black); margin-top: 6px;">P · Small</div>
+            <div style="font: var(--type-p-mini-weight) var(--type-p-mini-size)/var(--type-p-mini-line) var(--font-family-primary); color: var(--neutral-black); margin-top: 6px;">P · Mini (tags)</div>
+        </div>
+
+        <!-- Button variants preview -->
+        <div id="buttons-section">
+        <h2 class="section-title">Buttons</h2>
+        <div class="section">
+            <div class="label">Buttons · Standard</div>
+            <div class="buttons-grid">
+                <button class="btn btn--primary">
+                    <span class="btn__icon" aria-hidden="true"><i class="ri-user-line"></i></span>
+                    Button
+                </button>
+                <button class="btn btn--secondary">
+                    <span class="btn__icon" aria-hidden="true"><i class="ri-user-line"></i></span>
+                    Button
+                </button>
+                <button class="btn btn--destructive">Button</button>
+                <button class="btn btn--text">Button</button>
+                <button class="btn btn--tertiary">Button</button>
+                <button class="btn btn--primary is-disabled" disabled>Button</button>
+                <button class="btn btn--secondary is-disabled" disabled>Button</button>
+                <button class="btn btn--destructive is-disabled" disabled>Button</button>
+                <button class="btn btn--text is-disabled" disabled>Button</button>
+                <button class="btn btn--tertiary is-disabled" disabled>Button</button>
+            </div>
+        </div>
+
+        <div class="section">
+            <div class="label">Buttons · Small</div>
+            <div class="buttons-grid">
+                <button class="btn btn--sm btn--primary">
+                    <span class="btn__icon" aria-hidden="true"><i class="ri-user-line"></i></span>
+                    Button
+                </button>
+                <button class="btn btn--sm btn--secondary">Button</button>
+                <button class="btn btn--sm btn--destructive">Button</button>
+                <button class="btn btn--sm btn--text">Button</button>
+                <button class="btn btn--sm btn--primary is-disabled" disabled>Button</button>
+                <button class="btn btn--sm btn--destructive is-disabled" disabled>Button</button>
+            </div>
+        </div>
+
+        <div class="section">
+            <div class="label">Ghost on dark</div>
+            <div class="dark-card">
+                <button class="btn btn--ghost">
+                    <span class="btn__icon" aria-hidden="true">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M12 3a5 5 0 110 10 5 5 0 010-10zm0 12c4.418 0 8 2.239 8 5v1H4v-1c0-2.761 3.582-5 8-5z" fill="currentColor"/></svg>
+                    </span>
+                    Button
+                </button>
+            </div>
+        </div>
+
+        <!-- Icons (Remix + usage utilities) -->
+        <div id="icons-section" class="section">
+            <h2 class="section-title">Icons</h2>
+            <div class="label">Icons · Remix Icon</div>
+            <div class="icons-grid">
+                <div class="icon-card"><span class="icon icon-24"><i class="ri-user-line"></i></span>user-line</div>
+                <div class="icon-card"><span class="icon icon-24"><i class="ri-settings-3-line"></i></span>settings-3-line</div>
+                <div class="icon-card"><span class="icon icon-24"><i class="ri-search-line"></i></span>search-line</div>
+                <div class="icon-card"><span class="icon icon-24"><i class="ri-check-line" style="color:#10b981"></i></span>check-line</div>
+                <div class="icon-card"><span class="icon icon-24"><i class="ri-close-line" style="color:#ef4444"></i></span>close-line</div>
+            </div>
+            <div class="label" style="margin-top:12px;">Usage utilities</div>
+            <div style="display:flex; gap:12px; align-items:center; margin-top:8px;">
+                <button class="btn btn--secondary"><span class="btn__icon icon-left"><i class="ri-search-line"></i></span>Search</button>
+                <button class="btn btn--primary">Save<span class="btn__icon icon-right"><i class="ri-check-line"></i></span></button>
+            </div>
+        </div>
+        </div>
+
+        <!-- Forms: inputs, textarea, select, checkbox, radio, switch -->
+        <div id="forms-section" class="section">
+            <h2 class="section-title">Form inputs</h2>
+            <div class="form-grid">
+                <div class="field">
+                    <span class="label">Text field</span>
+                    <input class="input" placeholder="Placeholder" />
+                    <span class="help">Helper text</span>
+                </div>
+                <div class="field">
+                    <span class="label">Focus state</span>
+                    <input class="input is-focus" value="Focused value" />
+                </div>
+                <div class="field">
+                    <span class="label">Error</span>
+                    <input class="input is-error" value="Invalid" />
+                    <span class="help error">This field has an error</span>
+                </div>
+                <div class="field">
+                    <span class="label">Success</span>
+                    <input class="input is-success" value="Looks good" />
+                    <span class="help success">Saved</span>
+                </div>
+                <div class="field">
+                    <span class="label">Disabled</span>
+                    <input class="input" disabled value="Disabled" />
+                </div>
+
+                <div class="field" style="grid-column: span 2;">
+                    <span class="label">Textarea</span>
+                    <textarea class="textarea" rows="3" placeholder="Type something..."></textarea>
+                </div>
+
+                <div class="field">
+                    <span class="label">Select</span>
+                    <select class="select">
+                        <option>Option one</option>
+                        <option>Option two</option>
+                        <option>Option three</option>
+                    </select>
+                </div>
+
+                <label class="checkbox"><input type="checkbox" checked /> Checkbox</label>
+                <label class="checkbox"><input type="checkbox" /> Unchecked</label>
+                <label class="radio"><input type="radio" name="r" checked /> Radio</label>
+                <label class="radio"><input type="radio" name="r" /> Unselected</label>
+
+                <label class="switch"><input type="checkbox" checked /><span>Switch</span></label>
+            </div>
+        </div>
+
+        <!-- Tabs -->
+        <div id="tabs-section" class="section">
+            <h2 class="section-title">Tabs</h2>
+            <div class="tabs" role="tablist">
+                <div class="tab active" role="tab" aria-selected="true">Overview</div>
+                <div class="tab" role="tab">Details</div>
+                <div class="tab" role="tab">Activity</div>
+                <div class="tab disabled" role="tab" aria-disabled="true">Disabled</div>
+            </div>
+        </div>
+
+        <!-- Alerts -->
+        <div id="alerts-section" class="section">
+            <h2 class="section-title">Alerts</h2>
+            <div class="alerts">
+                <div class="alert info"><i class="ri-information-line"></i><div>Informational message with details.</div><i class="ri-close-line close" aria-label="Dismiss"></i></div>
+                <div class="alert success"><i class="ri-check-line"></i><div>Success – your changes were saved.</div><i class="ri-close-line close" aria-label="Dismiss"></i></div>
+                <div class="alert warn"><i class="ri-alert-line"></i><div>Warning – double check your inputs.</div><i class="ri-close-line close" aria-label="Dismiss"></i></div>
+                <div class="alert error"><i class="ri-close-circle-line"></i><div>Error – something went wrong.</div><i class="ri-close-line close" aria-label="Dismiss"></i></div>
+            </div>
+        </div>
+
+        <!-- Chips & Badges -->
+        <div id="chips-badges-section" class="section">
+            <h2 class="section-title">Chips & Badges</h2>
+            <div class="chips">
+                <span class="chip selectable"><i class="ri-filter-line"></i>Filter</span>
+                <span class="chip selectable selected"><i class="ri-check-line"></i>Selected</span>
+                <span class="chip selectable">Default</span>
+                <span class="chip">Static <i class="ri-close-line close" aria-label="Remove"></i></span>
+            </div>
+            <div class="badges">
+                <span class="badge blue">New</span>
+                <span class="badge green">Success</span>
+                <span class="badge red">Error</span>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

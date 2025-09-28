@@ -1,0 +1,193 @@
+/*
+  DroneDeploy Scaffold Design System – Components CSS
+  Depends on tokens.css for variables (colors, typography, spacing, radius).
+*/
+
+/* Typography helpers */
+.page-title {
+  font-weight: var(--type-hxl-weight);
+  font-size: var(--type-hxl-size);
+  line-height: var(--type-hxl-line);
+  margin: 0 0 16px;
+}
+
+.section-title {
+  font-weight: var(--type-h2-weight);
+  font-size: var(--type-h2-size);
+  line-height: var(--type-h2-line);
+  margin: 0 0 8px;
+  color: var(--neutral-black);
+}
+
+.label {
+  font-size: 12px;
+  color: var(--neutral-grey-700);
+  margin-top: 16px;
+}
+
+/* Buttons */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  border-radius: 2px;
+  font-family: var(--font-family-primary);
+  font-weight: 600;
+  font-size: 13px;
+  line-height: 18px;
+  padding: 12px 16px;
+  border: 1px solid transparent;
+  cursor: pointer;
+  user-select: none;
+  transition: background .15s ease, color .15s ease, border-color .15s ease, box-shadow .15s ease;
+}
+
+.btn--sm {
+  padding: 8px 12px;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 16px;
+}
+
+.btn__icon {
+  width: 18px;
+  height: 18px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.btn__icon i { font-size: 18px; line-height: 1; }
+.btn--sm .btn__icon { width: 12px; height: 12px; }
+.btn--sm .btn__icon i { font-size: 12px; }
+
+/* Primary */
+.btn--primary { background: var(--blue-600); color: var(--neutral-white); }
+.btn--primary:hover { background: var(--blue-700); }
+.btn--primary.is-disabled, .btn--primary[disabled] { background: var(--blue-300); color: var(--neutral-white); pointer-events: none; }
+
+/* Secondary */
+.btn--secondary { background: var(--neutral-white); color: var(--neutral-black); border-color: var(--neutral-grey-300); }
+.btn--secondary:hover { background: var(--neutral-grey-100); }
+.btn--secondary.is-disabled, .btn--secondary[disabled] { background: var(--neutral-grey-100); color: var(--neutral-grey-300); pointer-events: none; }
+
+/* Text */
+.btn--text { background: transparent; color: var(--blue-600); }
+.btn--text:hover { color: var(--blue-700); }
+.btn--text.is-disabled, .btn--text[disabled] { color: var(--blue-300); pointer-events: none; }
+
+/* Tertiary */
+.btn--tertiary { background: transparent; color: var(--neutral-grey-700); }
+.btn--tertiary:hover { color: var(--neutral-black); }
+.btn--tertiary.is-disabled, .btn--tertiary[disabled] { color: var(--neutral-grey-300); pointer-events: none; }
+
+/* Destructive */
+.btn--destructive { background: var(--red-600); color: var(--neutral-white); }
+.btn--destructive:hover { background: var(--red-700); }
+.btn--destructive.is-disabled, .btn--destructive[disabled] { background: var(--red-300); color: var(--neutral-white); pointer-events: none; }
+
+/* Ghost (for dark backgrounds) */
+.btn--ghost { background: transparent; color: var(--neutral-white); border-color: var(--neutral-white); border-width: 1px; }
+
+.dark-card { background: #1f1f1f; color: #fff; padding: 16px; border-radius: 6px; display: inline-block; }
+
+/* Icon utilities */
+.icon { display: inline-flex; align-items: center; justify-content: center; line-height: 1; }
+.icon i { line-height: 1; }
+.icon-16 i { font-size: 16px; }
+.icon-20 i { font-size: 20px; }
+.icon-24 i { font-size: 24px; }
+.icon-left { margin-right: 8px; }
+.icon-right { margin-left: 8px; }
+
+/* Forms */
+.field { display: flex; flex-direction: column; gap: 6px; }
+.help { font-size: 12px; color: var(--neutral-grey-700); }
+.error { color: #b91c1c; }
+.success { color: #15803d; }
+
+.input, .textarea, .select {
+  font-family: var(--font-family-primary);
+  font-size: 13px;
+  line-height: 18px;
+  padding: 10px 12px;
+  border: 1px solid var(--neutral-grey-300);
+  border-radius: 6px;
+  background: var(--neutral-white);
+  color: var(--neutral-black);
+  outline: none;
+  transition: box-shadow .15s ease, border-color .15s ease, background .15s ease;
+}
+
+.input:focus, .textarea:focus, .select:focus, .is-focus.input {
+  border-color: var(--blue-600);
+  box-shadow: 0 0 0 3px rgba(63,72,233,.12);
+}
+
+.input.is-error, .textarea.is-error, .select.is-error { border-color: #ef4444; box-shadow: 0 0 0 3px rgba(239,68,68,.12); }
+.input.is-success, .textarea.is-success, .select.is-success { border-color: #10b981; box-shadow: 0 0 0 3px rgba(16,185,129,.12); }
+.input:disabled, .textarea:disabled, .select:disabled { background: var(--neutral-grey-100); color: var(--neutral-grey-700); cursor: not-allowed; }
+
+.checkbox, .radio { display: flex; align-items: center; gap: 8px; font-size: 13px; }
+.checkbox input[type="checkbox"], .radio input[type="radio"] { width: 16px; height: 16px; }
+.checkbox input[type="checkbox"], .radio input[type="radio"] {
+  accent-color: var(--blue-600);
+  background: var(--neutral-white);
+  border: 1px solid var(--neutral-grey-300);
+}
+.checkbox input[type="checkbox"]:hover, .radio input[type="radio"]:hover { border-color: var(--neutral-grey-700); }
+.checkbox input[type="checkbox"]:focus-visible, .radio input[type="radio"]:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(63,72,233,.18);
+  border-color: var(--blue-600);
+}
+.checkbox input[type="checkbox"][disabled], .radio input[type="radio"][disabled] {
+  accent-color: var(--neutral-grey-300);
+  border-color: var(--neutral-grey-300);
+  background: var(--neutral-grey-100);
+  cursor: not-allowed;
+}
+
+.switch { display: inline-flex; align-items: center; gap: 8px; }
+.switch input { appearance: none; width: 36px; height: 20px; background: var(--neutral-grey-300); border-radius: 999px; position: relative; outline: none; transition: background .15s ease; }
+.switch input::after { content: ""; position: absolute; top: 2px; left: 2px; width: 16px; height: 16px; background: #fff; border-radius: 50%; transition: transform .15s ease; box-shadow: 0 1px 2px rgba(0,0,0,.2); }
+.switch input:checked { background: var(--blue-600); }
+.switch input:checked::after { transform: translateX(16px); }
+
+/* Tabs */
+.tabs { display: flex; gap: 16px; border-bottom: 1px solid var(--neutral-grey-300); }
+.tab { padding: 10px 2px; font-size: 13px; color: var(--neutral-grey-700); border-bottom: 2px solid transparent; cursor: pointer; }
+.tab:hover { color: var(--neutral-black); }
+.tab.active { color: var(--neutral-black); border-bottom-color: var(--blue-600); font-weight: 600; }
+.tab.disabled { color: var(--neutral-grey-300); cursor: not-allowed; }
+
+/* Alerts */
+.alert { display: flex; gap: 10px; align-items: flex-start; padding: 12px 14px; border-radius: 6px; position: relative; border: 1px solid transparent; }
+.alert i { margin-top: 2px; }
+.alert .close { margin-left: auto; cursor: pointer; opacity: .7; }
+.alert .close:hover { opacity: 1; }
+.alert::before { content: ""; position: absolute; left: 0; top: 0; bottom: 0; width: 4px; border-top-left-radius: 6px; border-bottom-left-radius: 6px; }
+.alert.info { background: #EFF6FF; color: #1D4ED8; border-color: #BFDBFE; }
+.alert.info::before { background: #3B82F6; }
+.alert.success { background: #ECFDF5; color: #059669; border-color: #A7F3D0; }
+.alert.success::before { background: #10B981; }
+.alert.warn { background: #FFFBEB; color: #B45309; border-color: #FDE68A; }
+.alert.warn::before { background: #F59E0B; }
+.alert.error { background: #FEF2F2; color: #B91C1C; border-color: #FECACA; }
+.alert.error::before { background: #EF4444; }
+
+/* Chips & Badges */
+.chip { display: inline-flex; align-items: center; gap: 6px; padding: 6px 10px; border-radius: 999px; background: var(--neutral-grey-100); color: var(--neutral-black); font-size: 12px; }
+.chip .close { cursor: pointer; }
+.chip.selectable { background: #fff; border: 1px solid var(--neutral-grey-300); }
+.chip.selectable:hover { border-color: var(--neutral-grey-700); }
+.chip.selectable.selected { background: #EEF2FF; border-color: var(--blue-600); }
+.chip.selectable.selected i.ri-check-line { color: var(--blue-600); }
+
+.badge { display: inline-flex; align-items: center; padding: 2px 8px; border-radius: 999px; font-size: 12px; font-weight: 600; }
+.badge.blue { background: #EEF2FF; color: #3730A3; }
+.badge.green { background: #ECFDF5; color: #047857; }
+.badge.red { background: #FEF2F2; color: #B91C1C; }
+
+
