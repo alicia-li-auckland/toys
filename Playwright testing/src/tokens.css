@@ -1,0 +1,70 @@
+:root {
+  /* Neutrals */
+  --neutral-black: #1F1F1F;
+  --neutral-white: #FFFFFF;
+  --neutral-grey-100: #F7F7F8;
+  --neutral-grey-300: #DEDEDE;
+  --neutral-grey-700: #757575;
+
+  /* Blues */
+  --blue-600: #3F48E9; /* Primary */
+  --blue-700: #363DC6; /* Hover */
+  --blue-300: #ACB0F6; /* Disabled */
+
+  /* Reds */
+  --red-600: #D93F3F; /* Destructive */
+  --red-700: #B83636; /* Hover */
+  --red-300: #EFACAC; /* Disabled */
+
+  /* Typography */
+  --font-family-primary: 'Hanken Grotesk', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-size-sm: 12px;
+  --font-size-md: 13px;
+  --font-size-lg: 16px;
+  --line-height-sm: 16px;
+  --line-height-md: 18px;
+  --line-height-lg: 24px;
+  --font-weight-regular: 400;
+  --font-weight-semibold: 600;
+
+  /* Typography scale from Figma (2292:30367) */
+  --type-hxl-size: 44px;   /* H-XL */
+  --type-hxl-line: 44px;
+  --type-hxl-weight: 600;
+
+  --type-h1-size: 16px;    /* H1 */
+  --type-h1-line: 24px;
+  --type-h1-weight: 700;
+
+  --type-h2-size: 14px;    /* H2 */
+  --type-h2-line: 22px;
+  --type-h2-weight: 600;
+
+  --type-p-semi-size: 13px; /* P SemiBold */
+  --type-p-semi-line: 18px;
+  --type-p-semi-weight: 600;
+
+  --type-p-std-size: 13px; /* P Standard */
+  --type-p-std-line: 18px;
+  --type-p-std-weight: 400;
+
+  --type-p-sm-size: 12px;  /* P Small */
+  --type-p-sm-line: 16px;
+  --type-p-sm-weight: 400;
+
+  --type-p-mini-size: 10px; /* P Mini / Tags */
+  --type-p-mini-line: 16px;
+  --type-p-mini-weight: 400;
+
+  /* Radius & Spacing */
+  --radius-sm: 2px;
+  --radius-md: 6px;
+  --radius-lg: 8px;
+  --space-2: 4px;
+  --space-3: 8px;
+  --space-4: 12px;
+  --space-5: 16px;
+  --space-6: 24px;
+  --space-8: 32px;
+}
+
