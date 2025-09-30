@@ -1,0 +1,54 @@
+{
+  "buttons": {
+    "stable": true,
+    "consecutive": 3
+  },
+  "typography": {
+    "stable": true,
+    "consecutive": 2
+  },
+  "icons": {
+    "stable": true,
+    "consecutive": 2
+  },
+  "forms": {
+    "stable": true,
+    "consecutive": 3
+  },
+  "tabs": {
+    "stable": true,
+    "consecutive": 3
+  },
+  "alerts": {
+    "stable": true,
+    "consecutive": 3
+  },
+  "chips-badges": {
+    "stable": true,
+    "consecutive": 3
+  },
+  "colors-type": {
+    "stable": true,
+    "consecutive": 2
+  },
+  "icons-logos": {
+    "stable": true,
+    "consecutive": 2
+  },
+  "navigation": {
+    "stable": true,
+    "consecutive": 3
+  },
+  "maps-content": {
+    "stable": true,
+    "consecutive": 2
+  },
+  "sidebars": {
+    "stable": true,
+    "consecutive": 2
+  },
+  "sidecars": {
+    "stable": true,
+    "consecutive": 2
+  }
+}

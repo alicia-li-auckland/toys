@@ -1,0 +1,93 @@
+[
+  {
+    "name": "colors-type",
+    "selector": "#colors-type",
+    "iterations": 6,
+    "stablePasses": 2,
+    "maxDiffPixelRatio": 0.02
+  },
+  {
+    "name": "icons-logos",
+    "selector": "#icons-logos",
+    "iterations": 6,
+    "stablePasses": 2,
+    "maxDiffPixelRatio": 0.02
+  },
+  {
+    "name": "buttons",
+    "selector": "#buttons-section",
+    "iterations": 8,
+    "stablePasses": 3,
+    "maxDiffPixelRatio": 0.02
+  },
+  {
+    "name": "icons",
+    "selector": "#icons-section",
+    "iterations": 6,
+    "stablePasses": 2,
+    "maxDiffPixelRatio": 0.02
+  },
+  {
+    "name": "forms",
+    "selector": "#forms-section",
+    "iterations": 10,
+    "stablePasses": 3,
+    "maxDiffPixelRatio": 0.02
+  },
+  {
+    "name": "tabs",
+    "selector": "#tabs-section",
+    "iterations": 8,
+    "stablePasses": 3,
+    "maxDiffPixelRatio": 0.02
+  },
+  {
+    "name": "alerts",
+    "selector": "#alerts-section",
+    "iterations": 10,
+    "stablePasses": 3,
+    "maxDiffPixelRatio": 0.01
+  },
+  {
+    "name": "chips-badges",
+    "selector": "#chips-badges-section",
+    "iterations": 8,
+    "stablePasses": 3,
+    "maxDiffPixelRatio": 0.02
+  },
+  {
+    "name": "navigation",
+    "selector": "#navigation-components",
+    "iterations": 8,
+    "stablePasses": 3,
+    "maxDiffPixelRatio": 0.02
+  },
+  {
+    "name": "maps-content",
+    "selector": "#maps-content",
+    "iterations": 6,
+    "stablePasses": 2,
+    "maxDiffPixelRatio": 0.02
+  },
+  {
+    "name": "sidebars",
+    "selector": "#sidebars",
+    "iterations": 6,
+    "stablePasses": 2,
+    "maxDiffPixelRatio": 0.02
+  },
+  {
+    "name": "sidecars",
+    "selector": "#sidecars",
+    "iterations": 6,
+    "stablePasses": 2,
+    "maxDiffPixelRatio": 0.02
+  },
+  {
+    "name": "typography",
+    "selector": "#typography",
+    "iterations": 6,
+    "stablePasses": 2,
+    "maxDiffPixelRatio": 0.02
+  }
+]

@@ -49,7 +49,7 @@
         .nav { list-style: none; padding: 0; margin: 0; }
         .nav a { display: block; padding: 8px 10px; border-radius: 6px; color: var(--neutral-black); text-decoration: none; font-size: 13px; }
         .nav a:hover { background: var(--neutral-grey-100); }
-
+        
         .container {
             background: white;
             padding: 32px;
@@ -170,6 +170,40 @@
             display: flex; gap: 8px; align-items: center; font-size: 12px; color: #555;
         }
 
+        /* Cards */
+        .card { background:#fff; border:1px solid var(--neutral-grey-300); border-radius:8px; overflow:hidden; }
+        .card__media { background:#e5e7eb; height:120px; display:flex; align-items:center; justify-content:center; color:#6b7280; }
+        .card__body { padding:12px; display:flex; flex-direction:column; gap:6px; }
+
+        /* Breadcrumbs */
+        .breadcrumbs { display:flex; gap:8px; align-items:center; font-size:12px; color:var(--neutral-grey-700); }
+        .breadcrumbs a { color:var(--neutral-black); text-decoration:none; }
+        .breadcrumbs .sep { color:var(--neutral-grey-300); }
+
+        /* Pagination */
+        .pagination { display:flex; gap:6px; align-items:center; }
+        .page { padding:6px 10px; border:1px solid var(--neutral-grey-300); border-radius:6px; background:#fff; font-size:12px; cursor:pointer; }
+        .page.is-active { background: var(--blue-600); border-color: var(--blue-600); color:#fff; }
+
+        /* Modal */
+        .modal-backdrop { position:fixed; inset:0; background:rgba(0,0,0,.45); display:none; align-items:center; justify-content:center; z-index:50; }
+        .modal { background:#fff; border:1px solid var(--neutral-grey-300); border-radius:8px; width:min(520px, 92vw); padding:16px; box-shadow:0 8px 24px rgba(0,0,0,.18); }
+        .modal-header { display:flex; justify-content:space-between; align-items:center; margin-bottom:8px; }
+        .modal-title { font-weight:600; font-size:16px; }
+        .modal-close { background:transparent; border:none; cursor:pointer; font-size:18px; line-height:1; }
+
+        /* Drawer (Sidecar) */
+        .drawer-backdrop { position:fixed; inset:0; background:rgba(0,0,0,.35); display:none; z-index:40; }
+        .drawer { position:fixed; top:0; right:-360px; width:320px; height:100%; background:#fff; border-left:1px solid var(--neutral-grey-300); box-shadow:-4px 0 16px rgba(0,0,0,.12); transition:right .2s ease; z-index:41; display:flex; flex-direction:column; }
+        .drawer.is-open { right:0; }
+        .drawer-header { padding:12px; border-bottom:1px solid var(--neutral-grey-300); font-weight:600; }
+        .drawer-body { padding:12px; overflow:auto; }
+
+        /* Sidebar layout example */
+        .layout { display:grid; grid-template-columns: 220px 1fr; gap:16px; }
+        .layout__sidebar { background:#fff; border:1px solid var(--neutral-grey-300); border-radius:8px; padding:12px; }
+        .layout__content { background:#fff; border:1px solid var(--neutral-grey-300); border-radius:8px; padding:12px; }
+
         /* Icon utilities */
         .icon { display: inline-flex; align-items: center; justify-content: center; line-height: 1; }
         .icon i { line-height: 1; }
@@ -278,36 +312,36 @@
 <body>
     <div class="ds-shell">
         <nav class="sidebar" aria-label="Components">
-            <h3>Foundations</h3>
+            <h3>Library</h3>
             <ul class="nav">
-                <li><a href="#typography-section">Typography</a></li>
-                <li><a href="#icons-section">Icons</a></li>
-            </ul>
-            <h3>Components</h3>
-            <ul class="nav">
-                <li><a href="#forms-section">Form inputs</a></li>
-                <li><a href="#buttons-section">Buttons</a></li>
-                <li><a href="#tabs-section">Tabs</a></li>
-                <li><a href="#alerts-section">Alerts</a></li>
-                <li><a href="#chips-badges-section">Chips & Badges</a></li>
+                <li><a href="colors-type.html">Colors / Type</a></li>
+                <li><a href="icons-logos.html">Icons & Logos</a></li>
+                <li><a href="typography.html">Typography</a></li>
+                <li><a href="interactive-inputs.html">Interactive / User Inputs</a></li>
+                <li><a href="modals-messages-labels.html">Modals, Messages, and Labels</a></li>
+                <li><a href="navigation-components.html">Navigation Components</a></li>
+                <li><a href="maps-content.html">Maps and Content</a></li>
+                <li><a href="sidebars.html">Sidebars</a></li>
+                <li><a href="sidecars.html">Sidecars</a></li>
             </ul>
         </nav>
-        <div class="container">
+    <div class="container">
         <h1 class="page-title">DroneDeploy Scaffold Design System</h1>
-
-        <!-- Typography preview -->
-        <div id="typography-section" class="section" style="margin-top: 32px;">
-            <h2 class="section-title">Typography</h2>
-            <div style="font-weight: var(--type-hxl-weight); font-size: var(--type-hxl-size); line-height: var(--type-hxl-line); font-family: var(--font-family-primary); color: var(--neutral-black);">Hanken Grotesk</div>
-            <div style="font-weight: var(--font-weight-regular); font-size: var(--type-p-std-size); line-height: var(--type-p-std-line); font-family: var(--font-family-primary); color: var(--neutral-grey-700); margin-top: 4px;">(default to standard system font)</div>
-            <div style="font: var(--type-h1-weight) var(--type-h1-size)/var(--type-h1-line) var(--font-family-primary); color: var(--neutral-black); margin-top: 12px;">H1 · Modal titles</div>
-            <div style="font: var(--type-h2-weight) var(--type-h2-size)/var(--type-h2-line) var(--font-family-primary); color: var(--neutral-black); margin-top: 8px;">H2 · Section headers</div>
-            <div style="font: var(--type-p-semi-weight) var(--type-p-semi-size)/var(--type-p-semi-line) var(--font-family-primary); color: var(--neutral-black); margin-top: 8px;">P · SemiBold</div>
-            <div style="font: var(--type-p-std-weight) var(--type-p-std-size)/var(--type-p-std-line) var(--font-family-primary); color: var(--neutral-black); margin-top: 6px;">P · Standard</div>
-            <div style="font: var(--type-p-sm-weight) var(--type-p-sm-size)/var(--type-p-sm-line) var(--font-family-primary); color: var(--neutral-black); margin-top: 6px;">P · Small</div>
-            <div style="font: var(--type-p-mini-weight) var(--type-p-mini-size)/var(--type-p-mini-line) var(--font-family-primary); color: var(--neutral-black); margin-top: 6px;">P · Mini (tags)</div>
+        <div class="section">
+            <p class="label">Choose a section from the left to view its page.</p>
         </div>
 
+        
+
+        
+
+        
+
+        <!-- Interactive / User Inputs: Buttons subset -->
+        <div id="interactive-inputs" class="section">
+            <h2 class="section-title">Interactive / User Inputs</h2>
+            <div class="label">Buttons</div>
+        </div>
         <!-- Button variants preview -->
         <div id="buttons-section">
         <h2 class="section-title">Buttons</h2>
@@ -360,7 +394,7 @@
             </div>
         </div>
 
-        <!-- Icons (Remix + usage utilities) -->
+        <!-- Icons (Remix + usage utilities) legacy subset -->
         <div id="icons-section" class="section">
             <h2 class="section-title">Icons</h2>
             <div class="label">Icons · Remix Icon</div>
@@ -379,7 +413,7 @@
         </div>
         </div>
 
-        <!-- Forms: inputs, textarea, select, checkbox, radio, switch -->
+        <!-- Forms: inputs, textarea, select, checkbox, radio, switch (Interactive / User Inputs) -->
         <div id="forms-section" class="section">
             <h2 class="section-title">Form inputs</h2>
             <div class="form-grid">
@@ -430,6 +464,26 @@
             </div>
         </div>
 
+        <!-- Navigation Components: Tabs -->
+        <div id="navigation-components" class="section">
+            <h2 class="section-title">Navigation Components</h2>
+            <div class="label">Breadcrumbs</div>
+            <div class="breadcrumbs" style="margin-bottom:12px;">
+                <a href="#">Home</a>
+                <span class="sep">/</span>
+                <a href="#">Library</a>
+                <span class="sep">/</span>
+                <span>Components</span>
+            </div>
+            <div class="label">Pagination</div>
+            <div class="pagination" style="margin-bottom:12px;">
+                <button class="page" aria-label="Previous"><i class="ri-arrow-left-s-line"></i></button>
+                <button class="page is-active">1</button>
+                <button class="page">2</button>
+                <button class="page">3</button>
+                <button class="page" aria-label="Next"><i class="ri-arrow-right-s-line"></i></button>
+            </div>
+        </div>
         <!-- Tabs -->
         <div id="tabs-section" class="section">
             <h2 class="section-title">Tabs</h2>
@@ -441,6 +495,14 @@
             </div>
         </div>
 
+        <!-- Modals, Messages, and Labels: Messages subset -->
+        <div id="modals-messages-labels" class="section">
+            <h2 class="section-title">Modals, Messages, and Labels</h2>
+            <div style="display:flex; gap:12px; align-items:center; margin-bottom:12px;">
+                <button class="btn btn--secondary" id="openModalBtn"><span class="btn__icon"><i class="ri-window-2-line"></i></span>Open Modal</button>
+                <button class="btn btn--secondary" id="openDrawerBtn"><span class="btn__icon"><i class="ri-sidebar-fold-line"></i></span>Open Sidecar</button>
+            </div>
+        </div>
         <!-- Alerts -->
         <div id="alerts-section" class="section">
             <h2 class="section-title">Alerts</h2>
@@ -451,9 +513,83 @@
                 <div class="alert error"><i class="ri-close-circle-line"></i><div>Error – something went wrong.</div><i class="ri-close-line close" aria-label="Dismiss"></i></div>
             </div>
         </div>
-
+        
+        <!-- Modals, Messages, and Labels: Labels/Badges subset -->
         <!-- Chips & Badges -->
         <div id="chips-badges-section" class="section">
+        <!-- Maps and Content (placeholder) -->
+        <div id="maps-content" class="section">
+            <h2 class="section-title">Maps and Content</h2>
+            <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;">
+                <div class="card">
+                    <div class="card__media">Map Thumbnail</div>
+                    <div class="card__body">
+                        <div style="font-weight:600;">Site A</div>
+                        <div style="font-size:12px;color:var(--neutral-grey-700);">Lat 37.77, Lng -122.41</div>
+                        <div>
+                            <button class="btn btn--text">View</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card__media">Map Thumbnail</div>
+                    <div class="card__body">
+                        <div style="font-weight:600;">Site B</div>
+                        <div style="font-size:12px;color:var(--neutral-grey-700);">Lat 34.05, Lng -118.24</div>
+                        <div>
+                            <button class="btn btn--text">View</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Sidebars (placeholder) -->
+        <div id="sidebars" class="section">
+            <h2 class="section-title">Sidebars</h2>
+            <div class="layout">
+                <aside class="layout__sidebar">
+                    <div class="label">Project</div>
+                    <ul style="list-style:none; padding:0; margin:8px 0; display:flex; flex-direction:column; gap:6px;">
+                        <li><a href="#" style="text-decoration:none; color:var(--neutral-black);">Overview</a></li>
+                        <li><a href="#" style="text-decoration:none; color:var(--neutral-black);">Components</a></li>
+                        <li><a href="#" style="text-decoration:none; color:var(--neutral-black);">Settings</a></li>
+                    </ul>
+                </aside>
+                <main class="layout__content">
+                    <div class="label">Content</div>
+                    <div style="margin-top:8px;">This area demonstrates a two-column layout with a left sidebar.</div>
+                </main>
+            </div>
+        </div>
+
+        <!-- Sidecars (drawer) placeholder -->
+        <div id="sidecars" class="section">
+            <h2 class="section-title">Sidecars</h2>
+            <div class="placeholder">Use the "Open Sidecar" button above to preview the drawer.</div>
+        </div>
+
+        <!-- Modal & Drawer markup -->
+        <div class="modal-backdrop" id="modalBackdrop" role="dialog" aria-modal="true" aria-hidden="true">
+            <div class="modal">
+                <div class="modal-header">
+                    <div class="modal-title">Example Modal</div>
+                    <button class="modal-close" id="closeModalBtn" aria-label="Close">×</button>
+                </div>
+                <div style="color:var(--neutral-grey-700); font-size:13px;">This is a lightweight modal demo for the design system.</div>
+                <div style="display:flex; gap:8px; justify-content:flex-end; margin-top:12px;">
+                    <button class="btn btn--secondary" id="dismissModalBtn">Cancel</button>
+                    <button class="btn btn--primary">Confirm</button>
+                </div>
+            </div>
+        </div>
+        <div class="drawer-backdrop" id="drawerBackdrop" aria-hidden="true"></div>
+        <aside class="drawer" id="drawer">
+            <div class="drawer-header">Sidecar</div>
+            <div class="drawer-body">
+                <div style="color:var(--neutral-grey-700); font-size:13px;">Contextual information lives here.</div>
+            </div>
+        </aside>
             <h2 class="section-title">Chips & Badges</h2>
             <div class="chips">
                 <span class="chip selectable"><i class="ri-filter-line"></i>Filter</span>
@@ -470,3 +606,25 @@
     </div>
 </body>
 </html>
+<script>
+  const modalBackdrop = document.getElementById('modalBackdrop');
+  const openModalBtn = document.getElementById('openModalBtn');
+  const closeModalBtn = document.getElementById('closeModalBtn');
+  const dismissModalBtn = document.getElementById('dismissModalBtn');
+  const drawer = document.getElementById('drawer');
+  const drawerBackdrop = document.getElementById('drawerBackdrop');
+  const openDrawerBtn = document.getElementById('openDrawerBtn');
+
+  if (openModalBtn) openModalBtn.addEventListener('click', () => { modalBackdrop.style.display = 'flex'; });
+  const hideModal = () => { modalBackdrop.style.display = 'none'; };
+  if (closeModalBtn) closeModalBtn.addEventListener('click', hideModal);
+  if (dismissModalBtn) dismissModalBtn.addEventListener('click', hideModal);
+  if (modalBackdrop) modalBackdrop.addEventListener('click', (e) => { if (e.target === modalBackdrop) hideModal(); });
+
+  if (openDrawerBtn) openDrawerBtn.addEventListener('click', () => {
+    drawer.classList.add('is-open');
+    drawerBackdrop.style.display = 'block';
+  });
+  const hideDrawer = () => { drawer.classList.remove('is-open'); drawerBackdrop.style.display = 'none'; };
+  if (drawerBackdrop) drawerBackdrop.addEventListener('click', hideDrawer);
+</script>
