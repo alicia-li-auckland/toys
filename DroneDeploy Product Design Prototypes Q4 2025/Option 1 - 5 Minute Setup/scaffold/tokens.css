@@ -1,0 +1,26 @@
+:root {
+  /* Neutrals */
+  --neutral-black: #1F1F1F;
+  --neutral-white: #FFFFFF;
+  --neutral-grey-100: #F7F7F8;
+  --neutral-grey-300: #DEDEDE;
+  --neutral-grey-700: #757575;
+
+  /* Blues */
+  --blue-600: #3F48E9; /* Primary */
+  --blue-700: #363DC6; /* Hover */
+  --blue-300: #ACB0F6; /* Disabled */
+
+  /* Reds */
+  --red-600: #D93F3F; /* Destructive */
+  --red-700: #B83636; /* Hover */
+  --red-300: #EFACAC; /* Disabled */
+
+  /* Typography */
+  --font-family-primary: 'Hanken Grotesk', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --type-hxl-size: 44px;   --type-hxl-line: 44px;   --type-hxl-weight: 600;
+  --type-h2-size: 14px;    --type-h2-line: 22px;    --type-h2-weight: 600;
+}
+
+
+

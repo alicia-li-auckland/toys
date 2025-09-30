@@ -971,7 +971,7 @@
                                 <input type="checkbox" id="filterZeroDays" checked class="mr-2">
                                 Exclude 0-day duration activities
                             </label>
-                        </div>
+                    </div>
                         
                         <div class="mb-3">
                             <label class="block text-xs font-medium text-gray-600 mb-1">
@@ -1627,19 +1627,19 @@
                 const tradesList = parseCSV(tradesCSV);
                 
                 // Filter trades for selected building type
-                const buildingTypeMapping = {
-                    'commercial': 'Commercial',
-                    'datacenters': 'Data Center',
-                    'energy': 'Energy',
-                    'healthcare': 'Healthcare',
-                    'hospitality': 'Hospitality',
-                    'infrastructure': 'Infrastructure',
-                    'institutional': 'Institutional',
-                    'manufacturing': 'Manufacturing',
-                    'multifamily': 'Multi Family'
-                };
-                
-                const targetProjectType = buildingTypeMapping[AppState.selectedBuildingType];
+            const buildingTypeMapping = {
+                'commercial': 'Commercial',
+                'datacenters': 'Data Center',
+                'energy': 'Energy',
+                'healthcare': 'Healthcare',
+                'hospitality': 'Hospitality',
+                'infrastructure': 'Infrastructure',
+                'institutional': 'Institutional',
+                'manufacturing': 'Manufacturing',
+                'multifamily': 'Multi Family'
+            };
+            
+            const targetProjectType = buildingTypeMapping[AppState.selectedBuildingType];
                 const relevantTrades = tradesList.filter(trade => {
                     const projectTypes = trade['Applicable Project Type(s)'] || trade['Applicable Project Type Selection'] || '';
                     return projectTypes.includes(targetProjectType) || projectTypes.includes('Other');
@@ -2318,7 +2318,7 @@ MATCHING CRITERIA:
             updateGanttChart();
             updateBulkActionsToolbar();
         }
-
+        
         // Sync individual accept/reject actions with Gantt chart
         function acceptMapping(index) {
             // Get the accepted item
@@ -2681,7 +2681,7 @@ MATCHING CRITERIA:
                 const newStartDay = Math.round(newLeft / dragState.weekWidth) * 7;
                 
                 if (AppState.generatedTrades[dragState.tradeIndex]) {
-                    AppState.generatedTrades[dragState.tradeIndex].startDay = newStartDay;
+                AppState.generatedTrades[dragState.tradeIndex].startDay = newStartDay;
                     console.log(`📅 Updated start day for ${AppState.generatedTrades[dragState.tradeIndex].trade}: ${newStartDay}`);
                 }
             }

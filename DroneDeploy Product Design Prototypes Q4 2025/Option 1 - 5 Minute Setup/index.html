@@ -505,6 +505,64 @@
             background: #b91c1c;
         }
 
+        /* View toggle + List view */
+        .view-toggle {
+            display: flex;
+            gap: 8px;
+        }
+        .view-btn.active {
+            background: #1f2937;
+            border-color: #1f2937;
+        }
+        .trade-list-simple {
+            padding: 24px;
+        }
+        .trade-list-item {
+            padding: 12px 16px;
+            border-bottom: 1px solid #e5e7eb;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .trade-list-item:hover {
+            background: #f8fafc;
+        }
+
+        /* Chip-based trade list */
+        .chip-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            padding: 16px;
+        }
+        .chip {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 8px 12px;
+            border: 1px solid #e5e7eb;
+            background: #ffffff;
+            border-radius: 9999px;
+            cursor: pointer;
+            transition: box-shadow 0.2s, border-color 0.2s, background 0.2s;
+        }
+        .chip:hover { background: #f9fafb; }
+        .chip.selected {
+            border-color: #2563eb;
+            box-shadow: inset 0 0 0 2px rgba(37, 99, 235, 0.12);
+            background: #f8fbff;
+        }
+        .chip-thumb {
+            width: 28px;
+            height: 28px;
+            border-radius: 6px;
+            background: #e5e7eb;
+            flex-shrink: 0;
+        }
+        .chip-text { display: flex; flex-direction: column; }
+        .chip-title { font-size: 13px; font-weight: 600; color: #111827; }
+        .chip-desc { font-size: 11px; color: #6b7280; max-width: 300px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+
         .trade-status-accepted {
             position: relative;
         }
@@ -748,12 +806,21 @@
 
         <!-- Output Panel -->
             <div class="output-panel">
-                <div style="text-align: center; padding: 60px 20px; color: #6b7280;">
-                    <div style="font-size: 48px; margin-bottom: 16px;">📊</div>
-                    <div style="font-size: 18px; font-weight: 600; margin-bottom: 8px;">Ready to Generate Timeline</div>
-                    <div style="font-size: 14px;">Complete the setup steps to generate your project timeline</div>
+                <div style="display:flex; justify-content: space-between; align-items:center; margin-bottom: 12px;">
+                    <div style="font-size: 14px; color: #6b7280;">View</div>
+                    <div class="view-toggle">
+                        <button id="btnViewGantt" class="btn-secondary view-btn" onclick="setOutputView('gantt')">Gantt</button>
+                        <button id="btnViewList" class="btn-secondary view-btn active" onclick="setOutputView('list')">List</button>
+                    </div>
+                </div>
+
+                <div class="timeline-gantt-wrapper" id="ganttChart" style="display:none;">
+                    <!-- Gantt chart will be populated here -->
+                </div>
+                <div id="tradeListView" style="display:block; overflow:auto; border:1px solid #e5e7eb; border-radius:8px;">
+                    <!-- Trade list will be populated here -->
+                </div>
             </div>
-                        </div>
                     </div>
                     
     <!-- Review Modal -->
@@ -800,7 +867,9 @@
             generatedTrades: [],
             selectedGanttItems: new Set(),
             acceptedTrades: new Set(),
-            rejectedTrades: new Set()
+            rejectedTrades: new Set(),
+            csvTrades: [],
+            selectedListTrades: new Set()
         };
 
         // Updated trades database from CSV file
@@ -870,12 +939,15 @@
             document.getElementById(type + 'Template').classList.add('selected');
             
             updateGenerateButton();
+            // Refresh List view immediately for simple trade list
+            updateTradeList();
         }
 
         // Form event listeners
         document.getElementById('constructionStage').addEventListener('change', function() {
             AppState.constructionStage = this.value;
             updateGenerateButton();
+            updateTradeList();
         });
 
         document.getElementById('projectStartDate').addEventListener('change', function() {
@@ -930,6 +1002,7 @@
             // Update UI with summary and Gantt chart
             updateSummaryCards();
             updateGanttChart();
+            updateTradeList();
             
             console.log('Generated project timeline:', AppState.generatedTrades);
         }
@@ -1028,9 +1101,20 @@
                         </div>
                         </div>
                 
-                <div class="timeline-gantt-wrapper" id="ganttChart">
-                    <!-- Gantt chart will be populated here -->
+                <div style="display:flex; justify-content: space-between; align-items:center; margin-bottom: 12px;">
+                    <div style="font-size: 14px; color: #6b7280;">View</div>
+                    <div class="view-toggle">
+                        <button id="btnViewGantt" class="btn-secondary view-btn active" onclick="setOutputView('gantt')">Gantt</button>
+                        <button id="btnViewList" class="btn-secondary view-btn" onclick="setOutputView('list')">List</button>
                     </div>
+                </div>
+
+                <div class="timeline-gantt-wrapper" id="ganttChart" style="display:block;">
+                    <!-- Gantt chart will be populated here -->
+                </div>
+                <div id="tradeListView" style="display:none; overflow:auto; border:1px solid #e5e7eb; border-radius:8px;">
+                    <!-- Trade list will be populated here -->
+                </div>
                 `;
         }
 
@@ -1178,6 +1262,141 @@
                     ${gridContent}
                 </div>
             `;
+        }
+
+        // List view rendering (independent of timeline) - shows trades for selected building type + stage as selectable chips
+        function updateTradeList() {
+            const container = document.getElementById('tradeListView');
+            if (!container) return;
+
+            // Require a building type and a stage selection as per request
+            if (!AppState.selectedBuildingType || !AppState.constructionStage) {
+                container.innerHTML = `
+                    <div style="text-align: center; padding: 60px 20px; color: #6b7280;">
+                        <div style="font-size: 48px; margin-bottom: 16px;">🧱</div>
+                        <div style="font-size: 16px;">Select a building type and stage to view trades</div>
+                    </div>
+                `;
+                return;
+            }
+
+            // Map key and filter trades by selected building type (include universal 'Other') and selected stage
+            const buildingTypeMapping = {
+                'commercial': 'Commercial',
+                'datacenters': 'Data Center',
+                'energy': 'Energy',
+                'healthcare': 'Healthcare',
+                'hospitality': 'Hospitality',
+                'infrastructure': 'Infrastructure',
+                'institutional': 'Institutional',
+                'manufacturing': 'Manufacturing',
+                'multifamily': 'Multi Family'
+            };
+            const targetProjectType = buildingTypeMapping[AppState.selectedBuildingType];
+            // CSV uses stage names like "1 - Site Preparation"; map UI value to CSV label prefix
+            const stageMap = {
+                'site-prep': '1 - Site Preparation',
+                'superstructure': '2 - Superstructure',
+                'interior': '3 - Interior Fit-Out',
+                'envelope': '4 - Building Envelope',
+                'finishes': '5 - Finishes'
+            };
+            const stageLabel = stageMap[AppState.constructionStage];
+
+            // Prefer CSV-driven trades; fallback to embedded list if CSV missing
+            const src = Array.isArray(AppState.csvTrades) && AppState.csvTrades.length > 0 ? AppState.csvTrades : progressAITrades;
+
+            const stageSynonyms = {
+                'site-prep': ['1 - Site Preparation', 'Site Preparation', 'preparation', 'site prep'],
+                'superstructure': ['2 - Superstructure', 'Superstructure', 'structure', 'super structure'],
+                'interior': ['3 - Interior Fit-Out', 'Interior Fit-Out', 'fitout', 'interior'],
+                'envelope': ['4 - Building Envelope', 'Building Envelope', 'envelope'],
+                'finishes': ['5 - Finishes', 'Finishes', 'finishes']
+            };
+            const synonyms = stageSynonyms[AppState.constructionStage] || [stageLabel];
+
+            const relevant = src.filter(row => {
+                const projTypes = (row['Applicable Project Type(s)'] || row.projectTypes || '').toString();
+                const stagesRaw = (row['Stage(s) of Construction'] || row.stage || '').toString();
+                const tradeName = (row['Trade'] || row.trade || '').toString();
+                if (!tradeName) return false;
+                const projectMatch = projTypes.includes(targetProjectType) || projTypes.includes('Other');
+                const stagesLc = stagesRaw.toLowerCase();
+                const stageMatch = stagesLc === '' || synonyms.some(s => stagesLc.includes(s.toLowerCase()));
+                return projectMatch && stageMatch;
+            });
+
+            // Dedupe by trade name while preserving order
+            const seen = new Set();
+            const uniqueTrades = [];
+            for (const t of relevant) {
+                const name = (t.Trade || t.trade || '').toString();
+                if (!name || seen.has(name)) continue;
+                seen.add(name);
+                uniqueTrades.push(t);
+            }
+
+            if (uniqueTrades.length === 0) {
+                container.innerHTML = `
+                    <div style=\"text-align:center; padding: 40px; color:#6b7280;\">No trades found for ${targetProjectType}</div>
+                `;
+                return;
+            }
+
+            // Ensure selection state: select all by default
+            if (AppState.selectedListTrades.size === 0) {
+                uniqueTrades.forEach(t => AppState.selectedListTrades.add((t.Trade || t.trade).toString()));
+            }
+
+            const items = uniqueTrades.map(t => {
+                const name = (t.Trade || t.trade || '').toString();
+                const desc = (t.Description || t.description || '').toString();
+                const selected = AppState.selectedListTrades.has(name);
+                const selClass = selected ? 'selected' : '';
+                return `
+                    <div class=\"chip ${selClass}\" onclick=\"toggleChipSelection('${name.replace(/"/g,'&quot;')}')\">
+                        <div class=\"chip-thumb\"></div>
+                        <div class=\"chip-text\">
+                            <div class=\"chip-title\">${name}</div>
+                            <div class=\"chip-desc\">${desc}</div>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+
+            container.innerHTML = `<div class=\"chip-grid\">${items}</div>`;
+        }
+
+        function toggleChipSelection(name) {
+            if (AppState.selectedListTrades.has(name)) {
+                AppState.selectedListTrades.delete(name);
+            } else {
+                AppState.selectedListTrades.add(name);
+            }
+            // Re-render chips to reflect selection
+            updateTradeList();
+        }
+
+        function setOutputView(view) {
+            const btnG = document.getElementById('btnViewGantt');
+            const btnL = document.getElementById('btnViewList');
+            const gantt = document.getElementById('ganttChart');
+            const list = document.getElementById('tradeListView');
+            if (!btnG || !btnL || !gantt || !list) return;
+
+            if (view === 'gantt') {
+                btnG.classList.add('active');
+                btnL.classList.remove('active');
+                gantt.style.display = 'block';
+                list.style.display = 'none';
+                updateGanttChart();
+            } else {
+                btnL.classList.add('active');
+                btnG.classList.remove('active');
+                gantt.style.display = 'none';
+                list.style.display = 'block';
+                updateTradeList();
+            }
         }
 
         // Gantt chart selection and action functions
@@ -1517,7 +1736,65 @@
             
             AppState.projectStartDate = today.toISOString().split('T')[0];
             AppState.projectEndDate = endDate.toISOString().split('T')[0];
+
+            // Load trades CSV for list view
+            loadTradesCSV();
         });
+
+        // Load and parse CSV (simple parser for quoted CSV)
+        async function loadTradesCSV() {
+            try {
+                const res = await fetch('Alicia - Progress AI Standard Trades List - WIP - All Trades (Table) (3).csv');
+                const text = await res.text();
+                AppState.csvTrades = parseCSV(text);
+                updateTradeList();
+            } catch (e) {
+                console.error('Failed to load CSV', e);
+            }
+        }
+
+        function parseCSV(text) {
+            const lines = text.split(/\r?\n/).filter(Boolean);
+            if (lines.length < 2) return [];
+            // skip possible note line if not header
+            let headerLine = lines[0];
+            if (headerLine.startsWith('"Note')) headerLine = lines[1];
+            const headers = splitCSVLine(headerLine).map(h => h.replace(/^"|"$/g,'').trim());
+            const rows = [];
+            for (let i = 1; i < lines.length; i++) {
+                const raw = lines[i];
+                if (!raw.trim() || raw.startsWith('"Note')) continue;
+                const cols = splitCSVLine(raw).map(c => c.replace(/^"|"$/g,'').trim());
+                if (cols.length === 0) continue;
+                const obj = {};
+                headers.forEach((h, idx) => { obj[h] = cols[idx] || ''; });
+                rows.push(obj);
+            }
+            return rows;
+        }
+
+        function splitCSVLine(line) {
+            const out = [];
+            let cur = '';
+            let inQ = false;
+            for (let i = 0; i < line.length; i++) {
+                const ch = line[i];
+                if (ch === '"') {
+                    // double quote escape
+                    if (inQ && line[i+1] === '"') { cur += '"'; i++; }
+                    else { inQ = !inQ; }
+                } else if (ch === ',' && !inQ) {
+                    out.push(cur);
+                    cur = '';
+                } else {
+                    cur += ch;
+                }
+            }
+            out.push(cur);
+            return out;
+        }
+
+        
     </script>
 </body>
 </html>

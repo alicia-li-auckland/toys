@@ -5,15 +5,31 @@
   --neutral-grey-100: #F7F7F8;
   --neutral-grey-300: #DEDEDE;
   --neutral-grey-700: #757575;
+  --neutral-grey-50: #FAFAFB;
+  --neutral-grey-200: #E9E9EA;
+  --neutral-grey-500: #9E9EA2;
+  --neutral-grey-900: #0F0F10;
 
   /* Blues */
   --blue-600: #3F48E9; /* Primary */
   --blue-700: #363DC6; /* Hover */
+  --blue-500: #5660F0; /* Mid */
+  --blue-400: #8A90F3; /* Light */
   --blue-300: #ACB0F6; /* Disabled */
+
+  /* Greens */
+  --green-600: #10B981; /* Success */
+  --green-700: #059669; /* Hover */
+  --green-300: #A7F3D0; /* Light */
+
+  /* Yellows */
+  --yellow-600: #F59E0B; /* Warning */
+  --yellow-300: #FDE68A; /* Light */
 
   /* Reds */
   --red-600: #D93F3F; /* Destructive */
   --red-700: #B83636; /* Hover */
+  --red-400: #E97272; /* Light */
   --red-300: #EFACAC; /* Disabled */
 
   /* Typography */
