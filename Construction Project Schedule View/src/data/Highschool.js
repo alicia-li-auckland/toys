@@ -1,0 +1,16800 @@
+{\rtf1\ansi\ansicpg1252\cocoartf2822
+\cocoatextscaling0\cocoaplatform0{\fonttbl\f0\fmodern\fcharset0 Courier;}
+{\colortbl;\red255\green255\blue255;\red255\green255\blue255;\red0\green0\blue0;}
+{\*\expandedcolortbl;;\cssrgb\c100000\c100000\c100000;\cssrgb\c0\c0\c0;}
+\paperw11900\paperh16840\margl1440\margr1440\vieww11520\viewh8400\viewkind0
+\deftab720
+\pard\pardeftab720\partightenfactor0
+
+\f0\fs26 \cf0 \cb2 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \{\
+  "table": \{\
+    "2020/10/01": \{\
+      "68b36de0b21b124f0d3682b3": \{\
+        "Excavation": "in progress",\
+        "Batterboards": "not started",\
+        "Vapor Barrier": "not started",\
+        "Underground Utilities": "not started",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "not started",\
+        "Concrete Pour": "not started",\
+        "Concrete Formwork": "not started",\
+        "Concrete Rebar": "not started",\
+        "Concrete Foundation Pour": "not started",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "68b36d776244a70cf6b13b7c": \{\
+        "Excavation": "in progress",\
+        "Batterboards": "not started",\
+        "Vapor Barrier": "not started",\
+        "Underground Utilities": "not started",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "not started",\
+        "Concrete Pour": "not started",\
+        "Concrete Formwork": "not started",\
+        "Concrete Rebar": "not started",\
+        "Concrete Foundation Pour": "not started",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "68b36d52dfb1531431942889": \{\
+        "Excavation": "in progress",\
+        "Batterboards": "not started",\
+        "Vapor Barrier": "not started",\
+        "Underground Utilities": "not started",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "not started",\
+        "Concrete Pour": "not started",\
+        "Concrete Formwork": "not started",\
+        "Concrete Rebar": "not started",\
+        "Concrete Foundation Pour": "not started",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "68b36a2262f5c1297c0913d3": \{\
+        "Excavation": "in progress",\
+        "Batterboards": "not started",\
+        "Vapor Barrier": "not started",\
+        "Underground Utilities": "not started",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "not started",\
+        "Concrete Pour": "not started",\
+        "Concrete Formwork": "not started",\
+        "Concrete Rebar": "not started",\
+        "Concrete Foundation Pour": "not started",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "68881ef9cbdd5a6f740a1e55": \{\
+        "Excavation": "in progress",\
+        "Batterboards": "not started",\
+        "Vapor Barrier": "not started",\
+        "Underground Utilities": "not started",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "not started",\
+        "Concrete Pour": "not started",\
+        "Concrete Formwork": "not started",\
+        "Concrete Rebar": "not started",\
+        "Concrete Foundation Pour": "not started",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "68881eaf5ecfb6cf31709226": \{\
+        "Excavation": "in progress",\
+        "Batterboards": "not started",\
+        "Vapor Barrier": "not started",\
+        "Underground Utilities": "not started",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "not started",\
+        "Concrete Pour": "not started",\
+        "Concrete Formwork": "not started",\
+        "Concrete Rebar": "not started",\
+        "Concrete Foundation Pour": "not started",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "68881c0d9c359a7c21399336": \{\
+        "Excavation": "in progress",\
+        "Batterboards": "not started",\
+        "Vapor Barrier": "not started",\
+        "Underground Utilities": "not started",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "not started",\
+        "Concrete Pour": "not started",\
+        "Concrete Formwork": "not started",\
+        "Concrete Rebar": "not started",\
+        "Concrete Foundation Pour": "not started",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "68881af3cbdd5a6f740a1e42": \{\
+        "Excavation": "in progress",\
+        "Batterboards": "not started",\
+        "Vapor Barrier": "not started",\
+        "Underground Utilities": "not started",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "not started",\
+        "Concrete Pour": "not started",\
+        "Concrete Formwork": "not started",\
+        "Concrete Rebar": "not started",\
+        "Concrete Foundation Pour": "not started",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "68881aace1e8315beb8dbf32": \{\
+        "Excavation": "in progress",\
+        "Batterboards": "not started",\
+        "Vapor Barrier": "not started",\
+        "Underground Utilities": "not started",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "not started",\
+        "Concrete Pour": "not started",\
+        "Concrete Formwork": "not started",\
+        "Concrete Rebar": "not started",\
+        "Concrete Foundation Pour": "not started",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "688819c084c0ccb3af37ee44": \{\
+        "Excavation": "in progress",\
+        "Batterboards": "not started",\
+        "Vapor Barrier": "not started",\
+        "Underground Utilities": "not started",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "not started",\
+        "Concrete Pour": "not started",\
+        "Concrete Formwork": "not started",\
+        "Concrete Rebar": "not started",\
+        "Concrete Foundation Pour": "not started",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "68881865a0f3c54a3f9fed31": \{\
+        "Excavation": "in progress",\
+        "Batterboards": "not started",\
+        "Vapor Barrier": "not started",\
+        "Underground Utilities": "not started",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "not started",\
+        "Concrete Pour": "not started",\
+        "Concrete Formwork": "not started",\
+        "Concrete Rebar": "not started",\
+        "Concrete Foundation Pour": "not started",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "688817b5587882b7457d5719": \{\
+        "Excavation": "in progress",\
+        "Batterboards": "not started",\
+        "Vapor Barrier": "not started",\
+        "Underground Utilities": "not started",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "not started",\
+        "Concrete Pour": "not started",\
+        "Concrete Formwork": "not started",\
+        "Concrete Rebar": "not started",\
+        "Concrete Foundation Pour": "not started",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "688816b1880b7b96b2e501b6": \{\
+        "Excavation": "in progress",\
+        "Batterboards": "not started",\
+        "Vapor Barrier": "not started",\
+        "Underground Utilities": "not started",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "not started",\
+        "Concrete Pour": "not started",\
+        "Concrete Formwork": "not started",\
+        "Concrete Rebar": "not started",\
+        "Concrete Foundation Pour": "not started",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "6888113f3332fd44fd149711": \{\
+        "Excavation": "in progress",\
+        "Batterboards": "not started",\
+        "Vapor Barrier": "not started",\
+        "Underground Utilities": "not started",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "not started",\
+        "Concrete Pour": "not started",\
+        "Concrete Formwork": "not started",\
+        "Concrete Rebar": "not started",\
+        "Concrete Foundation Pour": "not started",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "68880e35587882b7457d5701": \{\
+        "Excavation": "in progress",\
+        "Batterboards": "not started",\
+        "Vapor Barrier": "not started",\
+        "Underground Utilities": "not started",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "not started",\
+        "Concrete Pour": "not started",\
+        "Concrete Formwork": "not started",\
+        "Concrete Rebar": "not started",\
+        "Concrete Foundation Pour": "not started",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "68880da50f864d2881bdd80b": \{\
+        "Excavation": "in progress",\
+        "Batterboards": "not started",\
+        "Vapor Barrier": "not started",\
+        "Underground Utilities": "not started",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "not started",\
+        "Concrete Pour": "not started",\
+        "Concrete Formwork": "not started",\
+        "Concrete Rebar": "not started",\
+        "Concrete Foundation Pour": "not started",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "6849c2e7f11830b69fc3882e": \{\
+        "Excavation": "in progress",\
+        "Batterboards": "not started",\
+        "Vapor Barrier": "not started",\
+        "Underground Utilities": "not started",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "not started",\
+        "Concrete Pour": "not started",\
+        "Concrete Formwork": "not started",\
+        "Concrete Rebar": "not started",\
+        "Concrete Foundation Pour": "not started",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "6849c2b8091fc596463ede32": \{\
+        "Excavation": "in progress",\
+        "Batterboards": "not started",\
+        "Vapor Barrier": "not started",\
+        "Underground Utilities": "not started",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "not started",\
+        "Concrete Pour": "not started",\
+        "Concrete Formwork": "not started",\
+        "Concrete Rebar": "not started",\
+        "Concrete Foundation Pour": "not started",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "65205c97d53f42fcbda0bcf1": \{\
+        "Excavation": "in progress",\
+        "Batterboards": "not started",\
+        "Vapor Barrier": "not started",\
+        "Underground Utilities": "not started",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "not started",\
+        "Concrete Pour": "not started",\
+        "Concrete Formwork": "not started",\
+        "Concrete Rebar": "not started",\
+        "Concrete Foundation Pour": "not started",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "65205c97d53f42fcbda0bcef": \{\
+        "Excavation": "not started",\
+        "Batterboards": "not started",\
+        "Vapor Barrier": "not started",\
+        "Underground Utilities": "not started",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "not started",\
+        "Concrete Pour": "not started",\
+        "Concrete Formwork": "not started",\
+        "Concrete Rebar": "not started",\
+        "Concrete Foundation Pour": "not started",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "65205c97d53f42fcbda0bcee": \{\
+        "Excavation": "in progress",\
+        "Batterboards": "not started",\
+        "Vapor Barrier": "not started",\
+        "Underground Utilities": "not started",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "not started",\
+        "Concrete Pour": "not started",\
+        "Concrete Formwork": "not started",\
+        "Concrete Rebar": "not started",\
+        "Concrete Foundation Pour": "not started",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "65205c97d53f42fcbda0bced": \{\
+        "Excavation": "in progress",\
+        "Batterboards": "not started",\
+        "Vapor Barrier": "not started",\
+        "Underground Utilities": "not started",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "not started",\
+        "Concrete Pour": "not started",\
+        "Concrete Formwork": "not started",\
+        "Concrete Rebar": "not started",\
+        "Concrete Foundation Pour": "not started",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \}\
+    \},\
+    "2020/10/15": \{\
+      "68b36de0b21b124f0d3682b3": \{\
+        "Excavation": "in progress",\
+        "Batterboards": "not started",\
+        "Vapor Barrier": "not started",\
+        "Underground Utilities": "not started",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "not started",\
+        "Concrete Pour": "not started",\
+        "Concrete Formwork": "not started",\
+        "Concrete Rebar": "not started",\
+        "Concrete Foundation Pour": "not started",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "68b36d776244a70cf6b13b7c": \{\
+        "Excavation": "in progress",\
+        "Batterboards": "not started",\
+        "Vapor Barrier": "not started",\
+        "Underground Utilities": "not started",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "not started",\
+        "Concrete Pour": "not started",\
+        "Concrete Formwork": "not started",\
+        "Concrete Rebar": "not started",\
+        "Concrete Foundation Pour": "not started",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "68b36d52dfb1531431942889": \{\
+        "Excavation": "complete",\
+        "Batterboards": "not started",\
+        "Vapor Barrier": "not started",\
+        "Underground Utilities": "not started",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "not started",\
+        "Concrete Pour": "not started",\
+        "Concrete Formwork": "not started",\
+        "Concrete Rebar": "not started",\
+        "Concrete Foundation Pour": "not started",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "68b36a2262f5c1297c0913d3": \{\
+        "Excavation": "in progress",\
+        "Batterboards": "not started",\
+        "Vapor Barrier": "not started",\
+        "Underground Utilities": "not started",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "not started",\
+        "Concrete Pour": "not started",\
+        "Concrete Formwork": "not started",\
+        "Concrete Rebar": "not started",\
+        "Concrete Foundation Pour": "not started",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "68881ef9cbdd5a6f740a1e55": \{\
+        "Excavation": "in progress",\
+        "Batterboards": "not started",\
+        "Vapor Barrier": "not started",\
+        "Underground Utilities": "not started",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "not started",\
+        "Concrete Pour": "not started",\
+        "Concrete Formwork": "not started",\
+        "Concrete Rebar": "not started",\
+        "Concrete Foundation Pour": "not started",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "68881eaf5ecfb6cf31709226": \{\
+        "Excavation": "in progress",\
+        "Batterboards": "not started",\
+        "Vapor Barrier": "not started",\
+        "Underground Utilities": "not started",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "not started",\
+        "Concrete Pour": "not started",\
+        "Concrete Formwork": "not started",\
+        "Concrete Rebar": "not started",\
+        "Concrete Foundation Pour": "not started",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "68881c0d9c359a7c21399336": \{\
+        "Excavation": "in progress",\
+        "Batterboards": "not started",\
+        "Vapor Barrier": "not started",\
+        "Underground Utilities": "not started",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "not started",\
+        "Concrete Pour": "not started",\
+        "Concrete Formwork": "not started",\
+        "Concrete Rebar": "not started",\
+        "Concrete Foundation Pour": "not started",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "68881af3cbdd5a6f740a1e42": \{\
+        "Excavation": "in progress",\
+        "Batterboards": "not started",\
+        "Vapor Barrier": "not started",\
+        "Underground Utilities": "not started",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "not started",\
+        "Concrete Pour": "not started",\
+        "Concrete Formwork": "not started",\
+        "Concrete Rebar": "not started",\
+        "Concrete Foundation Pour": "not started",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "68881aace1e8315beb8dbf32": \{\
+        "Excavation": "in progress",\
+        "Batterboards": "not started",\
+        "Vapor Barrier": "not started",\
+        "Underground Utilities": "not started",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "not started",\
+        "Concrete Pour": "not started",\
+        "Concrete Formwork": "not started",\
+        "Concrete Rebar": "not started",\
+        "Concrete Foundation Pour": "not started",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "688819c084c0ccb3af37ee44": \{\
+        "Excavation": "in progress",\
+        "Batterboards": "not started",\
+        "Vapor Barrier": "not started",\
+        "Underground Utilities": "not started",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "not started",\
+        "Concrete Pour": "not started",\
+        "Concrete Formwork": "not started",\
+        "Concrete Rebar": "not started",\
+        "Concrete Foundation Pour": "not started",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "68881865a0f3c54a3f9fed31": \{\
+        "Excavation": "in progress",\
+        "Batterboards": "not started",\
+        "Vapor Barrier": "not started",\
+        "Underground Utilities": "not started",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "not started",\
+        "Concrete Pour": "not started",\
+        "Concrete Formwork": "not started",\
+        "Concrete Rebar": "not started",\
+        "Concrete Foundation Pour": "not started",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "688817b5587882b7457d5719": \{\
+        "Excavation": "in progress",\
+        "Batterboards": "not started",\
+        "Vapor Barrier": "not started",\
+        "Underground Utilities": "not started",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "not started",\
+        "Concrete Pour": "not started",\
+        "Concrete Formwork": "not started",\
+        "Concrete Rebar": "not started",\
+        "Concrete Foundation Pour": "not started",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "688816b1880b7b96b2e501b6": \{\
+        "Excavation": "in progress",\
+        "Batterboards": "not started",\
+        "Vapor Barrier": "not started",\
+        "Underground Utilities": "not started",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "not started",\
+        "Concrete Pour": "not started",\
+        "Concrete Formwork": "not started",\
+        "Concrete Rebar": "not started",\
+        "Concrete Foundation Pour": "not started",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "6888113f3332fd44fd149711": \{\
+        "Excavation": "in progress",\
+        "Batterboards": "not started",\
+        "Vapor Barrier": "not started",\
+        "Underground Utilities": "not started",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "not started",\
+        "Concrete Pour": "not started",\
+        "Concrete Formwork": "not started",\
+        "Concrete Rebar": "not started",\
+        "Concrete Foundation Pour": "not started",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "68880e35587882b7457d5701": \{\
+        "Excavation": "in progress",\
+        "Batterboards": "not started",\
+        "Vapor Barrier": "not started",\
+        "Underground Utilities": "not started",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "not started",\
+        "Concrete Pour": "not started",\
+        "Concrete Formwork": "not started",\
+        "Concrete Rebar": "not started",\
+        "Concrete Foundation Pour": "not started",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "68880da50f864d2881bdd80b": \{\
+        "Excavation": "in progress",\
+        "Batterboards": "not started",\
+        "Vapor Barrier": "not started",\
+        "Underground Utilities": "not started",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "not started",\
+        "Concrete Pour": "not started",\
+        "Concrete Formwork": "not started",\
+        "Concrete Rebar": "not started",\
+        "Concrete Foundation Pour": "not started",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "6849c2e7f11830b69fc3882e": \{\
+        "Excavation": "in progress",\
+        "Batterboards": "not started",\
+        "Vapor Barrier": "not started",\
+        "Underground Utilities": "not started",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "not started",\
+        "Concrete Pour": "not started",\
+        "Concrete Formwork": "not started",\
+        "Concrete Rebar": "not started",\
+        "Concrete Foundation Pour": "not started",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "6849c2b8091fc596463ede32": \{\
+        "Excavation": "in progress",\
+        "Batterboards": "not started",\
+        "Vapor Barrier": "not started",\
+        "Underground Utilities": "not started",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "not started",\
+        "Concrete Pour": "not started",\
+        "Concrete Formwork": "not started",\
+        "Concrete Rebar": "not started",\
+        "Concrete Foundation Pour": "not started",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "65205c97d53f42fcbda0bcf1": \{\
+        "Excavation": "in progress",\
+        "Batterboards": "not started",\
+        "Vapor Barrier": "not started",\
+        "Underground Utilities": "not started",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "not started",\
+        "Concrete Pour": "not started",\
+        "Concrete Formwork": "not started",\
+        "Concrete Rebar": "not started",\
+        "Concrete Foundation Pour": "not started",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "65205c97d53f42fcbda0bcef": \{\
+        "Excavation": "not started",\
+        "Batterboards": "not started",\
+        "Vapor Barrier": "not started",\
+        "Underground Utilities": "not started",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "not started",\
+        "Concrete Pour": "not started",\
+        "Concrete Formwork": "not started",\
+        "Concrete Rebar": "not started",\
+        "Concrete Foundation Pour": "not started",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "65205c97d53f42fcbda0bcee": \{\
+        "Excavation": "in progress",\
+        "Batterboards": "not started",\
+        "Vapor Barrier": "not started",\
+        "Underground Utilities": "not started",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "not started",\
+        "Concrete Pour": "not started",\
+        "Concrete Formwork": "not started",\
+        "Concrete Rebar": "not started",\
+        "Concrete Foundation Pour": "not started",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "65205c97d53f42fcbda0bced": \{\
+        "Excavation": "in progress",\
+        "Batterboards": "not started",\
+        "Vapor Barrier": "not started",\
+        "Underground Utilities": "not started",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "not started",\
+        "Concrete Pour": "not started",\
+        "Concrete Formwork": "not started",\
+        "Concrete Rebar": "not started",\
+        "Concrete Foundation Pour": "not started",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \}\
+    \},\
+    "2020/10/30": \{\
+      "68b36de0b21b124f0d3682b3": \{\
+        "Excavation": "in progress",\
+        "Batterboards": "not started",\
+        "Vapor Barrier": "not started",\
+        "Underground Utilities": "not started",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "not started",\
+        "Concrete Pour": "not started",\
+        "Concrete Formwork": "not started",\
+        "Concrete Rebar": "not started",\
+        "Concrete Foundation Pour": "not started",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "68b36d776244a70cf6b13b7c": \{\
+        "Excavation": "in progress",\
+        "Batterboards": "not started",\
+        "Vapor Barrier": "not started",\
+        "Underground Utilities": "not started",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "not started",\
+        "Concrete Pour": "not started",\
+        "Concrete Formwork": "not started",\
+        "Concrete Rebar": "not started",\
+        "Concrete Foundation Pour": "not started",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "68b36d52dfb1531431942889": \{\
+        "Excavation": "complete",\
+        "Batterboards": "not started",\
+        "Vapor Barrier": "not started",\
+        "Underground Utilities": "not started",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "not started",\
+        "Concrete Pour": "not started",\
+        "Concrete Formwork": "not started",\
+        "Concrete Rebar": "not started",\
+        "Concrete Foundation Pour": "not started",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "68b36a2262f5c1297c0913d3": \{\
+        "Excavation": "in progress",\
+        "Batterboards": "not started",\
+        "Vapor Barrier": "not started",\
+        "Underground Utilities": "not started",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "not started",\
+        "Concrete Pour": "not started",\
+        "Concrete Formwork": "not started",\
+        "Concrete Rebar": "not started",\
+        "Concrete Foundation Pour": "not started",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "68881ef9cbdd5a6f740a1e55": \{\
+        "Excavation": "in progress",\
+        "Batterboards": "not started",\
+        "Vapor Barrier": "not started",\
+        "Underground Utilities": "not started",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "not started",\
+        "Concrete Pour": "not started",\
+        "Concrete Formwork": "not started",\
+        "Concrete Rebar": "not started",\
+        "Concrete Foundation Pour": "not started",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "68881eaf5ecfb6cf31709226": \{\
+        "Excavation": "in progress",\
+        "Batterboards": "not started",\
+        "Vapor Barrier": "not started",\
+        "Underground Utilities": "not started",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "not started",\
+        "Concrete Pour": "not started",\
+        "Concrete Formwork": "not started",\
+        "Concrete Rebar": "not started",\
+        "Concrete Foundation Pour": "not started",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "68881c0d9c359a7c21399336": \{\
+        "Excavation": "in progress",\
+        "Batterboards": "not started",\
+        "Vapor Barrier": "not started",\
+        "Underground Utilities": "not started",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "not started",\
+        "Concrete Pour": "not started",\
+        "Concrete Formwork": "not started",\
+        "Concrete Rebar": "not started",\
+        "Concrete Foundation Pour": "not started",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "68881af3cbdd5a6f740a1e42": \{\
+        "Excavation": "in progress",\
+        "Batterboards": "not started",\
+        "Vapor Barrier": "not started",\
+        "Underground Utilities": "not started",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "not started",\
+        "Concrete Pour": "not started",\
+        "Concrete Formwork": "not started",\
+        "Concrete Rebar": "not started",\
+        "Concrete Foundation Pour": "not started",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "68881aace1e8315beb8dbf32": \{\
+        "Excavation": "in progress",\
+        "Batterboards": "not started",\
+        "Vapor Barrier": "not started",\
+        "Underground Utilities": "not started",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "not started",\
+        "Concrete Pour": "not started",\
+        "Concrete Formwork": "not started",\
+        "Concrete Rebar": "not started",\
+        "Concrete Foundation Pour": "not started",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "688819c084c0ccb3af37ee44": \{\
+        "Excavation": "in progress",\
+        "Batterboards": "not started",\
+        "Vapor Barrier": "not started",\
+        "Underground Utilities": "not started",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "not started",\
+        "Concrete Pour": "not started",\
+        "Concrete Formwork": "not started",\
+        "Concrete Rebar": "not started",\
+        "Concrete Foundation Pour": "not started",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "68881865a0f3c54a3f9fed31": \{\
+        "Excavation": "in progress",\
+        "Batterboards": "not started",\
+        "Vapor Barrier": "not started",\
+        "Underground Utilities": "not started",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "not started",\
+        "Concrete Pour": "not started",\
+        "Concrete Formwork": "not started",\
+        "Concrete Rebar": "not started",\
+        "Concrete Foundation Pour": "not started",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "688817b5587882b7457d5719": \{\
+        "Excavation": "in progress",\
+        "Batterboards": "not started",\
+        "Vapor Barrier": "not started",\
+        "Underground Utilities": "not started",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "not started",\
+        "Concrete Pour": "not started",\
+        "Concrete Formwork": "not started",\
+        "Concrete Rebar": "not started",\
+        "Concrete Foundation Pour": "not started",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "688816b1880b7b96b2e501b6": \{\
+        "Excavation": "in progress",\
+        "Batterboards": "not started",\
+        "Vapor Barrier": "not started",\
+        "Underground Utilities": "not started",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "not started",\
+        "Concrete Pour": "not started",\
+        "Concrete Formwork": "not started",\
+        "Concrete Rebar": "not started",\
+        "Concrete Foundation Pour": "not started",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "6888113f3332fd44fd149711": \{\
+        "Excavation": "in progress",\
+        "Batterboards": "not started",\
+        "Vapor Barrier": "not started",\
+        "Underground Utilities": "not started",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "not started",\
+        "Concrete Pour": "not started",\
+        "Concrete Formwork": "not started",\
+        "Concrete Rebar": "not started",\
+        "Concrete Foundation Pour": "not started",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "68880e35587882b7457d5701": \{\
+        "Excavation": "complete",\
+        "Batterboards": "not started",\
+        "Vapor Barrier": "not started",\
+        "Underground Utilities": "not started",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "not started",\
+        "Concrete Pour": "not started",\
+        "Concrete Formwork": "not started",\
+        "Concrete Rebar": "not started",\
+        "Concrete Foundation Pour": "not started",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "68880da50f864d2881bdd80b": \{\
+        "Excavation": "in progress",\
+        "Batterboards": "not started",\
+        "Vapor Barrier": "not started",\
+        "Underground Utilities": "not started",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "not started",\
+        "Concrete Pour": "not started",\
+        "Concrete Formwork": "not started",\
+        "Concrete Rebar": "not started",\
+        "Concrete Foundation Pour": "not started",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "6849c2e7f11830b69fc3882e": \{\
+        "Excavation": "in progress",\
+        "Batterboards": "not started",\
+        "Vapor Barrier": "not started",\
+        "Underground Utilities": "not started",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "not started",\
+        "Concrete Pour": "not started",\
+        "Concrete Formwork": "not started",\
+        "Concrete Rebar": "not started",\
+        "Concrete Foundation Pour": "not started",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "6849c2b8091fc596463ede32": \{\
+        "Excavation": "in progress",\
+        "Batterboards": "not started",\
+        "Vapor Barrier": "not started",\
+        "Underground Utilities": "not started",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "not started",\
+        "Concrete Pour": "not started",\
+        "Concrete Formwork": "not started",\
+        "Concrete Rebar": "not started",\
+        "Concrete Foundation Pour": "not started",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "65205c97d53f42fcbda0bcf1": \{\
+        "Excavation": "complete",\
+        "Batterboards": "not started",\
+        "Vapor Barrier": "not started",\
+        "Underground Utilities": "not started",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "not started",\
+        "Concrete Pour": "not started",\
+        "Concrete Formwork": "not started",\
+        "Concrete Rebar": "not started",\
+        "Concrete Foundation Pour": "not started",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "65205c97d53f42fcbda0bcef": \{\
+        "Excavation": "in progress",\
+        "Batterboards": "not started",\
+        "Vapor Barrier": "not started",\
+        "Underground Utilities": "not started",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "not started",\
+        "Concrete Pour": "not started",\
+        "Concrete Formwork": "not started",\
+        "Concrete Rebar": "not started",\
+        "Concrete Foundation Pour": "not started",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "65205c97d53f42fcbda0bcee": \{\
+        "Excavation": "in progress",\
+        "Batterboards": "not started",\
+        "Vapor Barrier": "not started",\
+        "Underground Utilities": "not started",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "not started",\
+        "Concrete Pour": "not started",\
+        "Concrete Formwork": "not started",\
+        "Concrete Rebar": "not started",\
+        "Concrete Foundation Pour": "not started",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "65205c97d53f42fcbda0bced": \{\
+        "Excavation": "in progress",\
+        "Batterboards": "not started",\
+        "Vapor Barrier": "not started",\
+        "Underground Utilities": "not started",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "not started",\
+        "Concrete Pour": "not started",\
+        "Concrete Formwork": "not started",\
+        "Concrete Rebar": "not started",\
+        "Concrete Foundation Pour": "not started",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \}\
+    \},\
+    "2020/11/13": \{\
+      "68b36de0b21b124f0d3682b3": \{\
+        "Excavation": "complete",\
+        "Batterboards": "not started",\
+        "Vapor Barrier": "not started",\
+        "Underground Utilities": "in progress",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "not started",\
+        "Concrete Pour": "not started",\
+        "Concrete Formwork": "not started",\
+        "Concrete Rebar": "not started",\
+        "Concrete Foundation Pour": "not started",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "68b36d776244a70cf6b13b7c": \{\
+        "Excavation": "in progress",\
+        "Batterboards": "not started",\
+        "Vapor Barrier": "not started",\
+        "Underground Utilities": "not started",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "not started",\
+        "Concrete Pour": "not started",\
+        "Concrete Formwork": "not started",\
+        "Concrete Rebar": "not started",\
+        "Concrete Foundation Pour": "not started",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "68b36d52dfb1531431942889": \{\
+        "Excavation": "complete",\
+        "Batterboards": "not started",\
+        "Vapor Barrier": "not started",\
+        "Underground Utilities": "not started",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "not started",\
+        "Concrete Pour": "not started",\
+        "Concrete Formwork": "not started",\
+        "Concrete Rebar": "not started",\
+        "Concrete Foundation Pour": "not started",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "68b36a2262f5c1297c0913d3": \{\
+        "Excavation": "complete",\
+        "Batterboards": "not started",\
+        "Vapor Barrier": "not started",\
+        "Underground Utilities": "not started",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "not started",\
+        "Concrete Pour": "not started",\
+        "Concrete Formwork": "not started",\
+        "Concrete Rebar": "not started",\
+        "Concrete Foundation Pour": "not started",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "68881ef9cbdd5a6f740a1e55": \{\
+        "Excavation": "in progress",\
+        "Batterboards": "not started",\
+        "Vapor Barrier": "not started",\
+        "Underground Utilities": "not started",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "not started",\
+        "Concrete Pour": "not started",\
+        "Concrete Formwork": "not started",\
+        "Concrete Rebar": "not started",\
+        "Concrete Foundation Pour": "not started",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "68881eaf5ecfb6cf31709226": \{\
+        "Excavation": "complete",\
+        "Batterboards": "not started",\
+        "Vapor Barrier": "not started",\
+        "Underground Utilities": "in progress",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "not started",\
+        "Concrete Pour": "not started",\
+        "Concrete Formwork": "not started",\
+        "Concrete Rebar": "not started",\
+        "Concrete Foundation Pour": "not started",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "68881c0d9c359a7c21399336": \{\
+        "Excavation": "in progress",\
+        "Batterboards": "not started",\
+        "Vapor Barrier": "not started",\
+        "Underground Utilities": "not started",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "not started",\
+        "Concrete Pour": "not started",\
+        "Concrete Formwork": "not started",\
+        "Concrete Rebar": "not started",\
+        "Concrete Foundation Pour": "not started",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "68881af3cbdd5a6f740a1e42": \{\
+        "Excavation": "in progress",\
+        "Batterboards": "not started",\
+        "Vapor Barrier": "not started",\
+        "Underground Utilities": "not started",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "not started",\
+        "Concrete Pour": "not started",\
+        "Concrete Formwork": "not started",\
+        "Concrete Rebar": "not started",\
+        "Concrete Foundation Pour": "not started",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "68881aace1e8315beb8dbf32": \{\
+        "Excavation": "in progress",\
+        "Batterboards": "not started",\
+        "Vapor Barrier": "not started",\
+        "Underground Utilities": "not started",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "not started",\
+        "Concrete Pour": "not started",\
+        "Concrete Formwork": "not started",\
+        "Concrete Rebar": "not started",\
+        "Concrete Foundation Pour": "not started",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "688819c084c0ccb3af37ee44": \{\
+        "Excavation": "in progress",\
+        "Batterboards": "not started",\
+        "Vapor Barrier": "not started",\
+        "Underground Utilities": "not started",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "not started",\
+        "Concrete Pour": "not started",\
+        "Concrete Formwork": "not started",\
+        "Concrete Rebar": "not started",\
+        "Concrete Foundation Pour": "not started",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "68881865a0f3c54a3f9fed31": \{\
+        "Excavation": "in progress",\
+        "Batterboards": "not started",\
+        "Vapor Barrier": "not started",\
+        "Underground Utilities": "not started",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "not started",\
+        "Concrete Pour": "not started",\
+        "Concrete Formwork": "not started",\
+        "Concrete Rebar": "not started",\
+        "Concrete Foundation Pour": "not started",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "688817b5587882b7457d5719": \{\
+        "Excavation": "in progress",\
+        "Batterboards": "not started",\
+        "Vapor Barrier": "not started",\
+        "Underground Utilities": "not started",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "not started",\
+        "Concrete Pour": "not started",\
+        "Concrete Formwork": "not started",\
+        "Concrete Rebar": "not started",\
+        "Concrete Foundation Pour": "not started",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "688816b1880b7b96b2e501b6": \{\
+        "Excavation": "in progress",\
+        "Batterboards": "not started",\
+        "Vapor Barrier": "not started",\
+        "Underground Utilities": "not started",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "not started",\
+        "Concrete Pour": "not started",\
+        "Concrete Formwork": "not started",\
+        "Concrete Rebar": "not started",\
+        "Concrete Foundation Pour": "not started",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "6888113f3332fd44fd149711": \{\
+        "Excavation": "complete",\
+        "Batterboards": "not started",\
+        "Vapor Barrier": "not started",\
+        "Underground Utilities": "not started",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "not started",\
+        "Concrete Pour": "not started",\
+        "Concrete Formwork": "not started",\
+        "Concrete Rebar": "not started",\
+        "Concrete Foundation Pour": "not started",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "68880e35587882b7457d5701": \{\
+        "Excavation": "complete",\
+        "Batterboards": "not started",\
+        "Vapor Barrier": "not started",\
+        "Underground Utilities": "not started",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "not started",\
+        "Concrete Pour": "not started",\
+        "Concrete Formwork": "not started",\
+        "Concrete Rebar": "not started",\
+        "Concrete Foundation Pour": "not started",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "68880da50f864d2881bdd80b": \{\
+        "Excavation": "in progress",\
+        "Batterboards": "not started",\
+        "Vapor Barrier": "not started",\
+        "Underground Utilities": "not started",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "not started",\
+        "Concrete Pour": "not started",\
+        "Concrete Formwork": "not started",\
+        "Concrete Rebar": "not started",\
+        "Concrete Foundation Pour": "not started",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "6849c2e7f11830b69fc3882e": \{\
+        "Excavation": "in progress",\
+        "Batterboards": "not started",\
+        "Vapor Barrier": "not started",\
+        "Underground Utilities": "not started",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "not started",\
+        "Concrete Pour": "not started",\
+        "Concrete Formwork": "not started",\
+        "Concrete Rebar": "not started",\
+        "Concrete Foundation Pour": "not started",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "6849c2b8091fc596463ede32": \{\
+        "Excavation": "in progress",\
+        "Batterboards": "not started",\
+        "Vapor Barrier": "not started",\
+        "Underground Utilities": "not started",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "not started",\
+        "Concrete Pour": "not started",\
+        "Concrete Formwork": "not started",\
+        "Concrete Rebar": "not started",\
+        "Concrete Foundation Pour": "not started",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "65205c97d53f42fcbda0bcf1": \{\
+        "Excavation": "complete",\
+        "Batterboards": "not started",\
+        "Vapor Barrier": "not started",\
+        "Underground Utilities": "not started",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "not started",\
+        "Concrete Pour": "not started",\
+        "Concrete Formwork": "not started",\
+        "Concrete Rebar": "not started",\
+        "Concrete Foundation Pour": "not started",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "65205c97d53f42fcbda0bcef": \{\
+        "Excavation": "in progress",\
+        "Batterboards": "not started",\
+        "Vapor Barrier": "not started",\
+        "Underground Utilities": "not started",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "not started",\
+        "Concrete Pour": "not started",\
+        "Concrete Formwork": "not started",\
+        "Concrete Rebar": "not started",\
+        "Concrete Foundation Pour": "not started",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "65205c97d53f42fcbda0bcee": \{\
+        "Excavation": "complete",\
+        "Batterboards": "not started",\
+        "Vapor Barrier": "not started",\
+        "Underground Utilities": "in progress",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "not started",\
+        "Concrete Pour": "not started",\
+        "Concrete Formwork": "not started",\
+        "Concrete Rebar": "not started",\
+        "Concrete Foundation Pour": "not started",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "65205c97d53f42fcbda0bced": \{\
+        "Excavation": "in progress",\
+        "Batterboards": "not started",\
+        "Vapor Barrier": "not started",\
+        "Underground Utilities": "not started",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "not started",\
+        "Concrete Pour": "not started",\
+        "Concrete Formwork": "not started",\
+        "Concrete Rebar": "not started",\
+        "Concrete Foundation Pour": "not started",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \}\
+    \},\
+    "2020/12/15": \{\
+      "68b36de0b21b124f0d3682b3": \{\
+        "Excavation": "complete",\
+        "Batterboards": "not started",\
+        "Vapor Barrier": "not started",\
+        "Underground Utilities": "in progress",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "not started",\
+        "Concrete Pour": "not started",\
+        "Concrete Formwork": "not started",\
+        "Concrete Rebar": "not started",\
+        "Concrete Foundation Pour": "not started",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "68b36d776244a70cf6b13b7c": \{\
+        "Excavation": "complete",\
+        "Batterboards": "not started",\
+        "Vapor Barrier": "not started",\
+        "Underground Utilities": "not started",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "not started",\
+        "Concrete Pour": "not started",\
+        "Concrete Formwork": "not started",\
+        "Concrete Rebar": "not started",\
+        "Concrete Foundation Pour": "not started",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "68b36d52dfb1531431942889": \{\
+        "Excavation": "complete",\
+        "Batterboards": "not started",\
+        "Vapor Barrier": "not started",\
+        "Underground Utilities": "not started",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "not started",\
+        "Concrete Pour": "not started",\
+        "Concrete Formwork": "not started",\
+        "Concrete Rebar": "not started",\
+        "Concrete Foundation Pour": "not started",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "68b36a2262f5c1297c0913d3": \{\
+        "Excavation": "complete",\
+        "Batterboards": "not started",\
+        "Vapor Barrier": "not started",\
+        "Underground Utilities": "not started",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "not started",\
+        "Concrete Pour": "not started",\
+        "Concrete Formwork": "not started",\
+        "Concrete Rebar": "not started",\
+        "Concrete Foundation Pour": "not started",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "68881ef9cbdd5a6f740a1e55": \{\
+        "Excavation": "in progress",\
+        "Batterboards": "not started",\
+        "Vapor Barrier": "not started",\
+        "Underground Utilities": "not started",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "not started",\
+        "Concrete Pour": "not started",\
+        "Concrete Formwork": "not started",\
+        "Concrete Rebar": "not started",\
+        "Concrete Foundation Pour": "not started",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "68881eaf5ecfb6cf31709226": \{\
+        "Excavation": "complete",\
+        "Batterboards": "not started",\
+        "Vapor Barrier": "not started",\
+        "Underground Utilities": "in progress",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "not started",\
+        "Concrete Pour": "not started",\
+        "Concrete Formwork": "not started",\
+        "Concrete Rebar": "not started",\
+        "Concrete Foundation Pour": "not started",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "68881c0d9c359a7c21399336": \{\
+        "Excavation": "in progress",\
+        "Batterboards": "not started",\
+        "Vapor Barrier": "not started",\
+        "Underground Utilities": "not started",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "not started",\
+        "Concrete Pour": "not started",\
+        "Concrete Formwork": "not started",\
+        "Concrete Rebar": "not started",\
+        "Concrete Foundation Pour": "not started",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "68881af3cbdd5a6f740a1e42": \{\
+        "Excavation": "complete",\
+        "Batterboards": "not started",\
+        "Vapor Barrier": "not started",\
+        "Underground Utilities": "not started",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "not started",\
+        "Concrete Pour": "not started",\
+        "Concrete Formwork": "not started",\
+        "Concrete Rebar": "not started",\
+        "Concrete Foundation Pour": "not started",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "68881aace1e8315beb8dbf32": \{\
+        "Excavation": "complete",\
+        "Batterboards": "not started",\
+        "Vapor Barrier": "not started",\
+        "Underground Utilities": "not started",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "not started",\
+        "Concrete Pour": "not started",\
+        "Concrete Formwork": "not started",\
+        "Concrete Rebar": "not started",\
+        "Concrete Foundation Pour": "not started",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "688819c084c0ccb3af37ee44": \{\
+        "Excavation": "in progress",\
+        "Batterboards": "not started",\
+        "Vapor Barrier": "not started",\
+        "Underground Utilities": "not started",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "not started",\
+        "Concrete Pour": "not started",\
+        "Concrete Formwork": "not started",\
+        "Concrete Rebar": "not started",\
+        "Concrete Foundation Pour": "not started",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "68881865a0f3c54a3f9fed31": \{\
+        "Excavation": "in progress",\
+        "Batterboards": "not started",\
+        "Vapor Barrier": "not started",\
+        "Underground Utilities": "not started",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "not started",\
+        "Concrete Pour": "not started",\
+        "Concrete Formwork": "not started",\
+        "Concrete Rebar": "not started",\
+        "Concrete Foundation Pour": "not started",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "688817b5587882b7457d5719": \{\
+        "Excavation": "complete",\
+        "Batterboards": "not started",\
+        "Vapor Barrier": "not started",\
+        "Underground Utilities": "not started",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "not started",\
+        "Concrete Pour": "not started",\
+        "Concrete Formwork": "not started",\
+        "Concrete Rebar": "not started",\
+        "Concrete Foundation Pour": "not started",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "688816b1880b7b96b2e501b6": \{\
+        "Excavation": "in progress",\
+        "Batterboards": "not started",\
+        "Vapor Barrier": "not started",\
+        "Underground Utilities": "not started",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "not started",\
+        "Concrete Pour": "not started",\
+        "Concrete Formwork": "not started",\
+        "Concrete Rebar": "not started",\
+        "Concrete Foundation Pour": "not started",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "6888113f3332fd44fd149711": \{\
+        "Excavation": "complete",\
+        "Batterboards": "not started",\
+        "Vapor Barrier": "not started",\
+        "Underground Utilities": "not started",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "not started",\
+        "Concrete Pour": "not started",\
+        "Concrete Formwork": "not started",\
+        "Concrete Rebar": "not started",\
+        "Concrete Foundation Pour": "not started",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "68880e35587882b7457d5701": \{\
+        "Excavation": "complete",\
+        "Batterboards": "not started",\
+        "Vapor Barrier": "not started",\
+        "Underground Utilities": "not started",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "not started",\
+        "Concrete Pour": "not started",\
+        "Concrete Formwork": "not started",\
+        "Concrete Rebar": "not started",\
+        "Concrete Foundation Pour": "not started",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "68880da50f864d2881bdd80b": \{\
+        "Excavation": "in progress",\
+        "Batterboards": "not started",\
+        "Vapor Barrier": "not started",\
+        "Underground Utilities": "not started",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "not started",\
+        "Concrete Pour": "not started",\
+        "Concrete Formwork": "not started",\
+        "Concrete Rebar": "not started",\
+        "Concrete Foundation Pour": "not started",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "6849c2e7f11830b69fc3882e": \{\
+        "Excavation": "complete",\
+        "Batterboards": "not started",\
+        "Vapor Barrier": "not started",\
+        "Underground Utilities": "in progress",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "not started",\
+        "Concrete Pour": "not started",\
+        "Concrete Formwork": "not started",\
+        "Concrete Rebar": "not started",\
+        "Concrete Foundation Pour": "not started",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "6849c2b8091fc596463ede32": \{\
+        "Excavation": "complete",\
+        "Batterboards": "not started",\
+        "Vapor Barrier": "not started",\
+        "Underground Utilities": "not started",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "not started",\
+        "Concrete Pour": "not started",\
+        "Concrete Formwork": "not started",\
+        "Concrete Rebar": "not started",\
+        "Concrete Foundation Pour": "not started",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "65205c97d53f42fcbda0bcf1": \{\
+        "Excavation": "complete",\
+        "Batterboards": "not started",\
+        "Vapor Barrier": "not started",\
+        "Underground Utilities": "not started",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "not started",\
+        "Concrete Pour": "not started",\
+        "Concrete Formwork": "not started",\
+        "Concrete Rebar": "not started",\
+        "Concrete Foundation Pour": "not started",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "65205c97d53f42fcbda0bcef": \{\
+        "Excavation": "complete",\
+        "Batterboards": "not started",\
+        "Vapor Barrier": "not started",\
+        "Underground Utilities": "in progress",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "not started",\
+        "Concrete Pour": "not started",\
+        "Concrete Formwork": "not started",\
+        "Concrete Rebar": "not started",\
+        "Concrete Foundation Pour": "not started",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "65205c97d53f42fcbda0bcee": \{\
+        "Excavation": "complete",\
+        "Batterboards": "not started",\
+        "Vapor Barrier": "not started",\
+        "Underground Utilities": "in progress",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "not started",\
+        "Concrete Pour": "not started",\
+        "Concrete Formwork": "not started",\
+        "Concrete Rebar": "not started",\
+        "Concrete Foundation Pour": "not started",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "65205c97d53f42fcbda0bced": \{\
+        "Excavation": "complete",\
+        "Batterboards": "not started",\
+        "Vapor Barrier": "not started",\
+        "Underground Utilities": "in progress",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "not started",\
+        "Concrete Pour": "not started",\
+        "Concrete Formwork": "not started",\
+        "Concrete Rebar": "not started",\
+        "Concrete Foundation Pour": "not started",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \}\
+    \},\
+    "2020/12/28": \{\
+      "68b36de0b21b124f0d3682b3": \{\
+        "Excavation": "complete",\
+        "Batterboards": "not started",\
+        "Vapor Barrier": "not started",\
+        "Underground Utilities": "in progress",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "not started",\
+        "Concrete Pour": "not started",\
+        "Concrete Formwork": "not started",\
+        "Concrete Rebar": "not started",\
+        "Concrete Foundation Pour": "not started",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "68b36d776244a70cf6b13b7c": \{\
+        "Excavation": "complete",\
+        "Batterboards": "not started",\
+        "Vapor Barrier": "not started",\
+        "Underground Utilities": "not started",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "not started",\
+        "Concrete Pour": "not started",\
+        "Concrete Formwork": "not started",\
+        "Concrete Rebar": "not started",\
+        "Concrete Foundation Pour": "not started",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "68b36d52dfb1531431942889": \{\
+        "Excavation": "complete",\
+        "Batterboards": "not started",\
+        "Vapor Barrier": "not started",\
+        "Underground Utilities": "in progress",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "not started",\
+        "Concrete Pour": "not started",\
+        "Concrete Formwork": "not started",\
+        "Concrete Rebar": "not started",\
+        "Concrete Foundation Pour": "not started",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "68b36a2262f5c1297c0913d3": \{\
+        "Excavation": "complete",\
+        "Batterboards": "not started",\
+        "Vapor Barrier": "not started",\
+        "Underground Utilities": "not started",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "not started",\
+        "Concrete Pour": "not started",\
+        "Concrete Formwork": "not started",\
+        "Concrete Rebar": "not started",\
+        "Concrete Foundation Pour": "not started",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "68881ef9cbdd5a6f740a1e55": \{\
+        "Excavation": "in progress",\
+        "Batterboards": "not started",\
+        "Vapor Barrier": "not started",\
+        "Underground Utilities": "not started",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "not started",\
+        "Concrete Pour": "not started",\
+        "Concrete Formwork": "not started",\
+        "Concrete Rebar": "not started",\
+        "Concrete Foundation Pour": "not started",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "68881eaf5ecfb6cf31709226": \{\
+        "Excavation": "complete",\
+        "Batterboards": "not started",\
+        "Vapor Barrier": "not started",\
+        "Underground Utilities": "in progress",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "not started",\
+        "Concrete Pour": "not started",\
+        "Concrete Formwork": "not started",\
+        "Concrete Rebar": "not started",\
+        "Concrete Foundation Pour": "not started",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "68881c0d9c359a7c21399336": \{\
+        "Excavation": "in progress",\
+        "Batterboards": "not started",\
+        "Vapor Barrier": "not started",\
+        "Underground Utilities": "not started",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "not started",\
+        "Concrete Pour": "not started",\
+        "Concrete Formwork": "not started",\
+        "Concrete Rebar": "not started",\
+        "Concrete Foundation Pour": "not started",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "68881af3cbdd5a6f740a1e42": \{\
+        "Excavation": "complete",\
+        "Batterboards": "not started",\
+        "Vapor Barrier": "not started",\
+        "Underground Utilities": "in progress",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "not started",\
+        "Concrete Pour": "not started",\
+        "Concrete Formwork": "not started",\
+        "Concrete Rebar": "not started",\
+        "Concrete Foundation Pour": "not started",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "68881aace1e8315beb8dbf32": \{\
+        "Excavation": "complete",\
+        "Batterboards": "not started",\
+        "Vapor Barrier": "not started",\
+        "Underground Utilities": "not started",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "not started",\
+        "Concrete Pour": "not started",\
+        "Concrete Formwork": "not started",\
+        "Concrete Rebar": "not started",\
+        "Concrete Foundation Pour": "not started",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "688819c084c0ccb3af37ee44": \{\
+        "Excavation": "in progress",\
+        "Batterboards": "not started",\
+        "Vapor Barrier": "not started",\
+        "Underground Utilities": "not started",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "not started",\
+        "Concrete Pour": "not started",\
+        "Concrete Formwork": "not started",\
+        "Concrete Rebar": "not started",\
+        "Concrete Foundation Pour": "not started",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "68881865a0f3c54a3f9fed31": \{\
+        "Excavation": "in progress",\
+        "Batterboards": "not started",\
+        "Vapor Barrier": "not started",\
+        "Underground Utilities": "not started",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "not started",\
+        "Concrete Pour": "not started",\
+        "Concrete Formwork": "not started",\
+        "Concrete Rebar": "not started",\
+        "Concrete Foundation Pour": "not started",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "688817b5587882b7457d5719": \{\
+        "Excavation": "complete",\
+        "Batterboards": "not started",\
+        "Vapor Barrier": "not started",\
+        "Underground Utilities": "in progress",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "not started",\
+        "Concrete Pour": "not started",\
+        "Concrete Formwork": "not started",\
+        "Concrete Rebar": "not started",\
+        "Concrete Foundation Pour": "not started",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "688816b1880b7b96b2e501b6": \{\
+        "Excavation": "complete",\
+        "Batterboards": "not started",\
+        "Vapor Barrier": "not started",\
+        "Underground Utilities": "not started",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "not started",\
+        "Concrete Pour": "not started",\
+        "Concrete Formwork": "not started",\
+        "Concrete Rebar": "not started",\
+        "Concrete Foundation Pour": "not started",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "6888113f3332fd44fd149711": \{\
+        "Excavation": "complete",\
+        "Batterboards": "not started",\
+        "Vapor Barrier": "not started",\
+        "Underground Utilities": "not started",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "not started",\
+        "Concrete Pour": "not started",\
+        "Concrete Formwork": "not started",\
+        "Concrete Rebar": "not started",\
+        "Concrete Foundation Pour": "not started",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "68880e35587882b7457d5701": \{\
+        "Excavation": "complete",\
+        "Batterboards": "not started",\
+        "Vapor Barrier": "not started",\
+        "Underground Utilities": "not started",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "not started",\
+        "Concrete Pour": "not started",\
+        "Concrete Formwork": "not started",\
+        "Concrete Rebar": "not started",\
+        "Concrete Foundation Pour": "not started",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "68880da50f864d2881bdd80b": \{\
+        "Excavation": "in progress",\
+        "Batterboards": "not started",\
+        "Vapor Barrier": "not started",\
+        "Underground Utilities": "not started",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "not started",\
+        "Concrete Pour": "not started",\
+        "Concrete Formwork": "not started",\
+        "Concrete Rebar": "not started",\
+        "Concrete Foundation Pour": "not started",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "6849c2e7f11830b69fc3882e": \{\
+        "Excavation": "complete",\
+        "Batterboards": "not started",\
+        "Vapor Barrier": "not started",\
+        "Underground Utilities": "in progress",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "not started",\
+        "Concrete Pour": "not started",\
+        "Concrete Formwork": "not started",\
+        "Concrete Rebar": "not started",\
+        "Concrete Foundation Pour": "not started",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "6849c2b8091fc596463ede32": \{\
+        "Excavation": "complete",\
+        "Batterboards": "not started",\
+        "Vapor Barrier": "not started",\
+        "Underground Utilities": "not started",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "not started",\
+        "Concrete Pour": "not started",\
+        "Concrete Formwork": "not started",\
+        "Concrete Rebar": "not started",\
+        "Concrete Foundation Pour": "not started",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "65205c97d53f42fcbda0bcf1": \{\
+        "Excavation": "complete",\
+        "Batterboards": "not started",\
+        "Vapor Barrier": "not started",\
+        "Underground Utilities": "not started",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "not started",\
+        "Concrete Pour": "not started",\
+        "Concrete Formwork": "not started",\
+        "Concrete Rebar": "not started",\
+        "Concrete Foundation Pour": "not started",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "65205c97d53f42fcbda0bcef": \{\
+        "Excavation": "complete",\
+        "Batterboards": "not started",\
+        "Vapor Barrier": "not started",\
+        "Underground Utilities": "in progress",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "not started",\
+        "Concrete Pour": "not started",\
+        "Concrete Formwork": "not started",\
+        "Concrete Rebar": "not started",\
+        "Concrete Foundation Pour": "not started",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "65205c97d53f42fcbda0bcee": \{\
+        "Excavation": "complete",\
+        "Batterboards": "not started",\
+        "Vapor Barrier": "not started",\
+        "Underground Utilities": "in progress",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "not started",\
+        "Concrete Pour": "not started",\
+        "Concrete Formwork": "not started",\
+        "Concrete Rebar": "not started",\
+        "Concrete Foundation Pour": "not started",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "65205c97d53f42fcbda0bced": \{\
+        "Excavation": "complete",\
+        "Batterboards": "not started",\
+        "Vapor Barrier": "not started",\
+        "Underground Utilities": "in progress",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "not started",\
+        "Concrete Pour": "not started",\
+        "Concrete Formwork": "not started",\
+        "Concrete Rebar": "not started",\
+        "Concrete Foundation Pour": "not started",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \}\
+    \},\
+    "2021/02/22": \{\
+      "68b36de0b21b124f0d3682b3": \{\
+        "Excavation": "complete",\
+        "Batterboards": "not started",\
+        "Vapor Barrier": "not started",\
+        "Underground Utilities": "in progress",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "not started",\
+        "Concrete Pour": "not started",\
+        "Concrete Formwork": "not started",\
+        "Concrete Rebar": "not started",\
+        "Concrete Foundation Pour": "not started",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "68b36d776244a70cf6b13b7c": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "not started",\
+        "Underground Utilities": "in progress",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "in progress",\
+        "Concrete Pour": "in progress",\
+        "Concrete Formwork": "in progress",\
+        "Concrete Rebar": "in progress",\
+        "Concrete Foundation Pour": "in progress",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "68b36d52dfb1531431942889": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "not started",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "complete",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "68b36a2262f5c1297c0913d3": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "not started",\
+        "Concrete Pour": "in progress",\
+        "Concrete Formwork": "in progress",\
+        "Concrete Rebar": "in progress",\
+        "Concrete Foundation Pour": "in progress",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "68881ef9cbdd5a6f740a1e55": \{\
+        "Excavation": "in progress",\
+        "Batterboards": "not started",\
+        "Vapor Barrier": "not started",\
+        "Underground Utilities": "not started",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "not started",\
+        "Concrete Pour": "not started",\
+        "Concrete Formwork": "not started",\
+        "Concrete Rebar": "not started",\
+        "Concrete Foundation Pour": "not started",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "68881eaf5ecfb6cf31709226": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "not started",\
+        "Concrete Pour": "in progress",\
+        "Concrete Formwork": "in progress",\
+        "Concrete Rebar": "in progress",\
+        "Concrete Foundation Pour": "in progress",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "68881c0d9c359a7c21399336": \{\
+        "Excavation": "complete",\
+        "Batterboards": "not started",\
+        "Vapor Barrier": "not started",\
+        "Underground Utilities": "in progress",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "not started",\
+        "Concrete Pour": "not started",\
+        "Concrete Formwork": "not started",\
+        "Concrete Rebar": "not started",\
+        "Concrete Foundation Pour": "not started",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "68881af3cbdd5a6f740a1e42": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "not started",\
+        "Underground Utilities": "in progress",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "not started",\
+        "Concrete Pour": "in progress",\
+        "Concrete Formwork": "in progress",\
+        "Concrete Rebar": "in progress",\
+        "Concrete Foundation Pour": "in progress",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "68881aace1e8315beb8dbf32": \{\
+        "Excavation": "complete",\
+        "Batterboards": "not started",\
+        "Vapor Barrier": "not started",\
+        "Underground Utilities": "in progress",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "not started",\
+        "Concrete Pour": "not started",\
+        "Concrete Formwork": "in progress",\
+        "Concrete Rebar": "in progress",\
+        "Concrete Foundation Pour": "not started",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "688819c084c0ccb3af37ee44": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "not started",\
+        "Underground Utilities": "in progress",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "not started",\
+        "Concrete Pour": "in progress",\
+        "Concrete Formwork": "in progress",\
+        "Concrete Rebar": "in progress",\
+        "Concrete Foundation Pour": "in progress",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "68881865a0f3c54a3f9fed31": \{\
+        "Excavation": "complete",\
+        "Batterboards": "in progress",\
+        "Vapor Barrier": "not started",\
+        "Underground Utilities": "in progress",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "not started",\
+        "Concrete Pour": "in progress",\
+        "Concrete Formwork": "in progress",\
+        "Concrete Rebar": "in progress",\
+        "Concrete Foundation Pour": "in progress",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "688817b5587882b7457d5719": \{\
+        "Excavation": "complete",\
+        "Batterboards": "not started",\
+        "Vapor Barrier": "not started",\
+        "Underground Utilities": "in progress",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "not started",\
+        "Concrete Pour": "in progress",\
+        "Concrete Formwork": "in progress",\
+        "Concrete Rebar": "in progress",\
+        "Concrete Foundation Pour": "in progress",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "688816b1880b7b96b2e501b6": \{\
+        "Excavation": "complete",\
+        "Batterboards": "not started",\
+        "Vapor Barrier": "not started",\
+        "Underground Utilities": "not started",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "not started",\
+        "Concrete Pour": "not started",\
+        "Concrete Formwork": "not started",\
+        "Concrete Rebar": "not started",\
+        "Concrete Foundation Pour": "not started",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "6888113f3332fd44fd149711": \{\
+        "Excavation": "complete",\
+        "Batterboards": "not started",\
+        "Vapor Barrier": "not started",\
+        "Underground Utilities": "not started",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "not started",\
+        "Concrete Pour": "not started",\
+        "Concrete Formwork": "not started",\
+        "Concrete Rebar": "not started",\
+        "Concrete Foundation Pour": "not started",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "68880e35587882b7457d5701": \{\
+        "Excavation": "complete",\
+        "Batterboards": "not started",\
+        "Vapor Barrier": "not started",\
+        "Underground Utilities": "not started",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "not started",\
+        "Concrete Pour": "not started",\
+        "Concrete Formwork": "not started",\
+        "Concrete Rebar": "not started",\
+        "Concrete Foundation Pour": "not started",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "68880da50f864d2881bdd80b": \{\
+        "Excavation": "in progress",\
+        "Batterboards": "not started",\
+        "Vapor Barrier": "not started",\
+        "Underground Utilities": "not started",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "not started",\
+        "Concrete Pour": "not started",\
+        "Concrete Formwork": "not started",\
+        "Concrete Rebar": "not started",\
+        "Concrete Foundation Pour": "not started",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "6849c2e7f11830b69fc3882e": \{\
+        "Excavation": "complete",\
+        "Batterboards": "not started",\
+        "Vapor Barrier": "not started",\
+        "Underground Utilities": "in progress",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "not started",\
+        "Concrete Pour": "not started",\
+        "Concrete Formwork": "not started",\
+        "Concrete Rebar": "not started",\
+        "Concrete Foundation Pour": "not started",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "6849c2b8091fc596463ede32": \{\
+        "Excavation": "complete",\
+        "Batterboards": "not started",\
+        "Vapor Barrier": "not started",\
+        "Underground Utilities": "not started",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "not started",\
+        "Concrete Pour": "not started",\
+        "Concrete Formwork": "not started",\
+        "Concrete Rebar": "not started",\
+        "Concrete Foundation Pour": "not started",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "65205c97d53f42fcbda0bcf1": \{\
+        "Excavation": "complete",\
+        "Batterboards": "not started",\
+        "Vapor Barrier": "not started",\
+        "Underground Utilities": "not started",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "not started",\
+        "Concrete Pour": "not started",\
+        "Concrete Formwork": "not started",\
+        "Concrete Rebar": "not started",\
+        "Concrete Foundation Pour": "not started",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "65205c97d53f42fcbda0bcef": \{\
+        "Excavation": "complete",\
+        "Batterboards": "not started",\
+        "Vapor Barrier": "not started",\
+        "Underground Utilities": "in progress",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "not started",\
+        "Concrete Pour": "not started",\
+        "Concrete Formwork": "not started",\
+        "Concrete Rebar": "not started",\
+        "Concrete Foundation Pour": "not started",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "65205c97d53f42fcbda0bcee": \{\
+        "Excavation": "complete",\
+        "Batterboards": "not started",\
+        "Vapor Barrier": "not started",\
+        "Underground Utilities": "in progress",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "not started",\
+        "Concrete Pour": "in progress",\
+        "Concrete Formwork": "in progress",\
+        "Concrete Rebar": "in progress",\
+        "Concrete Foundation Pour": "in progress",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "65205c97d53f42fcbda0bced": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "not started",\
+        "Underground Utilities": "in progress",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "not started",\
+        "Concrete Pour": "not started",\
+        "Concrete Formwork": "not started",\
+        "Concrete Rebar": "not started",\
+        "Concrete Foundation Pour": "not started",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \}\
+    \},\
+    "2021/03/01": \{\
+      "68b36de0b21b124f0d3682b3": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "not started",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "not started",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "68b36d776244a70cf6b13b7c": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "in progress",\
+        "Underground Utilities": "in progress",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "in progress",\
+        "Concrete Pour": "in progress",\
+        "Concrete Formwork": "in progress",\
+        "Concrete Rebar": "in progress",\
+        "Concrete Foundation Pour": "in progress",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "68b36d52dfb1531431942889": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "complete",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "68b36a2262f5c1297c0913d3": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "not started",\
+        "Concrete Pour": "in progress",\
+        "Concrete Formwork": "in progress",\
+        "Concrete Rebar": "in progress",\
+        "Concrete Foundation Pour": "in progress",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "68881ef9cbdd5a6f740a1e55": \{\
+        "Excavation": "in progress",\
+        "Batterboards": "not started",\
+        "Vapor Barrier": "not started",\
+        "Underground Utilities": "not started",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "not started",\
+        "Concrete Pour": "not started",\
+        "Concrete Formwork": "not started",\
+        "Concrete Rebar": "not started",\
+        "Concrete Foundation Pour": "not started",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "68881eaf5ecfb6cf31709226": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "not started",\
+        "Concrete Pour": "in progress",\
+        "Concrete Formwork": "in progress",\
+        "Concrete Rebar": "in progress",\
+        "Concrete Foundation Pour": "in progress",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "68881c0d9c359a7c21399336": \{\
+        "Excavation": "complete",\
+        "Batterboards": "not started",\
+        "Vapor Barrier": "not started",\
+        "Underground Utilities": "in progress",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "not started",\
+        "Concrete Pour": "not started",\
+        "Concrete Formwork": "not started",\
+        "Concrete Rebar": "not started",\
+        "Concrete Foundation Pour": "not started",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "68881af3cbdd5a6f740a1e42": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "not started",\
+        "Underground Utilities": "in progress",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "in progress",\
+        "Concrete Pour": "in progress",\
+        "Concrete Formwork": "in progress",\
+        "Concrete Rebar": "in progress",\
+        "Concrete Foundation Pour": "in progress",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "68881aace1e8315beb8dbf32": \{\
+        "Excavation": "complete",\
+        "Batterboards": "in progress",\
+        "Vapor Barrier": "not started",\
+        "Underground Utilities": "in progress",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "not started",\
+        "Concrete Pour": "in progress",\
+        "Concrete Formwork": "in progress",\
+        "Concrete Rebar": "in progress",\
+        "Concrete Foundation Pour": "in progress",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "688819c084c0ccb3af37ee44": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "not started",\
+        "Underground Utilities": "in progress",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "in progress",\
+        "Concrete Pour": "in progress",\
+        "Concrete Formwork": "in progress",\
+        "Concrete Rebar": "in progress",\
+        "Concrete Foundation Pour": "in progress",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "68881865a0f3c54a3f9fed31": \{\
+        "Excavation": "complete",\
+        "Batterboards": "in progress",\
+        "Vapor Barrier": "not started",\
+        "Underground Utilities": "in progress",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "not started",\
+        "Concrete Pour": "in progress",\
+        "Concrete Formwork": "in progress",\
+        "Concrete Rebar": "in progress",\
+        "Concrete Foundation Pour": "in progress",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "688817b5587882b7457d5719": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "in progress",\
+        "Concrete Pour": "in progress",\
+        "Concrete Formwork": "in progress",\
+        "Concrete Rebar": "in progress",\
+        "Concrete Foundation Pour": "in progress",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "688816b1880b7b96b2e501b6": \{\
+        "Excavation": "complete",\
+        "Batterboards": "not started",\
+        "Vapor Barrier": "not started",\
+        "Underground Utilities": "not started",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "not started",\
+        "Concrete Pour": "not started",\
+        "Concrete Formwork": "not started",\
+        "Concrete Rebar": "not started",\
+        "Concrete Foundation Pour": "not started",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "6888113f3332fd44fd149711": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "in progress",\
+        "Underground Utilities": "in progress",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "not started",\
+        "Concrete Pour": "in progress",\
+        "Concrete Formwork": "in progress",\
+        "Concrete Rebar": "in progress",\
+        "Concrete Foundation Pour": "in progress",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "68880e35587882b7457d5701": \{\
+        "Excavation": "complete",\
+        "Batterboards": "not started",\
+        "Vapor Barrier": "not started",\
+        "Underground Utilities": "not started",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "not started",\
+        "Concrete Pour": "not started",\
+        "Concrete Formwork": "not started",\
+        "Concrete Rebar": "not started",\
+        "Concrete Foundation Pour": "not started",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "68880da50f864d2881bdd80b": \{\
+        "Excavation": "in progress",\
+        "Batterboards": "not started",\
+        "Vapor Barrier": "not started",\
+        "Underground Utilities": "not started",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "not started",\
+        "Concrete Pour": "not started",\
+        "Concrete Formwork": "not started",\
+        "Concrete Rebar": "not started",\
+        "Concrete Foundation Pour": "not started",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "6849c2e7f11830b69fc3882e": \{\
+        "Excavation": "complete",\
+        "Batterboards": "not started",\
+        "Vapor Barrier": "not started",\
+        "Underground Utilities": "in progress",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "not started",\
+        "Concrete Pour": "not started",\
+        "Concrete Formwork": "not started",\
+        "Concrete Rebar": "not started",\
+        "Concrete Foundation Pour": "not started",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "6849c2b8091fc596463ede32": \{\
+        "Excavation": "complete",\
+        "Batterboards": "not started",\
+        "Vapor Barrier": "not started",\
+        "Underground Utilities": "not started",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "not started",\
+        "Concrete Pour": "not started",\
+        "Concrete Formwork": "not started",\
+        "Concrete Rebar": "not started",\
+        "Concrete Foundation Pour": "not started",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "65205c97d53f42fcbda0bcf1": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "not started",\
+        "Underground Utilities": "not started",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "not started",\
+        "Concrete Pour": "not started",\
+        "Concrete Formwork": "not started",\
+        "Concrete Rebar": "not started",\
+        "Concrete Foundation Pour": "not started",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "65205c97d53f42fcbda0bcef": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "complete",\
+        "Concrete Pour": "not started",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "not started",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "65205c97d53f42fcbda0bcee": \{\
+        "Excavation": "complete",\
+        "Batterboards": "in progress",\
+        "Vapor Barrier": "not started",\
+        "Underground Utilities": "in progress",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "not started",\
+        "Concrete Pour": "in progress",\
+        "Concrete Formwork": "in progress",\
+        "Concrete Rebar": "in progress",\
+        "Concrete Foundation Pour": "in progress",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "65205c97d53f42fcbda0bced": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "not started",\
+        "Underground Utilities": "in progress",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "not started",\
+        "Concrete Pour": "not started",\
+        "Concrete Formwork": "not started",\
+        "Concrete Rebar": "not started",\
+        "Concrete Foundation Pour": "not started",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \}\
+    \},\
+    "2021/03/15": \{\
+      "68b36de0b21b124f0d3682b3": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "not started",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "68b36d776244a70cf6b13b7c": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "complete",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "68b36d52dfb1531431942889": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "complete",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "68b36a2262f5c1297c0913d3": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "complete",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "68881ef9cbdd5a6f740a1e55": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "not started",\
+        "Underground Utilities": "not started",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "not started",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "68881eaf5ecfb6cf31709226": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "not started",\
+        "Concrete Pour": "in progress",\
+        "Concrete Formwork": "in progress",\
+        "Concrete Rebar": "in progress",\
+        "Concrete Foundation Pour": "in progress",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "68881c0d9c359a7c21399336": \{\
+        "Excavation": "complete",\
+        "Batterboards": "not started",\
+        "Vapor Barrier": "not started",\
+        "Underground Utilities": "in progress",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "not started",\
+        "Concrete Pour": "not started",\
+        "Concrete Formwork": "not started",\
+        "Concrete Rebar": "not started",\
+        "Concrete Foundation Pour": "not started",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "68881af3cbdd5a6f740a1e42": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "in progress",\
+        "Concrete Pour": "in progress",\
+        "Concrete Formwork": "in progress",\
+        "Concrete Rebar": "in progress",\
+        "Concrete Foundation Pour": "in progress",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "68881aace1e8315beb8dbf32": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "in progress",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "not started",\
+        "Concrete Pour": "in progress",\
+        "Concrete Formwork": "in progress",\
+        "Concrete Rebar": "in progress",\
+        "Concrete Foundation Pour": "in progress",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "688819c084c0ccb3af37ee44": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "not started",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "complete",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "68881865a0f3c54a3f9fed31": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "complete",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "688817b5587882b7457d5719": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "complete",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "688816b1880b7b96b2e501b6": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "in progress",\
+        "Underground Utilities": "in progress",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "not started",\
+        "Concrete Pour": "in progress",\
+        "Concrete Formwork": "in progress",\
+        "Concrete Rebar": "in progress",\
+        "Concrete Foundation Pour": "in progress",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "6888113f3332fd44fd149711": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "not started",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "68880e35587882b7457d5701": \{\
+        "Excavation": "complete",\
+        "Batterboards": "not started",\
+        "Vapor Barrier": "not started",\
+        "Underground Utilities": "not started",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "not started",\
+        "Concrete Pour": "not started",\
+        "Concrete Formwork": "not started",\
+        "Concrete Rebar": "not started",\
+        "Concrete Foundation Pour": "not started",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "68880da50f864d2881bdd80b": \{\
+        "Excavation": "complete",\
+        "Batterboards": "not started",\
+        "Vapor Barrier": "not started",\
+        "Underground Utilities": "not started",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "not started",\
+        "Concrete Pour": "not started",\
+        "Concrete Formwork": "not started",\
+        "Concrete Rebar": "not started",\
+        "Concrete Foundation Pour": "not started",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "6849c2e7f11830b69fc3882e": \{\
+        "Excavation": "complete",\
+        "Batterboards": "not started",\
+        "Vapor Barrier": "not started",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "not started",\
+        "Concrete Pour": "not started",\
+        "Concrete Formwork": "not started",\
+        "Concrete Rebar": "not started",\
+        "Concrete Foundation Pour": "not started",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "6849c2b8091fc596463ede32": \{\
+        "Excavation": "complete",\
+        "Batterboards": "not started",\
+        "Vapor Barrier": "not started",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "not started",\
+        "Concrete Pour": "not started",\
+        "Concrete Formwork": "not started",\
+        "Concrete Rebar": "not started",\
+        "Concrete Foundation Pour": "not started",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "65205c97d53f42fcbda0bcf1": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "not started",\
+        "Underground Utilities": "not started",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "not started",\
+        "Concrete Pour": "not started",\
+        "Concrete Formwork": "not started",\
+        "Concrete Rebar": "not started",\
+        "Concrete Foundation Pour": "not started",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "65205c97d53f42fcbda0bcef": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "complete",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "65205c97d53f42fcbda0bcee": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "not started",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "complete",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "65205c97d53f42fcbda0bced": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "not started",\
+        "Concrete Pour": "not started",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "not started",\
+        "Concrete Foundation Pour": "not started",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \}\
+    \},\
+    "2021/04/15": \{\
+      "68b36de0b21b124f0d3682b3": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "in progress",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "68b36d776244a70cf6b13b7c": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "complete",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "68b36d52dfb1531431942889": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "complete",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "68b36a2262f5c1297c0913d3": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "complete",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "68881ef9cbdd5a6f740a1e55": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "not started",\
+        "Underground Utilities": "not started",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "not started",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "68881eaf5ecfb6cf31709226": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "not started",\
+        "Concrete Pour": "in progress",\
+        "Concrete Formwork": "in progress",\
+        "Concrete Rebar": "in progress",\
+        "Concrete Foundation Pour": "in progress",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "68881c0d9c359a7c21399336": \{\
+        "Excavation": "complete",\
+        "Batterboards": "not started",\
+        "Vapor Barrier": "not started",\
+        "Underground Utilities": "in progress",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "not started",\
+        "Concrete Pour": "not started",\
+        "Concrete Formwork": "not started",\
+        "Concrete Rebar": "not started",\
+        "Concrete Foundation Pour": "not started",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "68881af3cbdd5a6f740a1e42": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "in progress",\
+        "Concrete Pour": "in progress",\
+        "Concrete Formwork": "in progress",\
+        "Concrete Rebar": "in progress",\
+        "Concrete Foundation Pour": "in progress",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "68881aace1e8315beb8dbf32": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "in progress",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "in progress",\
+        "Concrete Pour": "in progress",\
+        "Concrete Formwork": "in progress",\
+        "Concrete Rebar": "in progress",\
+        "Concrete Foundation Pour": "in progress",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "688819c084c0ccb3af37ee44": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "complete",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "68881865a0f3c54a3f9fed31": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "complete",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "688817b5587882b7457d5719": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "complete",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "688816b1880b7b96b2e501b6": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "in progress",\
+        "Underground Utilities": "in progress",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "not started",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "6888113f3332fd44fd149711": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "not started",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "68880e35587882b7457d5701": \{\
+        "Excavation": "complete",\
+        "Batterboards": "not started",\
+        "Vapor Barrier": "not started",\
+        "Underground Utilities": "not started",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "not started",\
+        "Concrete Pour": "not started",\
+        "Concrete Formwork": "not started",\
+        "Concrete Rebar": "not started",\
+        "Concrete Foundation Pour": "not started",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "68880da50f864d2881bdd80b": \{\
+        "Excavation": "complete",\
+        "Batterboards": "not started",\
+        "Vapor Barrier": "not started",\
+        "Underground Utilities": "not started",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "not started",\
+        "Concrete Pour": "not started",\
+        "Concrete Formwork": "not started",\
+        "Concrete Rebar": "not started",\
+        "Concrete Foundation Pour": "not started",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "6849c2e7f11830b69fc3882e": \{\
+        "Excavation": "complete",\
+        "Batterboards": "in progress",\
+        "Vapor Barrier": "in progress",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "not started",\
+        "Concrete Pour": "in progress",\
+        "Concrete Formwork": "in progress",\
+        "Concrete Rebar": "in progress",\
+        "Concrete Foundation Pour": "in progress",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "6849c2b8091fc596463ede32": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "not started",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "65205c97d53f42fcbda0bcf1": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "not started",\
+        "Underground Utilities": "not started",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "not started",\
+        "Concrete Pour": "not started",\
+        "Concrete Formwork": "not started",\
+        "Concrete Rebar": "not started",\
+        "Concrete Foundation Pour": "not started",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "65205c97d53f42fcbda0bcef": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "complete",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "65205c97d53f42fcbda0bcee": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "complete",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "65205c97d53f42fcbda0bced": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "complete",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \}\
+    \},\
+    "2021/05/14": \{\
+      "68b36de0b21b124f0d3682b3": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "complete",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "68b36d776244a70cf6b13b7c": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "complete",\
+        "Structural Piles": "complete",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "68b36d52dfb1531431942889": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "complete",\
+        "Roofing": "in progress",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "complete",\
+        "Structural Piles": "complete",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "68b36a2262f5c1297c0913d3": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "complete",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "68881ef9cbdd5a6f740a1e55": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "in progress",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "complete",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "68881eaf5ecfb6cf31709226": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "not started",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "68881c0d9c359a7c21399336": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "not started",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "not started",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "68881af3cbdd5a6f740a1e42": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "complete",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "68881aace1e8315beb8dbf32": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "complete",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "688819c084c0ccb3af37ee44": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "in progress",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "complete",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "68881865a0f3c54a3f9fed31": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "complete",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "688817b5587882b7457d5719": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "complete",\
+        "Roofing": "in progress",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "complete",\
+        "Structural Piles": "complete",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "688816b1880b7b96b2e501b6": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "not started",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "6888113f3332fd44fd149711": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "complete",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "68880e35587882b7457d5701": \{\
+        "Excavation": "complete",\
+        "Batterboards": "not started",\
+        "Vapor Barrier": "not started",\
+        "Underground Utilities": "not started",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "not started",\
+        "Concrete Pour": "not started",\
+        "Concrete Formwork": "not started",\
+        "Concrete Rebar": "not started",\
+        "Concrete Foundation Pour": "not started",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "68880da50f864d2881bdd80b": \{\
+        "Excavation": "complete",\
+        "Batterboards": "not started",\
+        "Vapor Barrier": "not started",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "not started",\
+        "Concrete Pour": "not started",\
+        "Concrete Formwork": "not started",\
+        "Concrete Rebar": "not started",\
+        "Concrete Foundation Pour": "not started",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "6849c2e7f11830b69fc3882e": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "not started",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "in progress",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "6849c2b8091fc596463ede32": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "not started",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "65205c97d53f42fcbda0bcf1": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "not started",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "not started",\
+        "Concrete Pour": "not started",\
+        "Concrete Formwork": "not started",\
+        "Concrete Rebar": "not started",\
+        "Concrete Foundation Pour": "not started",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "65205c97d53f42fcbda0bcef": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "complete",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "65205c97d53f42fcbda0bcee": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "in progress",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "complete",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "65205c97d53f42fcbda0bced": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "complete",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \}\
+    \},\
+    "2021/06/01": \{\
+      "68b36de0b21b124f0d3682b3": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "in progress",\
+        "Roofing": "in progress",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "complete",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "68b36d776244a70cf6b13b7c": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "in progress",\
+        "Roofing": "in progress",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "complete",\
+        "Structural Piles": "complete",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "68b36d52dfb1531431942889": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "complete",\
+        "Roofing": "in progress",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "complete",\
+        "Structural Piles": "complete",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "68b36a2262f5c1297c0913d3": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "complete",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "68881ef9cbdd5a6f740a1e55": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "complete",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "68881eaf5ecfb6cf31709226": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "not started",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "68881c0d9c359a7c21399336": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "not started",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "not started",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "68881af3cbdd5a6f740a1e42": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "complete",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "68881aace1e8315beb8dbf32": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "complete",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "688819c084c0ccb3af37ee44": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "in progress",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "complete",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "68881865a0f3c54a3f9fed31": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "complete",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "688817b5587882b7457d5719": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "complete",\
+        "Roofing": "in progress",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "complete",\
+        "Structural Piles": "complete",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "688816b1880b7b96b2e501b6": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "not started",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "6888113f3332fd44fd149711": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "complete",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "68880e35587882b7457d5701": \{\
+        "Excavation": "complete",\
+        "Batterboards": "not started",\
+        "Vapor Barrier": "not started",\
+        "Underground Utilities": "not started",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "not started",\
+        "Concrete Pour": "not started",\
+        "Concrete Formwork": "not started",\
+        "Concrete Rebar": "not started",\
+        "Concrete Foundation Pour": "not started",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "68880da50f864d2881bdd80b": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "not started",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "6849c2e7f11830b69fc3882e": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "not started",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "6849c2b8091fc596463ede32": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "complete",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "65205c97d53f42fcbda0bcf1": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "not started",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "not started",\
+        "Concrete Pour": "not started",\
+        "Concrete Formwork": "not started",\
+        "Concrete Rebar": "not started",\
+        "Concrete Foundation Pour": "not started",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "65205c97d53f42fcbda0bcef": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "complete",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "65205c97d53f42fcbda0bcee": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "in progress",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "complete",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "65205c97d53f42fcbda0bced": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "complete",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \}\
+    \},\
+    "2021/06/15": \{\
+      "68b36de0b21b124f0d3682b3": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "in progress",\
+        "Roofing": "in progress",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "complete",\
+        "Structural Piles": "complete",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "68b36d776244a70cf6b13b7c": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "in progress",\
+        "Roofing": "in progress",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "complete",\
+        "Structural Piles": "complete",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "68b36d52dfb1531431942889": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "complete",\
+        "Roofing": "in progress",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "complete",\
+        "Structural Piles": "complete",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "68b36a2262f5c1297c0913d3": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "in progress",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "complete",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "68881ef9cbdd5a6f740a1e55": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "complete",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "68881eaf5ecfb6cf31709226": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "not started",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "68881c0d9c359a7c21399336": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "not started",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "not started",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "68881af3cbdd5a6f740a1e42": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "in progress",\
+        "Structural Piles": "complete",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "68881aace1e8315beb8dbf32": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "in progress",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "in progress",\
+        "Structural Piles": "complete",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "688819c084c0ccb3af37ee44": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "in progress",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "complete",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "68881865a0f3c54a3f9fed31": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "complete",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "688817b5587882b7457d5719": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "complete",\
+        "Roofing": "in progress",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "complete",\
+        "Structural Piles": "complete",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "688816b1880b7b96b2e501b6": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "not started",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "6888113f3332fd44fd149711": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "complete",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "68880e35587882b7457d5701": \{\
+        "Excavation": "complete",\
+        "Batterboards": "not started",\
+        "Vapor Barrier": "not started",\
+        "Underground Utilities": "not started",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "not started",\
+        "Concrete Pour": "not started",\
+        "Concrete Formwork": "not started",\
+        "Concrete Rebar": "not started",\
+        "Concrete Foundation Pour": "not started",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "68880da50f864d2881bdd80b": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "not started",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "6849c2e7f11830b69fc3882e": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "not started",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "6849c2b8091fc596463ede32": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "complete",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "65205c97d53f42fcbda0bcf1": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "not started",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "not started",\
+        "Concrete Pour": "not started",\
+        "Concrete Formwork": "not started",\
+        "Concrete Rebar": "not started",\
+        "Concrete Foundation Pour": "not started",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "65205c97d53f42fcbda0bcef": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "in progress",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "complete",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "65205c97d53f42fcbda0bcee": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "in progress",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "complete",\
+        "Structural Piles": "complete",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "65205c97d53f42fcbda0bced": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "complete",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \}\
+    \},\
+    "2021/07/15": \{\
+      "68b36de0b21b124f0d3682b3": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "in progress",\
+        "Roofing": "in progress",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "complete",\
+        "Structural Piles": "complete",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "68b36d776244a70cf6b13b7c": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "in progress",\
+        "Roofing": "in progress",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "complete",\
+        "Structural Piles": "complete",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "68b36d52dfb1531431942889": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "complete",\
+        "Roofing": "in progress",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "complete",\
+        "Structural Piles": "complete",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "68b36a2262f5c1297c0913d3": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "complete",\
+        "Roofing": "in progress",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "complete",\
+        "Structural Piles": "complete",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "68881ef9cbdd5a6f740a1e55": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "complete",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "68881eaf5ecfb6cf31709226": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "not started",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "68881c0d9c359a7c21399336": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "not started",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "not started",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "68881af3cbdd5a6f740a1e42": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "in progress",\
+        "Structural Piles": "complete",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "68881aace1e8315beb8dbf32": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "in progress",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "in progress",\
+        "Structural Piles": "complete",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "688819c084c0ccb3af37ee44": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "complete",\
+        "Roofing": "in progress",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "complete",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "68881865a0f3c54a3f9fed31": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "in progress",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "complete",\
+        "Structural Piles": "complete",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "688817b5587882b7457d5719": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "complete",\
+        "Roofing": "in progress",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "complete",\
+        "Structural Piles": "complete",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "688816b1880b7b96b2e501b6": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "not started",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "6888113f3332fd44fd149711": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "complete",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "68880e35587882b7457d5701": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "not started",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "68880da50f864d2881bdd80b": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "not started",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "6849c2e7f11830b69fc3882e": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "not started",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "6849c2b8091fc596463ede32": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "complete",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "65205c97d53f42fcbda0bcf1": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "not started",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "not started",\
+        "Concrete Pour": "not started",\
+        "Concrete Formwork": "not started",\
+        "Concrete Rebar": "not started",\
+        "Concrete Foundation Pour": "not started",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "65205c97d53f42fcbda0bcef": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "in progress",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "complete",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "65205c97d53f42fcbda0bcee": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "in progress",\
+        "Roofing": "in progress",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "complete",\
+        "Structural Piles": "complete",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "65205c97d53f42fcbda0bced": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "complete",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \}\
+    \},\
+    "2021/07/30": \{\
+      "68b36de0b21b124f0d3682b3": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "in progress",\
+        "Roofing": "in progress",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "complete",\
+        "Structural Piles": "complete",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "68b36d776244a70cf6b13b7c": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "in progress",\
+        "Roofing": "in progress",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "complete",\
+        "Structural Piles": "complete",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "68b36d52dfb1531431942889": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "complete",\
+        "Roofing": "in progress",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "complete",\
+        "Structural Piles": "complete",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "68b36a2262f5c1297c0913d3": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "complete",\
+        "Roofing": "complete",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "complete",\
+        "Structural Piles": "complete",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "68881ef9cbdd5a6f740a1e55": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "complete",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "68881eaf5ecfb6cf31709226": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "complete",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "68881c0d9c359a7c21399336": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "not started",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "68881af3cbdd5a6f740a1e42": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "in progress",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "in progress",\
+        "Structural Piles": "complete",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "68881aace1e8315beb8dbf32": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "in progress",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "complete",\
+        "Structural Piles": "complete",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "688819c084c0ccb3af37ee44": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "complete",\
+        "Roofing": "in progress",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "complete",\
+        "Structural Piles": "complete",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "68881865a0f3c54a3f9fed31": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "in progress",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "complete",\
+        "Structural Piles": "complete",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "688817b5587882b7457d5719": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "complete",\
+        "Roofing": "in progress",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "complete",\
+        "Structural Piles": "complete",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "688816b1880b7b96b2e501b6": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "not started",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "6888113f3332fd44fd149711": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "complete",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "68880e35587882b7457d5701": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "not started",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "68880da50f864d2881bdd80b": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "not started",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "6849c2e7f11830b69fc3882e": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "not started",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "6849c2b8091fc596463ede32": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "complete",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "65205c97d53f42fcbda0bcf1": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "not started",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "not started",\
+        "Concrete Pour": "not started",\
+        "Concrete Formwork": "not started",\
+        "Concrete Rebar": "not started",\
+        "Concrete Foundation Pour": "not started",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "65205c97d53f42fcbda0bcef": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "in progress",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "complete",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "65205c97d53f42fcbda0bcee": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "complete",\
+        "Roofing": "in progress",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "complete",\
+        "Structural Piles": "complete",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "complete"\
+      \},\
+      "65205c97d53f42fcbda0bced": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "complete",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "complete",\
+        "Structural Piles": "complete",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \}\
+    \},\
+    "2021/08/13": \{\
+      "68b36de0b21b124f0d3682b3": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "complete",\
+        "Roofing": "in progress",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "complete",\
+        "Structural Piles": "complete",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "68b36d776244a70cf6b13b7c": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "complete",\
+        "Roofing": "complete",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "complete",\
+        "Structural Piles": "complete",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "68b36d52dfb1531431942889": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "complete",\
+        "Roofing": "in progress",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "complete",\
+        "Structural Piles": "complete",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "68b36a2262f5c1297c0913d3": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "complete",\
+        "Roofing": "complete",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "complete",\
+        "Structural Piles": "complete",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "68881ef9cbdd5a6f740a1e55": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "complete",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "68881eaf5ecfb6cf31709226": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "complete",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "68881c0d9c359a7c21399336": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "not started",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "68881af3cbdd5a6f740a1e42": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "in progress",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "in progress",\
+        "Structural Piles": "complete",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "68881aace1e8315beb8dbf32": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "in progress",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "complete",\
+        "Structural Piles": "complete",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "688819c084c0ccb3af37ee44": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "complete",\
+        "Roofing": "in progress",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "complete",\
+        "Structural Piles": "complete",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "68881865a0f3c54a3f9fed31": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "in progress",\
+        "Roofing": "in progress",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "complete",\
+        "Structural Piles": "complete",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "688817b5587882b7457d5719": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "complete",\
+        "Roofing": "complete",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "complete",\
+        "Structural Piles": "complete",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "688816b1880b7b96b2e501b6": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "not started",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "6888113f3332fd44fd149711": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "complete",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "68880e35587882b7457d5701": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "complete",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "68880da50f864d2881bdd80b": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "complete",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "6849c2e7f11830b69fc3882e": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "not started",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "6849c2b8091fc596463ede32": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "complete",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "65205c97d53f42fcbda0bcf1": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "not started",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "not started",\
+        "Concrete Pour": "not started",\
+        "Concrete Formwork": "not started",\
+        "Concrete Rebar": "not started",\
+        "Concrete Foundation Pour": "not started",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "65205c97d53f42fcbda0bcef": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "in progress",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "complete",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "65205c97d53f42fcbda0bcee": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "complete",\
+        "Roofing": "complete",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "complete",\
+        "Structural Piles": "complete",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "in progress",\
+        "Roofing Membrane": "complete"\
+      \},\
+      "65205c97d53f42fcbda0bced": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "complete",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "complete",\
+        "Structural Piles": "complete",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \}\
+    \},\
+    "2021/09/01": \{\
+      "68b36de0b21b124f0d3682b3": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "complete",\
+        "Roofing": "complete",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "complete",\
+        "Structural Piles": "complete",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "complete",\
+        "Roofing Membrane": "complete"\
+      \},\
+      "68b36d776244a70cf6b13b7c": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "complete",\
+        "Roofing": "complete",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "complete",\
+        "Structural Piles": "complete",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "in progress",\
+        "Roofing Membrane": "in progress"\
+      \},\
+      "68b36d52dfb1531431942889": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "complete",\
+        "Roofing": "in progress",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "complete",\
+        "Structural Piles": "complete",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "in progress"\
+      \},\
+      "68b36a2262f5c1297c0913d3": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "complete",\
+        "Roofing": "complete",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "complete",\
+        "Structural Piles": "complete",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "complete",\
+        "Roofing Membrane": "in progress"\
+      \},\
+      "68881ef9cbdd5a6f740a1e55": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "complete",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "68881eaf5ecfb6cf31709226": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "complete",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "68881c0d9c359a7c21399336": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "not started",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "68881af3cbdd5a6f740a1e42": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "in progress",\
+        "Roofing": "in progress",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "in progress",\
+        "Structural Piles": "complete",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "68881aace1e8315beb8dbf32": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "in progress",\
+        "Roofing": "in progress",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "complete",\
+        "Structural Piles": "complete",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "688819c084c0ccb3af37ee44": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "complete",\
+        "Roofing": "in progress",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "complete",\
+        "Structural Piles": "complete",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "68881865a0f3c54a3f9fed31": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "complete",\
+        "Roofing": "in progress",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "complete",\
+        "Structural Piles": "complete",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "688817b5587882b7457d5719": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "complete",\
+        "Roofing": "complete",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "complete",\
+        "Structural Piles": "complete",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "688816b1880b7b96b2e501b6": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "not started",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "6888113f3332fd44fd149711": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "complete",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "68880e35587882b7457d5701": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "complete",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "68880da50f864d2881bdd80b": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "complete",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "6849c2e7f11830b69fc3882e": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "not started",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "6849c2b8091fc596463ede32": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "complete",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "65205c97d53f42fcbda0bcf1": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "not started",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "not started",\
+        "Concrete Pour": "not started",\
+        "Concrete Formwork": "not started",\
+        "Concrete Rebar": "not started",\
+        "Concrete Foundation Pour": "not started",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "65205c97d53f42fcbda0bcef": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "in progress",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "complete",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "65205c97d53f42fcbda0bcee": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "complete",\
+        "Roofing": "complete",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "complete",\
+        "Structural Piles": "complete",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "complete",\
+        "Roofing Membrane": "complete"\
+      \},\
+      "65205c97d53f42fcbda0bced": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "complete",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "complete",\
+        "Tilt-Up Wall Panels": "complete",\
+        "Structural Piles": "complete",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \}\
+    \},\
+    "2021/09/15": \{\
+      "68b36de0b21b124f0d3682b3": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "complete",\
+        "Roofing": "complete",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "complete",\
+        "Structural Piles": "complete",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "complete",\
+        "Roofing Membrane": "complete"\
+      \},\
+      "68b36d776244a70cf6b13b7c": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "complete",\
+        "Roofing": "complete",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "complete",\
+        "Structural Piles": "complete",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "in progress",\
+        "Roofing Membrane": "in progress"\
+      \},\
+      "68b36d52dfb1531431942889": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "complete",\
+        "Roofing": "complete",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "complete",\
+        "Structural Piles": "complete",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "in progress",\
+        "Roofing Membrane": "in progress"\
+      \},\
+      "68b36a2262f5c1297c0913d3": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "complete",\
+        "Roofing": "complete",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "complete",\
+        "Structural Piles": "complete",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "complete",\
+        "Roofing Membrane": "complete"\
+      \},\
+      "68881ef9cbdd5a6f740a1e55": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "complete",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "68881eaf5ecfb6cf31709226": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "complete",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "68881c0d9c359a7c21399336": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "not started",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "68881af3cbdd5a6f740a1e42": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "in progress",\
+        "Roofing": "in progress",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "in progress",\
+        "Structural Piles": "complete",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "in progress",\
+        "Roofing Membrane": "in progress"\
+      \},\
+      "68881aace1e8315beb8dbf32": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "in progress",\
+        "Roofing": "in progress",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "complete",\
+        "Structural Piles": "complete",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "688819c084c0ccb3af37ee44": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "complete",\
+        "Roofing": "in progress",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "complete",\
+        "Structural Piles": "complete",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "68881865a0f3c54a3f9fed31": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "complete",\
+        "Roofing": "complete",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "complete",\
+        "Structural Piles": "complete",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "688817b5587882b7457d5719": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "complete",\
+        "Roofing": "complete",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "complete",\
+        "Structural Piles": "complete",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "688816b1880b7b96b2e501b6": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "not started",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "6888113f3332fd44fd149711": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "complete",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "68880e35587882b7457d5701": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "complete",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "68880da50f864d2881bdd80b": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "complete",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "6849c2e7f11830b69fc3882e": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "not started",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "6849c2b8091fc596463ede32": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "complete",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "65205c97d53f42fcbda0bcf1": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "not started",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "not started",\
+        "Concrete Pour": "not started",\
+        "Concrete Formwork": "not started",\
+        "Concrete Rebar": "not started",\
+        "Concrete Foundation Pour": "not started",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "65205c97d53f42fcbda0bcef": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "in progress",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "complete",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "65205c97d53f42fcbda0bcee": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "complete",\
+        "Roofing": "complete",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "complete",\
+        "Structural Piles": "complete",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "complete",\
+        "Roofing Membrane": "complete"\
+      \},\
+      "65205c97d53f42fcbda0bced": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "complete",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "complete",\
+        "Tilt-Up Wall Panels": "complete",\
+        "Structural Piles": "complete",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \}\
+    \},\
+    "2021/10/01": \{\
+      "68b36de0b21b124f0d3682b3": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "complete",\
+        "Roofing": "complete",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "complete",\
+        "Structural Piles": "complete",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "complete",\
+        "Roofing Membrane": "complete"\
+      \},\
+      "68b36d776244a70cf6b13b7c": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "complete",\
+        "Roofing": "complete",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "complete",\
+        "Structural Piles": "complete",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "complete",\
+        "Roofing Membrane": "complete"\
+      \},\
+      "68b36d52dfb1531431942889": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "complete",\
+        "Roofing": "complete",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "complete",\
+        "Structural Piles": "complete",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "in progress",\
+        "Roofing Membrane": "in progress"\
+      \},\
+      "68b36a2262f5c1297c0913d3": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "complete",\
+        "Roofing": "complete",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "complete",\
+        "Structural Piles": "complete",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "complete",\
+        "Roofing Membrane": "complete"\
+      \},\
+      "68881ef9cbdd5a6f740a1e55": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "complete",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "68881eaf5ecfb6cf31709226": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "complete",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "68881c0d9c359a7c21399336": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "not started",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "68881af3cbdd5a6f740a1e42": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "complete",\
+        "Roofing": "in progress",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "in progress",\
+        "Structural Piles": "complete",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "in progress",\
+        "Roofing Membrane": "in progress"\
+      \},\
+      "68881aace1e8315beb8dbf32": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "in progress",\
+        "Roofing": "in progress",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "complete",\
+        "Structural Piles": "complete",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "688819c084c0ccb3af37ee44": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "complete",\
+        "Roofing": "in progress",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "complete",\
+        "Structural Piles": "complete",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "68881865a0f3c54a3f9fed31": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "complete",\
+        "Roofing": "complete",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "complete",\
+        "Structural Piles": "complete",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "688817b5587882b7457d5719": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "complete",\
+        "Roofing": "complete",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "complete",\
+        "Structural Piles": "complete",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "688816b1880b7b96b2e501b6": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "not started",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "6888113f3332fd44fd149711": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "complete",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "68880e35587882b7457d5701": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "complete",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "68880da50f864d2881bdd80b": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "complete",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "6849c2e7f11830b69fc3882e": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "not started",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "6849c2b8091fc596463ede32": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "complete",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "65205c97d53f42fcbda0bcf1": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "not started",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "not started",\
+        "Concrete Pour": "not started",\
+        "Concrete Formwork": "not started",\
+        "Concrete Rebar": "not started",\
+        "Concrete Foundation Pour": "not started",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "65205c97d53f42fcbda0bcef": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "in progress",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "complete",\
+        "Structural Piles": "complete",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "65205c97d53f42fcbda0bcee": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "complete",\
+        "Roofing": "complete",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "complete",\
+        "Structural Piles": "complete",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "complete",\
+        "Roofing Membrane": "complete"\
+      \},\
+      "65205c97d53f42fcbda0bced": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "complete",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "complete",\
+        "Tilt-Up Wall Panels": "complete",\
+        "Structural Piles": "complete",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \}\
+    \},\
+    "2021/11/15": \{\
+      "68b36de0b21b124f0d3682b3": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "complete",\
+        "Roofing": "complete",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "complete",\
+        "Structural Piles": "complete",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "complete",\
+        "Roofing Membrane": "complete"\
+      \},\
+      "68b36d776244a70cf6b13b7c": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "complete",\
+        "Roofing": "complete",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "complete",\
+        "Structural Piles": "complete",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "complete",\
+        "Roofing Membrane": "complete"\
+      \},\
+      "68b36d52dfb1531431942889": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "complete",\
+        "Roofing": "complete",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "complete",\
+        "Structural Piles": "complete",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "complete",\
+        "Roofing Membrane": "complete"\
+      \},\
+      "68b36a2262f5c1297c0913d3": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "complete",\
+        "Roofing": "complete",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "complete",\
+        "Structural Piles": "complete",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "complete",\
+        "Roofing Membrane": "complete"\
+      \},\
+      "68881ef9cbdd5a6f740a1e55": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "complete",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "68881eaf5ecfb6cf31709226": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "complete",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "68881c0d9c359a7c21399336": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "not started",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "68881af3cbdd5a6f740a1e42": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "complete",\
+        "Roofing": "complete",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "complete",\
+        "Structural Piles": "complete",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "in progress",\
+        "Roofing Membrane": "in progress"\
+      \},\
+      "68881aace1e8315beb8dbf32": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "complete",\
+        "Roofing": "complete",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "complete",\
+        "Structural Piles": "complete",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "688819c084c0ccb3af37ee44": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "complete",\
+        "Roofing": "complete",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "complete",\
+        "Structural Piles": "complete",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "in progress",\
+        "Roofing Membrane": "in progress"\
+      \},\
+      "68881865a0f3c54a3f9fed31": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "complete",\
+        "Roofing": "complete",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "complete",\
+        "Structural Piles": "complete",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "in progress",\
+        "Roofing Membrane": "in progress"\
+      \},\
+      "688817b5587882b7457d5719": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "complete",\
+        "Roofing": "complete",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "complete",\
+        "Structural Piles": "complete",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "complete",\
+        "Roofing Membrane": "complete"\
+      \},\
+      "688816b1880b7b96b2e501b6": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "not started",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "6888113f3332fd44fd149711": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "complete",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "68880e35587882b7457d5701": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "complete",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "68880da50f864d2881bdd80b": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "complete",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "6849c2e7f11830b69fc3882e": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "not started",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "6849c2b8091fc596463ede32": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "complete",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "65205c97d53f42fcbda0bcf1": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "not started",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "not started",\
+        "Concrete Pour": "not started",\
+        "Concrete Formwork": "not started",\
+        "Concrete Rebar": "not started",\
+        "Concrete Foundation Pour": "not started",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "65205c97d53f42fcbda0bcef": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "in progress",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "complete",\
+        "Structural Piles": "complete",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "65205c97d53f42fcbda0bcee": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "complete",\
+        "Roofing": "complete",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "complete",\
+        "Structural Piles": "complete",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "complete",\
+        "Roofing Membrane": "complete"\
+      \},\
+      "65205c97d53f42fcbda0bced": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "complete",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "complete",\
+        "Tilt-Up Wall Panels": "complete",\
+        "Structural Piles": "complete",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \}\
+    \},\
+    "2021/12/01": \{\
+      "68b36de0b21b124f0d3682b3": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "complete",\
+        "Roofing": "complete",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "complete",\
+        "Structural Piles": "complete",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "complete",\
+        "Roofing Membrane": "complete"\
+      \},\
+      "68b36d776244a70cf6b13b7c": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "complete",\
+        "Roofing": "complete",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "complete",\
+        "Structural Piles": "complete",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "complete",\
+        "Roofing Membrane": "complete"\
+      \},\
+      "68b36d52dfb1531431942889": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "complete",\
+        "Roofing": "complete",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "complete",\
+        "Structural Piles": "complete",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "complete",\
+        "Roofing Membrane": "complete"\
+      \},\
+      "68b36a2262f5c1297c0913d3": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "complete",\
+        "Roofing": "complete",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "complete",\
+        "Structural Piles": "complete",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "complete",\
+        "Roofing Membrane": "complete"\
+      \},\
+      "68881ef9cbdd5a6f740a1e55": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "complete",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "68881eaf5ecfb6cf31709226": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "complete",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "68881c0d9c359a7c21399336": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "not started",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "68881af3cbdd5a6f740a1e42": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "complete",\
+        "Roofing": "complete",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "complete",\
+        "Structural Piles": "complete",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "in progress",\
+        "Roofing Membrane": "in progress"\
+      \},\
+      "68881aace1e8315beb8dbf32": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "complete",\
+        "Roofing": "complete",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "complete",\
+        "Structural Piles": "complete",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "in progress",\
+        "Roofing Membrane": "in progress"\
+      \},\
+      "688819c084c0ccb3af37ee44": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "complete",\
+        "Roofing": "complete",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "complete",\
+        "Structural Piles": "complete",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "complete",\
+        "Roofing Membrane": "complete"\
+      \},\
+      "68881865a0f3c54a3f9fed31": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "complete",\
+        "Roofing": "complete",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "complete",\
+        "Structural Piles": "complete",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "complete",\
+        "Roofing Membrane": "complete"\
+      \},\
+      "688817b5587882b7457d5719": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "complete",\
+        "Roofing": "complete",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "complete",\
+        "Structural Piles": "complete",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "complete",\
+        "Roofing Membrane": "complete"\
+      \},\
+      "688816b1880b7b96b2e501b6": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "not started",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "6888113f3332fd44fd149711": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "complete",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "68880e35587882b7457d5701": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "complete",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "68880da50f864d2881bdd80b": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "complete",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "6849c2e7f11830b69fc3882e": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "not started",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "6849c2b8091fc596463ede32": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "complete",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "65205c97d53f42fcbda0bcf1": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "not started",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "not started",\
+        "Concrete Pour": "not started",\
+        "Concrete Formwork": "not started",\
+        "Concrete Rebar": "not started",\
+        "Concrete Foundation Pour": "not started",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "65205c97d53f42fcbda0bcef": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "in progress",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "complete",\
+        "Structural Piles": "complete",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "65205c97d53f42fcbda0bcee": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "complete",\
+        "Roofing": "complete",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "complete",\
+        "Structural Piles": "complete",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "complete",\
+        "Roofing Membrane": "complete"\
+      \},\
+      "65205c97d53f42fcbda0bced": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "complete",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "complete",\
+        "Tilt-Up Wall Panels": "complete",\
+        "Structural Piles": "complete",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "complete",\
+        "Roofing Membrane": "complete"\
+      \}\
+    \},\
+    "2021/12/27": \{\
+      "68b36de0b21b124f0d3682b3": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "complete",\
+        "Roofing": "complete",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "complete",\
+        "Structural Piles": "complete",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "complete",\
+        "Roofing Membrane": "complete"\
+      \},\
+      "68b36d776244a70cf6b13b7c": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "complete",\
+        "Roofing": "complete",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "complete",\
+        "Structural Piles": "complete",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "complete",\
+        "Roofing Membrane": "complete"\
+      \},\
+      "68b36d52dfb1531431942889": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "complete",\
+        "Roofing": "complete",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "complete",\
+        "Structural Piles": "complete",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "complete",\
+        "Roofing Membrane": "complete"\
+      \},\
+      "68b36a2262f5c1297c0913d3": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "complete",\
+        "Roofing": "complete",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "complete",\
+        "Structural Piles": "complete",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "complete",\
+        "Roofing Membrane": "complete"\
+      \},\
+      "68881ef9cbdd5a6f740a1e55": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "complete",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "68881eaf5ecfb6cf31709226": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "complete",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "68881c0d9c359a7c21399336": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "not started",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "68881af3cbdd5a6f740a1e42": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "complete",\
+        "Roofing": "complete",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "complete",\
+        "Structural Piles": "complete",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "in progress",\
+        "Roofing Membrane": "in progress"\
+      \},\
+      "68881aace1e8315beb8dbf32": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "complete",\
+        "Roofing": "complete",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "complete",\
+        "Structural Piles": "complete",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "in progress",\
+        "Roofing Membrane": "in progress"\
+      \},\
+      "688819c084c0ccb3af37ee44": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "complete",\
+        "Roofing": "complete",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "complete",\
+        "Structural Piles": "complete",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "complete",\
+        "Roofing Membrane": "complete"\
+      \},\
+      "68881865a0f3c54a3f9fed31": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "complete",\
+        "Roofing": "complete",\
+        "Roof HVAC Units": "in progress",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "complete",\
+        "Structural Piles": "complete",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "complete",\
+        "Roofing Membrane": "complete"\
+      \},\
+      "688817b5587882b7457d5719": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "complete",\
+        "Roofing": "complete",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "complete",\
+        "Structural Piles": "complete",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "complete",\
+        "Roofing Membrane": "complete"\
+      \},\
+      "688816b1880b7b96b2e501b6": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "not started",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "6888113f3332fd44fd149711": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "complete",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "68880e35587882b7457d5701": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "complete",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "68880da50f864d2881bdd80b": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "complete",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "6849c2e7f11830b69fc3882e": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "not started",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "6849c2b8091fc596463ede32": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "complete",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "65205c97d53f42fcbda0bcf1": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "not started",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "not started",\
+        "Concrete Pour": "not started",\
+        "Concrete Formwork": "not started",\
+        "Concrete Rebar": "not started",\
+        "Concrete Foundation Pour": "not started",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "65205c97d53f42fcbda0bcef": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "in progress",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "complete",\
+        "Structural Piles": "complete",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "65205c97d53f42fcbda0bcee": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "complete",\
+        "Roofing": "complete",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "complete",\
+        "Structural Piles": "complete",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "complete",\
+        "Roofing Membrane": "complete"\
+      \},\
+      "65205c97d53f42fcbda0bced": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "complete",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "complete",\
+        "Tilt-Up Wall Panels": "complete",\
+        "Structural Piles": "complete",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "complete",\
+        "Roofing Membrane": "complete"\
+      \}\
+    \},\
+    "2022/01/13": \{\
+      "68b36de0b21b124f0d3682b3": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "complete",\
+        "Roofing": "complete",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "complete",\
+        "Structural Piles": "complete",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "complete",\
+        "Roofing Membrane": "complete"\
+      \},\
+      "68b36d776244a70cf6b13b7c": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "complete",\
+        "Roofing": "complete",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "complete",\
+        "Structural Piles": "complete",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "complete",\
+        "Roofing Membrane": "complete"\
+      \},\
+      "68b36d52dfb1531431942889": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "complete",\
+        "Roofing": "complete",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "complete",\
+        "Structural Piles": "complete",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "complete",\
+        "Roofing Membrane": "complete"\
+      \},\
+      "68b36a2262f5c1297c0913d3": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "complete",\
+        "Roofing": "complete",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "complete",\
+        "Structural Piles": "complete",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "complete",\
+        "Roofing Membrane": "complete"\
+      \},\
+      "68881ef9cbdd5a6f740a1e55": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "complete",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "68881eaf5ecfb6cf31709226": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "complete",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "68881c0d9c359a7c21399336": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "not started",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "68881af3cbdd5a6f740a1e42": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "complete",\
+        "Roofing": "complete",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "complete",\
+        "Structural Piles": "complete",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "complete",\
+        "Roofing Membrane": "complete"\
+      \},\
+      "68881aace1e8315beb8dbf32": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "complete",\
+        "Roofing": "complete",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "complete",\
+        "Structural Piles": "complete",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "in progress",\
+        "Roofing Membrane": "in progress"\
+      \},\
+      "688819c084c0ccb3af37ee44": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "complete",\
+        "Roofing": "complete",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "complete",\
+        "Structural Piles": "complete",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "complete",\
+        "Roofing Membrane": "complete"\
+      \},\
+      "68881865a0f3c54a3f9fed31": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "complete",\
+        "Roofing": "complete",\
+        "Roof HVAC Units": "in progress",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "complete",\
+        "Structural Piles": "complete",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "complete",\
+        "Roofing Membrane": "complete"\
+      \},\
+      "688817b5587882b7457d5719": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "complete",\
+        "Roofing": "complete",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "complete",\
+        "Structural Piles": "complete",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "complete",\
+        "Roofing Membrane": "complete"\
+      \},\
+      "688816b1880b7b96b2e501b6": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "not started",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "6888113f3332fd44fd149711": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "complete",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "68880e35587882b7457d5701": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "complete",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "68880da50f864d2881bdd80b": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "complete",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "6849c2e7f11830b69fc3882e": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "not started",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "6849c2b8091fc596463ede32": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "complete",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "65205c97d53f42fcbda0bcf1": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "not started",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "not started",\
+        "Concrete Pour": "not started",\
+        "Concrete Formwork": "not started",\
+        "Concrete Rebar": "not started",\
+        "Concrete Foundation Pour": "not started",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "65205c97d53f42fcbda0bcef": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "in progress",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "complete",\
+        "Structural Piles": "complete",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "65205c97d53f42fcbda0bcee": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "complete",\
+        "Roofing": "complete",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "complete",\
+        "Structural Piles": "complete",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "complete",\
+        "Roofing Membrane": "complete"\
+      \},\
+      "65205c97d53f42fcbda0bced": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "complete",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "complete",\
+        "Tilt-Up Wall Panels": "complete",\
+        "Structural Piles": "complete",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "complete",\
+        "Roofing Membrane": "complete"\
+      \}\
+    \},\
+    "2022/02/15": \{\
+      "68b36de0b21b124f0d3682b3": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "complete",\
+        "Roofing": "complete",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "complete",\
+        "Structural Piles": "complete",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "complete",\
+        "Roofing Membrane": "complete"\
+      \},\
+      "68b36d776244a70cf6b13b7c": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "complete",\
+        "Roofing": "complete",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "complete",\
+        "Structural Piles": "complete",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "complete",\
+        "Roofing Membrane": "complete"\
+      \},\
+      "68b36d52dfb1531431942889": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "complete",\
+        "Roofing": "complete",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "complete",\
+        "Structural Piles": "complete",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "complete",\
+        "Roofing Membrane": "complete"\
+      \},\
+      "68b36a2262f5c1297c0913d3": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "complete",\
+        "Roofing": "complete",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "complete",\
+        "Structural Piles": "complete",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "complete",\
+        "Roofing Membrane": "complete"\
+      \},\
+      "68881ef9cbdd5a6f740a1e55": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "complete",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "68881eaf5ecfb6cf31709226": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "complete",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "68881c0d9c359a7c21399336": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "not started",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "68881af3cbdd5a6f740a1e42": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "complete",\
+        "Roofing": "complete",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "complete",\
+        "Structural Piles": "complete",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "complete",\
+        "Roofing Membrane": "complete"\
+      \},\
+      "68881aace1e8315beb8dbf32": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "complete",\
+        "Roofing": "complete",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "complete",\
+        "Structural Piles": "complete",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "in progress",\
+        "Roofing Membrane": "in progress"\
+      \},\
+      "688819c084c0ccb3af37ee44": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "complete",\
+        "Roofing": "complete",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "complete",\
+        "Structural Piles": "complete",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "complete",\
+        "Roofing Membrane": "complete"\
+      \},\
+      "68881865a0f3c54a3f9fed31": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "complete",\
+        "Roofing": "complete",\
+        "Roof HVAC Units": "in progress",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "complete",\
+        "Structural Piles": "complete",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "complete",\
+        "Roofing Membrane": "complete"\
+      \},\
+      "688817b5587882b7457d5719": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "complete",\
+        "Roofing": "complete",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "complete",\
+        "Structural Piles": "complete",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "complete",\
+        "Roofing Membrane": "complete"\
+      \},\
+      "688816b1880b7b96b2e501b6": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "not started",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "6888113f3332fd44fd149711": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "complete",\
+        "Structural Piles": "complete",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "68880e35587882b7457d5701": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "complete",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "68880da50f864d2881bdd80b": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "complete",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "6849c2e7f11830b69fc3882e": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "not started",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "6849c2b8091fc596463ede32": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "complete",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "65205c97d53f42fcbda0bcf1": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "not started",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "not started",\
+        "Concrete Pour": "not started",\
+        "Concrete Formwork": "not started",\
+        "Concrete Rebar": "not started",\
+        "Concrete Foundation Pour": "not started",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "65205c97d53f42fcbda0bcef": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "in progress",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "complete",\
+        "Structural Piles": "complete",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "65205c97d53f42fcbda0bcee": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "complete",\
+        "Roofing": "complete",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "complete",\
+        "Structural Piles": "complete",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "complete",\
+        "Roofing Membrane": "complete"\
+      \},\
+      "65205c97d53f42fcbda0bced": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "complete",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "complete",\
+        "Tilt-Up Wall Panels": "complete",\
+        "Structural Piles": "complete",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "complete",\
+        "Roofing Membrane": "complete"\
+      \}\
+    \},\
+    "2022/03/01": \{\
+      "68b36de0b21b124f0d3682b3": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "complete",\
+        "Roofing": "complete",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "complete",\
+        "Structural Piles": "complete",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "complete",\
+        "Roofing Membrane": "complete"\
+      \},\
+      "68b36d776244a70cf6b13b7c": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "complete",\
+        "Roofing": "complete",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "complete",\
+        "Structural Piles": "complete",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "complete",\
+        "Roofing Membrane": "complete"\
+      \},\
+      "68b36d52dfb1531431942889": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "complete",\
+        "Roofing": "complete",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "complete",\
+        "Structural Piles": "complete",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "complete",\
+        "Roofing Membrane": "complete"\
+      \},\
+      "68b36a2262f5c1297c0913d3": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "complete",\
+        "Roofing": "complete",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "complete",\
+        "Structural Piles": "complete",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "complete",\
+        "Roofing Membrane": "complete"\
+      \},\
+      "68881ef9cbdd5a6f740a1e55": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "complete",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "68881eaf5ecfb6cf31709226": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "complete",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "68881c0d9c359a7c21399336": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "not started",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "68881af3cbdd5a6f740a1e42": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "complete",\
+        "Roofing": "complete",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "complete",\
+        "Structural Piles": "complete",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "complete",\
+        "Roofing Membrane": "complete"\
+      \},\
+      "68881aace1e8315beb8dbf32": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "complete",\
+        "Roofing": "complete",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "complete",\
+        "Structural Piles": "complete",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "in progress",\
+        "Roofing Membrane": "in progress"\
+      \},\
+      "688819c084c0ccb3af37ee44": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "complete",\
+        "Roofing": "complete",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "complete",\
+        "Structural Piles": "complete",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "complete",\
+        "Roofing Membrane": "complete"\
+      \},\
+      "68881865a0f3c54a3f9fed31": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "complete",\
+        "Roofing": "complete",\
+        "Roof HVAC Units": "in progress",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "complete",\
+        "Structural Piles": "complete",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "complete",\
+        "Roofing Membrane": "complete"\
+      \},\
+      "688817b5587882b7457d5719": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "complete",\
+        "Roofing": "complete",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "complete",\
+        "Structural Piles": "complete",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "complete",\
+        "Roofing Membrane": "complete"\
+      \},\
+      "688816b1880b7b96b2e501b6": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "not started",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "6888113f3332fd44fd149711": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "complete",\
+        "Structural Piles": "complete",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "68880e35587882b7457d5701": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "complete",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "68880da50f864d2881bdd80b": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "complete",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "6849c2e7f11830b69fc3882e": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "not started",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "6849c2b8091fc596463ede32": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "complete",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "65205c97d53f42fcbda0bcf1": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "not started",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "not started",\
+        "Concrete Pour": "not started",\
+        "Concrete Formwork": "not started",\
+        "Concrete Rebar": "not started",\
+        "Concrete Foundation Pour": "not started",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "65205c97d53f42fcbda0bcef": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "in progress",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "complete",\
+        "Structural Piles": "complete",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "65205c97d53f42fcbda0bcee": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "complete",\
+        "Roofing": "complete",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "complete",\
+        "Structural Piles": "complete",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "complete",\
+        "Roofing Membrane": "complete"\
+      \},\
+      "65205c97d53f42fcbda0bced": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "complete",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "complete",\
+        "Tilt-Up Wall Panels": "complete",\
+        "Structural Piles": "complete",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "complete",\
+        "Roofing Membrane": "complete"\
+      \}\
+    \},\
+    "2022/04/01": \{\
+      "68b36de0b21b124f0d3682b3": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "complete",\
+        "Roofing": "complete",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "complete",\
+        "Structural Piles": "complete",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "complete",\
+        "Roofing Membrane": "complete"\
+      \},\
+      "68b36d776244a70cf6b13b7c": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "complete",\
+        "Roofing": "complete",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "complete",\
+        "Structural Piles": "complete",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "complete",\
+        "Roofing Membrane": "complete"\
+      \},\
+      "68b36d52dfb1531431942889": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "complete",\
+        "Roofing": "complete",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "complete",\
+        "Structural Piles": "complete",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "complete",\
+        "Roofing Membrane": "complete"\
+      \},\
+      "68b36a2262f5c1297c0913d3": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "complete",\
+        "Roofing": "complete",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "complete",\
+        "Structural Piles": "complete",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "complete",\
+        "Roofing Membrane": "complete"\
+      \},\
+      "68881ef9cbdd5a6f740a1e55": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "complete",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "68881eaf5ecfb6cf31709226": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "complete",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "68881c0d9c359a7c21399336": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "not started",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "68881af3cbdd5a6f740a1e42": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "complete",\
+        "Roofing": "complete",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "complete",\
+        "Structural Piles": "complete",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "complete",\
+        "Roofing Membrane": "complete"\
+      \},\
+      "68881aace1e8315beb8dbf32": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "complete",\
+        "Roofing": "complete",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "complete",\
+        "Structural Piles": "complete",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "complete",\
+        "Roofing Membrane": "complete"\
+      \},\
+      "688819c084c0ccb3af37ee44": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "complete",\
+        "Roofing": "complete",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "complete",\
+        "Structural Piles": "complete",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "complete",\
+        "Roofing Membrane": "complete"\
+      \},\
+      "68881865a0f3c54a3f9fed31": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "complete",\
+        "Roofing": "complete",\
+        "Roof HVAC Units": "in progress",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "complete",\
+        "Structural Piles": "complete",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "complete",\
+        "Roofing Membrane": "complete"\
+      \},\
+      "688817b5587882b7457d5719": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "complete",\
+        "Roofing": "complete",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "complete",\
+        "Structural Piles": "complete",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "complete",\
+        "Roofing Membrane": "complete"\
+      \},\
+      "688816b1880b7b96b2e501b6": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "not started",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "6888113f3332fd44fd149711": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "complete",\
+        "Structural Piles": "complete",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "68880e35587882b7457d5701": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "complete",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "68880da50f864d2881bdd80b": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "complete",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "6849c2e7f11830b69fc3882e": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "not started",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "6849c2b8091fc596463ede32": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "complete",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "complete",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "65205c97d53f42fcbda0bcf1": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "not started",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "not started",\
+        "Concrete Pour": "not started",\
+        "Concrete Formwork": "not started",\
+        "Concrete Rebar": "not started",\
+        "Concrete Foundation Pour": "not started",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "65205c97d53f42fcbda0bcef": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "in progress",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "complete",\
+        "Structural Piles": "complete",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "65205c97d53f42fcbda0bcee": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "complete",\
+        "Roofing": "complete",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "complete",\
+        "Structural Piles": "complete",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "complete",\
+        "Roofing Membrane": "complete"\
+      \},\
+      "65205c97d53f42fcbda0bced": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "complete",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "complete",\
+        "Tilt-Up Wall Panels": "complete",\
+        "Structural Piles": "complete",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "complete",\
+        "Roofing Membrane": "complete"\
+      \}\
+    \},\
+    "2022/04/18": \{\
+      "68b36de0b21b124f0d3682b3": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "complete",\
+        "Roofing": "complete",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "complete",\
+        "Structural Piles": "complete",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "complete",\
+        "Roofing Membrane": "complete"\
+      \},\
+      "68b36d776244a70cf6b13b7c": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "complete",\
+        "Roofing": "complete",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "complete",\
+        "Structural Piles": "complete",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "complete",\
+        "Roofing Membrane": "complete"\
+      \},\
+      "68b36d52dfb1531431942889": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "complete",\
+        "Roofing": "complete",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "complete",\
+        "Structural Piles": "complete",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "complete",\
+        "Roofing Membrane": "complete"\
+      \},\
+      "68b36a2262f5c1297c0913d3": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "complete",\
+        "Roofing": "complete",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "complete",\
+        "Structural Piles": "complete",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "complete",\
+        "Roofing Membrane": "complete"\
+      \},\
+      "68881ef9cbdd5a6f740a1e55": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "complete",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "68881eaf5ecfb6cf31709226": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "complete",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "68881c0d9c359a7c21399336": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "not started",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "68881af3cbdd5a6f740a1e42": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "complete",\
+        "Roofing": "complete",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "complete",\
+        "Structural Piles": "complete",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "complete",\
+        "Roofing Membrane": "complete"\
+      \},\
+      "68881aace1e8315beb8dbf32": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "complete",\
+        "Roofing": "complete",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "complete",\
+        "Structural Piles": "complete",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "complete",\
+        "Roofing Membrane": "complete"\
+      \},\
+      "688819c084c0ccb3af37ee44": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "complete",\
+        "Roofing": "complete",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "complete",\
+        "Structural Piles": "complete",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "complete",\
+        "Roofing Membrane": "complete"\
+      \},\
+      "68881865a0f3c54a3f9fed31": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "complete",\
+        "Roofing": "complete",\
+        "Roof HVAC Units": "in progress",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "complete",\
+        "Structural Piles": "complete",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "complete",\
+        "Roofing Membrane": "complete"\
+      \},\
+      "688817b5587882b7457d5719": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "complete",\
+        "Roofing": "complete",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "complete",\
+        "Structural Piles": "complete",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "complete",\
+        "Roofing Membrane": "complete"\
+      \},\
+      "688816b1880b7b96b2e501b6": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "not started",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "6888113f3332fd44fd149711": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "complete",\
+        "Structural Piles": "complete",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "68880e35587882b7457d5701": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "complete",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "68880da50f864d2881bdd80b": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "complete",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "6849c2e7f11830b69fc3882e": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "not started",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "6849c2b8091fc596463ede32": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "complete",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "complete",\
+        "Roofing Membrane": "complete"\
+      \},\
+      "65205c97d53f42fcbda0bcf1": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "not started",\
+        "Concrete Pour": "not started",\
+        "Concrete Formwork": "not started",\
+        "Concrete Rebar": "not started",\
+        "Concrete Foundation Pour": "not started",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "65205c97d53f42fcbda0bcef": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "in progress",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "complete",\
+        "Structural Piles": "complete",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "65205c97d53f42fcbda0bcee": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "complete",\
+        "Roofing": "complete",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "complete",\
+        "Structural Piles": "complete",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "complete",\
+        "Roofing Membrane": "complete"\
+      \},\
+      "65205c97d53f42fcbda0bced": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "complete",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "complete",\
+        "Tilt-Up Wall Panels": "complete",\
+        "Structural Piles": "complete",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "complete",\
+        "Roofing Membrane": "complete"\
+      \}\
+    \},\
+    "2022/05/16": \{\
+      "68b36de0b21b124f0d3682b3": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "complete",\
+        "Roofing": "complete",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "complete",\
+        "Structural Piles": "complete",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "complete",\
+        "Roofing Membrane": "complete"\
+      \},\
+      "68b36d776244a70cf6b13b7c": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "complete",\
+        "Roofing": "complete",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "complete",\
+        "Structural Piles": "complete",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "complete",\
+        "Roofing Membrane": "complete"\
+      \},\
+      "68b36d52dfb1531431942889": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "complete",\
+        "Roofing": "complete",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "complete",\
+        "Structural Piles": "complete",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "complete",\
+        "Roofing Membrane": "complete"\
+      \},\
+      "68b36a2262f5c1297c0913d3": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "complete",\
+        "Roofing": "complete",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "complete",\
+        "Structural Piles": "complete",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "complete",\
+        "Roofing Membrane": "complete"\
+      \},\
+      "68881ef9cbdd5a6f740a1e55": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "complete",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "68881eaf5ecfb6cf31709226": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "complete",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "68881c0d9c359a7c21399336": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "not started",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "68881af3cbdd5a6f740a1e42": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "complete",\
+        "Roofing": "complete",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "complete",\
+        "Structural Piles": "complete",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "complete",\
+        "Roofing Membrane": "complete"\
+      \},\
+      "68881aace1e8315beb8dbf32": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "complete",\
+        "Roofing": "complete",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "complete",\
+        "Structural Piles": "complete",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "complete",\
+        "Roofing Membrane": "complete"\
+      \},\
+      "688819c084c0ccb3af37ee44": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "complete",\
+        "Roofing": "complete",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "complete",\
+        "Structural Piles": "complete",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "complete",\
+        "Roofing Membrane": "complete"\
+      \},\
+      "68881865a0f3c54a3f9fed31": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "complete",\
+        "Roofing": "complete",\
+        "Roof HVAC Units": "in progress",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "complete",\
+        "Structural Piles": "complete",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "complete",\
+        "Roofing Membrane": "complete"\
+      \},\
+      "688817b5587882b7457d5719": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "complete",\
+        "Roofing": "complete",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "complete",\
+        "Structural Piles": "complete",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "complete",\
+        "Roofing Membrane": "complete"\
+      \},\
+      "688816b1880b7b96b2e501b6": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "not started",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "6888113f3332fd44fd149711": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "complete",\
+        "Structural Piles": "complete",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "68880e35587882b7457d5701": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "complete",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "68880da50f864d2881bdd80b": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "complete",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "6849c2e7f11830b69fc3882e": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "not started",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "6849c2b8091fc596463ede32": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "complete",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "complete",\
+        "Roofing Membrane": "complete"\
+      \},\
+      "65205c97d53f42fcbda0bcf1": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "not started",\
+        "Concrete Pour": "not started",\
+        "Concrete Formwork": "not started",\
+        "Concrete Rebar": "not started",\
+        "Concrete Foundation Pour": "not started",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "65205c97d53f42fcbda0bcef": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "complete",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "complete",\
+        "Structural Piles": "complete",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "65205c97d53f42fcbda0bcee": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "complete",\
+        "Roofing": "complete",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "complete",\
+        "Structural Piles": "complete",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "complete",\
+        "Roofing Membrane": "complete"\
+      \},\
+      "65205c97d53f42fcbda0bced": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "complete",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "complete",\
+        "Tilt-Up Wall Panels": "complete",\
+        "Structural Piles": "complete",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "complete",\
+        "Roofing Membrane": "complete"\
+      \}\
+    \},\
+    "2022/06/01": \{\
+      "68b36de0b21b124f0d3682b3": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "complete",\
+        "Roofing": "complete",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "complete",\
+        "Structural Piles": "complete",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "complete",\
+        "Roofing Membrane": "complete"\
+      \},\
+      "68b36d776244a70cf6b13b7c": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "complete",\
+        "Roofing": "complete",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "complete",\
+        "Structural Piles": "complete",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "complete",\
+        "Roofing Membrane": "complete"\
+      \},\
+      "68b36d52dfb1531431942889": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "complete",\
+        "Roofing": "complete",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "complete",\
+        "Structural Piles": "complete",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "complete",\
+        "Roofing Membrane": "complete"\
+      \},\
+      "68b36a2262f5c1297c0913d3": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "complete",\
+        "Roofing": "complete",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "complete",\
+        "Structural Piles": "complete",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "complete",\
+        "Roofing Membrane": "complete"\
+      \},\
+      "68881ef9cbdd5a6f740a1e55": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "complete",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "68881eaf5ecfb6cf31709226": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "complete",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "68881c0d9c359a7c21399336": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "not started",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "68881af3cbdd5a6f740a1e42": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "complete",\
+        "Roofing": "complete",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "complete",\
+        "Structural Piles": "complete",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "complete",\
+        "Roofing Membrane": "complete"\
+      \},\
+      "68881aace1e8315beb8dbf32": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "complete",\
+        "Roofing": "complete",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "complete",\
+        "Structural Piles": "complete",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "complete",\
+        "Roofing Membrane": "complete"\
+      \},\
+      "688819c084c0ccb3af37ee44": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "complete",\
+        "Roofing": "complete",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "complete",\
+        "Structural Piles": "complete",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "complete",\
+        "Roofing Membrane": "complete"\
+      \},\
+      "68881865a0f3c54a3f9fed31": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "complete",\
+        "Roofing": "complete",\
+        "Roof HVAC Units": "in progress",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "complete",\
+        "Structural Piles": "complete",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "complete",\
+        "Roofing Membrane": "complete"\
+      \},\
+      "688817b5587882b7457d5719": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "complete",\
+        "Roofing": "complete",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "complete",\
+        "Structural Piles": "complete",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "complete",\
+        "Roofing Membrane": "complete"\
+      \},\
+      "688816b1880b7b96b2e501b6": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "complete",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "6888113f3332fd44fd149711": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "complete",\
+        "Structural Piles": "complete",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "68880e35587882b7457d5701": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "complete",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "68880da50f864d2881bdd80b": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "complete",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "6849c2e7f11830b69fc3882e": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "not started",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "6849c2b8091fc596463ede32": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "complete",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "complete",\
+        "Roofing Membrane": "complete"\
+      \},\
+      "65205c97d53f42fcbda0bcf1": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "not started",\
+        "Concrete Pour": "not started",\
+        "Concrete Formwork": "not started",\
+        "Concrete Rebar": "not started",\
+        "Concrete Foundation Pour": "not started",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "65205c97d53f42fcbda0bcef": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "complete",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "complete",\
+        "Structural Piles": "complete",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "65205c97d53f42fcbda0bcee": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "complete",\
+        "Roofing": "complete",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "complete",\
+        "Structural Piles": "complete",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "complete",\
+        "Roofing Membrane": "complete"\
+      \},\
+      "65205c97d53f42fcbda0bced": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "complete",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "complete",\
+        "Tilt-Up Wall Panels": "complete",\
+        "Structural Piles": "complete",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "complete",\
+        "Roofing Membrane": "complete"\
+      \}\
+    \},\
+    "2022/06/16": \{\
+      "68b36de0b21b124f0d3682b3": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "complete",\
+        "Roofing": "complete",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "complete",\
+        "Structural Piles": "complete",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "complete",\
+        "Roofing Membrane": "complete"\
+      \},\
+      "68b36d776244a70cf6b13b7c": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "complete",\
+        "Roofing": "complete",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "complete",\
+        "Structural Piles": "complete",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "complete",\
+        "Roofing Membrane": "complete"\
+      \},\
+      "68b36d52dfb1531431942889": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "complete",\
+        "Roofing": "complete",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "complete",\
+        "Structural Piles": "complete",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "complete",\
+        "Roofing Membrane": "complete"\
+      \},\
+      "68b36a2262f5c1297c0913d3": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "complete",\
+        "Roofing": "complete",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "complete",\
+        "Structural Piles": "complete",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "complete",\
+        "Roofing Membrane": "complete"\
+      \},\
+      "68881ef9cbdd5a6f740a1e55": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "complete",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "68881eaf5ecfb6cf31709226": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "complete",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "68881c0d9c359a7c21399336": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "complete",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "68881af3cbdd5a6f740a1e42": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "complete",\
+        "Roofing": "complete",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "complete",\
+        "Structural Piles": "complete",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "complete",\
+        "Roofing Membrane": "complete"\
+      \},\
+      "68881aace1e8315beb8dbf32": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "complete",\
+        "Roofing": "complete",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "complete",\
+        "Structural Piles": "complete",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "complete",\
+        "Roofing Membrane": "complete"\
+      \},\
+      "688819c084c0ccb3af37ee44": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "complete",\
+        "Roofing": "complete",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "complete",\
+        "Structural Piles": "complete",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "complete",\
+        "Roofing Membrane": "complete"\
+      \},\
+      "68881865a0f3c54a3f9fed31": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "complete",\
+        "Roofing": "complete",\
+        "Roof HVAC Units": "in progress",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "complete",\
+        "Structural Piles": "complete",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "complete",\
+        "Roofing Membrane": "complete"\
+      \},\
+      "688817b5587882b7457d5719": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "complete",\
+        "Roofing": "complete",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "complete",\
+        "Structural Piles": "complete",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "complete",\
+        "Roofing Membrane": "complete"\
+      \},\
+      "688816b1880b7b96b2e501b6": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "complete",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "6888113f3332fd44fd149711": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "complete",\
+        "Structural Piles": "complete",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "68880e35587882b7457d5701": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "complete",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "68880da50f864d2881bdd80b": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "complete",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "6849c2e7f11830b69fc3882e": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "not started",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "6849c2b8091fc596463ede32": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "complete",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "complete",\
+        "Roofing Membrane": "complete"\
+      \},\
+      "65205c97d53f42fcbda0bcf1": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "not started",\
+        "Concrete Pour": "not started",\
+        "Concrete Formwork": "not started",\
+        "Concrete Rebar": "not started",\
+        "Concrete Foundation Pour": "not started",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "65205c97d53f42fcbda0bcef": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "complete",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "complete",\
+        "Structural Piles": "complete",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "65205c97d53f42fcbda0bcee": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "complete",\
+        "Roofing": "complete",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "complete",\
+        "Structural Piles": "complete",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "complete",\
+        "Roofing Membrane": "complete"\
+      \},\
+      "65205c97d53f42fcbda0bced": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "complete",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "complete",\
+        "Tilt-Up Wall Panels": "complete",\
+        "Structural Piles": "complete",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "complete",\
+        "Roofing Membrane": "complete"\
+      \}\
+    \},\
+    "2022/06/30": \{\
+      "68b36de0b21b124f0d3682b3": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "complete",\
+        "Roofing": "complete",\
+        "Roof HVAC Units": "complete",\
+        "Roof HVAC Piping": "complete",\
+        "Tilt-Up Wall Panels": "complete",\
+        "Structural Piles": "complete",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "complete",\
+        "Roofing Membrane": "complete"\
+      \},\
+      "68b36d776244a70cf6b13b7c": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "complete",\
+        "Roofing": "complete",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "complete",\
+        "Structural Piles": "complete",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "complete",\
+        "Roofing Membrane": "complete"\
+      \},\
+      "68b36d52dfb1531431942889": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "complete",\
+        "Roofing": "complete",\
+        "Roof HVAC Units": "complete",\
+        "Roof HVAC Piping": "complete",\
+        "Tilt-Up Wall Panels": "complete",\
+        "Structural Piles": "complete",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "complete",\
+        "Roofing Membrane": "complete"\
+      \},\
+      "68b36a2262f5c1297c0913d3": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "complete",\
+        "Roofing": "complete",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "complete",\
+        "Structural Piles": "complete",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "complete",\
+        "Roofing Membrane": "complete"\
+      \},\
+      "68881ef9cbdd5a6f740a1e55": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "complete",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "68881eaf5ecfb6cf31709226": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "complete",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "68881c0d9c359a7c21399336": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "complete",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "68881af3cbdd5a6f740a1e42": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "complete",\
+        "Roofing": "complete",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "complete",\
+        "Structural Piles": "complete",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "complete",\
+        "Roofing Membrane": "complete"\
+      \},\
+      "68881aace1e8315beb8dbf32": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "complete",\
+        "Roofing": "complete",\
+        "Roof HVAC Units": "complete",\
+        "Roof HVAC Piping": "complete",\
+        "Tilt-Up Wall Panels": "complete",\
+        "Structural Piles": "complete",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "complete",\
+        "Roofing Membrane": "complete"\
+      \},\
+      "688819c084c0ccb3af37ee44": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "complete",\
+        "Roofing": "complete",\
+        "Roof HVAC Units": "complete",\
+        "Roof HVAC Piping": "complete",\
+        "Tilt-Up Wall Panels": "complete",\
+        "Structural Piles": "complete",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "complete",\
+        "Roofing Membrane": "complete"\
+      \},\
+      "68881865a0f3c54a3f9fed31": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "complete",\
+        "Roofing": "complete",\
+        "Roof HVAC Units": "complete",\
+        "Roof HVAC Piping": "complete",\
+        "Tilt-Up Wall Panels": "complete",\
+        "Structural Piles": "complete",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "complete",\
+        "Roofing Membrane": "complete"\
+      \},\
+      "688817b5587882b7457d5719": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "complete",\
+        "Roofing": "complete",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "complete",\
+        "Structural Piles": "complete",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "complete",\
+        "Roofing Membrane": "complete"\
+      \},\
+      "688816b1880b7b96b2e501b6": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "complete",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "6888113f3332fd44fd149711": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "complete",\
+        "Structural Piles": "complete",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "68880e35587882b7457d5701": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "complete",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "68880da50f864d2881bdd80b": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "complete",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "6849c2e7f11830b69fc3882e": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "complete",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "6849c2b8091fc596463ede32": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "complete",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "complete",\
+        "Roofing Membrane": "complete"\
+      \},\
+      "65205c97d53f42fcbda0bcf1": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "not started",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "not started",\
+        "Structural Piles": "not started",\
+        "Concrete Pour": "not started",\
+        "Concrete Formwork": "not started",\
+        "Concrete Rebar": "not started",\
+        "Concrete Foundation Pour": "not started",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "65205c97d53f42fcbda0bcef": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "complete",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "not started",\
+        "Tilt-Up Wall Panels": "complete",\
+        "Structural Piles": "complete",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "not started",\
+        "Roofing Membrane": "not started"\
+      \},\
+      "65205c97d53f42fcbda0bcee": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "complete",\
+        "Roofing": "complete",\
+        "Roof HVAC Units": "complete",\
+        "Roof HVAC Piping": "complete",\
+        "Tilt-Up Wall Panels": "complete",\
+        "Structural Piles": "complete",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "complete",\
+        "Roofing Membrane": "complete"\
+      \},\
+      "65205c97d53f42fcbda0bced": \{\
+        "Excavation": "complete",\
+        "Batterboards": "complete",\
+        "Vapor Barrier": "complete",\
+        "Underground Utilities": "complete",\
+        "Structural Steel": "complete",\
+        "Roofing": "not started",\
+        "Roof HVAC Units": "not started",\
+        "Roof HVAC Piping": "complete",\
+        "Tilt-Up Wall Panels": "complete",\
+        "Structural Piles": "complete",\
+        "Concrete Pour": "complete",\
+        "Concrete Formwork": "complete",\
+        "Concrete Rebar": "complete",\
+        "Concrete Foundation Pour": "complete",\
+        "Roofing Insulation": "complete",\
+        "Roofing Membrane": "complete"\
+      \}\
+    \}\
+  \},\
+  "dateToReportId": \{\
+    "2020/10/01": "68b87518b1df0441ac75f4cc",\
+    "2020/10/15": "68b875a8b1df0441ac75f4d0",\
+    "2020/10/30": "68b874e5bae6a38ae2f0ff12",\
+    "2020/11/13": "68b87588bae6a38ae2f0ff15",\
+    "2020/12/15": "68b8761dbae6a38ae2f0ff19",\
+    "2020/12/28": "68b876afbae6a38ae2f0ff1f",\
+    "2021/02/22": "68b8774dbae6a38ae2f0ff22",\
+    "2021/03/01": "68b8775cb1df0441ac75f4da",\
+    "2021/03/15": "68b877eebae6a38ae2f0ff23",\
+    "2021/04/15": "68b8783cb1df0441ac75f4db",\
+    "2021/05/14": "68b88489b1df0441ac75f4ea",\
+    "2021/06/01": "68b878d5b1df0441ac75f4dc",\
+    "2021/06/15": "68b884b0bae6a38ae2f0ff34",\
+    "2021/07/15": "68b87834bae6a38ae2f0ff24",\
+    "2021/07/30": "68b87877bae6a38ae2f0ff25",\
+    "2021/08/13": "68b87918b1df0441ac75f4dd",\
+    "2021/09/01": "68b87904bae6a38ae2f0ff26",\
+    "2021/09/15": "68b87941bae6a38ae2f0ff27",\
+    "2021/10/01": "68b87442bae6a38ae2f0ff0e",\
+    "2021/11/15": "68b87401bae6a38ae2f0ff0c",\
+    "2021/12/01": "68b873c2bae6a38ae2f0ff0a",\
+    "2021/12/27": "68b8733abae6a38ae2f0ff05",\
+    "2022/01/13": "68b8732ab1df0441ac75f4c2",\
+    "2022/02/15": "68b872a9b1df0441ac75f4bf",\
+    "2022/03/01": "68b872fbbae6a38ae2f0ff03",\
+    "2022/04/01": "68b88e84bae6a38ae2f0ff37",\
+    "2022/04/18": "68b872babae6a38ae2f0ff01",\
+    "2022/05/16": "68b8722fbae6a38ae2f0fefb",\
+    "2022/06/01": "68b87224b1df0441ac75f4ba",\
+    "2022/06/16": "68b871f7bae6a38ae2f0fef9",\
+    "2022/06/30": "68dcad0c8b394b62e16a6141"\
+  \},\
+  "reportIdToDate": \{\
+    "68b87518b1df0441ac75f4cc": "2020/10/01",\
+    "68b875a8b1df0441ac75f4d0": "2020/10/15",\
+    "68b874e5bae6a38ae2f0ff12": "2020/10/30",\
+    "68b87588bae6a38ae2f0ff15": "2020/11/13",\
+    "68b8761dbae6a38ae2f0ff19": "2020/12/15",\
+    "68b876afbae6a38ae2f0ff1f": "2020/12/28",\
+    "68b8774dbae6a38ae2f0ff22": "2021/02/22",\
+    "68b8775cb1df0441ac75f4da": "2021/03/01",\
+    "68b877eebae6a38ae2f0ff23": "2021/03/15",\
+    "68b8783cb1df0441ac75f4db": "2021/04/15",\
+    "68b88489b1df0441ac75f4ea": "2021/05/14",\
+    "68b878d5b1df0441ac75f4dc": "2021/06/01",\
+    "68b884b0bae6a38ae2f0ff34": "2021/06/15",\
+    "68b87834bae6a38ae2f0ff24": "2021/07/15",\
+    "68b87877bae6a38ae2f0ff25": "2021/07/30",\
+    "68b87918b1df0441ac75f4dd": "2021/08/13",\
+    "68b87904bae6a38ae2f0ff26": "2021/09/01",\
+    "68b87941bae6a38ae2f0ff27": "2021/09/15",\
+    "68b87442bae6a38ae2f0ff0e": "2021/10/01",\
+    "68b87401bae6a38ae2f0ff0c": "2021/11/15",\
+    "68b873c2bae6a38ae2f0ff0a": "2021/12/01",\
+    "68b8733abae6a38ae2f0ff05": "2021/12/27",\
+    "68b8732ab1df0441ac75f4c2": "2022/01/13",\
+    "68b872a9b1df0441ac75f4bf": "2022/02/15",\
+    "68b872fbbae6a38ae2f0ff03": "2022/03/01",\
+    "68b88e84bae6a38ae2f0ff37": "2022/04/01",\
+    "68b872babae6a38ae2f0ff01": "2022/04/18",\
+    "68b8722fbae6a38ae2f0fefb": "2022/05/16",\
+    "68b87224b1df0441ac75f4ba": "2022/06/01",\
+    "68b871f7bae6a38ae2f0fef9": "2022/06/16",\
+    "68dcad0c8b394b62e16a6141": "2022/06/30"\
+  \},\
+  "trades": [\
+    "Concrete Pour",\
+    "Concrete Foundation Pour",\
+    "Vapor Barrier",\
+    "Structural Steel",\
+    "Tilt-Up Wall Panels",\
+    "Concrete Rebar",\
+    "Underground Utilities",\
+    "Concrete Formwork",\
+    "Roofing Membrane",\
+    "Roofing Insulation",\
+    "Roofing",\
+    "Excavation",\
+    "Structural Piles",\
+    "Batterboards",\
+    "Roof HVAC Piping",\
+    "Roof HVAC Units"\
+  ],\
+  "locationKeyToName": \{\
+    "68b36de0b21b124f0d3682b3": "Main Building - Segment F",\
+    "68b36d776244a70cf6b13b7c": "Main Building - Segment C - Classrooms",\
+    "68b36d52dfb1531431942889": "Main Building - Segment A - Classrooms",\
+    "68b36a2262f5c1297c0913d3": "Concessions",\
+    "68881ef9cbdd5a6f740a1e55": "South Parking Lot 2",\
+    "68881eaf5ecfb6cf31709226": "South Parking Lot",\
+    "68881c0d9c359a7c21399336": "North Parking Lot",\
+    "68881af3cbdd5a6f740a1e42": "Main Building - Segment E - Courtyard",\
+    "68881aace1e8315beb8dbf32": "Main Building - Segments J, K - Gymnasium",\
+    "688819c084c0ccb3af37ee44": "Main Building - Segments G, H - Auditorium",\
+    "68881865a0f3c54a3f9fed31": "Main Building - Segment D - Kitchens",\
+    "688817b5587882b7457d5719": "Main Building - Segment B - Classrooms",\
+    "688816b1880b7b96b2e501b6": "East Parking Lot",\
+    "6888113f3332fd44fd149711": "North East Parking Lot",\
+    "68880e35587882b7457d5701": "West Parking Lot",\
+    "68880da50f864d2881bdd80b": "Band Practice Parking Lot",\
+    "6849c2e7f11830b69fc3882e": "Baseball Field",\
+    "6849c2b8091fc596463ede32": "Track and Field",\
+    "65205c97d53f42fcbda0bcf1": "Practice Fields",\
+    "65205c97d53f42fcbda0bcef": "Tennis Courts",\
+    "65205c97d53f42fcbda0bcee": "Field House",\
+    "65205c97d53f42fcbda0bced": "Softball Field"\
+  \},\
+  "dateTradeStarted": \{\
+    "68b36de0b21b124f0d3682b3": \{\
+      "Excavation": "2020/10/01",\
+      "Underground Utilities": "2020/11/13",\
+      "Structural Piles": "2021/04/15",\
+      "Structural Steel": "2021/06/01",\
+      "Roofing": "2021/06/01"\
+    \},\
+    "68b36d776244a70cf6b13b7c": \{\
+      "Excavation": "2020/10/01",\
+      "Underground Utilities": "2021/02/22",\
+      "Structural Piles": "2021/02/22",\
+      "Concrete Pour": "2021/02/22",\
+      "Concrete Formwork": "2021/02/22",\
+      "Concrete Rebar": "2021/02/22",\
+      "Concrete Foundation Pour": "2021/02/22",\
+      "Vapor Barrier": "2021/03/01",\
+      "Structural Steel": "2021/06/01",\
+      "Roofing": "2021/06/01",\
+      "Roofing Insulation": "2021/09/01",\
+      "Roofing Membrane": "2021/09/01"\
+    \},\
+    "68b36d52dfb1531431942889": \{\
+      "Excavation": "2020/10/01",\
+      "Underground Utilities": "2020/12/28",\
+      "Roofing": "2021/05/14",\
+      "Roofing Membrane": "2021/09/01",\
+      "Roofing Insulation": "2021/09/15"\
+    \},\
+    "68b36a2262f5c1297c0913d3": \{\
+      "Excavation": "2020/10/01",\
+      "Concrete Pour": "2021/02/22",\
+      "Concrete Formwork": "2021/02/22",\
+      "Concrete Rebar": "2021/02/22",\
+      "Concrete Foundation Pour": "2021/02/22",\
+      "Structural Steel": "2021/06/15",\
+      "Roofing": "2021/07/15",\
+      "Roofing Membrane": "2021/09/01"\
+    \},\
+    "68881ef9cbdd5a6f740a1e55": \{\
+      "Excavation": "2020/10/01",\
+      "Underground Utilities": "2021/05/14"\
+    \},\
+    "68881eaf5ecfb6cf31709226": \{\
+      "Excavation": "2020/10/01",\
+      "Underground Utilities": "2020/11/13",\
+      "Concrete Pour": "2021/02/22",\
+      "Concrete Formwork": "2021/02/22",\
+      "Concrete Rebar": "2021/02/22",\
+      "Concrete Foundation Pour": "2021/02/22"\
+    \},\
+    "68881c0d9c359a7c21399336": \{\
+      "Excavation": "2020/10/01",\
+      "Underground Utilities": "2021/02/22"\
+    \},\
+    "68881af3cbdd5a6f740a1e42": \{\
+      "Excavation": "2020/10/01",\
+      "Underground Utilities": "2020/12/28",\
+      "Concrete Pour": "2021/02/22",\
+      "Concrete Formwork": "2021/02/22",\
+      "Concrete Rebar": "2021/02/22",\
+      "Concrete Foundation Pour": "2021/02/22",\
+      "Structural Piles": "2021/03/01",\
+      "Tilt-Up Wall Panels": "2021/06/15",\
+      "Structural Steel": "2021/07/30",\
+      "Roofing": "2021/09/01",\
+      "Roofing Insulation": "2021/09/15",\
+      "Roofing Membrane": "2021/09/15"\
+    \},\
+    "68881aace1e8315beb8dbf32": \{\
+      "Excavation": "2020/10/01",\
+      "Underground Utilities": "2021/02/22",\
+      "Concrete Formwork": "2021/02/22",\
+      "Concrete Rebar": "2021/02/22",\
+      "Batterboards": "2021/03/01",\
+      "Concrete Pour": "2021/03/01",\
+      "Concrete Foundation Pour": "2021/03/01",\
+      "Vapor Barrier": "2021/03/15",\
+      "Structural Piles": "2021/04/15",\
+      "Structural Steel": "2021/06/15",\
+      "Tilt-Up Wall Panels": "2021/06/15",\
+      "Roofing": "2021/09/01",\
+      "Roofing Insulation": "2021/12/01",\
+      "Roofing Membrane": "2021/12/01"\
+    \},\
+    "688819c084c0ccb3af37ee44": \{\
+      "Excavation": "2020/10/01",\
+      "Underground Utilities": "2021/02/22",\
+      "Concrete Pour": "2021/02/22",\
+      "Concrete Formwork": "2021/02/22",\
+      "Concrete Rebar": "2021/02/22",\
+      "Concrete Foundation Pour": "2021/02/22",\
+      "Structural Piles": "2021/03/01",\
+      "Structural Steel": "2021/05/14",\
+      "Roofing": "2021/07/15",\
+      "Roofing Insulation": "2021/11/15",\
+      "Roofing Membrane": "2021/11/15"\
+    \},\
+    "68881865a0f3c54a3f9fed31": \{\
+      "Excavation": "2020/10/01",\
+      "Batterboards": "2021/02/22",\
+      "Underground Utilities": "2021/02/22",\
+      "Concrete Pour": "2021/02/22",\
+      "Concrete Formwork": "2021/02/22",\
+      "Concrete Rebar": "2021/02/22",\
+      "Concrete Foundation Pour": "2021/02/22",\
+      "Structural Steel": "2021/07/15",\
+      "Roofing": "2021/08/13",\
+      "Roofing Insulation": "2021/11/15",\
+      "Roofing Membrane": "2021/11/15",\
+      "Roof HVAC Units": "2021/12/27"\
+    \},\
+    "688817b5587882b7457d5719": \{\
+      "Excavation": "2020/10/01",\
+      "Underground Utilities": "2020/12/28",\
+      "Concrete Pour": "2021/02/22",\
+      "Concrete Formwork": "2021/02/22",\
+      "Concrete Rebar": "2021/02/22",\
+      "Concrete Foundation Pour": "2021/02/22",\
+      "Structural Piles": "2021/03/01",\
+      "Roofing": "2021/05/14"\
+    \},\
+    "688816b1880b7b96b2e501b6": \{\
+      "Excavation": "2020/10/01",\
+      "Vapor Barrier": "2021/03/15",\
+      "Underground Utilities": "2021/03/15",\
+      "Concrete Pour": "2021/03/15",\
+      "Concrete Formwork": "2021/03/15",\
+      "Concrete Rebar": "2021/03/15",\
+      "Concrete Foundation Pour": "2021/03/15"\
+    \},\
+    "6888113f3332fd44fd149711": \{\
+      "Excavation": "2020/10/01",\
+      "Vapor Barrier": "2021/03/01",\
+      "Underground Utilities": "2021/03/01",\
+      "Concrete Pour": "2021/03/01",\
+      "Concrete Formwork": "2021/03/01",\
+      "Concrete Rebar": "2021/03/01",\
+      "Concrete Foundation Pour": "2021/03/01"\
+    \},\
+    "68880e35587882b7457d5701": \{\
+      "Excavation": "2020/10/01"\
+    \},\
+    "68880da50f864d2881bdd80b": \{\
+      "Excavation": "2020/10/01"\
+    \},\
+    "6849c2e7f11830b69fc3882e": \{\
+      "Excavation": "2020/10/01",\
+      "Underground Utilities": "2020/12/15",\
+      "Batterboards": "2021/04/15",\
+      "Vapor Barrier": "2021/04/15",\
+      "Concrete Pour": "2021/04/15",\
+      "Concrete Formwork": "2021/04/15",\
+      "Concrete Rebar": "2021/04/15",\
+      "Concrete Foundation Pour": "2021/04/15"\
+    \},\
+    "6849c2b8091fc596463ede32": \{\
+      "Excavation": "2020/10/01"\
+    \},\
+    "65205c97d53f42fcbda0bcf1": \{\
+      "Excavation": "2020/10/01"\
+    \},\
+    "65205c97d53f42fcbda0bcee": \{\
+      "Excavation": "2020/10/01",\
+      "Underground Utilities": "2020/11/13",\
+      "Concrete Pour": "2021/02/22",\
+      "Concrete Formwork": "2021/02/22",\
+      "Concrete Rebar": "2021/02/22",\
+      "Concrete Foundation Pour": "2021/02/22",\
+      "Batterboards": "2021/03/01",\
+      "Structural Steel": "2021/05/14",\
+      "Roofing": "2021/07/15",\
+      "Roofing Insulation": "2021/08/13"\
+    \},\
+    "65205c97d53f42fcbda0bced": \{\
+      "Excavation": "2020/10/01",\
+      "Underground Utilities": "2020/12/15"\
+    \},\
+    "65205c97d53f42fcbda0bcef": \{\
+      "Excavation": "2020/10/30",\
+      "Underground Utilities": "2020/12/15",\
+      "Structural Steel": "2021/06/15"\
+    \}\
+  \},\
+  "dateTradeCompleted": \{\
+    "68b36d52dfb1531431942889": \{\
+      "Excavation": "2020/10/15",\
+      "Batterboards": "2021/02/22",\
+      "Underground Utilities": "2021/02/22",\
+      "Structural Piles": "2021/02/22",\
+      "Concrete Pour": "2021/02/22",\
+      "Concrete Formwork": "2021/02/22",\
+      "Concrete Rebar": "2021/02/22",\
+      "Concrete Foundation Pour": "2021/02/22",\
+      "Vapor Barrier": "2021/03/01",\
+      "Structural Steel": "2021/05/14",\
+      "Tilt-Up Wall Panels": "2021/05/14",\
+      "Roofing": "2021/09/15",\
+      "Roofing Insulation": "2021/11/15",\
+      "Roofing Membrane": "2021/11/15",\
+      "Roof HVAC Units": "2022/06/30",\
+      "Roof HVAC Piping": "2022/06/30"\
+    \},\
+    "68880e35587882b7457d5701": \{\
+      "Excavation": "2020/10/30",\
+      "Batterboards": "2021/07/15",\
+      "Vapor Barrier": "2021/07/15",\
+      "Underground Utilities": "2021/07/15",\
+      "Concrete Pour": "2021/07/15",\
+      "Concrete Formwork": "2021/07/15",\
+      "Concrete Rebar": "2021/07/15",\
+      "Concrete Foundation Pour": "2021/07/15",\
+      "Structural Piles": "2021/08/13"\
+    \},\
+    "65205c97d53f42fcbda0bcf1": \{\
+      "Excavation": "2020/10/30",\
+      "Batterboards": "2021/03/01",\
+      "Underground Utilities": "2021/05/14",\
+      "Vapor Barrier": "2022/04/18"\
+    \},\
+    "68b36de0b21b124f0d3682b3": \{\
+      "Excavation": "2020/11/13",\
+      "Batterboards": "2021/03/01",\
+      "Underground Utilities": "2021/03/01",\
+      "Concrete Pour": "2021/03/01",\
+      "Concrete Formwork": "2021/03/01",\
+      "Concrete Rebar": "2021/03/01",\
+      "Concrete Foundation Pour": "2021/03/01",\
+      "Vapor Barrier": "2021/03/15",\
+      "Structural Piles": "2021/05/14",\
+      "Tilt-Up Wall Panels": "2021/06/15",\
+      "Structural Steel": "2021/08/13",\
+      "Roofing": "2021/09/01",\
+      "Roofing Insulation": "2021/09/01",\
+      "Roofing Membrane": "2021/09/01",\
+      "Roof HVAC Units": "2022/06/30",\
+      "Roof HVAC Piping": "2022/06/30"\
+    \},\
+    "68b36a2262f5c1297c0913d3": \{\
+      "Excavation": "2020/11/13",\
+      "Batterboards": "2021/02/22",\
+      "Vapor Barrier": "2021/02/22",\
+      "Underground Utilities": "2021/02/22",\
+      "Structural Piles": "2021/03/15",\
+      "Concrete Pour": "2021/03/15",\
+      "Concrete Formwork": "2021/03/15",\
+      "Concrete Rebar": "2021/03/15",\
+      "Concrete Foundation Pour": "2021/03/15",\
+      "Structural Steel": "2021/07/15",\
+      "Tilt-Up Wall Panels": "2021/07/15",\
+      "Roofing": "2021/07/30",\
+      "Roofing Insulation": "2021/09/01",\
+      "Roofing Membrane": "2021/09/15"\
+    \},\
+    "68881eaf5ecfb6cf31709226": \{\
+      "Excavation": "2020/11/13",\
+      "Batterboards": "2021/02/22",\
+      "Vapor Barrier": "2021/02/22",\
+      "Underground Utilities": "2021/02/22",\
+      "Concrete Pour": "2021/05/14",\
+      "Concrete Formwork": "2021/05/14",\
+      "Concrete Rebar": "2021/05/14",\
+      "Concrete Foundation Pour": "2021/05/14",\
+      "Structural Piles": "2021/07/30"\
+    \},\
+    "6888113f3332fd44fd149711": \{\
+      "Excavation": "2020/11/13",\
+      "Batterboards": "2021/03/01",\
+      "Vapor Barrier": "2021/03/15",\
+      "Underground Utilities": "2021/03/15",\
+      "Concrete Pour": "2021/03/15",\
+      "Concrete Formwork": "2021/03/15",\
+      "Concrete Rebar": "2021/03/15",\
+      "Concrete Foundation Pour": "2021/03/15",\
+      "Structural Piles": "2021/05/14",\
+      "Tilt-Up Wall Panels": "2022/02/15"\
+    \},\
+    "65205c97d53f42fcbda0bcee": \{\
+      "Excavation": "2020/11/13",\
+      "Batterboards": "2021/03/15",\
+      "Underground Utilities": "2021/03/15",\
+      "Structural Piles": "2021/03/15",\
+      "Concrete Pour": "2021/03/15",\
+      "Concrete Formwork": "2021/03/15",\
+      "Concrete Rebar": "2021/03/15",\
+      "Concrete Foundation Pour": "2021/03/15",\
+      "Vapor Barrier": "2021/04/15",\
+      "Tilt-Up Wall Panels": "2021/06/15",\
+      "Structural Steel": "2021/07/30",\
+      "Roofing Membrane": "2021/07/30",\
+      "Roofing": "2021/08/13",\
+      "Roofing Insulation": "2021/09/01",\
+      "Roof HVAC Units": "2022/06/30",\
+      "Roof HVAC Piping": "2022/06/30"\
+    \},\
+    "68b36d776244a70cf6b13b7c": \{\
+      "Excavation": "2020/12/15",\
+      "Batterboards": "2021/02/22",\
+      "Vapor Barrier": "2021/03/15",\
+      "Underground Utilities": "2021/03/15",\
+      "Structural Piles": "2021/03/15",\
+      "Concrete Pour": "2021/03/15",\
+      "Concrete Formwork": "2021/03/15",\
+      "Concrete Rebar": "2021/03/15",\
+      "Concrete Foundation Pour": "2021/03/15",\
+      "Tilt-Up Wall Panels": "2021/05/14",\
+      "Structural Steel": "2021/08/13",\
+      "Roofing": "2021/08/13",\
+      "Roofing Insulation": "2021/10/01",\
+      "Roofing Membrane": "2021/10/01"\
+    \},\
+    "68881af3cbdd5a6f740a1e42": \{\
+      "Excavation": "2020/12/15",\
+      "Batterboards": "2021/02/22",\
+      "Vapor Barrier": "2021/03/15",\
+      "Underground Utilities": "2021/03/15",\
+      "Structural Piles": "2021/05/14",\
+      "Concrete Pour": "2021/05/14",\
+      "Concrete Formwork": "2021/05/14",\
+      "Concrete Rebar": "2021/05/14",\
+      "Concrete Foundation Pour": "2021/05/14",\
+      "Structural Steel": "2021/10/01",\
+      "Roofing": "2021/11/15",\
+      "Tilt-Up Wall Panels": "2021/11/15",\
+      "Roofing Insulation": "2022/01/13",\
+      "Roofing Membrane": "2022/01/13"\
+    \},\
+    "68881aace1e8315beb8dbf32": \{\
+      "Excavation": "2020/12/15",\
+      "Batterboards": "2021/03/15",\
+      "Underground Utilities": "2021/03/15",\
+      "Vapor Barrier": "2021/05/14",\
+      "Structural Piles": "2021/05/14",\
+      "Concrete Pour": "2021/05/14",\
+      "Concrete Formwork": "2021/05/14",\
+      "Concrete Rebar": "2021/05/14",\
+      "Concrete Foundation Pour": "2021/05/14",\
+      "Tilt-Up Wall Panels": "2021/07/30",\
+      "Structural Steel": "2021/11/15",\
+      "Roofing": "2021/11/15",\
+      "Roofing Insulation": "2022/04/01",\
+      "Roofing Membrane": "2022/04/01",\
+      "Roof HVAC Units": "2022/06/30",\
+      "Roof HVAC Piping": "2022/06/30"\
+    \},\
+    "688817b5587882b7457d5719": \{\
+      "Excavation": "2020/12/15",\
+      "Batterboards": "2021/03/01",\
+      "Vapor Barrier": "2021/03/01",\
+      "Underground Utilities": "2021/03/01",\
+      "Structural Piles": "2021/03/15",\
+      "Concrete Pour": "2021/03/15",\
+      "Concrete Formwork": "2021/03/15",\
+      "Concrete Rebar": "2021/03/15",\
+      "Concrete Foundation Pour": "2021/03/15",\
+      "Structural Steel": "2021/05/14",\
+      "Tilt-Up Wall Panels": "2021/05/14",\
+      "Roofing": "2021/08/13",\
+      "Roofing Insulation": "2021/11/15",\
+      "Roofing Membrane": "2021/11/15"\
+    \},\
+    "6849c2e7f11830b69fc3882e": \{\
+      "Excavation": "2020/12/15",\
+      "Underground Utilities": "2021/03/15",\
+      "Batterboards": "2021/05/14",\
+      "Vapor Barrier": "2021/05/14",\
+      "Concrete Pour": "2021/05/14",\
+      "Concrete Formwork": "2021/05/14",\
+      "Concrete Rebar": "2021/05/14",\
+      "Concrete Foundation Pour": "2021/06/01",\
+      "Structural Piles": "2022/06/30"\
+    \},\
+    "6849c2b8091fc596463ede32": \{\
+      "Excavation": "2020/12/15",\
+      "Underground Utilities": "2021/03/15",\
+      "Batterboards": "2021/04/15",\
+      "Vapor Barrier": "2021/04/15",\
+      "Concrete Pour": "2021/04/15",\
+      "Concrete Formwork": "2021/04/15",\
+      "Concrete Rebar": "2021/04/15",\
+      "Concrete Foundation Pour": "2021/04/15",\
+      "Structural Piles": "2021/06/01",\
+      "Roofing Insulation": "2022/04/01",\
+      "Roofing Membrane": "2022/04/18"\
+    \},\
+    "65205c97d53f42fcbda0bcef": \{\
+      "Excavation": "2020/12/15",\
+      "Batterboards": "2021/03/01",\
+      "Vapor Barrier": "2021/03/01",\
+      "Underground Utilities": "2021/03/01",\
+      "Structural Piles": "2021/03/01",\
+      "Concrete Formwork": "2021/03/01",\
+      "Concrete Rebar": "2021/03/01",\
+      "Concrete Pour": "2021/03/15",\
+      "Concrete Foundation Pour": "2021/03/15",\
+      "Tilt-Up Wall Panels": "2021/10/01",\
+      "Structural Steel": "2022/05/16"\
+    \},\
+    "65205c97d53f42fcbda0bced": \{\
+      "Excavation": "2020/12/15",\
+      "Batterboards": "2021/02/22",\
+      "Vapor Barrier": "2021/03/15",\
+      "Underground Utilities": "2021/03/15",\
+      "Concrete Formwork": "2021/03/15",\
+      "Structural Piles": "2021/04/15",\
+      "Concrete Pour": "2021/04/15",\
+      "Concrete Rebar": "2021/04/15",\
+      "Concrete Foundation Pour": "2021/04/15",\
+      "Structural Steel": "2021/07/30",\
+      "Tilt-Up Wall Panels": "2021/07/30",\
+      "Roof HVAC Piping": "2021/09/01",\
+      "Roofing Insulation": "2021/12/01",\
+      "Roofing Membrane": "2021/12/01"\
+    \},\
+    "688816b1880b7b96b2e501b6": \{\
+      "Excavation": "2020/12/28",\
+      "Batterboards": "2021/03/15",\
+      "Concrete Pour": "2021/04/15",\
+      "Concrete Formwork": "2021/04/15",\
+      "Concrete Rebar": "2021/04/15",\
+      "Concrete Foundation Pour": "2021/04/15",\
+      "Vapor Barrier": "2021/05/14",\
+      "Underground Utilities": "2021/05/14",\
+      "Structural Piles": "2022/06/01"\
+    \},\
+    "68881c0d9c359a7c21399336": \{\
+      "Excavation": "2021/02/22",\
+      "Batterboards": "2021/05/14",\
+      "Vapor Barrier": "2021/05/14",\
+      "Underground Utilities": "2021/05/14",\
+      "Concrete Pour": "2021/05/14",\
+      "Concrete Formwork": "2021/05/14",\
+      "Concrete Rebar": "2021/05/14",\
+      "Concrete Foundation Pour": "2021/07/30",\
+      "Structural Piles": "2022/06/16"\
+    \},\
+    "688819c084c0ccb3af37ee44": \{\
+      "Excavation": "2021/02/22",\
+      "Batterboards": "2021/02/22",\
+      "Underground Utilities": "2021/03/15",\
+      "Structural Piles": "2021/03/15",\
+      "Concrete Pour": "2021/03/15",\
+      "Concrete Formwork": "2021/03/15",\
+      "Concrete Rebar": "2021/03/15",\
+      "Concrete Foundation Pour": "2021/03/15",\
+      "Vapor Barrier": "2021/04/15",\
+      "Structural Steel": "2021/07/15",\
+      "Tilt-Up Wall Panels": "2021/07/30",\
+      "Roofing": "2021/11/15",\
+      "Roofing Insulation": "2021/12/01",\
+      "Roofing Membrane": "2021/12/01",\
+      "Roof HVAC Units": "2022/06/30",\
+      "Roof HVAC Piping": "2022/06/30"\
+    \},\
+    "68881865a0f3c54a3f9fed31": \{\
+      "Excavation": "2021/02/22",\
+      "Batterboards": "2021/03/15",\
+      "Vapor Barrier": "2021/03/15",\
+      "Underground Utilities": "2021/03/15",\
+      "Structural Piles": "2021/03/15",\
+      "Concrete Pour": "2021/03/15",\
+      "Concrete Formwork": "2021/03/15",\
+      "Concrete Rebar": "2021/03/15",\
+      "Concrete Foundation Pour": "2021/03/15",\
+      "Tilt-Up Wall Panels": "2021/07/15",\
+      "Structural Steel": "2021/09/01",\
+      "Roofing": "2021/09/15",\
+      "Roofing Insulation": "2021/12/01",\
+      "Roofing Membrane": "2021/12/01",\
+      "Roof HVAC Units": "2022/06/30",\
+      "Roof HVAC Piping": "2022/06/30"\
+    \},\
+    "68881ef9cbdd5a6f740a1e55": \{\
+      "Excavation": "2021/03/15",\
+      "Batterboards": "2021/03/15",\
+      "Concrete Pour": "2021/03/15",\
+      "Concrete Formwork": "2021/03/15",\
+      "Concrete Rebar": "2021/03/15",\
+      "Concrete Foundation Pour": "2021/03/15",\
+      "Vapor Barrier": "2021/05/14",\
+      "Structural Piles": "2021/05/14",\
+      "Underground Utilities": "2021/06/01"\
+    \},\
+    "68880da50f864d2881bdd80b": \{\
+      "Excavation": "2021/03/15",\
+      "Underground Utilities": "2021/05/14",\
+      "Batterboards": "2021/06/01",\
+      "Vapor Barrier": "2021/06/01",\
+      "Concrete Pour": "2021/06/01",\
+      "Concrete Formwork": "2021/06/01",\
+      "Concrete Rebar": "2021/06/01",\
+      "Concrete Foundation Pour": "2021/06/01",\
+      "Structural Piles": "2021/08/13"\
+    \}\
+  \},\
+  "locationTags": \{\
+    "68b36de0b21b124f0d3682b3": [\
+      "Zone 1",\
+      "Zone 2"\
+    ],\
+    "68b36d776244a70cf6b13b7c": [\
+      "Zone 4",\
+      "Zone 2"\
+    ],\
+    "68b36d52dfb1531431942889": [\
+      "Zone 3",\
+      "Zone 4"\
+    ],\
+    "68b36a2262f5c1297c0913d3": [\
+      "Zone 1",\
+      "Zone 2"\
+    ],\
+    "68881ef9cbdd5a6f740a1e55": [\
+      "Zone 3",\
+      "Zone 2"\
+    ],\
+    "68881eaf5ecfb6cf31709226": [\
+      "Zone 3",\
+      "Zone 1"\
+    ],\
+    "68881c0d9c359a7c21399336": [\
+      "Zone 2",\
+      "Zone 3"\
+    ],\
+    "68881af3cbdd5a6f740a1e42": [\
+      "Zone 2",\
+      "Zone 4"\
+    ],\
+    "68881aace1e8315beb8dbf32": [\
+      "Zone 2",\
+      "Zone 4"\
+    ],\
+    "688819c084c0ccb3af37ee44": [\
+      "Zone 2",\
+      "Zone 1"\
+    ],\
+    "68881865a0f3c54a3f9fed31": [\
+      "Zone 1",\
+      "Zone 2"\
+    ],\
+    "688817b5587882b7457d5719": [\
+      "Zone 4",\
+      "Zone 3"\
+    ],\
+    "688816b1880b7b96b2e501b6": [\
+      "Zone 3",\
+      "Zone 1"\
+    ],\
+    "6888113f3332fd44fd149711": [\
+      "Zone 2",\
+      "Zone 3"\
+    ],\
+    "68880e35587882b7457d5701": [\
+      "Zone 4",\
+      "Zone 3"\
+    ],\
+    "68880da50f864d2881bdd80b": [\
+      "Zone 4",\
+      "Zone 2"\
+    ],\
+    "6849c2e7f11830b69fc3882e": [\
+      "Zone 1",\
+      "Zone 2"\
+    ],\
+    "6849c2b8091fc596463ede32": [\
+      "Zone 1",\
+      "Zone 2"\
+    ],\
+    "65205c97d53f42fcbda0bcf1": [\
+      "Zone 1",\
+      "Zone 3"\
+    ],\
+    "65205c97d53f42fcbda0bcef": [\
+      "Zone 1",\
+      "Zone 2"\
+    ],\
+    "65205c97d53f42fcbda0bcee": [\
+      "Zone 3",\
+      "Zone 1"\
+    ],\
+    "65205c97d53f42fcbda0bced": [\
+      "Zone 2",\
+      "Zone 4"\
+    ]\
+  \},\
+  "locationIssues": \{\
+    "2020/10/01": \{\
+      "68b36de0b21b124f0d3682b3": [\
+        \{\
+          "issue_type": "stalled",\
+          "trade": "Concrete Rebar",\
+          "weeks_stalled": 4\
+        \}\
+      ],\
+      "68b36d776244a70cf6b13b7c": [],\
+      "68b36d52dfb1531431942889": [\
+        \{\
+          "issue_type": "stalled",\
+          "trade": "Concrete Rebar",\
+          "weeks_stalled": 4\
+        \}\
+      ],\
+      "68b36a2262f5c1297c0913d3": [],\
+      "68881ef9cbdd5a6f740a1e55": [],\
+      "68881eaf5ecfb6cf31709226": [],\
+      "68881c0d9c359a7c21399336": [\
+        \{\
+          "issue_type": "stalled",\
+          "trade": "Tilt-Up Wall Panels",\
+          "weeks_stalled": 4\
+        \}\
+      ],\
+      "68881af3cbdd5a6f740a1e42": [\
+        \{\
+          "issue_type": "stacked",\
+          "trades": [\
+            "Concrete Foundation Pour",\
+            "Tilt-Up Wall Panels",\
+            "Vapor Barrier",\
+            "Excavation",\
+            "Underground Utilities",\
+            "Structural Piles",\
+            "Concrete Formwork",\
+            "Structural Steel"\
+          ]\
+        \}\
+      ],\
+      "68881aace1e8315beb8dbf32": [],\
+      "688819c084c0ccb3af37ee44": [],\
+      "68881865a0f3c54a3f9fed31": [],\
+      "688817b5587882b7457d5719": [\
+        \{\
+          "issue_type": "stacked",\
+          "trades": [\
+            "Tilt-Up Wall Panels",\
+            "Concrete Foundation Pour",\
+            "Concrete Rebar",\
+            "Roofing Insulation",\
+            "Roof HVAC Piping",\
+            "Concrete Formwork",\
+            "Vapor Barrier",\
+            "Roofing Membrane"\
+          ]\
+        \}\
+      ],\
+      "688816b1880b7b96b2e501b6": [],\
+      "6888113f3332fd44fd149711": [],\
+      "68880e35587882b7457d5701": [],\
+      "68880da50f864d2881bdd80b": [],\
+      "6849c2e7f11830b69fc3882e": [],\
+      "6849c2b8091fc596463ede32": [],\
+      "65205c97d53f42fcbda0bcf1": [],\
+      "65205c97d53f42fcbda0bcef": [],\
+      "65205c97d53f42fcbda0bcee": [],\
+      "65205c97d53f42fcbda0bced": []\
+    \},\
+    "2020/10/15": \{\
+      "68b36de0b21b124f0d3682b3": [\
+        \{\
+          "issue_type": "stalled",\
+          "trade": "Structural Steel",\
+          "weeks_stalled": 4\
+        \}\
+      ],\
+      "68b36d776244a70cf6b13b7c": [],\
+      "68b36d52dfb1531431942889": [\
+        \{\
+          "issue_type": "stacked",\
+          "trades": [\
+            "Roofing",\
+            "Vapor Barrier",\
+            "Roof HVAC Piping",\
+            "Tilt-Up Wall Panels",\
+            "Roof HVAC Units",\
+            "Structural Piles",\
+            "Concrete Foundation Pour",\
+            "Underground Utilities"\
+          ]\
+        \}\
+      ],\
+      "68b36a2262f5c1297c0913d3": [],\
+      "68881ef9cbdd5a6f740a1e55": [],\
+      "68881eaf5ecfb6cf31709226": [],\
+      "68881c0d9c359a7c21399336": [],\
+      "68881af3cbdd5a6f740a1e42": [\
+        \{\
+          "issue_type": "stalled",\
+          "trade": "Concrete Foundation Pour",\
+          "weeks_stalled": 4\
+        \},\
+        \{\
+          "issue_type": "stacked",\
+          "trades": [\
+            "Roofing Membrane",\
+            "Concrete Formwork",\
+            "Excavation",\
+            "Concrete Rebar",\
+            "Concrete Foundation Pour",\
+            "Batterboards",\
+            "Roof HVAC Piping",\
+            "Structural Steel"\
+          ]\
+        \}\
+      ],\
+      "68881aace1e8315beb8dbf32": [],\
+      "688819c084c0ccb3af37ee44": [\
+        \{\
+          "issue_type": "stacked",\
+          "trades": [\
+            "Concrete Pour",\
+            "Excavation",\
+            "Roofing Insulation",\
+            "Concrete Foundation Pour",\
+            "Structural Steel",\
+            "Vapor Barrier",\
+            "Roof HVAC Piping",\
+            "Roofing"\
+          ]\
+        \}\
+      ],\
+      "68881865a0f3c54a3f9fed31": [],\
+      "688817b5587882b7457d5719": [],\
+      "688816b1880b7b96b2e501b6": [\
+        \{\
+          "issue_type": "stalled",\
+          "trade": "Roofing Membrane",\
+          "weeks_stalled": 4\
+        \}\
+      ],\
+      "6888113f3332fd44fd149711": [],\
+      "68880e35587882b7457d5701": [],\
+      "68880da50f864d2881bdd80b": [\
+        \{\
+          "issue_type": "stacked",\
+          "trades": [\
+            "Tilt-Up Wall Panels",\
+            "Concrete Foundation Pour",\
+            "Concrete Formwork",\
+            "Structural Piles",\
+            "Roof HVAC Piping",\
+            "Batterboards",\
+            "Roof HVAC Units",\
+            "Roofing"\
+          ]\
+        \}\
+      ],\
+      "6849c2e7f11830b69fc3882e": [],\
+      "6849c2b8091fc596463ede32": [],\
+      "65205c97d53f42fcbda0bcf1": [\
+        \{\
+          "issue_type": "stacked",\
+          "trades": [\
+            "Roofing",\
+            "Roofing Insulation",\
+            "Underground Utilities",\
+            "Roofing Membrane",\
+            "Structural Piles",\
+            "Concrete Formwork",\
+            "Concrete Foundation Pour",\
+            "Structural Steel"\
+          ]\
+        \}\
+      ],\
+      "65205c97d53f42fcbda0bcef": [\
+        \{\
+          "issue_type": "stalled",\
+          "trade": "Excavation",\
+          "weeks_stalled": 4\
+        \}\
+      ],\
+      "65205c97d53f42fcbda0bcee": [\
+        \{\
+          "issue_type": "stacked",\
+          "trades": [\
+            "Underground Utilities",\
+            "Roof HVAC Units",\
+            "Concrete Formwork",\
+            "Batterboards",\
+            "Concrete Pour",\
+            "Tilt-Up Wall Panels",\
+            "Vapor Barrier",\
+            "Roof HVAC Piping"\
+          ]\
+        \}\
+      ],\
+      "65205c97d53f42fcbda0bced": []\
+    \},\
+    "2020/10/30": \{\
+      "68b36de0b21b124f0d3682b3": [],\
+      "68b36d776244a70cf6b13b7c": [\
+        \{\
+          "issue_type": "stalled",\
+          "trade": "Roof HVAC Piping",\
+          "weeks_stalled": 4\
+        \}\
+      ],\
+      "68b36d52dfb1531431942889": [],\
+      "68b36a2262f5c1297c0913d3": [],\
+      "68881ef9cbdd5a6f740a1e55": [\
+        \{\
+          "issue_type": "stacked",\
+          "trades": [\
+            "Batterboards",\
+            "Roofing Membrane",\
+            "Structural Steel",\
+            "Structural Piles",\
+            "Roof HVAC Piping",\
+            "Roofing",\
+            "Concrete Pour",\
+            "Tilt-Up Wall Panels"\
+          ]\
+        \}\
+      ],\
+      "68881eaf5ecfb6cf31709226": [],\
+      "68881c0d9c359a7c21399336": [],\
+      "68881af3cbdd5a6f740a1e42": [\
+        \{\
+          "issue_type": "stacked",\
+          "trades": [\
+            "Excavation",\
+            "Structural Piles",\
+            "Batterboards",\
+            "Roofing Membrane",\
+            "Concrete Pour",\
+            "Roof HVAC Piping",\
+            "Concrete Rebar",\
+            "Roofing Insulation"\
+          ]\
+        \}\
+      ],\
+      "68881aace1e8315beb8dbf32": [\
+        \{\
+          "issue_type": "stacked",\
+          "trades": [\
+            "Roof HVAC Units",\
+            "Concrete Formwork",\
+            "Excavation",\
+            "Concrete Foundation Pour",\
+            "Roof HVAC Piping",\
+            "Roofing Membrane",\
+            "Structural Piles",\
+            "Underground Utilities"\
+          ]\
+        \}\
+      ],\
+      "688819c084c0ccb3af37ee44": [],\
+      "68881865a0f3c54a3f9fed31": [],\
+      "688817b5587882b7457d5719": [\
+        \{\
+          "issue_type": "stalled",\
+          "trade": "Roof HVAC Piping",\
+          "weeks_stalled": 4\
+        \},\
+        \{\
+          "issue_type": "stacked",\
+          "trades": [\
+            "Concrete Pour",\
+            "Roofing",\
+            "Tilt-Up Wall Panels",\
+            "Concrete Formwork",\
+            "Roofing Membrane",\
+            "Concrete Foundation Pour",\
+            "Roofing Insulation",\
+            "Roof HVAC Piping"\
+          ]\
+        \}\
+      ],\
+      "688816b1880b7b96b2e501b6": [],\
+      "6888113f3332fd44fd149711": [],\
+      "68880e35587882b7457d5701": [\
+        \{\
+          "issue_type": "stacked",\
+          "trades": [\
+            "Roofing",\
+            "Structural Piles",\
+            "Tilt-Up Wall Panels",\
+            "Vapor Barrier",\
+            "Roofing Membrane",\
+            "Batterboards",\
+            "Concrete Foundation Pour",\
+            "Excavation"\
+          ]\
+        \}\
+      ],\
+      "68880da50f864d2881bdd80b": [\
+        \{\
+          "issue_type": "stacked",\
+          "trades": [\
+            "Concrete Foundation Pour",\
+            "Roofing Insulation",\
+            "Excavation",\
+            "Concrete Formwork",\
+            "Roof HVAC Piping",\
+            "Vapor Barrier",\
+            "Tilt-Up Wall Panels",\
+            "Concrete Pour"\
+          ]\
+        \}\
+      ],\
+      "6849c2e7f11830b69fc3882e": [],\
+      "6849c2b8091fc596463ede32": [\
+        \{\
+          "issue_type": "stalled",\
+          "trade": "Concrete Pour",\
+          "weeks_stalled": 4\
+        \}\
+      ],\
+      "65205c97d53f42fcbda0bcf1": [],\
+      "65205c97d53f42fcbda0bcef": [\
+        \{\
+          "issue_type": "stacked",\
+          "trades": [\
+            "Roofing Insulation",\
+            "Roof HVAC Piping",\
+            "Excavation",\
+            "Structural Piles",\
+            "Concrete Pour",\
+            "Underground Utilities",\
+            "Batterboards",\
+            "Roofing Membrane"\
+          ]\
+        \}\
+      ],\
+      "65205c97d53f42fcbda0bcee": [],\
+      "65205c97d53f42fcbda0bced": [\
+        \{\
+          "issue_type": "stacked",\
+          "trades": [\
+            "Roof HVAC Units",\
+            "Concrete Rebar",\
+            "Vapor Barrier",\
+            "Structural Steel",\
+            "Roofing Insulation",\
+            "Underground Utilities",\
+            "Roofing Membrane",\
+            "Tilt-Up Wall Panels"\
+          ]\
+        \}\
+      ]\
+    \},\
+    "2020/11/13": \{\
+      "68b36de0b21b124f0d3682b3": [],\
+      "68b36d776244a70cf6b13b7c": [],\
+      "68b36d52dfb1531431942889": [],\
+      "68b36a2262f5c1297c0913d3": [],\
+      "68881ef9cbdd5a6f740a1e55": [\
+        \{\
+          "issue_type": "stalled",\
+          "trade": "Underground Utilities",\
+          "weeks_stalled": 4\
+        \},\
+        \{\
+          "issue_type": "stacked",\
+          "trades": [\
+            "Concrete Formwork",\
+            "Concrete Foundation Pour",\
+            "Structural Steel",\
+            "Concrete Pour",\
+            "Roof HVAC Units",\
+            "Roofing Insulation",\
+            "Vapor Barrier",\
+            "Concrete Rebar"\
+          ]\
+        \}\
+      ],\
+      "68881eaf5ecfb6cf31709226": [],\
+      "68881c0d9c359a7c21399336": [],\
+      "68881af3cbdd5a6f740a1e42": [\
+        \{\
+          "issue_type": "stacked",\
+          "trades": [\
+            "Roofing Insulation",\
+            "Excavation",\
+            "Vapor Barrier",\
+            "Tilt-Up Wall Panels",\
+            "Concrete Pour",\
+            "Concrete Rebar",\
+            "Concrete Formwork",\
+            "Underground Utilities"\
+          ]\
+        \}\
+      ],\
+      "68881aace1e8315beb8dbf32": [],\
+      "688819c084c0ccb3af37ee44": [],\
+      "68881865a0f3c54a3f9fed31": [],\
+      "688817b5587882b7457d5719": [],\
+      "688816b1880b7b96b2e501b6": [],\
+      "6888113f3332fd44fd149711": [],\
+      "68880e35587882b7457d5701": [\
+        \{\
+          "issue_type": "stalled",\
+          "trade": "Roof HVAC Piping",\
+          "weeks_stalled": 4\
+        \},\
+        \{\
+          "issue_type": "stacked",\
+          "trades": [\
+            "Excavation",\
+            "Structural Steel",\
+            "Tilt-Up Wall Panels",\
+            "Batterboards",\
+            "Roof HVAC Units",\
+            "Concrete Rebar",\
+            "Concrete Formwork",\
+            "Roofing"\
+          ]\
+        \}\
+      ],\
+      "68880da50f864d2881bdd80b": [\
+        \{\
+          "issue_type": "stacked",\
+          "trades": [\
+            "Underground Utilities",\
+            "Roof HVAC Units",\
+            "Concrete Formwork",\
+            "Structural Piles",\
+            "Roof HVAC Piping",\
+            "Concrete Rebar",\
+            "Structural Steel",\
+            "Tilt-Up Wall Panels"\
+          ]\
+        \}\
+      ],\
+      "6849c2e7f11830b69fc3882e": [],\
+      "6849c2b8091fc596463ede32": [],\
+      "65205c97d53f42fcbda0bcf1": [],\
+      "65205c97d53f42fcbda0bcef": [\
+        \{\
+          "issue_type": "stacked",\
+          "trades": [\
+            "Tilt-Up Wall Panels",\
+            "Underground Utilities",\
+            "Concrete Formwork",\
+            "Roofing Insulation",\
+            "Excavation",\
+            "Roof HVAC Units",\
+            "Roofing",\
+            "Concrete Foundation Pour"\
+          ]\
+        \}\
+      ],\
+      "65205c97d53f42fcbda0bcee": [\
+        \{\
+          "issue_type": "stalled",\
+          "trade": "Roof HVAC Piping",\
+          "weeks_stalled": 4\
+        \}\
+      ],\
+      "65205c97d53f42fcbda0bced": [\
+        \{\
+          "issue_type": "stalled",\
+          "trade": "Concrete Rebar",\
+          "weeks_stalled": 4\
+        \}\
+      ]\
+    \},\
+    "2020/12/15": \{\
+      "68b36de0b21b124f0d3682b3": [\
+        \{\
+          "issue_type": "stalled",\
+          "trade": "Structural Piles",\
+          "weeks_stalled": 4\
+        \}\
+      ],\
+      "68b36d776244a70cf6b13b7c": [\
+        \{\
+          "issue_type": "stalled",\
+          "trade": "Roofing Membrane",\
+          "weeks_stalled": 4\
+        \},\
+        \{\
+          "issue_type": "stacked",\
+          "trades": [\
+            "Concrete Foundation Pour",\
+            "Concrete Rebar",\
+            "Batterboards",\
+            "Roofing",\
+            "Tilt-Up Wall Panels",\
+            "Structural Steel",\
+            "Structural Piles",\
+            "Underground Utilities"\
+          ]\
+        \}\
+      ],\
+      "68b36d52dfb1531431942889": [],\
+      "68b36a2262f5c1297c0913d3": [\
+        \{\
+          "issue_type": "stacked",\
+          "trades": [\
+            "Vapor Barrier",\
+            "Structural Steel",\
+            "Tilt-Up Wall Panels",\
+            "Roof HVAC Piping",\
+            "Batterboards",\
+            "Concrete Formwork",\
+            "Concrete Foundation Pour",\
+            "Underground Utilities"\
+          ]\
+        \}\
+      ],\
+      "68881ef9cbdd5a6f740a1e55": [\
+        \{\
+          "issue_type": "stalled",\
+          "trade": "Roofing Membrane",\
+          "weeks_stalled": 4\
+        \}\
+      ],\
+      "68881eaf5ecfb6cf31709226": [],\
+      "68881c0d9c359a7c21399336": [\
+        \{\
+          "issue_type": "stacked",\
+          "trades": [\
+            "Vapor Barrier",\
+            "Concrete Formwork",\
+            "Concrete Pour",\
+            "Batterboards",\
+            "Roofing Insulation",\
+            "Tilt-Up Wall Panels",\
+            "Underground Utilities",\
+            "Roofing"\
+          ]\
+        \}\
+      ],\
+      "68881af3cbdd5a6f740a1e42": [],\
+      "68881aace1e8315beb8dbf32": [],\
+      "688819c084c0ccb3af37ee44": [\
+        \{\
+          "issue_type": "stacked",\
+          "trades": [\
+            "Structural Steel",\
+            "Underground Utilities",\
+            "Concrete Formwork",\
+            "Concrete Pour",\
+            "Tilt-Up Wall Panels",\
+            "Concrete Rebar",\
+            "Roof HVAC Piping",\
+            "Structural Piles"\
+          ]\
+        \}\
+      ],\
+      "68881865a0f3c54a3f9fed31": [\
+        \{\
+          "issue_type": "stalled",\
+          "trade": "Roofing Insulation",\
+          "weeks_stalled": 4\
+        \}\
+      ],\
+      "688817b5587882b7457d5719": [\
+        \{\
+          "issue_type": "stacked",\
+          "trades": [\
+            "Vapor Barrier",\
+            "Concrete Foundation Pour",\
+            "Structural Piles",\
+            "Structural Steel",\
+            "Roofing Insulation",\
+            "Concrete Formwork",\
+            "Batterboards",\
+            "Concrete Rebar"\
+          ]\
+        \}\
+      ],\
+      "688816b1880b7b96b2e501b6": [],\
+      "6888113f3332fd44fd149711": [],\
+      "68880e35587882b7457d5701": [\
+        \{\
+          "issue_type": "stacked",\
+          "trades": [\
+            "Structural Piles",\
+            "Underground Utilities",\
+            "Roofing",\
+            "Roofing Membrane",\
+            "Structural Steel",\
+            "Roofing Insulation",\
+            "Concrete Formwork",\
+            "Roof HVAC Piping"\
+          ]\
+        \}\
+      ],\
+      "68880da50f864d2881bdd80b": [\
+        \{\
+          "issue_type": "stalled",\
+          "trade": "Roofing Insulation",\
+          "weeks_stalled": 4\
+        \}\
+      ],\
+      "6849c2e7f11830b69fc3882e": [],\
+      "6849c2b8091fc596463ede32": [],\
+      "65205c97d53f42fcbda0bcf1": [],\
+      "65205c97d53f42fcbda0bcef": [\
+        \{\
+          "issue_type": "stacked",\
+          "trades": [\
+            "Concrete Rebar",\
+            "Excavation",\
+            "Roofing Membrane",\
+            "Roofing Insulation",\
+            "Structural Steel",\
+            "Tilt-Up Wall Panels",\
+            "Batterboards",\
+            "Concrete Pour"\
+          ]\
+        \}\
+      ],\
+      "65205c97d53f42fcbda0bcee": [],\
+      "65205c97d53f42fcbda0bced": []\
+    \},\
+    "2020/12/28": \{\
+      "68b36de0b21b124f0d3682b3": [\
+        \{\
+          "issue_type": "stacked",\
+          "trades": [\
+            "Tilt-Up Wall Panels",\
+            "Roofing Insulation",\
+            "Vapor Barrier",\
+            "Roof HVAC Units",\
+            "Structural Steel",\
+            "Concrete Formwork",\
+            "Concrete Foundation Pour",\
+            "Roofing Membrane"\
+          ]\
+        \}\
+      ],\
+      "68b36d776244a70cf6b13b7c": [],\
+      "68b36d52dfb1531431942889": [],\
+      "68b36a2262f5c1297c0913d3": [\
+        \{\
+          "issue_type": "stacked",\
+          "trades": [\
+            "Tilt-Up Wall Panels",\
+            "Concrete Pour",\
+            "Concrete Formwork",\
+            "Excavation",\
+            "Structural Steel",\
+            "Batterboards",\
+            "Roof HVAC Units",\
+            "Roofing"\
+          ]\
+        \}\
+      ],\
+      "68881ef9cbdd5a6f740a1e55": [\
+        \{\
+          "issue_type": "stalled",\
+          "trade": "Roof HVAC Piping",\
+          "weeks_stalled": 4\
+        \}\
+      ],\
+      "68881eaf5ecfb6cf31709226": [],\
+      "68881c0d9c359a7c21399336": [],\
+      "68881af3cbdd5a6f740a1e42": [],\
+      "68881aace1e8315beb8dbf32": [],\
+      "688819c084c0ccb3af37ee44": [],\
+      "68881865a0f3c54a3f9fed31": [],\
+      "688817b5587882b7457d5719": [\
+        \{\
+          "issue_type": "stacked",\
+          "trades": [\
+            "Vapor Barrier",\
+            "Concrete Foundation Pour",\
+            "Concrete Formwork",\
+            "Excavation",\
+            "Roof HVAC Piping",\
+            "Concrete Pour",\
+            "Structural Piles",\
+            "Roofing Membrane"\
+          ]\
+        \}\
+      ],\
+      "688816b1880b7b96b2e501b6": [],\
+      "6888113f3332fd44fd149711": [],\
+      "68880e35587882b7457d5701": [],\
+      "68880da50f864d2881bdd80b": [\
+        \{\
+          "issue_type": "stacked",\
+          "trades": [\
+            "Vapor Barrier",\
+            "Concrete Rebar",\
+            "Concrete Formwork",\
+            "Structural Piles",\
+            "Roof HVAC Units",\
+            "Concrete Foundation Pour",\
+            "Concrete Pour",\
+            "Tilt-Up Wall Panels"\
+          ]\
+        \}\
+      ],\
+      "6849c2e7f11830b69fc3882e": [],\
+      "6849c2b8091fc596463ede32": [],\
+      "65205c97d53f42fcbda0bcf1": [],\
+      "65205c97d53f42fcbda0bcef": [],\
+      "65205c97d53f42fcbda0bcee": [],\
+      "65205c97d53f42fcbda0bced": []\
+    \},\
+    "2021/02/22": \{\
+      "68b36de0b21b124f0d3682b3": [\
+        \{\
+          "issue_type": "stacked",\
+          "trades": [\
+            "Structural Steel",\
+            "Batterboards",\
+            "Roofing Insulation",\
+            "Roof HVAC Piping",\
+            "Concrete Pour",\
+            "Roofing",\
+            "Concrete Foundation Pour",\
+            "Tilt-Up Wall Panels"\
+          ]\
+        \}\
+      ],\
+      "68b36d776244a70cf6b13b7c": [\
+        \{\
+          "issue_type": "stacked",\
+          "trades": [\
+            "Concrete Rebar",\
+            "Roof HVAC Units",\
+            "Concrete Formwork",\
+            "Underground Utilities",\
+            "Excavation",\
+            "Concrete Foundation Pour",\
+            "Roof HVAC Piping",\
+            "Batterboards"\
+          ]\
+        \}\
+      ],\
+      "68b36d52dfb1531431942889": [\
+        \{\
+          "issue_type": "stacked",\
+          "trades": [\
+            "Vapor Barrier",\
+            "Roof HVAC Units",\
+            "Roofing Insulation",\
+            "Roofing Membrane",\
+            "Concrete Rebar",\
+            "Structural Steel",\
+            "Excavation",\
+            "Roof HVAC Piping"\
+          ]\
+        \}\
+      ],\
+      "68b36a2262f5c1297c0913d3": [],\
+      "68881ef9cbdd5a6f740a1e55": [\
+        \{\
+          "issue_type": "stacked",\
+          "trades": [\
+            "Underground Utilities",\
+            "Excavation",\
+            "Structural Piles",\
+            "Batterboards",\
+            "Concrete Rebar",\
+            "Tilt-Up Wall Panels",\
+            "Roofing Insulation",\
+            "Concrete Formwork"\
+          ]\
+        \}\
+      ],\
+      "68881eaf5ecfb6cf31709226": [],\
+      "68881c0d9c359a7c21399336": [],\
+      "68881af3cbdd5a6f740a1e42": [\
+        \{\
+          "issue_type": "stalled",\
+          "trade": "Roofing Membrane",\
+          "weeks_stalled": 4\
+        \}\
+      ],\
+      "68881aace1e8315beb8dbf32": [],\
+      "688819c084c0ccb3af37ee44": [\
+        \{\
+          "issue_type": "stalled",\
+          "trade": "Structural Piles",\
+          "weeks_stalled": 4\
+        \}\
+      ],\
+      "68881865a0f3c54a3f9fed31": [\
+        \{\
+          "issue_type": "stalled",\
+          "trade": "Concrete Formwork",\
+          "weeks_stalled": 4\
+        \}\
+      ],\
+      "688817b5587882b7457d5719": [\
+        \{\
+          "issue_type": "stalled",\
+          "trade": "Structural Piles",\
+          "weeks_stalled": 4\
+        \}\
+      ],\
+      "688816b1880b7b96b2e501b6": [],\
+      "6888113f3332fd44fd149711": [],\
+      "68880e35587882b7457d5701": [],\
+      "68880da50f864d2881bdd80b": [],\
+      "6849c2e7f11830b69fc3882e": [],\
+      "6849c2b8091fc596463ede32": [],\
+      "65205c97d53f42fcbda0bcf1": [\
+        \{\
+          "issue_type": "stalled",\
+          "trade": "Structural Piles",\
+          "weeks_stalled": 4\
+        \}\
+      ],\
+      "65205c97d53f42fcbda0bcef": [\
+        \{\
+          "issue_type": "stacked",\
+          "trades": [\
+            "Roof HVAC Piping",\
+            "Underground Utilities",\
+            "Excavation",\
+            "Concrete Pour",\
+            "Roofing Insulation",\
+            "Concrete Formwork",\
+            "Tilt-Up Wall Panels",\
+            "Vapor Barrier"\
+          ]\
+        \}\
+      ],\
+      "65205c97d53f42fcbda0bcee": [\
+        \{\
+          "issue_type": "stalled",\
+          "trade": "Concrete Formwork",\
+          "weeks_stalled": 4\
+        \}\
+      ],\
+      "65205c97d53f42fcbda0bced": []\
+    \},\
+    "2021/03/01": \{\
+      "68b36de0b21b124f0d3682b3": [\
+        \{\
+          "issue_type": "stalled",\
+          "trade": "Underground Utilities",\
+          "weeks_stalled": 4\
+        \}\
+      ],\
+      "68b36d776244a70cf6b13b7c": [],\
+      "68b36d52dfb1531431942889": [],\
+      "68b36a2262f5c1297c0913d3": [],\
+      "68881ef9cbdd5a6f740a1e55": [\
+        \{\
+          "issue_type": "stalled",\
+          "trade": "Tilt-Up Wall Panels",\
+          "weeks_stalled": 4\
+        \}\
+      ],\
+      "68881eaf5ecfb6cf31709226": [\
+        \{\
+          "issue_type": "stacked",\
+          "trades": [\
+            "Roofing",\
+            "Concrete Rebar",\
+            "Roof HVAC Units",\
+            "Roofing Insulation",\
+            "Excavation",\
+            "Underground Utilities",\
+            "Concrete Foundation Pour",\
+            "Tilt-Up Wall Panels"\
+          ]\
+        \}\
+      ],\
+      "68881c0d9c359a7c21399336": [],\
+      "68881af3cbdd5a6f740a1e42": [\
+        \{\
+          "issue_type": "stacked",\
+          "trades": [\
+            "Tilt-Up Wall Panels",\
+            "Batterboards",\
+            "Structural Steel",\
+            "Underground Utilities",\
+            "Excavation",\
+            "Concrete Foundation Pour",\
+            "Roof HVAC Piping",\
+            "Roofing Membrane"\
+          ]\
+        \}\
+      ],\
+      "68881aace1e8315beb8dbf32": [],\
+      "688819c084c0ccb3af37ee44": [\
+        \{\
+          "issue_type": "stacked",\
+          "trades": [\
+            "Roof HVAC Units",\
+            "Vapor Barrier",\
+            "Structural Piles",\
+            "Batterboards",\
+            "Underground Utilities",\
+            "Roofing Membrane",\
+            "Concrete Pour",\
+            "Tilt-Up Wall Panels"\
+          ]\
+        \}\
+      ],\
+      "68881865a0f3c54a3f9fed31": [\
+        \{\
+          "issue_type": "stalled",\
+          "trade": "Vapor Barrier",\
+          "weeks_stalled": 4\
+        \}\
+      ],\
+      "688817b5587882b7457d5719": [],\
+      "688816b1880b7b96b2e501b6": [\
+        \{\
+          "issue_type": "stacked",\
+          "trades": [\
+            "Roof HVAC Piping",\
+            "Concrete Foundation Pour",\
+            "Underground Utilities",\
+            "Structural Piles",\
+            "Roofing Insulation",\
+            "Concrete Rebar",\
+            "Roofing Membrane",\
+            "Concrete Formwork"\
+          ]\
+        \}\
+      ],\
+      "6888113f3332fd44fd149711": [\
+        \{\
+          "issue_type": "stalled",\
+          "trade": "Concrete Foundation Pour",\
+          "weeks_stalled": 4\
+        \},\
+        \{\
+          "issue_type": "stacked",\
+          "trades": [\
+            "Vapor Barrier",\
+            "Excavation",\
+            "Batterboards",\
+            "Roofing Insulation",\
+            "Roof HVAC Units",\
+            "Roofing Membrane",\
+            "Roofing",\
+            "Structural Steel"\
+          ]\
+        \}\
+      ],\
+      "68880e35587882b7457d5701": [\
+        \{\
+          "issue_type": "stacked",\
+          "trades": [\
+            "Underground Utilities",\
+            "Tilt-Up Wall Panels",\
+            "Concrete Pour",\
+            "Roof HVAC Units",\
+            "Excavation",\
+            "Vapor Barrier",\
+            "Batterboards",\
+            "Concrete Formwork"\
+          ]\
+        \}\
+      ],\
+      "68880da50f864d2881bdd80b": [],\
+      "6849c2e7f11830b69fc3882e": [\
+        \{\
+          "issue_type": "stacked",\
+          "trades": [\
+            "Roofing Insulation",\
+            "Concrete Rebar",\
+            "Roofing Membrane",\
+            "Excavation",\
+            "Structural Steel",\
+            "Concrete Foundation Pour",\
+            "Tilt-Up Wall Panels",\
+            "Vapor Barrier"\
+          ]\
+        \}\
+      ],\
+      "6849c2b8091fc596463ede32": [\
+        \{\
+          "issue_type": "stacked",\
+          "trades": [\
+            "Roof HVAC Units",\
+            "Excavation",\
+            "Vapor Barrier",\
+            "Roof HVAC Piping",\
+            "Tilt-Up Wall Panels",\
+            "Concrete Rebar",\
+            "Batterboards",\
+            "Underground Utilities"\
+          ]\
+        \}\
+      ],\
+      "65205c97d53f42fcbda0bcf1": [],\
+      "65205c97d53f42fcbda0bcef": [],\
+      "65205c97d53f42fcbda0bcee": [\
+        \{\
+          "issue_type": "stacked",\
+          "trades": [\
+            "Concrete Rebar",\
+            "Roof HVAC Piping",\
+            "Roof HVAC Units",\
+            "Concrete Foundation Pour",\
+            "Structural Piles",\
+            "Concrete Pour",\
+            "Excavation",\
+            "Tilt-Up Wall Panels"\
+          ]\
+        \}\
+      ],\
+      "65205c97d53f42fcbda0bced": []\
+    \},\
+    "2021/03/15": \{\
+      "68b36de0b21b124f0d3682b3": [],\
+      "68b36d776244a70cf6b13b7c": [],\
+      "68b36d52dfb1531431942889": [],\
+      "68b36a2262f5c1297c0913d3": [\
+        \{\
+          "issue_type": "stacked",\
+          "trades": [\
+            "Roofing",\
+            "Vapor Barrier",\
+            "Concrete Pour",\
+            "Structural Piles",\
+            "Roofing Membrane",\
+            "Roof HVAC Piping",\
+            "Batterboards",\
+            "Excavation"\
+          ]\
+        \}\
+      ],\
+      "68881ef9cbdd5a6f740a1e55": [\
+        \{\
+          "issue_type": "stacked",\
+          "trades": [\
+            "Concrete Pour",\
+            "Roofing",\
+            "Concrete Rebar",\
+            "Structural Piles",\
+            "Vapor Barrier",\
+            "Roof HVAC Piping",\
+            "Roofing Insulation",\
+            "Structural Steel"\
+          ]\
+        \}\
+      ],\
+      "68881eaf5ecfb6cf31709226": [\
+        \{\
+          "issue_type": "stacked",\
+          "trades": [\
+            "Roofing",\
+            "Underground Utilities",\
+            "Roof HVAC Piping",\
+            "Concrete Pour",\
+            "Structural Piles",\
+            "Concrete Rebar",\
+            "Roofing Insulation",\
+            "Excavation"\
+          ]\
+        \}\
+      ],\
+      "68881c0d9c359a7c21399336": [],\
+      "68881af3cbdd5a6f740a1e42": [\
+        \{\
+          "issue_type": "stalled",\
+          "trade": "Roof HVAC Units",\
+          "weeks_stalled": 4\
+        \}\
+      ],\
+      "68881aace1e8315beb8dbf32": [],\
+      "688819c084c0ccb3af37ee44": [],\
+      "68881865a0f3c54a3f9fed31": [\
+        \{\
+          "issue_type": "stalled",\
+          "trade": "Excavation",\
+          "weeks_stalled": 4\
+        \}\
+      ],\
+      "688817b5587882b7457d5719": [],\
+      "688816b1880b7b96b2e501b6": [],\
+      "6888113f3332fd44fd149711": [],\
+      "68880e35587882b7457d5701": [\
+        \{\
+          "issue_type": "stacked",\
+          "trades": [\
+            "Roofing Membrane",\
+            "Roof HVAC Piping",\
+            "Concrete Rebar",\
+            "Underground Utilities",\
+            "Excavation",\
+            "Structural Steel",\
+            "Concrete Pour",\
+            "Batterboards"\
+          ]\
+        \}\
+      ],\
+      "68880da50f864d2881bdd80b": [\
+        \{\
+          "issue_type": "stacked",\
+          "trades": [\
+            "Roofing Membrane",\
+            "Excavation",\
+            "Concrete Formwork",\
+            "Vapor Barrier",\
+            "Tilt-Up Wall Panels",\
+            "Roofing",\
+            "Roof HVAC Piping",\
+            "Concrete Pour"\
+          ]\
+        \}\
+      ],\
+      "6849c2e7f11830b69fc3882e": [\
+        \{\
+          "issue_type": "stacked",\
+          "trades": [\
+            "Roofing",\
+            "Roofing Membrane",\
+            "Roof HVAC Units",\
+            "Excavation",\
+            "Concrete Rebar",\
+            "Structural Steel",\
+            "Batterboards",\
+            "Tilt-Up Wall Panels"\
+          ]\
+        \}\
+      ],\
+      "6849c2b8091fc596463ede32": [],\
+      "65205c97d53f42fcbda0bcf1": [],\
+      "65205c97d53f42fcbda0bcef": [\
+        \{\
+          "issue_type": "stacked",\
+          "trades": [\
+            "Roofing Insulation",\
+            "Concrete Rebar",\
+            "Concrete Formwork",\
+            "Roofing Membrane",\
+            "Roof HVAC Piping",\
+            "Concrete Foundation Pour",\
+            "Tilt-Up Wall Panels",\
+            "Concrete Pour"\
+          ]\
+        \}\
+      ],\
+      "65205c97d53f42fcbda0bcee": [],\
+      "65205c97d53f42fcbda0bced": []\
+    \},\
+    "2021/04/15": \{\
+      "68b36de0b21b124f0d3682b3": [],\
+      "68b36d776244a70cf6b13b7c": [\
+        \{\
+          "issue_type": "stalled",\
+          "trade": "Concrete Pour",\
+          "weeks_stalled": 4\
+        \},\
+        \{\
+          "issue_type": "stacked",\
+          "trades": [\
+            "Concrete Foundation Pour",\
+            "Roof HVAC Units",\
+            "Excavation",\
+            "Roof HVAC Piping",\
+            "Structural Steel",\
+            "Underground Utilities",\
+            "Tilt-Up Wall Panels",\
+            "Concrete Formwork"\
+          ]\
+        \}\
+      ],\
+      "68b36d52dfb1531431942889": [],\
+      "68b36a2262f5c1297c0913d3": [],\
+      "68881ef9cbdd5a6f740a1e55": [],\
+      "68881eaf5ecfb6cf31709226": [],\
+      "68881c0d9c359a7c21399336": [],\
+      "68881af3cbdd5a6f740a1e42": [],\
+      "68881aace1e8315beb8dbf32": [],\
+      "688819c084c0ccb3af37ee44": [\
+        \{\
+          "issue_type": "stacked",\
+          "trades": [\
+            "Roofing Membrane",\
+            "Concrete Pour",\
+            "Tilt-Up Wall Panels",\
+            "Concrete Rebar",\
+            "Concrete Foundation Pour",\
+            "Vapor Barrier",\
+            "Batterboards",\
+            "Underground Utilities"\
+          ]\
+        \}\
+      ],\
+      "68881865a0f3c54a3f9fed31": [],\
+      "688817b5587882b7457d5719": [],\
+      "688816b1880b7b96b2e501b6": [],\
+      "6888113f3332fd44fd149711": [],\
+      "68880e35587882b7457d5701": [],\
+      "68880da50f864d2881bdd80b": [],\
+      "6849c2e7f11830b69fc3882e": [],\
+      "6849c2b8091fc596463ede32": [\
+        \{\
+          "issue_type": "stacked",\
+          "trades": [\
+            "Concrete Rebar",\
+            "Tilt-Up Wall Panels",\
+            "Roofing",\
+            "Roof HVAC Piping",\
+            "Roofing Insulation",\
+            "Roofing Membrane",\
+            "Structural Steel",\
+            "Batterboards"\
+          ]\
+        \}\
+      ],\
+      "65205c97d53f42fcbda0bcf1": [],\
+      "65205c97d53f42fcbda0bcef": [],\
+      "65205c97d53f42fcbda0bcee": [\
+        \{\
+          "issue_type": "stalled",\
+          "trade": "Roofing Insulation",\
+          "weeks_stalled": 4\
+        \},\
+        \{\
+          "issue_type": "stacked",\
+          "trades": [\
+            "Structural Piles",\
+            "Roofing Insulation",\
+            "Roofing",\
+            "Excavation",\
+            "Structural Steel",\
+            "Batterboards",\
+            "Concrete Foundation Pour",\
+            "Tilt-Up Wall Panels"\
+          ]\
+        \}\
+      ],\
+      "65205c97d53f42fcbda0bced": []\
+    \},\
+    "2021/05/14": \{\
+      "68b36de0b21b124f0d3682b3": [\
+        \{\
+          "issue_type": "stalled",\
+          "trade": "Roofing",\
+          "weeks_stalled": 4\
+        \}\
+      ],\
+      "68b36d776244a70cf6b13b7c": [],\
+      "68b36d52dfb1531431942889": [],\
+      "68b36a2262f5c1297c0913d3": [],\
+      "68881ef9cbdd5a6f740a1e55": [],\
+      "68881eaf5ecfb6cf31709226": [\
+        \{\
+          "issue_type": "stacked",\
+          "trades": [\
+            "Structural Steel",\
+            "Roof HVAC Piping",\
+            "Tilt-Up Wall Panels",\
+            "Batterboards",\
+            "Roofing Membrane",\
+            "Concrete Pour",\
+            "Vapor Barrier",\
+            "Concrete Formwork"\
+          ]\
+        \}\
+      ],\
+      "68881c0d9c359a7c21399336": [],\
+      "68881af3cbdd5a6f740a1e42": [],\
+      "68881aace1e8315beb8dbf32": [],\
+      "688819c084c0ccb3af37ee44": [],\
+      "68881865a0f3c54a3f9fed31": [],\
+      "688817b5587882b7457d5719": [\
+        \{\
+          "issue_type": "stalled",\
+          "trade": "Vapor Barrier",\
+          "weeks_stalled": 4\
+        \}\
+      ],\
+      "688816b1880b7b96b2e501b6": [],\
+      "6888113f3332fd44fd149711": [],\
+      "68880e35587882b7457d5701": [],\
+      "68880da50f864d2881bdd80b": [],\
+      "6849c2e7f11830b69fc3882e": [],\
+      "6849c2b8091fc596463ede32": [\
+        \{\
+          "issue_type": "stacked",\
+          "trades": [\
+            "Vapor Barrier",\
+            "Roofing Membrane",\
+            "Roofing Insulation",\
+            "Tilt-Up Wall Panels",\
+            "Underground Utilities",\
+            "Roof HVAC Units",\
+            "Concrete Formwork",\
+            "Batterboards"\
+          ]\
+        \}\
+      ],\
+      "65205c97d53f42fcbda0bcf1": [],\
+      "65205c97d53f42fcbda0bcef": [],\
+      "65205c97d53f42fcbda0bcee": [],\
+      "65205c97d53f42fcbda0bced": []\
+    \},\
+    "2021/06/01": \{\
+      "68b36de0b21b124f0d3682b3": [\
+        \{\
+          "issue_type": "stacked",\
+          "trades": [\
+            "Vapor Barrier",\
+            "Concrete Pour",\
+            "Underground Utilities",\
+            "Roofing Membrane",\
+            "Roof HVAC Units",\
+            "Roof HVAC Piping",\
+            "Excavation",\
+            "Concrete Formwork"\
+          ]\
+        \}\
+      ],\
+      "68b36d776244a70cf6b13b7c": [],\
+      "68b36d52dfb1531431942889": [],\
+      "68b36a2262f5c1297c0913d3": [],\
+      "68881ef9cbdd5a6f740a1e55": [],\
+      "68881eaf5ecfb6cf31709226": [],\
+      "68881c0d9c359a7c21399336": [],\
+      "68881af3cbdd5a6f740a1e42": [],\
+      "68881aace1e8315beb8dbf32": [],\
+      "688819c084c0ccb3af37ee44": [\
+        \{\
+          "issue_type": "stacked",\
+          "trades": [\
+            "Vapor Barrier",\
+            "Batterboards",\
+            "Roofing",\
+            "Concrete Foundation Pour",\
+            "Concrete Pour",\
+            "Concrete Formwork",\
+            "Tilt-Up Wall Panels",\
+            "Underground Utilities"\
+          ]\
+        \}\
+      ],\
+      "68881865a0f3c54a3f9fed31": [\
+        \{\
+          "issue_type": "stalled",\
+          "trade": "Structural Piles",\
+          "weeks_stalled": 4\
+        \},\
+        \{\
+          "issue_type": "stacked",\
+          "trades": [\
+            "Roof HVAC Units",\
+            "Roofing Membrane",\
+            "Concrete Rebar",\
+            "Roof HVAC Piping",\
+            "Vapor Barrier",\
+            "Structural Piles",\
+            "Concrete Pour",\
+            "Concrete Formwork"\
+          ]\
+        \}\
+      ],\
+      "688817b5587882b7457d5719": [],\
+      "688816b1880b7b96b2e501b6": [],\
+      "6888113f3332fd44fd149711": [\
+        \{\
+          "issue_type": "stacked",\
+          "trades": [\
+            "Excavation",\
+            "Structural Steel",\
+            "Concrete Rebar",\
+            "Concrete Foundation Pour",\
+            "Underground Utilities",\
+            "Batterboards",\
+            "Concrete Pour",\
+            "Vapor Barrier"\
+          ]\
+        \}\
+      ],\
+      "68880e35587882b7457d5701": [],\
+      "68880da50f864d2881bdd80b": [],\
+      "6849c2e7f11830b69fc3882e": [\
+        \{\
+          "issue_type": "stalled",\
+          "trade": "Underground Utilities",\
+          "weeks_stalled": 4\
+        \}\
+      ],\
+      "6849c2b8091fc596463ede32": [\
+        \{\
+          "issue_type": "stacked",\
+          "trades": [\
+            "Concrete Pour",\
+            "Concrete Foundation Pour",\
+            "Roofing",\
+            "Tilt-Up Wall Panels",\
+            "Structural Steel",\
+            "Roof HVAC Units",\
+            "Vapor Barrier",\
+            "Roofing Insulation"\
+          ]\
+        \}\
+      ],\
+      "65205c97d53f42fcbda0bcf1": [\
+        \{\
+          "issue_type": "stacked",\
+          "trades": [\
+            "Roof HVAC Piping",\
+            "Concrete Rebar",\
+            "Tilt-Up Wall Panels",\
+            "Vapor Barrier",\
+            "Roofing",\
+            "Roofing Insulation",\
+            "Batterboards",\
+            "Roof HVAC Units"\
+          ]\
+        \}\
+      ],\
+      "65205c97d53f42fcbda0bcef": [\
+        \{\
+          "issue_type": "stalled",\
+          "trade": "Roofing Insulation",\
+          "weeks_stalled": 4\
+        \}\
+      ],\
+      "65205c97d53f42fcbda0bcee": [],\
+      "65205c97d53f42fcbda0bced": []\
+    \},\
+    "2021/06/15": \{\
+      "68b36de0b21b124f0d3682b3": [],\
+      "68b36d776244a70cf6b13b7c": [],\
+      "68b36d52dfb1531431942889": [],\
+      "68b36a2262f5c1297c0913d3": [\
+        \{\
+          "issue_type": "stacked",\
+          "trades": [\
+            "Vapor Barrier",\
+            "Tilt-Up Wall Panels",\
+            "Batterboards",\
+            "Roofing Membrane",\
+            "Concrete Rebar",\
+            "Underground Utilities",\
+            "Roof HVAC Units",\
+            "Roofing"\
+          ]\
+        \}\
+      ],\
+      "68881ef9cbdd5a6f740a1e55": [],\
+      "68881eaf5ecfb6cf31709226": [],\
+      "68881c0d9c359a7c21399336": [\
+        \{\
+          "issue_type": "stalled",\
+          "trade": "Roofing Insulation",\
+          "weeks_stalled": 4\
+        \}\
+      ],\
+      "68881af3cbdd5a6f740a1e42": [\
+        \{\
+          "issue_type": "stalled",\
+          "trade": "Structural Steel",\
+          "weeks_stalled": 4\
+        \}\
+      ],\
+      "68881aace1e8315beb8dbf32": [],\
+      "688819c084c0ccb3af37ee44": [\
+        \{\
+          "issue_type": "stalled",\
+          "trade": "Concrete Pour",\
+          "weeks_stalled": 4\
+        \},\
+        \{\
+          "issue_type": "stacked",\
+          "trades": [\
+            "Roofing Membrane",\
+            "Concrete Rebar",\
+            "Batterboards",\
+            "Roofing Insulation",\
+            "Concrete Foundation Pour",\
+            "Roofing",\
+            "Structural Piles",\
+            "Vapor Barrier"\
+          ]\
+        \}\
+      ],\
+      "68881865a0f3c54a3f9fed31": [],\
+      "688817b5587882b7457d5719": [\
+        \{\
+          "issue_type": "stacked",\
+          "trades": [\
+            "Roofing Membrane",\
+            "Roofing Insulation",\
+            "Tilt-Up Wall Panels",\
+            "Concrete Rebar",\
+            "Underground Utilities",\
+            "Concrete Foundation Pour",\
+            "Roof HVAC Piping",\
+            "Roof HVAC Units"\
+          ]\
+        \}\
+      ],\
+      "688816b1880b7b96b2e501b6": [],\
+      "6888113f3332fd44fd149711": [\
+        \{\
+          "issue_type": "stacked",\
+          "trades": [\
+            "Roof HVAC Units",\
+            "Underground Utilities",\
+            "Excavation",\
+            "Concrete Rebar",\
+            "Structural Piles",\
+            "Roofing Insulation",\
+            "Tilt-Up Wall Panels",\
+            "Structural Steel"\
+          ]\
+        \}\
+      ],\
+      "68880e35587882b7457d5701": [],\
+      "68880da50f864d2881bdd80b": [],\
+      "6849c2e7f11830b69fc3882e": [],\
+      "6849c2b8091fc596463ede32": [],\
+      "65205c97d53f42fcbda0bcf1": [\
+        \{\
+          "issue_type": "stalled",\
+          "trade": "Excavation",\
+          "weeks_stalled": 4\
+        \}\
+      ],\
+      "65205c97d53f42fcbda0bcef": [],\
+      "65205c97d53f42fcbda0bcee": [\
+        \{\
+          "issue_type": "stacked",\
+          "trades": [\
+            "Structural Steel",\
+            "Concrete Pour",\
+            "Vapor Barrier",\
+            "Batterboards",\
+            "Roof HVAC Units",\
+            "Concrete Formwork",\
+            "Roofing Membrane",\
+            "Concrete Rebar"\
+          ]\
+        \}\
+      ],\
+      "65205c97d53f42fcbda0bced": [\
+        \{\
+          "issue_type": "stacked",\
+          "trades": [\
+            "Underground Utilities",\
+            "Tilt-Up Wall Panels",\
+            "Concrete Formwork",\
+            "Vapor Barrier",\
+            "Concrete Rebar",\
+            "Excavation",\
+            "Roof HVAC Units",\
+            "Batterboards"\
+          ]\
+        \}\
+      ]\
+    \},\
+    "2021/07/15": \{\
+      "68b36de0b21b124f0d3682b3": [],\
+      "68b36d776244a70cf6b13b7c": [\
+        \{\
+          "issue_type": "stacked",\
+          "trades": [\
+            "Roofing",\
+            "Roof HVAC Piping",\
+            "Concrete Pour",\
+            "Structural Piles",\
+            "Roofing Membrane",\
+            "Roofing Insulation",\
+            "Concrete Rebar",\
+            "Underground Utilities"\
+          ]\
+        \}\
+      ],\
+      "68b36d52dfb1531431942889": [],\
+      "68b36a2262f5c1297c0913d3": [\
+        \{\
+          "issue_type": "stalled",\
+          "trade": "Roofing Membrane",\
+          "weeks_stalled": 4\
+        \}\
+      ],\
+      "68881ef9cbdd5a6f740a1e55": [\
+        \{\
+          "issue_type": "stacked",\
+          "trades": [\
+            "Roofing",\
+            "Roofing Membrane",\
+            "Concrete Rebar",\
+            "Roof HVAC Units",\
+            "Concrete Foundation Pour",\
+            "Excavation",\
+            "Concrete Pour",\
+            "Tilt-Up Wall Panels"\
+          ]\
+        \}\
+      ],\
+      "68881eaf5ecfb6cf31709226": [],\
+      "68881c0d9c359a7c21399336": [\
+        \{\
+          "issue_type": "stalled",\
+          "trade": "Roofing Membrane",\
+          "weeks_stalled": 4\
+        \}\
+      ],\
+      "68881af3cbdd5a6f740a1e42": [],\
+      "68881aace1e8315beb8dbf32": [],\
+      "688819c084c0ccb3af37ee44": [],\
+      "68881865a0f3c54a3f9fed31": [\
+        \{\
+          "issue_type": "stacked",\
+          "trades": [\
+            "Structural Piles",\
+            "Underground Utilities",\
+            "Roof HVAC Units",\
+            "Vapor Barrier",\
+            "Roofing Insulation",\
+            "Concrete Formwork",\
+            "Tilt-Up Wall Panels",\
+            "Concrete Pour"\
+          ]\
+        \}\
+      ],\
+      "688817b5587882b7457d5719": [],\
+      "688816b1880b7b96b2e501b6": [],\
+      "6888113f3332fd44fd149711": [\
+        \{\
+          "issue_type": "stacked",\
+          "trades": [\
+            "Tilt-Up Wall Panels",\
+            "Excavation",\
+            "Structural Piles",\
+            "Concrete Pour",\
+            "Roofing Insulation",\
+            "Vapor Barrier",\
+            "Roofing",\
+            "Underground Utilities"\
+          ]\
+        \}\
+      ],\
+      "68880e35587882b7457d5701": [\
+        \{\
+          "issue_type": "stacked",\
+          "trades": [\
+            "Concrete Pour",\
+            "Excavation",\
+            "Roofing",\
+            "Roofing Insulation",\
+            "Roof HVAC Units",\
+            "Concrete Formwork",\
+            "Roof HVAC Piping",\
+            "Tilt-Up Wall Panels"\
+          ]\
+        \}\
+      ],\
+      "68880da50f864d2881bdd80b": [],\
+      "6849c2e7f11830b69fc3882e": [],\
+      "6849c2b8091fc596463ede32": [],\
+      "65205c97d53f42fcbda0bcf1": [],\
+      "65205c97d53f42fcbda0bcef": [],\
+      "65205c97d53f42fcbda0bcee": [],\
+      "65205c97d53f42fcbda0bced": []\
+    \},\
+    "2021/07/30": \{\
+      "68b36de0b21b124f0d3682b3": [],\
+      "68b36d776244a70cf6b13b7c": [],\
+      "68b36d52dfb1531431942889": [],\
+      "68b36a2262f5c1297c0913d3": [\
+        \{\
+          "issue_type": "stalled",\
+          "trade": "Roofing Membrane",\
+          "weeks_stalled": 4\
+        \}\
+      ],\
+      "68881ef9cbdd5a6f740a1e55": [\
+        \{\
+          "issue_type": "stalled",\
+          "trade": "Concrete Formwork",\
+          "weeks_stalled": 4\
+        \}\
+      ],\
+      "68881eaf5ecfb6cf31709226": [\
+        \{\
+          "issue_type": "stalled",\
+          "trade": "Roofing",\
+          "weeks_stalled": 4\
+        \},\
+        \{\
+          "issue_type": "stacked",\
+          "trades": [\
+            "Roofing Membrane",\
+            "Roof HVAC Piping",\
+            "Roof HVAC Units",\
+            "Underground Utilities",\
+            "Excavation",\
+            "Roofing Insulation",\
+            "Structural Steel",\
+            "Roofing"\
+          ]\
+        \}\
+      ],\
+      "68881c0d9c359a7c21399336": [\
+        \{\
+          "issue_type": "stalled",\
+          "trade": "Roof HVAC Piping",\
+          "weeks_stalled": 4\
+        \}\
+      ],\
+      "68881af3cbdd5a6f740a1e42": [],\
+      "68881aace1e8315beb8dbf32": [],\
+      "688819c084c0ccb3af37ee44": [],\
+      "68881865a0f3c54a3f9fed31": [],\
+      "688817b5587882b7457d5719": [],\
+      "688816b1880b7b96b2e501b6": [],\
+      "6888113f3332fd44fd149711": [],\
+      "68880e35587882b7457d5701": [],\
+      "68880da50f864d2881bdd80b": [],\
+      "6849c2e7f11830b69fc3882e": [],\
+      "6849c2b8091fc596463ede32": [],\
+      "65205c97d53f42fcbda0bcf1": [],\
+      "65205c97d53f42fcbda0bcef": [\
+        \{\
+          "issue_type": "stacked",\
+          "trades": [\
+            "Roofing Insulation",\
+            "Roofing Membrane",\
+            "Roofing",\
+            "Concrete Foundation Pour",\
+            "Vapor Barrier",\
+            "Concrete Formwork",\
+            "Excavation",\
+            "Structural Steel"\
+          ]\
+        \}\
+      ],\
+      "65205c97d53f42fcbda0bcee": [],\
+      "65205c97d53f42fcbda0bced": [\
+        \{\
+          "issue_type": "stalled",\
+          "trade": "Roof HVAC Piping",\
+          "weeks_stalled": 4\
+        \}\
+      ]\
+    \},\
+    "2021/08/13": \{\
+      "68b36de0b21b124f0d3682b3": [],\
+      "68b36d776244a70cf6b13b7c": [],\
+      "68b36d52dfb1531431942889": [],\
+      "68b36a2262f5c1297c0913d3": [],\
+      "68881ef9cbdd5a6f740a1e55": [\
+        \{\
+          "issue_type": "stacked",\
+          "trades": [\
+            "Vapor Barrier",\
+            "Concrete Foundation Pour",\
+            "Roofing Membrane",\
+            "Batterboards",\
+            "Roof HVAC Piping",\
+            "Underground Utilities",\
+            "Structural Steel",\
+            "Roof HVAC Units"\
+          ]\
+        \}\
+      ],\
+      "68881eaf5ecfb6cf31709226": [],\
+      "68881c0d9c359a7c21399336": [\
+        \{\
+          "issue_type": "stacked",\
+          "trades": [\
+            "Roofing Insulation",\
+            "Roofing Membrane",\
+            "Excavation",\
+            "Underground Utilities",\
+            "Structural Steel",\
+            "Concrete Pour",\
+            "Batterboards",\
+            "Vapor Barrier"\
+          ]\
+        \}\
+      ],\
+      "68881af3cbdd5a6f740a1e42": [\
+        \{\
+          "issue_type": "stacked",\
+          "trades": [\
+            "Structural Piles",\
+            "Concrete Foundation Pour",\
+            "Excavation",\
+            "Vapor Barrier",\
+            "Concrete Rebar",\
+            "Batterboards",\
+            "Tilt-Up Wall Panels",\
+            "Concrete Pour"\
+          ]\
+        \}\
+      ],\
+      "68881aace1e8315beb8dbf32": [\
+        \{\
+          "issue_type": "stacked",\
+          "trades": [\
+            "Concrete Formwork",\
+            "Underground Utilities",\
+            "Concrete Rebar",\
+            "Roof HVAC Piping",\
+            "Roof HVAC Units",\
+            "Batterboards",\
+            "Excavation",\
+            "Structural Steel"\
+          ]\
+        \}\
+      ],\
+      "688819c084c0ccb3af37ee44": [],\
+      "68881865a0f3c54a3f9fed31": [],\
+      "688817b5587882b7457d5719": [\
+        \{\
+          "issue_type": "stacked",\
+          "trades": [\
+            "Concrete Formwork",\
+            "Roof HVAC Units",\
+            "Concrete Foundation Pour",\
+            "Vapor Barrier",\
+            "Concrete Rebar",\
+            "Structural Piles",\
+            "Batterboards",\
+            "Roofing Insulation"\
+          ]\
+        \}\
+      ],\
+      "688816b1880b7b96b2e501b6": [],\
+      "6888113f3332fd44fd149711": [\
+        \{\
+          "issue_type": "stacked",\
+          "trades": [\
+            "Tilt-Up Wall Panels",\
+            "Concrete Foundation Pour",\
+            "Roofing",\
+            "Roof HVAC Units",\
+            "Structural Steel",\
+            "Vapor Barrier",\
+            "Structural Piles",\
+            "Excavation"\
+          ]\
+        \}\
+      ],\
+      "68880e35587882b7457d5701": [\
+        \{\
+          "issue_type": "stacked",\
+          "trades": [\
+            "Roof HVAC Units",\
+            "Roofing",\
+            "Concrete Rebar",\
+            "Concrete Foundation Pour",\
+            "Underground Utilities",\
+            "Tilt-Up Wall Panels",\
+            "Structural Piles",\
+            "Batterboards"\
+          ]\
+        \}\
+      ],\
+      "68880da50f864d2881bdd80b": [],\
+      "6849c2e7f11830b69fc3882e": [],\
+      "6849c2b8091fc596463ede32": [],\
+      "65205c97d53f42fcbda0bcf1": [\
+        \{\
+          "issue_type": "stalled",\
+          "trade": "Roofing Insulation",\
+          "weeks_stalled": 4\
+        \}\
+      ],\
+      "65205c97d53f42fcbda0bcef": [],\
+      "65205c97d53f42fcbda0bcee": [],\
+      "65205c97d53f42fcbda0bced": [\
+        \{\
+          "issue_type": "stalled",\
+          "trade": "Excavation",\
+          "weeks_stalled": 4\
+        \}\
+      ]\
+    \},\
+    "2021/09/01": \{\
+      "68b36de0b21b124f0d3682b3": [\
+        \{\
+          "issue_type": "stacked",\
+          "trades": [\
+            "Vapor Barrier",\
+            "Roofing",\
+            "Roof HVAC Units",\
+            "Roofing Membrane",\
+            "Roof HVAC Piping",\
+            "Tilt-Up Wall Panels",\
+            "Concrete Foundation Pour",\
+            "Structural Steel"\
+          ]\
+        \}\
+      ],\
+      "68b36d776244a70cf6b13b7c": [\
+        \{\
+          "issue_type": "stalled",\
+          "trade": "Structural Steel",\
+          "weeks_stalled": 4\
+        \}\
+      ],\
+      "68b36d52dfb1531431942889": [\
+        \{\
+          "issue_type": "stalled",\
+          "trade": "Excavation",\
+          "weeks_stalled": 4\
+        \}\
+      ],\
+      "68b36a2262f5c1297c0913d3": [\
+        \{\
+          "issue_type": "stalled",\
+          "trade": "Roofing Insulation",\
+          "weeks_stalled": 4\
+        \},\
+        \{\
+          "issue_type": "stacked",\
+          "trades": [\
+            "Roof HVAC Units",\
+            "Tilt-Up Wall Panels",\
+            "Concrete Formwork",\
+            "Roofing Membrane",\
+            "Vapor Barrier",\
+            "Underground Utilities",\
+            "Roofing",\
+            "Structural Steel"\
+          ]\
+        \}\
+      ],\
+      "68881ef9cbdd5a6f740a1e55": [],\
+      "68881eaf5ecfb6cf31709226": [],\
+      "68881c0d9c359a7c21399336": [\
+        \{\
+          "issue_type": "stalled",\
+          "trade": "Concrete Formwork",\
+          "weeks_stalled": 4\
+        \}\
+      ],\
+      "68881af3cbdd5a6f740a1e42": [],\
+      "68881aace1e8315beb8dbf32": [],\
+      "688819c084c0ccb3af37ee44": [],\
+      "68881865a0f3c54a3f9fed31": [],\
+      "688817b5587882b7457d5719": [\
+        \{\
+          "issue_type": "stacked",\
+          "trades": [\
+            "Concrete Pour",\
+            "Batterboards",\
+            "Roofing Insulation",\
+            "Underground Utilities",\
+            "Roofing",\
+            "Roofing Membrane",\
+            "Roof HVAC Piping",\
+            "Concrete Rebar"\
+          ]\
+        \}\
+      ],\
+      "688816b1880b7b96b2e501b6": [\
+        \{\
+          "issue_type": "stalled",\
+          "trade": "Structural Steel",\
+          "weeks_stalled": 4\
+        \},\
+        \{\
+          "issue_type": "stacked",\
+          "trades": [\
+            "Roof HVAC Piping",\
+            "Tilt-Up Wall Panels",\
+            "Structural Piles",\
+            "Batterboards",\
+            "Structural Steel",\
+            "Roofing Insulation",\
+            "Roofing",\
+            "Concrete Foundation Pour"\
+          ]\
+        \}\
+      ],\
+      "6888113f3332fd44fd149711": [],\
+      "68880e35587882b7457d5701": [\
+        \{\
+          "issue_type": "stalled",\
+          "trade": "Roofing",\
+          "weeks_stalled": 4\
+        \}\
+      ],\
+      "68880da50f864d2881bdd80b": [\
+        \{\
+          "issue_type": "stacked",\
+          "trades": [\
+            "Concrete Foundation Pour",\
+            "Tilt-Up Wall Panels",\
+            "Roofing Membrane",\
+            "Concrete Pour",\
+            "Excavation",\
+            "Concrete Rebar",\
+            "Structural Steel",\
+            "Roof HVAC Units"\
+          ]\
+        \}\
+      ],\
+      "6849c2e7f11830b69fc3882e": [\
+        \{\
+          "issue_type": "stacked",\
+          "trades": [\
+            "Roofing",\
+            "Batterboards",\
+            "Structural Steel",\
+            "Vapor Barrier",\
+            "Tilt-Up Wall Panels",\
+            "Concrete Rebar",\
+            "Excavation",\
+            "Concrete Pour"\
+          ]\
+        \}\
+      ],\
+      "6849c2b8091fc596463ede32": [],\
+      "65205c97d53f42fcbda0bcf1": [],\
+      "65205c97d53f42fcbda0bcef": [],\
+      "65205c97d53f42fcbda0bcee": [\
+        \{\
+          "issue_type": "stalled",\
+          "trade": "Tilt-Up Wall Panels",\
+          "weeks_stalled": 4\
+        \}\
+      ],\
+      "65205c97d53f42fcbda0bced": []\
+    \},\
+    "2021/09/15": \{\
+      "68b36de0b21b124f0d3682b3": [],\
+      "68b36d776244a70cf6b13b7c": [\
+        \{\
+          "issue_type": "stalled",\
+          "trade": "Concrete Foundation Pour",\
+          "weeks_stalled": 4\
+        \}\
+      ],\
+      "68b36d52dfb1531431942889": [\
+        \{\
+          "issue_type": "stalled",\
+          "trade": "Vapor Barrier",\
+          "weeks_stalled": 4\
+        \}\
+      ],\
+      "68b36a2262f5c1297c0913d3": [],\
+      "68881ef9cbdd5a6f740a1e55": [\
+        \{\
+          "issue_type": "stacked",\
+          "trades": [\
+            "Vapor Barrier",\
+            "Concrete Rebar",\
+            "Roofing Membrane",\
+            "Concrete Formwork",\
+            "Structural Piles",\
+            "Roof HVAC Piping",\
+            "Tilt-Up Wall Panels",\
+            "Concrete Foundation Pour"\
+          ]\
+        \}\
+      ],\
+      "68881eaf5ecfb6cf31709226": [\
+        \{\
+          "issue_type": "stalled",\
+          "trade": "Concrete Rebar",\
+          "weeks_stalled": 4\
+        \}\
+      ],\
+      "68881c0d9c359a7c21399336": [\
+        \{\
+          "issue_type": "stalled",\
+          "trade": "Concrete Rebar",\
+          "weeks_stalled": 4\
+        \}\
+      ],\
+      "68881af3cbdd5a6f740a1e42": [],\
+      "68881aace1e8315beb8dbf32": [],\
+      "688819c084c0ccb3af37ee44": [\
+        \{\
+          "issue_type": "stalled",\
+          "trade": "Vapor Barrier",\
+          "weeks_stalled": 4\
+        \}\
+      ],\
+      "68881865a0f3c54a3f9fed31": [],\
+      "688817b5587882b7457d5719": [],\
+      "688816b1880b7b96b2e501b6": [],\
+      "6888113f3332fd44fd149711": [],\
+      "68880e35587882b7457d5701": [\
+        \{\
+          "issue_type": "stalled",\
+          "trade": "Concrete Formwork",\
+          "weeks_stalled": 4\
+        \}\
+      ],\
+      "68880da50f864d2881bdd80b": [],\
+      "6849c2e7f11830b69fc3882e": [],\
+      "6849c2b8091fc596463ede32": [],\
+      "65205c97d53f42fcbda0bcf1": [],\
+      "65205c97d53f42fcbda0bcef": [],\
+      "65205c97d53f42fcbda0bcee": [],\
+      "65205c97d53f42fcbda0bced": [\
+        \{\
+          "issue_type": "stalled",\
+          "trade": "Underground Utilities",\
+          "weeks_stalled": 4\
+        \}\
+      ]\
+    \},\
+    "2021/10/01": \{\
+      "68b36de0b21b124f0d3682b3": [],\
+      "68b36d776244a70cf6b13b7c": [],\
+      "68b36d52dfb1531431942889": [],\
+      "68b36a2262f5c1297c0913d3": [\
+        \{\
+          "issue_type": "stacked",\
+          "trades": [\
+            "Excavation",\
+            "Structural Steel",\
+            "Roofing Membrane",\
+            "Concrete Foundation Pour",\
+            "Tilt-Up Wall Panels",\
+            "Structural Piles",\
+            "Roof HVAC Piping",\
+            "Concrete Pour"\
+          ]\
+        \}\
+      ],\
+      "68881ef9cbdd5a6f740a1e55": [\
+        \{\
+          "issue_type": "stalled",\
+          "trade": "Underground Utilities",\
+          "weeks_stalled": 4\
+        \}\
+      ],\
+      "68881eaf5ecfb6cf31709226": [],\
+      "68881c0d9c359a7c21399336": [\
+        \{\
+          "issue_type": "stalled",\
+          "trade": "Underground Utilities",\
+          "weeks_stalled": 4\
+        \},\
+        \{\
+          "issue_type": "stacked",\
+          "trades": [\
+            "Roofing Insulation",\
+            "Batterboards",\
+            "Concrete Foundation Pour",\
+            "Structural Steel",\
+            "Underground Utilities",\
+            "Roofing Membrane",\
+            "Structural Piles",\
+            "Roof HVAC Piping"\
+          ]\
+        \}\
+      ],\
+      "68881af3cbdd5a6f740a1e42": [],\
+      "68881aace1e8315beb8dbf32": [],\
+      "688819c084c0ccb3af37ee44": [],\
+      "68881865a0f3c54a3f9fed31": [],\
+      "688817b5587882b7457d5719": [],\
+      "688816b1880b7b96b2e501b6": [\
+        \{\
+          "issue_type": "stalled",\
+          "trade": "Roof HVAC Units",\
+          "weeks_stalled": 4\
+        \}\
+      ],\
+      "6888113f3332fd44fd149711": [],\
+      "68880e35587882b7457d5701": [],\
+      "68880da50f864d2881bdd80b": [],\
+      "6849c2e7f11830b69fc3882e": [],\
+      "6849c2b8091fc596463ede32": [],\
+      "65205c97d53f42fcbda0bcf1": [],\
+      "65205c97d53f42fcbda0bcef": [],\
+      "65205c97d53f42fcbda0bcee": [\
+        \{\
+          "issue_type": "stacked",\
+          "trades": [\
+            "Concrete Foundation Pour",\
+            "Structural Piles",\
+            "Underground Utilities",\
+            "Tilt-Up Wall Panels",\
+            "Concrete Formwork",\
+            "Vapor Barrier",\
+            "Roofing",\
+            "Roofing Membrane"\
+          ]\
+        \}\
+      ],\
+      "65205c97d53f42fcbda0bced": [\
+        \{\
+          "issue_type": "stalled",\
+          "trade": "Roof HVAC Piping",\
+          "weeks_stalled": 4\
+        \}\
+      ]\
+    \},\
+    "2021/11/15": \{\
+      "68b36de0b21b124f0d3682b3": [],\
+      "68b36d776244a70cf6b13b7c": [],\
+      "68b36d52dfb1531431942889": [],\
+      "68b36a2262f5c1297c0913d3": [],\
+      "68881ef9cbdd5a6f740a1e55": [\
+        \{\
+          "issue_type": "stalled",\
+          "trade": "Concrete Foundation Pour",\
+          "weeks_stalled": 4\
+        \}\
+      ],\
+      "68881eaf5ecfb6cf31709226": [\
+        \{\
+          "issue_type": "stalled",\
+          "trade": "Structural Steel",\
+          "weeks_stalled": 4\
+        \},\
+        \{\
+          "issue_type": "stacked",\
+          "trades": [\
+            "Batterboards",\
+            "Roofing Insulation",\
+            "Concrete Rebar",\
+            "Concrete Formwork",\
+            "Roofing Membrane",\
+            "Concrete Pour",\
+            "Structural Piles",\
+            "Excavation"\
+          ]\
+        \}\
+      ],\
+      "68881c0d9c359a7c21399336": [],\
+      "68881af3cbdd5a6f740a1e42": [\
+        \{\
+          "issue_type": "stalled",\
+          "trade": "Roofing Insulation",\
+          "weeks_stalled": 4\
+        \}\
+      ],\
+      "68881aace1e8315beb8dbf32": [\
+        \{\
+          "issue_type": "stalled",\
+          "trade": "Concrete Foundation Pour",\
+          "weeks_stalled": 4\
+        \}\
+      ],\
+      "688819c084c0ccb3af37ee44": [],\
+      "68881865a0f3c54a3f9fed31": [\
+        \{\
+          "issue_type": "stalled",\
+          "trade": "Roofing Membrane",\
+          "weeks_stalled": 4\
+        \}\
+      ],\
+      "688817b5587882b7457d5719": [\
+        \{\
+          "issue_type": "stacked",\
+          "trades": [\
+            "Concrete Pour",\
+            "Tilt-Up Wall Panels",\
+            "Vapor Barrier",\
+            "Concrete Foundation Pour",\
+            "Structural Steel",\
+            "Concrete Formwork",\
+            "Underground Utilities",\
+            "Concrete Rebar"\
+          ]\
+        \}\
+      ],\
+      "688816b1880b7b96b2e501b6": [],\
+      "6888113f3332fd44fd149711": [\
+        \{\
+          "issue_type": "stalled",\
+          "trade": "Structural Piles",\
+          "weeks_stalled": 4\
+        \}\
+      ],\
+      "68880e35587882b7457d5701": [],\
+      "68880da50f864d2881bdd80b": [],\
+      "6849c2e7f11830b69fc3882e": [],\
+      "6849c2b8091fc596463ede32": [\
+        \{\
+          "issue_type": "stalled",\
+          "trade": "Concrete Formwork",\
+          "weeks_stalled": 4\
+        \}\
+      ],\
+      "65205c97d53f42fcbda0bcf1": [],\
+      "65205c97d53f42fcbda0bcef": [],\
+      "65205c97d53f42fcbda0bcee": [\
+        \{\
+          "issue_type": "stalled",\
+          "trade": "Structural Piles",\
+          "weeks_stalled": 4\
+        \}\
+      ],\
+      "65205c97d53f42fcbda0bced": [\
+        \{\
+          "issue_type": "stalled",\
+          "trade": "Structural Piles",\
+          "weeks_stalled": 4\
+        \}\
+      ]\
+    \},\
+    "2021/12/01": \{\
+      "68b36de0b21b124f0d3682b3": [\
+        \{\
+          "issue_type": "stalled",\
+          "trade": "Concrete Formwork",\
+          "weeks_stalled": 4\
+        \}\
+      ],\
+      "68b36d776244a70cf6b13b7c": [],\
+      "68b36d52dfb1531431942889": [],\
+      "68b36a2262f5c1297c0913d3": [],\
+      "68881ef9cbdd5a6f740a1e55": [],\
+      "68881eaf5ecfb6cf31709226": [\
+        \{\
+          "issue_type": "stalled",\
+          "trade": "Excavation",\
+          "weeks_stalled": 4\
+        \}\
+      ],\
+      "68881c0d9c359a7c21399336": [],\
+      "68881af3cbdd5a6f740a1e42": [],\
+      "68881aace1e8315beb8dbf32": [],\
+      "688819c084c0ccb3af37ee44": [],\
+      "68881865a0f3c54a3f9fed31": [],\
+      "688817b5587882b7457d5719": [],\
+      "688816b1880b7b96b2e501b6": [\
+        \{\
+          "issue_type": "stacked",\
+          "trades": [\
+            "Concrete Pour",\
+            "Roofing",\
+            "Underground Utilities",\
+            "Batterboards",\
+            "Excavation",\
+            "Structural Piles",\
+            "Vapor Barrier",\
+            "Tilt-Up Wall Panels"\
+          ]\
+        \}\
+      ],\
+      "6888113f3332fd44fd149711": [],\
+      "68880e35587882b7457d5701": [],\
+      "68880da50f864d2881bdd80b": [\
+        \{\
+          "issue_type": "stalled",\
+          "trade": "Roofing Membrane",\
+          "weeks_stalled": 4\
+        \}\
+      ],\
+      "6849c2e7f11830b69fc3882e": [\
+        \{\
+          "issue_type": "stalled",\
+          "trade": "Concrete Rebar",\
+          "weeks_stalled": 4\
+        \}\
+      ],\
+      "6849c2b8091fc596463ede32": [],\
+      "65205c97d53f42fcbda0bcf1": [],\
+      "65205c97d53f42fcbda0bcef": [\
+        \{\
+          "issue_type": "stalled",\
+          "trade": "Concrete Foundation Pour",\
+          "weeks_stalled": 4\
+        \}\
+      ],\
+      "65205c97d53f42fcbda0bcee": [],\
+      "65205c97d53f42fcbda0bced": []\
+    \},\
+    "2021/12/27": \{\
+      "68b36de0b21b124f0d3682b3": [],\
+      "68b36d776244a70cf6b13b7c": [],\
+      "68b36d52dfb1531431942889": [\
+        \{\
+          "issue_type": "stalled",\
+          "trade": "Concrete Rebar",\
+          "weeks_stalled": 4\
+        \}\
+      ],\
+      "68b36a2262f5c1297c0913d3": [],\
+      "68881ef9cbdd5a6f740a1e55": [],\
+      "68881eaf5ecfb6cf31709226": [],\
+      "68881c0d9c359a7c21399336": [],\
+      "68881af3cbdd5a6f740a1e42": [],\
+      "68881aace1e8315beb8dbf32": [],\
+      "688819c084c0ccb3af37ee44": [],\
+      "68881865a0f3c54a3f9fed31": [],\
+      "688817b5587882b7457d5719": [\
+        \{\
+          "issue_type": "stacked",\
+          "trades": [\
+            "Concrete Formwork",\
+            "Concrete Rebar",\
+            "Roofing",\
+            "Structural Steel",\
+            "Structural Piles",\
+            "Underground Utilities",\
+            "Batterboards",\
+            "Roofing Membrane"\
+          ]\
+        \}\
+      ],\
+      "688816b1880b7b96b2e501b6": [\
+        \{\
+          "issue_type": "stacked",\
+          "trades": [\
+            "Roof HVAC Piping",\
+            "Roofing Membrane",\
+            "Structural Steel",\
+            "Excavation",\
+            "Roofing Insulation",\
+            "Concrete Rebar",\
+            "Roof HVAC Units",\
+            "Tilt-Up Wall Panels"\
+          ]\
+        \}\
+      ],\
+      "6888113f3332fd44fd149711": [\
+        \{\
+          "issue_type": "stacked",\
+          "trades": [\
+            "Concrete Rebar",\
+            "Underground Utilities",\
+            "Concrete Foundation Pour",\
+            "Structural Piles",\
+            "Roof HVAC Units",\
+            "Roofing Insulation",\
+            "Roofing",\
+            "Structural Steel"\
+          ]\
+        \}\
+      ],\
+      "68880e35587882b7457d5701": [],\
+      "68880da50f864d2881bdd80b": [],\
+      "6849c2e7f11830b69fc3882e": [],\
+      "6849c2b8091fc596463ede32": [],\
+      "65205c97d53f42fcbda0bcf1": [],\
+      "65205c97d53f42fcbda0bcef": [],\
+      "65205c97d53f42fcbda0bcee": [],\
+      "65205c97d53f42fcbda0bced": [\
+        \{\
+          "issue_type": "stacked",\
+          "trades": [\
+            "Excavation",\
+            "Batterboards",\
+            "Tilt-Up Wall Panels",\
+            "Structural Steel",\
+            "Concrete Foundation Pour",\
+            "Concrete Rebar",\
+            "Vapor Barrier",\
+            "Roof HVAC Piping"\
+          ]\
+        \}\
+      ]\
+    \},\
+    "2022/01/13": \{\
+      "68b36de0b21b124f0d3682b3": [\
+        \{\
+          "issue_type": "stacked",\
+          "trades": [\
+            "Roofing Membrane",\
+            "Roof HVAC Units",\
+            "Vapor Barrier",\
+            "Underground Utilities",\
+            "Roof HVAC Piping",\
+            "Concrete Formwork",\
+            "Concrete Foundation Pour",\
+            "Excavation"\
+          ]\
+        \}\
+      ],\
+      "68b36d776244a70cf6b13b7c": [],\
+      "68b36d52dfb1531431942889": [],\
+      "68b36a2262f5c1297c0913d3": [\
+        \{\
+          "issue_type": "stalled",\
+          "trade": "Tilt-Up Wall Panels",\
+          "weeks_stalled": 4\
+        \}\
+      ],\
+      "68881ef9cbdd5a6f740a1e55": [],\
+      "68881eaf5ecfb6cf31709226": [\
+        \{\
+          "issue_type": "stalled",\
+          "trade": "Structural Steel",\
+          "weeks_stalled": 4\
+        \}\
+      ],\
+      "68881c0d9c359a7c21399336": [],\
+      "68881af3cbdd5a6f740a1e42": [],\
+      "68881aace1e8315beb8dbf32": [],\
+      "688819c084c0ccb3af37ee44": [],\
+      "68881865a0f3c54a3f9fed31": [],\
+      "688817b5587882b7457d5719": [\
+        \{\
+          "issue_type": "stalled",\
+          "trade": "Tilt-Up Wall Panels",\
+          "weeks_stalled": 4\
+        \}\
+      ],\
+      "688816b1880b7b96b2e501b6": [],\
+      "6888113f3332fd44fd149711": [],\
+      "68880e35587882b7457d5701": [],\
+      "68880da50f864d2881bdd80b": [\
+        \{\
+          "issue_type": "stacked",\
+          "trades": [\
+            "Concrete Foundation Pour",\
+            "Structural Piles",\
+            "Structural Steel",\
+            "Tilt-Up Wall Panels",\
+            "Batterboards",\
+            "Roofing",\
+            "Concrete Rebar",\
+            "Underground Utilities"\
+          ]\
+        \}\
+      ],\
+      "6849c2e7f11830b69fc3882e": [],\
+      "6849c2b8091fc596463ede32": [],\
+      "65205c97d53f42fcbda0bcf1": [\
+        \{\
+          "issue_type": "stacked",\
+          "trades": [\
+            "Concrete Formwork",\
+            "Structural Piles",\
+            "Structural Steel",\
+            "Roof HVAC Piping",\
+            "Roofing",\
+            "Underground Utilities",\
+            "Roof HVAC Units",\
+            "Roofing Insulation"\
+          ]\
+        \}\
+      ],\
+      "65205c97d53f42fcbda0bcef": [\
+        \{\
+          "issue_type": "stacked",\
+          "trades": [\
+            "Concrete Rebar",\
+            "Roof HVAC Piping",\
+            "Roof HVAC Units",\
+            "Roofing Insulation",\
+            "Roofing",\
+            "Vapor Barrier",\
+            "Concrete Formwork",\
+            "Structural Piles"\
+          ]\
+        \}\
+      ],\
+      "65205c97d53f42fcbda0bcee": [\
+        \{\
+          "issue_type": "stalled",\
+          "trade": "Structural Steel",\
+          "weeks_stalled": 4\
+        \}\
+      ],\
+      "65205c97d53f42fcbda0bced": []\
+    \},\
+    "2022/02/15": \{\
+      "68b36de0b21b124f0d3682b3": [],\
+      "68b36d776244a70cf6b13b7c": [],\
+      "68b36d52dfb1531431942889": [\
+        \{\
+          "issue_type": "stacked",\
+          "trades": [\
+            "Roof HVAC Units",\
+            "Tilt-Up Wall Panels",\
+            "Structural Steel",\
+            "Concrete Formwork",\
+            "Excavation",\
+            "Concrete Rebar",\
+            "Batterboards",\
+            "Concrete Foundation Pour"\
+          ]\
+        \}\
+      ],\
+      "68b36a2262f5c1297c0913d3": [],\
+      "68881ef9cbdd5a6f740a1e55": [\
+        \{\
+          "issue_type": "stacked",\
+          "trades": [\
+            "Roofing Insulation",\
+            "Excavation",\
+            "Structural Steel",\
+            "Roof HVAC Piping",\
+            "Batterboards",\
+            "Structural Piles",\
+            "Vapor Barrier",\
+            "Roofing"\
+          ]\
+        \}\
+      ],\
+      "68881eaf5ecfb6cf31709226": [\
+        \{\
+          "issue_type": "stacked",\
+          "trades": [\
+            "Concrete Foundation Pour",\
+            "Roofing Insulation",\
+            "Concrete Pour",\
+            "Excavation",\
+            "Roof HVAC Units",\
+            "Structural Steel",\
+            "Underground Utilities",\
+            "Structural Piles"\
+          ]\
+        \}\
+      ],\
+      "68881c0d9c359a7c21399336": [],\
+      "68881af3cbdd5a6f740a1e42": [\
+        \{\
+          "issue_type": "stacked",\
+          "trades": [\
+            "Roofing Insulation",\
+            "Roof HVAC Units",\
+            "Concrete Pour",\
+            "Structural Steel",\
+            "Excavation",\
+            "Concrete Foundation Pour",\
+            "Roofing",\
+            "Underground Utilities"\
+          ]\
+        \}\
+      ],\
+      "68881aace1e8315beb8dbf32": [\
+        \{\
+          "issue_type": "stalled",\
+          "trade": "Tilt-Up Wall Panels",\
+          "weeks_stalled": 4\
+        \}\
+      ],\
+      "688819c084c0ccb3af37ee44": [\
+        \{\
+          "issue_type": "stacked",\
+          "trades": [\
+            "Concrete Pour",\
+            "Roof HVAC Units",\
+            "Structural Steel",\
+            "Vapor Barrier",\
+            "Batterboards",\
+            "Excavation",\
+            "Roof HVAC Piping",\
+            "Concrete Rebar"\
+          ]\
+        \}\
+      ],\
+      "68881865a0f3c54a3f9fed31": [\
+        \{\
+          "issue_type": "stacked",\
+          "trades": [\
+            "Concrete Pour",\
+            "Structural Steel",\
+            "Roof HVAC Units",\
+            "Underground Utilities",\
+            "Structural Piles",\
+            "Roofing Membrane",\
+            "Roofing Insulation",\
+            "Roofing"\
+          ]\
+        \}\
+      ],\
+      "688817b5587882b7457d5719": [],\
+      "688816b1880b7b96b2e501b6": [],\
+      "6888113f3332fd44fd149711": [\
+        \{\
+          "issue_type": "stalled",\
+          "trade": "Roofing Insulation",\
+          "weeks_stalled": 4\
+        \}\
+      ],\
+      "68880e35587882b7457d5701": [\
+        \{\
+          "issue_type": "stalled",\
+          "trade": "Tilt-Up Wall Panels",\
+          "weeks_stalled": 4\
+        \}\
+      ],\
+      "68880da50f864d2881bdd80b": [\
+        \{\
+          "issue_type": "stalled",\
+          "trade": "Roofing Insulation",\
+          "weeks_stalled": 4\
+        \}\
+      ],\
+      "6849c2e7f11830b69fc3882e": [\
+        \{\
+          "issue_type": "stacked",\
+          "trades": [\
+            "Roofing Insulation",\
+            "Roofing",\
+            "Concrete Formwork",\
+            "Underground Utilities",\
+            "Roofing Membrane",\
+            "Batterboards",\
+            "Concrete Rebar",\
+            "Excavation"\
+          ]\
+        \}\
+      ],\
+      "6849c2b8091fc596463ede32": [],\
+      "65205c97d53f42fcbda0bcf1": [],\
+      "65205c97d53f42fcbda0bcef": [\
+        \{\
+          "issue_type": "stacked",\
+          "trades": [\
+            "Batterboards",\
+            "Concrete Foundation Pour",\
+            "Concrete Formwork",\
+            "Roofing Membrane",\
+            "Roof HVAC Piping",\
+            "Tilt-Up Wall Panels",\
+            "Concrete Rebar",\
+            "Roofing Insulation"\
+          ]\
+        \}\
+      ],\
+      "65205c97d53f42fcbda0bcee": [],\
+      "65205c97d53f42fcbda0bced": []\
+    \},\
+    "2022/03/01": \{\
+      "68b36de0b21b124f0d3682b3": [],\
+      "68b36d776244a70cf6b13b7c": [],\
+      "68b36d52dfb1531431942889": [],\
+      "68b36a2262f5c1297c0913d3": [\
+        \{\
+          "issue_type": "stalled",\
+          "trade": "Underground Utilities",\
+          "weeks_stalled": 4\
+        \}\
+      ],\
+      "68881ef9cbdd5a6f740a1e55": [],\
+      "68881eaf5ecfb6cf31709226": [],\
+      "68881c0d9c359a7c21399336": [\
+        \{\
+          "issue_type": "stalled",\
+          "trade": "Concrete Pour",\
+          "weeks_stalled": 4\
+        \},\
+        \{\
+          "issue_type": "stacked",\
+          "trades": [\
+            "Structural Piles",\
+            "Roofing Membrane",\
+            "Tilt-Up Wall Panels",\
+            "Concrete Foundation Pour",\
+            "Structural Steel",\
+            "Roofing",\
+            "Concrete Rebar",\
+            "Batterboards"\
+          ]\
+        \}\
+      ],\
+      "68881af3cbdd5a6f740a1e42": [],\
+      "68881aace1e8315beb8dbf32": [\
+        \{\
+          "issue_type": "stacked",\
+          "trades": [\
+            "Concrete Formwork",\
+            "Tilt-Up Wall Panels",\
+            "Structural Piles",\
+            "Roof HVAC Piping",\
+            "Batterboards",\
+            "Roofing",\
+            "Underground Utilities",\
+            "Concrete Pour"\
+          ]\
+        \}\
+      ],\
+      "688819c084c0ccb3af37ee44": [\
+        \{\
+          "issue_type": "stalled",\
+          "trade": "Roofing",\
+          "weeks_stalled": 4\
+        \}\
+      ],\
+      "68881865a0f3c54a3f9fed31": [],\
+      "688817b5587882b7457d5719": [\
+        \{\
+          "issue_type": "stacked",\
+          "trades": [\
+            "Concrete Foundation Pour",\
+            "Concrete Rebar",\
+            "Roofing Membrane",\
+            "Roofing Insulation",\
+            "Concrete Formwork",\
+            "Structural Steel",\
+            "Concrete Pour",\
+            "Roofing"\
+          ]\
+        \}\
+      ],\
+      "688816b1880b7b96b2e501b6": [],\
+      "6888113f3332fd44fd149711": [\
+        \{\
+          "issue_type": "stalled",\
+          "trade": "Excavation",\
+          "weeks_stalled": 4\
+        \}\
+      ],\
+      "68880e35587882b7457d5701": [\
+        \{\
+          "issue_type": "stalled",\
+          "trade": "Roofing Insulation",\
+          "weeks_stalled": 4\
+        \}\
+      ],\
+      "68880da50f864d2881bdd80b": [\
+        \{\
+          "issue_type": "stalled",\
+          "trade": "Roof HVAC Piping",\
+          "weeks_stalled": 4\
+        \}\
+      ],\
+      "6849c2e7f11830b69fc3882e": [],\
+      "6849c2b8091fc596463ede32": [],\
+      "65205c97d53f42fcbda0bcf1": [],\
+      "65205c97d53f42fcbda0bcef": [],\
+      "65205c97d53f42fcbda0bcee": [],\
+      "65205c97d53f42fcbda0bced": [\
+        \{\
+          "issue_type": "stalled",\
+          "trade": "Concrete Foundation Pour",\
+          "weeks_stalled": 4\
+        \}\
+      ]\
+    \},\
+    "2022/04/01": \{\
+      "68b36de0b21b124f0d3682b3": [\
+        \{\
+          "issue_type": "stalled",\
+          "trade": "Excavation",\
+          "weeks_stalled": 4\
+        \}\
+      ],\
+      "68b36d776244a70cf6b13b7c": [],\
+      "68b36d52dfb1531431942889": [],\
+      "68b36a2262f5c1297c0913d3": [\
+        \{\
+          "issue_type": "stacked",\
+          "trades": [\
+            "Concrete Pour",\
+            "Structural Piles",\
+            "Concrete Rebar",\
+            "Roofing Insulation",\
+            "Roofing",\
+            "Concrete Formwork",\
+            "Concrete Foundation Pour",\
+            "Roofing Membrane"\
+          ]\
+        \}\
+      ],\
+      "68881ef9cbdd5a6f740a1e55": [],\
+      "68881eaf5ecfb6cf31709226": [\
+        \{\
+          "issue_type": "stalled",\
+          "trade": "Concrete Formwork",\
+          "weeks_stalled": 4\
+        \},\
+        \{\
+          "issue_type": "stacked",\
+          "trades": [\
+            "Roof HVAC Piping",\
+            "Roof HVAC Units",\
+            "Structural Steel",\
+            "Excavation",\
+            "Concrete Pour",\
+            "Structural Piles",\
+            "Roofing Membrane",\
+            "Concrete Foundation Pour"\
+          ]\
+        \}\
+      ],\
+      "68881c0d9c359a7c21399336": [],\
+      "68881af3cbdd5a6f740a1e42": [\
+        \{\
+          "issue_type": "stacked",\
+          "trades": [\
+            "Tilt-Up Wall Panels",\
+            "Concrete Foundation Pour",\
+            "Roof HVAC Units",\
+            "Roofing",\
+            "Structural Steel",\
+            "Concrete Formwork",\
+            "Vapor Barrier",\
+            "Concrete Pour"\
+          ]\
+        \}\
+      ],\
+      "68881aace1e8315beb8dbf32": [\
+        \{\
+          "issue_type": "stacked",\
+          "trades": [\
+            "Concrete Foundation Pour",\
+            "Roofing Insulation",\
+            "Roofing",\
+            "Vapor Barrier",\
+            "Structural Steel",\
+            "Excavation",\
+            "Tilt-Up Wall Panels",\
+            "Roof HVAC Units"\
+          ]\
+        \}\
+      ],\
+      "688819c084c0ccb3af37ee44": [\
+        \{\
+          "issue_type": "stacked",\
+          "trades": [\
+            "Concrete Rebar",\
+            "Underground Utilities",\
+            "Concrete Formwork",\
+            "Vapor Barrier",\
+            "Roofing Insulation",\
+            "Excavation",\
+            "Roofing Membrane",\
+            "Roofing"\
+          ]\
+        \}\
+      ],\
+      "68881865a0f3c54a3f9fed31": [],\
+      "688817b5587882b7457d5719": [\
+        \{\
+          "issue_type": "stacked",\
+          "trades": [\
+            "Batterboards",\
+            "Vapor Barrier",\
+            "Concrete Formwork",\
+            "Roofing",\
+            "Tilt-Up Wall Panels",\
+            "Roofing Insulation",\
+            "Roof HVAC Units",\
+            "Excavation"\
+          ]\
+        \}\
+      ],\
+      "688816b1880b7b96b2e501b6": [\
+        \{\
+          "issue_type": "stacked",\
+          "trades": [\
+            "Vapor Barrier",\
+            "Roofing Membrane",\
+            "Roofing",\
+            "Underground Utilities",\
+            "Concrete Foundation Pour",\
+            "Roof HVAC Piping",\
+            "Roof HVAC Units",\
+            "Structural Steel"\
+          ]\
+        \}\
+      ],\
+      "6888113f3332fd44fd149711": [\
+        \{\
+          "issue_type": "stacked",\
+          "trades": [\
+            "Structural Steel",\
+            "Vapor Barrier",\
+            "Concrete Foundation Pour",\
+            "Roofing Membrane",\
+            "Batterboards",\
+            "Underground Utilities",\
+            "Concrete Rebar",\
+            "Roofing"\
+          ]\
+        \}\
+      ],\
+      "68880e35587882b7457d5701": [\
+        \{\
+          "issue_type": "stacked",\
+          "trades": [\
+            "Concrete Formwork",\
+            "Concrete Pour",\
+            "Vapor Barrier",\
+            "Concrete Foundation Pour",\
+            "Roofing Membrane",\
+            "Roof HVAC Piping",\
+            "Roofing Insulation",\
+            "Structural Steel"\
+          ]\
+        \}\
+      ],\
+      "68880da50f864d2881bdd80b": [\
+        \{\
+          "issue_type": "stacked",\
+          "trades": [\
+            "Excavation",\
+            "Structural Steel",\
+            "Batterboards",\
+            "Structural Piles",\
+            "Concrete Formwork",\
+            "Vapor Barrier",\
+            "Underground Utilities",\
+            "Concrete Foundation Pour"\
+          ]\
+        \}\
+      ],\
+      "6849c2e7f11830b69fc3882e": [\
+        \{\
+          "issue_type": "stacked",\
+          "trades": [\
+            "Roof HVAC Piping",\
+            "Vapor Barrier",\
+            "Roofing Membrane",\
+            "Concrete Formwork",\
+            "Structural Piles",\
+            "Roof HVAC Units",\
+            "Concrete Foundation Pour",\
+            "Roofing"\
+          ]\
+        \}\
+      ],\
+      "6849c2b8091fc596463ede32": [\
+        \{\
+          "issue_type": "stalled",\
+          "trade": "Structural Piles",\
+          "weeks_stalled": 4\
+        \},\
+        \{\
+          "issue_type": "stacked",\
+          "trades": [\
+            "Roofing Membrane",\
+            "Concrete Pour",\
+            "Roof HVAC Units",\
+            "Structural Steel",\
+            "Roof HVAC Piping",\
+            "Underground Utilities",\
+            "Concrete Foundation Pour",\
+            "Concrete Formwork"\
+          ]\
+        \}\
+      ],\
+      "65205c97d53f42fcbda0bcf1": [\
+        \{\
+          "issue_type": "stalled",\
+          "trade": "Roofing Insulation",\
+          "weeks_stalled": 4\
+        \}\
+      ],\
+      "65205c97d53f42fcbda0bcef": [],\
+      "65205c97d53f42fcbda0bcee": [\
+        \{\
+          "issue_type": "stacked",\
+          "trades": [\
+            "Roofing Membrane",\
+            "Structural Piles",\
+            "Structural Steel",\
+            "Tilt-Up Wall Panels",\
+            "Batterboards",\
+            "Vapor Barrier",\
+            "Excavation",\
+            "Roofing Insulation"\
+          ]\
+        \}\
+      ],\
+      "65205c97d53f42fcbda0bced": [\
+        \{\
+          "issue_type": "stacked",\
+          "trades": [\
+            "Concrete Foundation Pour",\
+            "Structural Piles",\
+            "Tilt-Up Wall Panels",\
+            "Underground Utilities",\
+            "Vapor Barrier",\
+            "Structural Steel",\
+            "Batterboards",\
+            "Roof HVAC Piping"\
+          ]\
+        \}\
+      ]\
+    \},\
+    "2022/04/18": \{\
+      "68b36de0b21b124f0d3682b3": [\
+        \{\
+          "issue_type": "stalled",\
+          "trade": "Excavation",\
+          "weeks_stalled": 4\
+        \}\
+      ],\
+      "68b36d776244a70cf6b13b7c": [\
+        \{\
+          "issue_type": "stacked",\
+          "trades": [\
+            "Underground Utilities",\
+            "Roofing Insulation",\
+            "Roofing Membrane",\
+            "Concrete Foundation Pour",\
+            "Batterboards",\
+            "Roof HVAC Units",\
+            "Concrete Rebar",\
+            "Roofing"\
+          ]\
+        \}\
+      ],\
+      "68b36d52dfb1531431942889": [],\
+      "68b36a2262f5c1297c0913d3": [],\
+      "68881ef9cbdd5a6f740a1e55": [],\
+      "68881eaf5ecfb6cf31709226": [],\
+      "68881c0d9c359a7c21399336": [],\
+      "68881af3cbdd5a6f740a1e42": [\
+        \{\
+          "issue_type": "stacked",\
+          "trades": [\
+            "Excavation",\
+            "Concrete Formwork",\
+            "Roofing",\
+            "Structural Steel",\
+            "Concrete Foundation Pour",\
+            "Roofing Membrane",\
+            "Roofing Insulation",\
+            "Concrete Rebar"\
+          ]\
+        \}\
+      ],\
+      "68881aace1e8315beb8dbf32": [\
+        \{\
+          "issue_type": "stacked",\
+          "trades": [\
+            "Concrete Pour",\
+            "Structural Steel",\
+            "Concrete Formwork",\
+            "Roofing",\
+            "Structural Piles",\
+            "Excavation",\
+            "Roofing Insulation",\
+            "Roofing Membrane"\
+          ]\
+        \}\
+      ],\
+      "688819c084c0ccb3af37ee44": [],\
+      "68881865a0f3c54a3f9fed31": [\
+        \{\
+          "issue_type": "stacked",\
+          "trades": [\
+            "Roofing Insulation",\
+            "Tilt-Up Wall Panels",\
+            "Concrete Foundation Pour",\
+            "Batterboards",\
+            "Structural Steel",\
+            "Roof HVAC Units",\
+            "Concrete Formwork",\
+            "Vapor Barrier"\
+          ]\
+        \}\
+      ],\
+      "688817b5587882b7457d5719": [\
+        \{\
+          "issue_type": "stalled",\
+          "trade": "Structural Piles",\
+          "weeks_stalled": 4\
+        \}\
+      ],\
+      "688816b1880b7b96b2e501b6": [],\
+      "6888113f3332fd44fd149711": [],\
+      "68880e35587882b7457d5701": [],\
+      "68880da50f864d2881bdd80b": [\
+        \{\
+          "issue_type": "stacked",\
+          "trades": [\
+            "Roofing Membrane",\
+            "Concrete Foundation Pour",\
+            "Excavation",\
+            "Structural Steel",\
+            "Batterboards",\
+            "Roofing Insulation",\
+            "Roof HVAC Units",\
+            "Underground Utilities"\
+          ]\
+        \}\
+      ],\
+      "6849c2e7f11830b69fc3882e": [],\
+      "6849c2b8091fc596463ede32": [],\
+      "65205c97d53f42fcbda0bcf1": [],\
+      "65205c97d53f42fcbda0bcef": [],\
+      "65205c97d53f42fcbda0bcee": [\
+        \{\
+          "issue_type": "stalled",\
+          "trade": "Vapor Barrier",\
+          "weeks_stalled": 4\
+        \}\
+      ],\
+      "65205c97d53f42fcbda0bced": [\
+        \{\
+          "issue_type": "stalled",\
+          "trade": "Concrete Pour",\
+          "weeks_stalled": 4\
+        \},\
+        \{\
+          "issue_type": "stacked",\
+          "trades": [\
+            "Underground Utilities",\
+            "Roofing Membrane",\
+            "Excavation",\
+            "Roofing",\
+            "Concrete Rebar",\
+            "Concrete Foundation Pour",\
+            "Structural Piles",\
+            "Roof HVAC Piping"\
+          ]\
+        \}\
+      ]\
+    \},\
+    "2022/05/16": \{\
+      "68b36de0b21b124f0d3682b3": [\
+        \{\
+          "issue_type": "stalled",\
+          "trade": "Vapor Barrier",\
+          "weeks_stalled": 4\
+        \}\
+      ],\
+      "68b36d776244a70cf6b13b7c": [\
+        \{\
+          "issue_type": "stalled",\
+          "trade": "Roofing Insulation",\
+          "weeks_stalled": 4\
+        \}\
+      ],\
+      "68b36d52dfb1531431942889": [],\
+      "68b36a2262f5c1297c0913d3": [\
+        \{\
+          "issue_type": "stalled",\
+          "trade": "Roof HVAC Piping",\
+          "weeks_stalled": 4\
+        \},\
+        \{\
+          "issue_type": "stacked",\
+          "trades": [\
+            "Structural Steel",\
+            "Roofing Membrane",\
+            "Structural Piles",\
+            "Roof HVAC Units",\
+            "Concrete Rebar",\
+            "Concrete Formwork",\
+            "Roof HVAC Piping",\
+            "Batterboards"\
+          ]\
+        \}\
+      ],\
+      "68881ef9cbdd5a6f740a1e55": [\
+        \{\
+          "issue_type": "stalled",\
+          "trade": "Structural Steel",\
+          "weeks_stalled": 4\
+        \}\
+      ],\
+      "68881eaf5ecfb6cf31709226": [],\
+      "68881c0d9c359a7c21399336": [],\
+      "68881af3cbdd5a6f740a1e42": [\
+        \{\
+          "issue_type": "stalled",\
+          "trade": "Concrete Formwork",\
+          "weeks_stalled": 4\
+        \},\
+        \{\
+          "issue_type": "stacked",\
+          "trades": [\
+            "Concrete Rebar",\
+            "Vapor Barrier",\
+            "Concrete Pour",\
+            "Roof HVAC Piping",\
+            "Tilt-Up Wall Panels",\
+            "Concrete Formwork",\
+            "Excavation",\
+            "Structural Piles"\
+          ]\
+        \}\
+      ],\
+      "68881aace1e8315beb8dbf32": [\
+        \{\
+          "issue_type": "stacked",\
+          "trades": [\
+            "Structural Steel",\
+            "Concrete Rebar",\
+            "Vapor Barrier",\
+            "Concrete Pour",\
+            "Structural Piles",\
+            "Roof HVAC Units",\
+            "Tilt-Up Wall Panels",\
+            "Roofing"\
+          ]\
+        \}\
+      ],\
+      "688819c084c0ccb3af37ee44": [],\
+      "68881865a0f3c54a3f9fed31": [\
+        \{\
+          "issue_type": "stalled",\
+          "trade": "Concrete Pour",\
+          "weeks_stalled": 4\
+        \}\
+      ],\
+      "688817b5587882b7457d5719": [\
+        \{\
+          "issue_type": "stalled",\
+          "trade": "Roof HVAC Units",\
+          "weeks_stalled": 4\
+        \}\
+      ],\
+      "688816b1880b7b96b2e501b6": [],\
+      "6888113f3332fd44fd149711": [\
+        \{\
+          "issue_type": "stalled",\
+          "trade": "Concrete Foundation Pour",\
+          "weeks_stalled": 4\
+        \}\
+      ],\
+      "68880e35587882b7457d5701": [\
+        \{\
+          "issue_type": "stalled",\
+          "trade": "Roof HVAC Piping",\
+          "weeks_stalled": 4\
+        \}\
+      ],\
+      "68880da50f864d2881bdd80b": [],\
+      "6849c2e7f11830b69fc3882e": [\
+        \{\
+          "issue_type": "stacked",\
+          "trades": [\
+            "Concrete Rebar",\
+            "Roofing Membrane",\
+            "Tilt-Up Wall Panels",\
+            "Concrete Foundation Pour",\
+            "Concrete Formwork",\
+            "Underground Utilities",\
+            "Roofing",\
+            "Excavation"\
+          ]\
+        \}\
+      ],\
+      "6849c2b8091fc596463ede32": [\
+        \{\
+          "issue_type": "stalled",\
+          "trade": "Concrete Formwork",\
+          "weeks_stalled": 4\
+        \},\
+        \{\
+          "issue_type": "stacked",\
+          "trades": [\
+            "Concrete Pour",\
+            "Concrete Formwork",\
+            "Structural Piles",\
+            "Structural Steel",\
+            "Concrete Rebar",\
+            "Tilt-Up Wall Panels",\
+            "Batterboards",\
+            "Roof HVAC Piping"\
+          ]\
+        \}\
+      ],\
+      "65205c97d53f42fcbda0bcf1": [],\
+      "65205c97d53f42fcbda0bcef": [\
+        \{\
+          "issue_type": "stacked",\
+          "trades": [\
+            "Roof HVAC Piping",\
+            "Structural Piles",\
+            "Tilt-Up Wall Panels",\
+            "Concrete Pour",\
+            "Concrete Rebar",\
+            "Concrete Foundation Pour",\
+            "Roofing Insulation",\
+            "Underground Utilities"\
+          ]\
+        \}\
+      ],\
+      "65205c97d53f42fcbda0bcee": [\
+        \{\
+          "issue_type": "stalled",\
+          "trade": "Roofing Insulation",\
+          "weeks_stalled": 4\
+        \}\
+      ],\
+      "65205c97d53f42fcbda0bced": [\
+        \{\
+          "issue_type": "stacked",\
+          "trades": [\
+            "Structural Steel",\
+            "Roofing Insulation",\
+            "Concrete Foundation Pour",\
+            "Concrete Pour",\
+            "Concrete Formwork",\
+            "Roofing",\
+            "Tilt-Up Wall Panels",\
+            "Excavation"\
+          ]\
+        \}\
+      ]\
+    \},\
+    "2022/06/01": \{\
+      "68b36de0b21b124f0d3682b3": [],\
+      "68b36d776244a70cf6b13b7c": [],\
+      "68b36d52dfb1531431942889": [],\
+      "68b36a2262f5c1297c0913d3": [],\
+      "68881ef9cbdd5a6f740a1e55": [\
+        \{\
+          "issue_type": "stalled",\
+          "trade": "Concrete Rebar",\
+          "weeks_stalled": 4\
+        \}\
+      ],\
+      "68881eaf5ecfb6cf31709226": [],\
+      "68881c0d9c359a7c21399336": [\
+        \{\
+          "issue_type": "stacked",\
+          "trades": [\
+            "Concrete Pour",\
+            "Tilt-Up Wall Panels",\
+            "Batterboards",\
+            "Roofing Insulation",\
+            "Concrete Formwork",\
+            "Structural Piles",\
+            "Underground Utilities",\
+            "Vapor Barrier"\
+          ]\
+        \}\
+      ],\
+      "68881af3cbdd5a6f740a1e42": [\
+        \{\
+          "issue_type": "stacked",\
+          "trades": [\
+            "Roofing Membrane",\
+            "Concrete Foundation Pour",\
+            "Structural Piles",\
+            "Roofing",\
+            "Concrete Rebar",\
+            "Vapor Barrier",\
+            "Concrete Pour",\
+            "Batterboards"\
+          ]\
+        \}\
+      ],\
+      "68881aace1e8315beb8dbf32": [],\
+      "688819c084c0ccb3af37ee44": [\
+        \{\
+          "issue_type": "stacked",\
+          "trades": [\
+            "Batterboards",\
+            "Structural Piles",\
+            "Underground Utilities",\
+            "Excavation",\
+            "Roofing Insulation",\
+            "Concrete Foundation Pour",\
+            "Concrete Pour",\
+            "Concrete Formwork"\
+          ]\
+        \}\
+      ],\
+      "68881865a0f3c54a3f9fed31": [\
+        \{\
+          "issue_type": "stacked",\
+          "trades": [\
+            "Tilt-Up Wall Panels",\
+            "Vapor Barrier",\
+            "Roof HVAC Piping",\
+            "Roofing Membrane",\
+            "Concrete Foundation Pour",\
+            "Batterboards",\
+            "Concrete Pour",\
+            "Roofing"\
+          ]\
+        \}\
+      ],\
+      "688817b5587882b7457d5719": [\
+        \{\
+          "issue_type": "stalled",\
+          "trade": "Roof HVAC Piping",\
+          "weeks_stalled": 4\
+        \}\
+      ],\
+      "688816b1880b7b96b2e501b6": [],\
+      "6888113f3332fd44fd149711": [],\
+      "68880e35587882b7457d5701": [],\
+      "68880da50f864d2881bdd80b": [],\
+      "6849c2e7f11830b69fc3882e": [\
+        \{\
+          "issue_type": "stacked",\
+          "trades": [\
+            "Batterboards",\
+            "Tilt-Up Wall Panels",\
+            "Excavation",\
+            "Structural Steel",\
+            "Roofing Insulation",\
+            "Roof HVAC Piping",\
+            "Concrete Pour",\
+            "Roofing Membrane"\
+          ]\
+        \}\
+      ],\
+      "6849c2b8091fc596463ede32": [],\
+      "65205c97d53f42fcbda0bcf1": [],\
+      "65205c97d53f42fcbda0bcef": [],\
+      "65205c97d53f42fcbda0bcee": [\
+        \{\
+          "issue_type": "stalled",\
+          "trade": "Roofing Membrane",\
+          "weeks_stalled": 4\
+        \}\
+      ],\
+      "65205c97d53f42fcbda0bced": []\
+    \},\
+    "2022/06/16": \{\
+      "68b36de0b21b124f0d3682b3": [\
+        \{\
+          "issue_type": "stalled",\
+          "trade": "Concrete Formwork",\
+          "weeks_stalled": 4\
+        \}\
+      ],\
+      "68b36d776244a70cf6b13b7c": [],\
+      "68b36d52dfb1531431942889": [\
+        \{\
+          "issue_type": "stalled",\
+          "trade": "Vapor Barrier",\
+          "weeks_stalled": 4\
+        \}\
+      ],\
+      "68b36a2262f5c1297c0913d3": [\
+        \{\
+          "issue_type": "stalled",\
+          "trade": "Roof HVAC Piping",\
+          "weeks_stalled": 4\
+        \},\
+        \{\
+          "issue_type": "stacked",\
+          "trades": [\
+            "Roof HVAC Piping",\
+            "Concrete Pour",\
+            "Batterboards",\
+            "Concrete Formwork",\
+            "Roofing Membrane",\
+            "Roofing Insulation",\
+            "Roofing",\
+            "Underground Utilities"\
+          ]\
+        \}\
+      ],\
+      "68881ef9cbdd5a6f740a1e55": [\
+        \{\
+          "issue_type": "stacked",\
+          "trades": [\
+            "Concrete Pour",\
+            "Structural Steel",\
+            "Vapor Barrier",\
+            "Roof HVAC Units",\
+            "Excavation",\
+            "Roofing Membrane",\
+            "Concrete Foundation Pour",\
+            "Structural Piles"\
+          ]\
+        \}\
+      ],\
+      "68881eaf5ecfb6cf31709226": [\
+        \{\
+          "issue_type": "stacked",\
+          "trades": [\
+            "Batterboards",\
+            "Concrete Rebar",\
+            "Excavation",\
+            "Tilt-Up Wall Panels",\
+            "Roof HVAC Units",\
+            "Concrete Formwork",\
+            "Structural Piles",\
+            "Vapor Barrier"\
+          ]\
+        \}\
+      ],\
+      "68881c0d9c359a7c21399336": [],\
+      "68881af3cbdd5a6f740a1e42": [\
+        \{\
+          "issue_type": "stalled",\
+          "trade": "Roof HVAC Units",\
+          "weeks_stalled": 4\
+        \}\
+      ],\
+      "68881aace1e8315beb8dbf32": [],\
+      "688819c084c0ccb3af37ee44": [],\
+      "68881865a0f3c54a3f9fed31": [],\
+      "688817b5587882b7457d5719": [],\
+      "688816b1880b7b96b2e501b6": [],\
+      "6888113f3332fd44fd149711": [],\
+      "68880e35587882b7457d5701": [\
+        \{\
+          "issue_type": "stalled",\
+          "trade": "Concrete Formwork",\
+          "weeks_stalled": 4\
+        \}\
+      ],\
+      "68880da50f864d2881bdd80b": [],\
+      "6849c2e7f11830b69fc3882e": [],\
+      "6849c2b8091fc596463ede32": [\
+        \{\
+          "issue_type": "stacked",\
+          "trades": [\
+            "Roofing Insulation",\
+            "Underground Utilities",\
+            "Roof HVAC Piping",\
+            "Roofing",\
+            "Concrete Rebar",\
+            "Roof HVAC Units",\
+            "Structural Piles",\
+            "Excavation"\
+          ]\
+        \}\
+      ],\
+      "65205c97d53f42fcbda0bcf1": [\
+        \{\
+          "issue_type": "stalled",\
+          "trade": "Concrete Formwork",\
+          "weeks_stalled": 4\
+        \}\
+      ],\
+      "65205c97d53f42fcbda0bcef": [],\
+      "65205c97d53f42fcbda0bcee": [],\
+      "65205c97d53f42fcbda0bced": []\
+    \},\
+    "2022/06/30": \{\
+      "68b36de0b21b124f0d3682b3": [\
+        \{\
+          "issue_type": "stalled",\
+          "trade": "Structural Piles",\
+          "weeks_stalled": 4\
+        \}\
+      ],\
+      "68b36d776244a70cf6b13b7c": [\
+        \{\
+          "issue_type": "stacked",\
+          "trades": [\
+            "Roofing Membrane",\
+            "Concrete Pour",\
+            "Roofing Insulation",\
+            "Roof HVAC Piping",\
+            "Concrete Rebar",\
+            "Structural Piles",\
+            "Underground Utilities",\
+            "Excavation"\
+          ]\
+        \}\
+      ],\
+      "68b36d52dfb1531431942889": [\
+        \{\
+          "issue_type": "stalled",\
+          "trade": "Vapor Barrier",\
+          "weeks_stalled": 4\
+        \}\
+      ],\
+      "68b36a2262f5c1297c0913d3": [],\
+      "68881ef9cbdd5a6f740a1e55": [\
+        \{\
+          "issue_type": "stacked",\
+          "trades": [\
+            "Vapor Barrier",\
+            "Concrete Foundation Pour",\
+            "Roofing Insulation",\
+            "Tilt-Up Wall Panels",\
+            "Roof HVAC Piping",\
+            "Batterboards",\
+            "Structural Steel",\
+            "Concrete Pour"\
+          ]\
+        \}\
+      ],\
+      "68881eaf5ecfb6cf31709226": [],\
+      "68881c0d9c359a7c21399336": [],\
+      "68881af3cbdd5a6f740a1e42": [],\
+      "68881aace1e8315beb8dbf32": [\
+        \{\
+          "issue_type": "stacked",\
+          "trades": [\
+            "Roof HVAC Piping",\
+            "Concrete Formwork",\
+            "Concrete Foundation Pour",\
+            "Roofing Membrane",\
+            "Vapor Barrier",\
+            "Roof HVAC Units",\
+            "Excavation",\
+            "Concrete Rebar"\
+          ]\
+        \}\
+      ],\
+      "688819c084c0ccb3af37ee44": [],\
+      "68881865a0f3c54a3f9fed31": [\
+        \{\
+          "issue_type": "stacked",\
+          "trades": [\
+            "Underground Utilities",\
+            "Structural Steel",\
+            "Excavation",\
+            "Roofing",\
+            "Roof HVAC Units",\
+            "Roofing Insulation",\
+            "Concrete Pour",\
+            "Batterboards"\
+          ]\
+        \}\
+      ],\
+      "688817b5587882b7457d5719": [\
+        \{\
+          "issue_type": "stalled",\
+          "trade": "Roofing",\
+          "weeks_stalled": 4\
+        \}\
+      ],\
+      "688816b1880b7b96b2e501b6": [\
+        \{\
+          "issue_type": "stacked",\
+          "trades": [\
+            "Structural Piles",\
+            "Roof HVAC Piping",\
+            "Roofing Membrane",\
+            "Tilt-Up Wall Panels",\
+            "Roof HVAC Units",\
+            "Vapor Barrier",\
+            "Roofing Insulation",\
+            "Underground Utilities"\
+          ]\
+        \}\
+      ],\
+      "6888113f3332fd44fd149711": [],\
+      "68880e35587882b7457d5701": [],\
+      "68880da50f864d2881bdd80b": [],\
+      "6849c2e7f11830b69fc3882e": [],\
+      "6849c2b8091fc596463ede32": [],\
+      "65205c97d53f42fcbda0bcf1": [\
+        \{\
+          "issue_type": "stacked",\
+          "trades": [\
+            "Roof HVAC Units",\
+            "Concrete Rebar",\
+            "Excavation",\
+            "Batterboards",\
+            "Vapor Barrier",\
+            "Structural Steel",\
+            "Concrete Pour",\
+            "Underground Utilities"\
+          ]\
+        \}\
+      ],\
+      "65205c97d53f42fcbda0bcef": [\
+        \{\
+          "issue_type": "stalled",\
+          "trade": "Vapor Barrier",\
+          "weeks_stalled": 4\
+        \}\
+      ],\
+      "65205c97d53f42fcbda0bcee": [\
+        \{\
+          "issue_type": "stacked",\
+          "trades": [\
+            "Roof HVAC Units",\
+            "Roof HVAC Piping",\
+            "Batterboards",\
+            "Underground Utilities",\
+            "Roofing Membrane",\
+            "Vapor Barrier",\
+            "Concrete Pour",\
+            "Structural Steel"\
+          ]\
+        \}\
+      ],\
+      "65205c97d53f42fcbda0bced": []\
+    \}\
+  \}\
+\}\
+}

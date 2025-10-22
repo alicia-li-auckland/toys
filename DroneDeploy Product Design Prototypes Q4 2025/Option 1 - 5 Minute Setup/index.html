@@ -811,16 +811,16 @@
                     <div class="view-toggle">
                         <button id="btnViewGantt" class="btn-secondary view-btn" onclick="setOutputView('gantt')">Gantt</button>
                         <button id="btnViewList" class="btn-secondary view-btn active" onclick="setOutputView('list')">List</button>
-                    </div>
-                </div>
-
+            </div>
+            </div>
+            
                 <div class="timeline-gantt-wrapper" id="ganttChart" style="display:none;">
                     <!-- Gantt chart will be populated here -->
-                </div>
+                        </div>
                 <div id="tradeListView" style="display:block; overflow:auto; border:1px solid #e5e7eb; border-radius:8px;">
                     <!-- Trade list will be populated here -->
-                </div>
-            </div>
+                        </div>
+                        </div>
                     </div>
                     
     <!-- Review Modal -->
@@ -1060,7 +1060,7 @@
         }
 
         function getStageNames() {
-                        return {
+                    return {
                 'site-prep': 'Site Prep',
                 'superstructure': 'Structure',
                 'interior': 'Interior',
@@ -1127,8 +1127,8 @@
                         <div style="font-size: 48px; margin-bottom: 16px;">📊</div>
                         <div style="font-size: 18px; font-weight: 600; margin-bottom: 8px;">Ready to Generate Timeline</div>
                         <div style="font-size: 14px;">Complete the setup steps to generate your project timeline</div>
-                        </div>
-                    `;
+                    </div>
+                `;
                 return;
             }
             
@@ -1370,7 +1370,7 @@
         function toggleChipSelection(name) {
             if (AppState.selectedListTrades.has(name)) {
                 AppState.selectedListTrades.delete(name);
-            } else {
+                        } else {
                 AppState.selectedListTrades.add(name);
             }
             // Re-render chips to reflect selection
@@ -1390,7 +1390,7 @@
                 gantt.style.display = 'block';
                 list.style.display = 'none';
                 updateGanttChart();
-            } else {
+                        } else {
                 btnL.classList.add('active');
                 btnG.classList.remove('active');
                 gantt.style.display = 'none';
@@ -1419,7 +1419,7 @@
             
             if (AppState.selectedGanttItems.has(itemIndex)) {
                 AppState.selectedGanttItems.delete(itemIndex);
-            } else {
+                    } else {
                 AppState.selectedGanttItems.add(itemIndex);
             }
             
@@ -1677,8 +1677,8 @@
                     <div style="padding: 40px; text-align: center; color: #6b7280;">
                         <div style="font-size: 48px; margin-bottom: 16px;">📊</div>
                         <div>No timeline generated yet</div>
-                    </div>
-                `;
+                        </div>
+                    `;
             }
         }
 
@@ -1692,9 +1692,9 @@
             
             if (!email.match(/^[^\s@]+@[^\s@]+\.[^\s@]+$/)) {
                 alert('Please enter a valid email address.');
-                return;
-            }
-            
+                    return;
+                }
+
             // Simulate sending email
             const projectData = {
                 buildingType: AppState.selectedBuildingType,
@@ -1786,7 +1786,7 @@
                 } else if (ch === ',' && !inQ) {
                     out.push(cur);
                     cur = '';
-                } else {
+            } else {
                     cur += ch;
                 }
             }

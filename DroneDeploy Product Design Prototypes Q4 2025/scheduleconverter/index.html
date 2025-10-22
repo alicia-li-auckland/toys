@@ -149,11 +149,17 @@
                   <div class="flex bg-white rounded-lg border border-slate-300 p-1">
                     <button id="standardViewBtn" class="px-4 py-2 text-sm font-medium rounded-md transition-colors bg-blue-600 text-white shadow-sm">Standard View</button>
                     <button id="dataCentreViewBtn" class="px-4 py-2 text-sm font-medium rounded-md transition-colors text-slate-700 hover:bg-slate-100">Data Centre View</button>
+                    <button id="parentFolderViewBtn" class="px-4 py-2 text-sm font-medium rounded-md transition-colors text-slate-700 hover:bg-slate-100">Parent Folders</button>
                   </div>
                   <!-- Data Centre View Toggle (only visible when in Data Centre View) -->
                   <div id="dataCentreToggle" class="flex bg-white rounded-lg border border-slate-300 p-1" style="display: none;">
                     <button id="groupedViewBtn" class="px-4 py-2 text-sm font-medium rounded-md transition-colors bg-blue-600 text-white shadow-sm">Grouped View</button>
                     <button id="tableViewBtn" class="px-4 py-2 text-sm font-medium rounded-md transition-colors text-slate-700 hover:bg-slate-100">Table View</button>
+                  </div>
+                  <!-- Parent Folder Filter Toggle -->
+                  <div id="parentFolderToggle" class="flex items-center gap-2 bg-white rounded-lg border border-slate-300 px-3 py-2" style="display: none;">
+                    <input type="checkbox" id="showOnlyConstructionChk" class="rounded border-slate-300 text-blue-600 focus:ring-blue-500">
+                    <label for="showOnlyConstructionChk" class="text-sm font-medium text-slate-700 cursor-pointer">Construction Only</label>
                   </div>
                 </div>
               </div>
@@ -269,6 +275,7 @@
                   <tbody class="bg-white divide-y divide-slate-200"></tbody>
                 </table>
               </div>
+              <div id="parentFolderView" style="display:none;" class="h-full overflow-y-auto custom-scrollbar"></div>
               <div class="table-container custom-scrollbar">
                 <table id="activitiesTable" class="w-full" style="display:none;">
                   <thead class="bg-slate-50 sticky top-0 z-10">
@@ -623,41 +630,185 @@
 
       function parseXERData(xerContent) {
         const lines = xerContent.split('\n');
-        let isTaskSection = false, headers = [], taskData = [];
+        let section = null; // 'TASK' | 'WBS' | 'ACTVTYPE' | 'ACTVCODE' | 'TASKACTV'
+        let headers = [];
+        const taskData = [];
+        const wbsData = [];
+        const actvTypeData = [];
+        const actvCodeData = [];
+        const taskActvData = [];
         
-        for (const line of lines) {
-          const trimmed = line.trim();
-          if (trimmed.startsWith('%T') && trimmed.includes('TASK')) { isTaskSection = true; continue; }
-          if (isTaskSection && trimmed.startsWith('%F')) { headers = trimmed.substring(3).split('\t').map(h => h.trim()); continue; }
-          if (isTaskSection && trimmed.startsWith('%R')) {
-            const values = trimmed.substring(3).split('\t');
-            const activity = {};
-            headers.forEach((header, i) => activity[header] = values[i] ? values[i].trim() : '');
-            taskData.push(activity);
+        for (const rawLine of lines) {
+          const line = rawLine.trim();
+          if (line.startsWith('%T')) {
+            headers = [];
+            const upper = line.toUpperCase();
+            if (upper.includes('TASKACTV')) section = 'TASKACTV';
+            else if (upper.includes('ACTVCODE')) section = 'ACTVCODE';
+            else if (upper.includes('ACTVTYPE')) section = 'ACTVTYPE';
+            else if (upper.includes('TASK')) section = 'TASK';
+            else if (upper.includes('WBS')) section = 'WBS';
+            else section = null;
+            continue;
           }
-          if (isTaskSection && trimmed.startsWith('%T') && !trimmed.includes('TASK')) break;
+          if (!section) continue;
+          if (line.startsWith('%F')) {
+            headers = line.substring(3).split('\t').map(h => h.trim().toLowerCase());
+            continue;
+          }
+          if (line.startsWith('%R')) {
+            const values = line.substring(3).split('\t');
+            const rec = {};
+            headers.forEach((header, i) => rec[header] = values[i] ? values[i].trim() : '');
+            if (section === 'TASK') taskData.push(rec);
+            if (section === 'WBS') wbsData.push(rec);
+            if (section === 'ACTVTYPE') actvTypeData.push(rec);
+            if (section === 'ACTVCODE') actvCodeData.push(rec);
+            if (section === 'TASKACTV') taskActvData.push(rec);
+          }
         }
         
         if (taskData.length === 0) throw new Error('No TASK records found in the XER file.');
         
+        // Build WBS index: id -> { name, short_name, parent_id }
+        const byId = {};
+        for (const w of wbsData) {
+          const id = w.wbs_id || w['wbs_id'];
+          if (!id) continue;
+          byId[id] = {
+            id,
+            name: w.wbs_name || w['wbs_name'] || '',
+            shortName: w.wbs_short_name || w['wbs_short_name'] || '',
+            parentId: w.parent_wbs_id || w['parent_wbs_id'] || ''
+          };
+        }
+        
+        // Build Activity Code indexes
+        const actvTypeById = {};
+        for (const t of actvTypeData) {
+          const id = t.actv_code_type_id || t['actv_code_type_id'];
+          if (!id) continue;
+          actvTypeById[id] = (t.actv_code_type_name || t['actv_code_type_name'] || '').trim();
+        }
+
+        const actvCodeById = {};
+        for (const c of actvCodeData) {
+          const id = c.actv_code_id || c['actv_code_id'];
+          if (!id) continue;
+          actvCodeById[id] = {
+            id,
+            typeId: c.actv_code_type_id || c['actv_code_type_id'] || '',
+            value: (c.code_value || c['code_value'] || c.actv_code_name || c['actv_code_name'] || c.actv_short_name || c['actv_short_name'] || '').trim()
+          };
+        }
+
+        // Link TASKACTV to build codes per task_id
+        const codesByTaskId = {};
+        for (const ta of taskActvData) {
+          const taskId = ta.task_id || ta['task_id'];
+          const codeId = ta.actv_code_id || ta['actv_code_id'];
+          if (!taskId || !codeId || !actvCodeById[codeId]) continue;
+          const code = actvCodeById[codeId];
+          const typeName = actvTypeById[code.typeId] || '';
+          const entry = { typeId: code.typeId, typeName, codeId, codeValue: code.value };
+          if (!codesByTaskId[taskId]) codesByTaskId[taskId] = [];
+          codesByTaskId[taskId].push(entry);
+        }
+
+        // Map Activity Code 205 "Type of Work" codes to friendly construction names
+        const typeOfWorkMap = {
+          'M': 'Site & Excavation',
+          'N': 'Foundations',
+          'P': 'Structure',
+          'Q': 'Enclosure',
+          'S': 'Interior Rough-In',
+          'T': 'Equipment',
+          'U': 'Finishes',
+          'V': 'Site Improvements',
+          // Non-construction codes (will be filtered out):
+          'A': '(Milestones)',
+          'D': '(Design)',
+          'E': '(Pre-Construction)',
+          'H': '(Procurement)',
+          'L': '(Mobilization)',
+          'X': '(Close-Out)'
+        };
+
+        function pickPreferredFolder(codes) {
+          if (!codes || !codes.length) return '';
+          
+          // First, check for Activity Code Type 205 (Type of Work)
+          const typeOfWork = codes.find(c => 
+            (c.typeId === '205' || (c.typeName || '').toLowerCase().includes('type of work'))
+          );
+          if (typeOfWork && typeOfWork.codeValue) {
+            // Extract just the code letter (e.g., "M" from "Site Preparation and Excavation")
+            const codeLetter = typeOfWork.codeValue.trim().charAt(0).toUpperCase();
+            const mapped = typeOfWorkMap[codeLetter];
+            if (mapped && !mapped.startsWith('(')) return mapped; // Return only construction codes
+          }
+          
+          // Fallback: check other preferred types
+          const preferredTypes = ['Discipline','Trade','Division','CSI','Phase','Subject','Work Type'];
+          for (const pref of preferredTypes) {
+            const match = codes.find(c => (c.typeName || '').toLowerCase() === pref.toLowerCase());
+            if (match && match.codeValue) return match.codeValue;
+          }
+          
+          // Last fallback: any code with construction-like values
+          const fallback = codes.find(c => /concrete|steel|mechanical|electrical|plumbing|hvac|architect|foundation|structure/i.test(c.codeValue || ''));
+          return fallback ? fallback.codeValue : '';
+        }
+
+        function buildWbsPath(id) {
+          const parts = [];
+          let cur = byId[id];
+          const guard = new Set();
+          while (cur && !guard.has(cur.id)) {
+            guard.add(cur.id);
+            const label = cur.shortName || cur.name || cur.id;
+            parts.unshift(label);
+            cur = cur.parentId ? byId[cur.parentId] : null;
+          }
+          return parts.join(' > ');
+        }
+        
+        function getParentName(id) {
+          const cur = byId[id];
+          if (!cur || !cur.parentId) return '';
+          const parent = byId[cur.parentId];
+          return parent ? (parent.shortName || parent.name || '') : '';
+        }
+        
         return taskData.map((a, i) => {
-          const activityName = a.task_name || 'Unnamed Activity';
-          const wbs = a.wbs_id || '';
-          const activityId = a.task_code || `XER-ACT-${i+1}`;
-          const location = extractLocationFromWBS(activityName, wbs, activityId);
-          const detectedTrade = detectTradeFromActivity(activityName, activityId, wbs);
+          const activityName = a.task_name || a['task_name'] || 'Unnamed Activity';
+          const wbsId = a.wbs_id || a['wbs_id'] || '';
+          const taskId = a.task_id || a['task_id'] || '';
+          const activityId = a.task_code || a['task_code'] || `XER-ACT-${i+1}`;
+          const wbsPath = wbsId ? buildWbsPath(wbsId) : '';
+          const parentWbsName = wbsId ? getParentName(wbsId) : '';
+          const activityCodes = codesByTaskId[taskId] || [];
+          const preferredFolder = pickPreferredFolder(activityCodes);
+          const location = extractLocationFromWBS(activityName, wbsPath || wbsId, activityId);
+          const detectedTrade = detectTradeFromActivity(activityName, activityId, wbsPath || wbsId);
           const tradeName = detectedTrade ? getTradeName(detectedTrade) : '';
           
           return {
             id: activityId,
+            taskId: taskId,
             name: activityName,
-            startDate: formatDate(a.early_start_date),
-            finishDate: formatDate(a.early_end_date),
-            duration: a.target_drtn_hr_cnt || '0',
-            percentComplete: a.phys_complete_pct || '0',
-            totalFloat: a.total_float_hr_cnt || '0',
-            status: a.status_code || 'Not Started',
-            wbs: wbs,
+            startDate: formatDate(a.early_start_date || a['early_start_date']),
+            finishDate: formatDate(a.early_end_date || a['early_end_date']),
+            duration: a.target_drtn_hr_cnt || a['target_drtn_hr_cnt'] || '0',
+            percentComplete: a.phys_complete_pct || a['phys_complete_pct'] || '0',
+            totalFloat: a.total_float_hr_cnt || a['total_float_hr_cnt'] || '0',
+            status: a.status_code || a['status_code'] || 'Not Started',
+            wbs: wbsPath || wbsId,
+            wbsId: wbsId,
+            wbsPath: wbsPath,
+            parentWbsName: parentWbsName,
+            activityCodes: activityCodes,
+            groupDiscipline: preferredFolder,
             location: location,
             detectedTrade: detectedTrade,
             tradeName: tradeName
@@ -1459,10 +1610,13 @@
       const zoneFilter = document.getElementById('zoneFilter');
       const durationFilter = document.getElementById('durationFilter');
       const dataCentreCodes = ['EYD1 Gen Yard', 'EYD2 Gen Yard', 'EYD1 USS Yard', 'EYD2 USS Yard', 'MYD1 MCP', 'MYD2 MCP', 'DCH1', 'DCH2', 'Zone 1 Conveyance', 'Zone 2 Conveyance', 'Fire Pump House', 'MYD Tank Yard'];
-      let viewMode = 'standard'; // 'standard' or 'dataCentre'
+      let viewMode = 'standard'; // 'standard' | 'dataCentre' | 'parentFolders'
       let currentSort = { field: 'startDate', direction: 'asc' }; // Default sort by start date ascending
       const standardViewBtn = document.getElementById('standardViewBtn');
       const dataCentreViewBtn = document.getElementById('dataCentreViewBtn');
+      const parentFolderViewBtn = document.getElementById('parentFolderViewBtn');
+      const parentFolderToggle = document.getElementById('parentFolderToggle');
+      const showOnlyConstructionChk = document.getElementById('showOnlyConstructionChk');
       const dataCentreViewDiv = document.getElementById('dataCentreView');
       const dataCentreTableViewDiv = document.getElementById('dataCentreTableView');
       const dataCentreTable = document.getElementById('dataCentreTable');
@@ -1470,6 +1624,7 @@
       const dataCentreToggle = document.getElementById('dataCentreToggle');
       const groupedViewBtn = document.getElementById('groupedViewBtn');
       const tableViewBtn = document.getElementById('tableViewBtn');
+      const parentFolderViewDiv = document.getElementById('parentFolderView');
       const fileInput = document.getElementById('fileInput');
       const chooseFileBtn = document.getElementById('chooseFileBtn');
       const processBtn = document.getElementById('processBtn');
@@ -1569,22 +1724,40 @@
         if (mode === 'standard') {
           standardViewBtn.className = 'px-4 py-2 text-sm font-medium rounded-md transition-colors bg-blue-600 text-white shadow-sm';
           dataCentreViewBtn.className = 'px-4 py-2 text-sm font-medium rounded-md transition-colors text-slate-700 hover:bg-slate-100';
+          parentFolderViewBtn.className = 'px-4 py-2 text-sm font-medium rounded-md transition-colors text-slate-700 hover:bg-slate-100';
           dataCentreViewDiv.style.display = 'none';
           dataCentreTableViewDiv.style.display = 'none';
           dataCentreToggle.style.display = 'none';
+          parentFolderToggle.style.display = 'none';
+          parentFolderViewDiv.style.display = 'none';
           table.style.display = 'table';
-        } else {
+        } else if (mode === 'dataCentre') {
           standardViewBtn.className = 'px-4 py-2 text-sm font-medium rounded-md transition-colors text-slate-700 hover:bg-slate-100';
           dataCentreViewBtn.className = 'px-4 py-2 text-sm font-medium rounded-md transition-colors bg-blue-600 text-white shadow-sm';
+          parentFolderViewBtn.className = 'px-4 py-2 text-sm font-medium rounded-md transition-colors text-slate-700 hover:bg-slate-100';
           dataCentreToggle.style.display = 'flex';
+          parentFolderToggle.style.display = 'none';
           table.style.display = 'none';
           setDataCentreViewMode(dataCentreViewMode);
+          parentFolderViewDiv.style.display = 'none';
+        } else if (mode === 'parentFolders') {
+          standardViewBtn.className = 'px-4 py-2 text-sm font-medium rounded-md transition-colors text-slate-700 hover:bg-slate-100';
+          dataCentreViewBtn.className = 'px-4 py-2 text-sm font-medium rounded-md transition-colors text-slate-700 hover:bg-slate-100';
+          parentFolderViewBtn.className = 'px-4 py-2 text-sm font-medium rounded-md transition-colors bg-blue-600 text-white shadow-sm';
+          dataCentreToggle.style.display = 'none';
+          parentFolderToggle.style.display = 'flex';
+          table.style.display = 'none';
+          dataCentreViewDiv.style.display = 'none';
+          dataCentreTableViewDiv.style.display = 'none';
+          parentFolderViewDiv.style.display = 'block';
         }
         
         // Re-render based on current view
         if (allActivities.length > 0) {
           if (mode === 'dataCentre') {
             renderDataCentreView();
+          } else if (mode === 'parentFolders') {
+            renderParentFolderView();
           } else {
             renderTable(filteredActivities);
           }
@@ -1919,6 +2092,116 @@
         return extractLocationFromWBS('', '', trade);
       }
 
+      // --- Parent Folder Grouping ---
+      function getParentFolderFromWBS(activity) {
+        // Prefer Activity Codes discipline/trade grouping
+        if (activity && activity.groupDiscipline) return activity.groupDiscipline;
+        // Next, explicit parent from XER WBS table when available
+        if (activity && activity.parentWbsName) return activity.parentWbsName;
+        const wbs = activity && activity.wbs ? activity.wbs : '';
+        if (!wbs) return '';
+        const parts = String(wbs).split(/[>\\/\-\|]/).map(s => s.trim()).filter(Boolean);
+        if (parts.length >= 2) return parts[parts.length - 2]; // immediate parent
+        // Heuristic fallback
+        const knownParents = ['Concrete','Electrical','Mechanical','Structural','Architectural','Site','Civil','Roof','Steel','Plumbing','HVAC'];
+        const lower = wbs.toLowerCase();
+        const found = knownParents.find(k => lower.includes(k.toLowerCase()));
+        return found || '';
+      }
+
+      function groupByParentFolder(activities) {
+        const groups = {};
+        activities.forEach(a => {
+          const key = getParentFolderFromWBS(a) || 'Other';
+          if (!groups[key]) groups[key] = [];
+          groups[key].push(a);
+        });
+        return groups;
+      }
+
+      function renderParentFolderView() {
+        const container = parentFolderViewDiv;
+        const showOnlyConstruction = showOnlyConstructionChk.checked;
+        
+        // Filter activities based on construction-only toggle
+        let activitiesToShow = filteredActivities;
+        if (showOnlyConstruction) {
+          activitiesToShow = filteredActivities.filter(a => {
+            // Keep only activities with construction groupDiscipline (not starting with parenthesis)
+            return a.groupDiscipline && !a.groupDiscipline.startsWith('(');
+          });
+        }
+        
+        const groups = groupByParentFolder(activitiesToShow);
+        const keys = Object.keys(groups).filter(k => k !== 'Other' && k !== '').sort();
+        
+        // Add "Other" at the end if it exists and has items
+        if (groups['Other'] && groups['Other'].length > 0) keys.push('Other');
+        if (groups[''] && groups[''].length > 0) keys.push('');
+        
+        let html = '<div class="p-6">';
+        
+        // Show summary stats
+        const totalActivities = activitiesToShow.length;
+        const totalGroups = keys.filter(k => k !== '' && k !== 'Other').length;
+        html += `<div class="mb-4 p-4 bg-blue-50 rounded-lg border border-blue-200">
+          <div class="flex items-center gap-4">
+            <div><span class="font-semibold text-blue-900">${totalActivities}</span> <span class="text-blue-700">activities</span></div>
+            <div><span class="font-semibold text-blue-900">${totalGroups}</span> <span class="text-blue-700">construction groups</span></div>
+            ${showOnlyConstruction ? '<div class="ml-auto text-sm text-blue-700">✓ Construction activities only</div>' : ''}
+          </div>
+        </div>`;
+        
+        if (keys.length === 0) {
+          html += `<div class='text-slate-500 text-center py-8'>No ${showOnlyConstruction ? 'construction ' : ''}activities available.</div>`;
+        } else {
+          keys.forEach(folder => {
+            const items = groups[folder];
+            const displayFolder = folder || '(Ungrouped)';
+            html += `
+              <div class="mb-4 border border-gray-200 rounded-lg overflow-hidden">
+                <div class="bg-gray-50 px-4 py-3 border-b border-gray-200 flex items-center w-full">
+                  <span class="flex-1 font-semibold text-gray-800">${displayFolder}</span>
+                  <span class="text-sm text-gray-600 mr-2">${items.length} activities</span>
+                </div>
+                <div class="p-4 overflow-x-auto">
+                  <table class="w-full text-sm">
+                    <thead>
+                      <tr class="text-slate-500">
+                        <th class="text-left py-2 px-2">ID</th>
+                        <th class="text-left py-2 px-2">Name</th>
+                        <th class="text-left py-2 px-2">Start</th>
+                        <th class="text-left py-2 px-2">Finish</th>
+                        <th class="text-left py-2 px-2">Duration</th>
+                        <th class="text-left py-2 px-2">WBS Path</th>
+                        <th class="text-left py-2 px-2">Predicted Location</th>
+                        <th class="text-left py-2 px-2">Predicted Trade</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      ${items.map(a => `
+                        <tr class="border-t hover:bg-slate-50">
+                          <td class="py-2 px-2 font-mono text-xs">${a.id}</td>
+                          <td class="py-2 px-2">${a.name}</td>
+                          <td class="py-2 px-2">${a.startDate || ''}</td>
+                          <td class="py-2 px-2">${a.finishDate || ''}</td>
+                          <td class="py-2 px-2">${a.duration || ''}</td>
+                          <td class="py-2 px-2 text-xs">${a.wbsPath || a.wbs || ''}</td>
+                          <td class="py-2 px-2">${a.location || ''}</td>
+                          <td class="py-2 px-2">${a.tradeName || ''}</td>
+                        </tr>
+                      `).join('')}
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            `;
+          });
+        }
+        html += '</div>';
+        container.innerHTML = html;
+      }
+
       function updateZoneFilterOptions() {
         const zoneSet = new Set();
         allActivities.forEach(a => {
@@ -2180,6 +2463,8 @@
           } else {
             renderDataCentreTable();
           }
+        } else if (viewMode === 'parentFolders') {
+          renderParentFolderView();
         } else {
           renderTable(filteredActivities);
         }
@@ -2387,6 +2672,14 @@
       // View mode toggle buttons
       standardViewBtn.addEventListener('click', () => setViewMode('standard'));
       dataCentreViewBtn.addEventListener('click', () => setViewMode('dataCentre'));
+      parentFolderViewBtn.addEventListener('click', () => setViewMode('parentFolders'));
+      
+      // Construction-only filter checkbox
+      showOnlyConstructionChk.addEventListener('change', () => {
+        if (viewMode === 'parentFolders') {
+          renderParentFolderView();
+        }
+      });
       
       // Data centre view mode toggle buttons
       groupedViewBtn.addEventListener('click', () => setDataCentreViewMode('grouped'));
