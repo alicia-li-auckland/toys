@@ -1,0 +1,273 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Schedule Converter</title>
+  <style>
+    body { font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif; margin: 24px; color: #182230; }
+    h1 { margin: 0 0 16px; font-size: 22px; }
+    .card { border: 1px solid #e3e6eb; border-radius: 8px; padding: 16px; margin-bottom: 16px; }
+    label { display: block; font-weight: 600; margin-bottom: 8px; }
+    input[type="file"] { padding: 8px 0; }
+    textarea { width: 100%; min-height: 160px; font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace; font-size: 12px; border: 1px solid #e3e6eb; border-radius: 6px; padding: 8px; box-sizing: border-box; }
+    .row { display: flex; gap: 12px; flex-wrap: wrap; align-items: center; }
+    button { background: #2563eb; color: white; border: 0; border-radius: 6px; padding: 10px 14px; cursor: pointer; font-weight: 600; }
+    button.secondary { background: #0f172a; }
+    button:disabled { opacity: 0.6; cursor: not-allowed; }
+    .muted { color: #64748b; font-size: 12px; }
+    .links a { display: inline-block; margin-right: 12px; }
+    .error { color: #b91c1c; font-weight: 600; }
+    .success { color: #065f46; font-weight: 600; }
+    .mono { font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace; }
+  </style>
+  <meta name="robots" content="noindex, nofollow">
+  <meta http-equiv="Cache-Control" content="no-store" />
+  <meta http-equiv="Pragma" content="no-cache" />
+  <meta http-equiv="Expires" content="0" />
+  <link rel="icon" href="data:,">
+  <base href="/scheduleconverter/">
+  <script>
+    function normalizeStatus(status) {
+      if (!status) return 'not started';
+      const s = String(status).trim().toLowerCase();
+      if (s === 'complete' || s === 'completed') return 'complete';
+      if (s === 'in progress' || s === 'in-progress' || s === 'progress') return 'in progress';
+      if (s === 'delayed') return 'delayed';
+      return 'not started';
+    }
+
+    function parseMaybeJson(text) {
+      try { return JSON.parse(text); } catch { return null; }
+    }
+
+    function extractFromHighschoolText(text) {
+      // Try to find a balanced JSON object around the first occurrence of "\"table\""
+      const anchorIndex = text.indexOf('"table"');
+      if (anchorIndex === -1) return null;
+      let start = anchorIndex;
+      while (start > 0 && text[start] !== '{') start--;
+      if (text[start] !== '{') return null;
+      let i = start, depth = 0, end = -1;
+      while (i < text.length) {
+        const ch = text[i];
+        if (ch === '{') depth++;
+        if (ch === '}') { depth--; if (depth === 0) { end = i; break; } }
+        i++;
+      }
+      if (end === -1) return null;
+      let slice = text.slice(start, end + 1);
+      slice = slice.replace(/\\[a-zA-Z]+[0-9]*\s?/g, '');
+      return parseMaybeJson(slice);
+    }
+
+    function toIsoDate(d) {
+      const yyyy = d.getUTCFullYear();
+      const mm = String(d.getUTCMonth() + 1).padStart(2, '0');
+      const dd = String(d.getUTCDate()).padStart(2, '0');
+      return `${yyyy}-${mm}-${dd}`;
+    }
+
+    function parseDateKey(key) {
+      // Accept both 2020/10/01 and 2020-10-01
+      return new Date(Date.parse(String(key).replace(/\//g, '-')));
+    }
+
+    function daysBetween(a, b) {
+      const ms = Math.abs(b.getTime() - a.getTime());
+      return Math.floor(ms / (1000 * 60 * 60 * 24));
+    }
+
+    function buildSnapshotsCsv(dataset) {
+      const header = ['date', 'locationId', 'trade', 'status'];
+      const rows = [header];
+      const table = dataset && dataset.table ? dataset.table : {};
+      const allDates = Object.keys(table).sort((a, b) => parseDateKey(a) - parseDateKey(b));
+      for (const dateKey of allDates) {
+        const zones = table[dateKey] || {};
+        for (const locationId of Object.keys(zones)) {
+          const entries = zones[locationId];
+          if (Array.isArray(entries)) continue; // issues array
+          for (const trade of Object.keys(entries)) {
+            const val = entries[trade];
+            if (typeof val !== 'string') continue;
+            rows.push([String(dateKey).replace(/\//g, '-'), locationId, trade, normalizeStatus(val)]);
+          }
+        }
+      }
+      return rows.map(r => r.map(v => '"' + String(v).replace(/"/g, '""') + '"').join(',')).join('\n');
+    }
+
+    function buildScheduleCsv(dataset) {
+      const table = dataset && dataset.table ? dataset.table : {};
+      const allDates = Object.keys(table).sort((a, b) => parseDateKey(a) - parseDateKey(b));
+      const firstDate = allDates.length ? parseDateKey(allDates[0]) : new Date();
+      const lastDate = allDates.length ? parseDateKey(allDates[allDates.length - 1]) : firstDate;
+
+      const header = ['locationId', 'trade', 'startDate', 'endDate', 'durationDays', 'latestStatus'];
+      const rows = [header];
+
+      const zones = new Map();
+      for (const dateKey of allDates) {
+        const perZone = table[dateKey] || {};
+        for (const locationId of Object.keys(perZone)) {
+          const entries = perZone[locationId];
+          if (Array.isArray(entries)) continue;
+          const set = zones.get(locationId) || new Set();
+          for (const trade of Object.keys(entries)) {
+            if (typeof entries[trade] === 'string') set.add(trade);
+          }
+          zones.set(locationId, set);
+        }
+      }
+
+      for (const [locationId, tradeSet] of zones.entries()) {
+        for (const trade of tradeSet) {
+          let firstActive = null;
+          let firstComplete = null;
+          let latestStatus = 'not started';
+          for (const dateKey of allDates) {
+            const perZone = table[dateKey] || {};
+            const entries = perZone[locationId] || {};
+            const raw = entries[trade];
+            const status = typeof raw === 'string' ? normalizeStatus(raw) : undefined;
+            if (status) latestStatus = status;
+            if (!firstActive && (status === 'in progress' || status === 'complete')) firstActive = parseDateKey(dateKey);
+            if (!firstComplete && status === 'complete') firstComplete = parseDateKey(dateKey);
+          }
+          const start = firstActive || firstDate;
+          const end = firstComplete || lastDate;
+          const duration = Math.max(1, daysBetween(start, end) + 1);
+          rows.push([locationId, trade, toIsoDate(start), toIsoDate(end), String(duration), latestStatus]);
+        }
+      }
+
+      return rows.map(r => r.map(v => '"' + String(v).replace(/"/g, '""') + '"').join(',')).join('\n');
+    }
+
+    async function loadDefaultHighschool() {
+      // Try common relative path with spaces
+      const candidates = [
+        '../Construction Project Schedule View/src/data/Highschool.js',
+        '../Construction%20Project%20Schedule%20View/src/data/Highschool.js'
+      ];
+      for (const url of candidates) {
+        try {
+          const res = await fetch(url);
+          if (res.ok) return await res.text();
+        } catch {}
+      }
+      throw new Error('Highschool.js not found via relative path. Please upload the file.');
+    }
+
+    async function runConvert({ text }) {
+      const fromJson = parseMaybeJson(text);
+      const dataset = fromJson && fromJson.table ? fromJson : extractFromHighschoolText(text);
+      if (!dataset || !dataset.table || !Object.keys(dataset.table).length) {
+        throw new Error('Could not parse dataset. Provide valid JSON with a "table" property or the original Highschool.js content.');
+      }
+      const snapshotsCsv = buildSnapshotsCsv(dataset);
+      const scheduleCsv = buildScheduleCsv(dataset);
+      return { snapshotsCsv, scheduleCsv };
+    }
+
+    function downloadCsv(filename, csvText) {
+      const blob = new Blob([csvText], { type: 'text/csv;charset=utf-8' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = filename;
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+      URL.revokeObjectURL(url);
+    }
+
+    window.addEventListener('DOMContentLoaded', () => {
+      const fileInput = document.getElementById('file');
+      const pasteArea = document.getElementById('paste');
+      const btnConvert = document.getElementById('convert');
+      const btnLoad = document.getElementById('load-default');
+      const out = document.getElementById('out');
+      const statusEl = document.getElementById('status');
+
+      btnLoad.addEventListener('click', async () => {
+        statusEl.textContent = '';
+        btnLoad.disabled = true; btnConvert.disabled = true;
+        try {
+          const text = await loadDefaultHighschool();
+          pasteArea.value = text;
+          statusEl.textContent = 'Loaded Highschool.js into the text area.';
+          statusEl.className = 'success';
+        } catch (e) {
+          statusEl.textContent = e.message || String(e);
+          statusEl.className = 'error';
+        } finally {
+          btnLoad.disabled = false; btnConvert.disabled = false;
+        }
+      });
+
+      btnConvert.addEventListener('click', async () => {
+        statusEl.textContent = '';
+        out.innerHTML = '';
+        btnConvert.disabled = true; btnLoad.disabled = true;
+        try {
+          let text = pasteArea.value.trim();
+          if (!text && fileInput.files && fileInput.files[0]) {
+            text = await fileInput.files[0].text();
+          }
+          if (!text) {
+            statusEl.textContent = 'Please paste JSON/Highschool.js content or choose a file.';
+            statusEl.className = 'error';
+            return;
+          }
+          const { snapshotsCsv, scheduleCsv } = await runConvert({ text });
+          const info = document.createElement('div');
+          info.className = 'links';
+          const btn1 = document.createElement('button');
+          btn1.textContent = 'Download figma_snapshots.csv';
+          btn1.addEventListener('click', () => downloadCsv('figma_snapshots.csv', snapshotsCsv));
+          const btn2 = document.createElement('button');
+          btn2.className = 'secondary';
+          btn2.textContent = 'Download figma_schedule.csv';
+          btn2.addEventListener('click', () => downloadCsv('figma_schedule.csv', scheduleCsv));
+          info.appendChild(btn1); info.appendChild(btn2);
+          out.appendChild(info);
+          statusEl.textContent = 'Conversion complete. Use the buttons to download CSV files.';
+          statusEl.className = 'success';
+        } catch (e) {
+          statusEl.textContent = e.message || String(e);
+          statusEl.className = 'error';
+        } finally {
+          btnConvert.disabled = false; btnLoad.disabled = false;
+        }
+      });
+    });
+  </script>
+  </head>
+<body>
+  <h1>Schedule Converter</h1>
+  <div class="card">
+    <label for="file">Upload Highschool.js or JSON</label>
+    <input id="file" type="file" accept=".js,.json,.txt,.rtf" />
+    <div class="muted">You can also paste the file contents below.</div>
+  </div>
+
+  <div class="card">
+    <label for="paste">Paste JSON or Highschool.js content</label>
+    <textarea id="paste" placeholder="Paste here..."></textarea>
+    <div class="row" style="margin-top: 12px;">
+      <button id="convert">Convert to CSV</button>
+      <button id="load-default" class="secondary" title="Try to load Highschool.js from the project">Load Highschool.js</button>
+    </div>
+    <div id="status" style="margin-top:8px;"></div>
+  </div>
+
+  <div id="out" class="card"></div>
+  <div class="muted">Output format: <span class="mono">figma_snapshots.csv</span> and <span class="mono">figma_schedule.csv</span>.</div>
+</body>
+</html>
+
+
+
+

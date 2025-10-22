@@ -1,0 +1,706 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Progress AI CSV Exporter</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/exceljs@4.3.0/dist/exceljs.min.js"></script>
+    <style>
+      @keyframes shimmer {
+        0% { background-position: -1000px 0; }
+        100% { background-position: 1000px 0; }
+      }
+      .shimmer {
+        animation: shimmer 2s infinite linear;
+        background: linear-gradient(to right, #f6f7f8 0%, #edeef1 20%, #f6f7f8 40%, #f6f7f8 100%);
+        background-size: 1000px 100%;
+      }
+    </style>
+  </head>
+  <body class="bg-gradient-to-br from-slate-50 to-slate-100 min-h-screen">
+    <div class="container mx-auto px-4 py-8 max-w-6xl">
+      
+      <!-- Header -->
+      <div class="mb-8">
+        <h1 class="text-3xl font-bold text-slate-800 mb-2">Progress AI CSV Exporter</h1>
+        <p class="text-slate-600">Convert Progress AI predictions into scheduler-friendly CSV format</p>
+      </div>
+
+      <!-- Main Card -->
+      <div class="bg-white rounded-xl shadow-lg border border-slate-200 overflow-hidden">
+        
+        <!-- Upload Section -->
+        <div class="p-6 border-b border-slate-200">
+          <div class="flex items-start justify-between mb-4">
+            <div>
+              <h2 class="text-lg font-semibold text-slate-800">Upload Progress AI JSON</h2>
+              <p class="text-sm text-slate-600">Export AI-detected construction activity progress</p>
+            </div>
+          </div>
+
+          <div class="flex flex-col gap-4">
+            <!-- Input Method Tabs -->
+            <div class="flex gap-2 border-b border-slate-200">
+              <button id="uploadTabBtn" class="px-4 py-2 text-sm font-medium border-b-2 border-blue-600 text-blue-600">Upload File</button>
+              <button id="pasteTabBtn" class="px-4 py-2 text-sm font-medium border-b-2 border-transparent text-slate-600 hover:text-slate-800">Paste JSON</button>
+            </div>
+
+            <!-- Upload File Tab Content -->
+            <div id="uploadTab">
+              <!-- File Upload Area -->
+              <div id="dropZone" class="border-2 border-dashed border-slate-300 rounded-lg p-8 text-center cursor-pointer hover:border-blue-500 hover:bg-blue-50 transition-all">
+                <input type="file" id="fileInput" accept=".json" class="hidden">
+                <div class="flex flex-col items-center gap-2">
+                  <svg class="w-12 h-12 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"></path>
+                  </svg>
+                  <div class="text-slate-700 font-medium">Drop JSON file here or click to browse</div>
+                  <div class="text-sm text-slate-500">Supports Progress AI JSON format</div>
+                </div>
+              </div>
+
+              <!-- File Info Display -->
+              <div id="fileInfo" class="hidden bg-slate-50 rounded-lg p-4 border border-slate-200 mt-4">
+                <div class="flex items-center justify-between">
+                  <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center">
+                      <svg class="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                      </svg>
+                    </div>
+                    <div>
+                      <div id="fileName" class="font-medium text-slate-800"></div>
+                      <div id="fileSize" class="text-sm text-slate-500"></div>
+                    </div>
+                  </div>
+                  <button id="clearFileBtn" class="text-slate-400 hover:text-slate-600">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                    </svg>
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Paste JSON Tab Content -->
+            <div id="pasteTab" class="hidden">
+              <div class="flex flex-col gap-2">
+                <label for="jsonTextarea" class="text-sm font-medium text-slate-700">Paste JSON here:</label>
+                <textarea 
+                  id="jsonTextarea" 
+                  rows="12" 
+                  placeholder='Paste your Progress AI JSON here...'
+                  class="w-full px-4 py-3 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent font-mono text-sm resize-y"
+                ></textarea>
+                <div class="flex items-center justify-between">
+                  <div id="pasteCharCount" class="text-xs text-slate-500">0 characters</div>
+                  <button id="clearPasteBtn" class="text-sm text-slate-600 hover:text-slate-800 underline">Clear</button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Process Button -->
+            <button id="processBtn" disabled class="px-6 py-3 rounded-lg bg-blue-600 text-white font-semibold text-sm disabled:bg-slate-300 disabled:cursor-not-allowed hover:bg-blue-700 transition-colors flex items-center justify-center gap-2">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+              </svg>
+              Process JSON
+            </button>
+          </div>
+        </div>
+
+        <!-- Status Messages -->
+        <div id="messageContainer" class="hidden px-6 py-4 border-b border-slate-200">
+          <div id="message" class="text-sm"></div>
+        </div>
+
+        <!-- Preview Section -->
+        <div id="previewSection" class="hidden p-6 border-b border-slate-200 bg-slate-50">
+          <h3 class="text-lg font-semibold text-slate-800 mb-4">Data Preview</h3>
+          <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-4">
+            <div class="bg-white rounded-lg p-4 border border-slate-200">
+              <div class="text-2xl font-bold text-blue-600" id="locationCount">-</div>
+              <div class="text-sm text-slate-600">Locations</div>
+            </div>
+            <div class="bg-white rounded-lg p-4 border border-slate-200">
+              <div class="text-2xl font-bold text-green-600" id="zoneCount">-</div>
+              <div class="text-sm text-slate-600">Zones/Floors</div>
+            </div>
+            <div class="bg-white rounded-lg p-4 border border-slate-200">
+              <div class="text-2xl font-bold text-purple-600" id="activityCount">-</div>
+              <div class="text-sm text-slate-600">Activities</div>
+            </div>
+            <div class="bg-white rounded-lg p-4 border border-slate-200">
+              <div class="text-2xl font-bold text-orange-600" id="tradeCount">-</div>
+              <div class="text-sm text-slate-600">Trades</div>
+            </div>
+          </div>
+
+          <!-- CSV Preview -->
+          <div class="bg-white rounded-lg border border-slate-200 overflow-hidden">
+            <div class="bg-slate-100 px-4 py-2 border-b border-slate-200">
+              <div class="text-sm font-medium text-slate-700">CSV Preview (first 20 rows)</div>
+            </div>
+            <div class="overflow-x-auto max-h-96">
+              <table id="previewTable" class="w-full text-sm">
+                <thead class="bg-slate-50 sticky top-0">
+                  <tr class="border-b border-slate-200">
+                    <th class="text-left py-2 px-4 font-medium text-slate-700">ID</th>
+                    <th class="text-left py-2 px-4 font-medium text-slate-700">Location/Activity</th>
+                    <th class="text-left py-2 px-4 font-medium text-slate-700">Scheduled Start Date</th>
+                    <th class="text-left py-2 px-4 font-medium text-slate-700">Scheduled End Date</th>
+                    <th class="text-left py-2 px-4 font-medium text-slate-700">Detected Start Date</th>
+                    <th class="text-left py-2 px-4 font-medium text-slate-700">Detected End Date</th>
+                  </tr>
+                </thead>
+                <tbody id="previewTableBody">
+                  <!-- Preview rows will be inserted here -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <!-- Export Section -->
+        <div id="exportSection" class="hidden p-6">
+          <div class="flex items-center justify-between">
+            <div>
+              <h3 class="text-lg font-semibold text-slate-800">Ready to Export</h3>
+              <p class="text-sm text-slate-600">Download the formatted file for your scheduler</p>
+            </div>
+            <div class="flex gap-3">
+              <button id="downloadCsvBtn" class="px-6 py-3 rounded-lg bg-blue-600 text-white font-semibold text-sm hover:bg-blue-700 transition-colors flex items-center gap-2">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path>
+                </svg>
+                Download CSV
+              </button>
+              <button id="downloadExcelBtn" class="px-6 py-3 rounded-lg bg-green-600 text-white font-semibold text-sm hover:bg-green-700 transition-colors flex items-center gap-2">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path>
+                </svg>
+                Download Excel
+              </button>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Help Section -->
+      <div class="mt-6 bg-blue-50 rounded-lg border border-blue-200 p-6">
+        <h3 class="text-lg font-semibold text-blue-900 mb-3">Expected JSON Format</h3>
+        <div class="text-sm text-blue-800 space-y-2">
+          <p>Your JSON file should contain:</p>
+          <ul class="list-disc list-inside ml-2 space-y-1">
+            <li><code class="bg-blue-100 px-1 rounded">locationKeyToName</code>: Mapping of location IDs to names</li>
+            <li><code class="bg-blue-100 px-1 rounded">dateTradeStarted</code>: Start dates for each trade at each location</li>
+            <li><code class="bg-blue-100 px-1 rounded">dateTradeCompleted</code>: Completion dates for each trade at each location</li>
+          </ul>
+          <p class="mt-3 text-xs text-blue-700">
+            Output will group activities by floor/zone (extracted from location names before first hyphen)
+          </p>
+        </div>
+      </div>
+
+    </div>
+
+    <script>
+      // DOM Elements
+      const uploadTabBtn = document.getElementById('uploadTabBtn');
+      const pasteTabBtn = document.getElementById('pasteTabBtn');
+      const uploadTab = document.getElementById('uploadTab');
+      const pasteTab = document.getElementById('pasteTab');
+      const jsonTextarea = document.getElementById('jsonTextarea');
+      const pasteCharCount = document.getElementById('pasteCharCount');
+      const clearPasteBtn = document.getElementById('clearPasteBtn');
+      const dropZone = document.getElementById('dropZone');
+      const fileInput = document.getElementById('fileInput');
+      const fileInfo = document.getElementById('fileInfo');
+      const fileName = document.getElementById('fileName');
+      const fileSize = document.getElementById('fileSize');
+      const clearFileBtn = document.getElementById('clearFileBtn');
+      const processBtn = document.getElementById('processBtn');
+      const messageContainer = document.getElementById('messageContainer');
+      const message = document.getElementById('message');
+      const previewSection = document.getElementById('previewSection');
+      const exportSection = document.getElementById('exportSection');
+      const downloadCsvBtn = document.getElementById('downloadCsvBtn');
+      const downloadExcelBtn = document.getElementById('downloadExcelBtn');
+      const previewTableBody = document.getElementById('previewTableBody');
+      const locationCount = document.getElementById('locationCount');
+      const zoneCount = document.getElementById('zoneCount');
+      const activityCount = document.getElementById('activityCount');
+      const tradeCount = document.getElementById('tradeCount');
+
+      // State
+      let jsonData = null;
+      let csvData = [];
+      let csvText = '';
+      let currentTab = 'upload'; // 'upload' or 'paste'
+
+      // Event Listeners
+      uploadTabBtn.addEventListener('click', () => switchTab('upload'));
+      pasteTabBtn.addEventListener('click', () => switchTab('paste'));
+      jsonTextarea.addEventListener('input', handleTextareaInput);
+      clearPasteBtn.addEventListener('click', clearPastedJSON);
+      dropZone.addEventListener('click', () => fileInput.click());
+      dropZone.addEventListener('dragover', (e) => {
+        e.preventDefault();
+        dropZone.classList.add('border-blue-500', 'bg-blue-50');
+      });
+      dropZone.addEventListener('dragleave', () => {
+        dropZone.classList.remove('border-blue-500', 'bg-blue-50');
+      });
+      dropZone.addEventListener('drop', (e) => {
+        e.preventDefault();
+        dropZone.classList.remove('border-blue-500', 'bg-blue-50');
+        const file = e.dataTransfer.files[0];
+        if (file) handleFileSelect(file);
+      });
+      fileInput.addEventListener('change', (e) => {
+        const file = e.target.files[0];
+        if (file) handleFileSelect(file);
+      });
+      clearFileBtn.addEventListener('click', clearFile);
+      processBtn.addEventListener('click', processJSON);
+      downloadCsvBtn.addEventListener('click', downloadCSV);
+      downloadExcelBtn.addEventListener('click', downloadExcel);
+
+      // Functions
+      function switchTab(tab) {
+        currentTab = tab;
+        if (tab === 'upload') {
+          uploadTabBtn.className = 'px-4 py-2 text-sm font-medium border-b-2 border-blue-600 text-blue-600';
+          pasteTabBtn.className = 'px-4 py-2 text-sm font-medium border-b-2 border-transparent text-slate-600 hover:text-slate-800';
+          uploadTab.classList.remove('hidden');
+          pasteTab.classList.add('hidden');
+        } else {
+          uploadTabBtn.className = 'px-4 py-2 text-sm font-medium border-b-2 border-transparent text-slate-600 hover:text-slate-800';
+          pasteTabBtn.className = 'px-4 py-2 text-sm font-medium border-b-2 border-blue-600 text-blue-600';
+          uploadTab.classList.add('hidden');
+          pasteTab.classList.remove('hidden');
+        }
+        // Reset state when switching tabs
+        clearFile();
+        clearPastedJSON();
+      }
+
+      function handleTextareaInput() {
+        const text = jsonTextarea.value.trim();
+        pasteCharCount.textContent = `${text.length.toLocaleString()} characters`;
+        
+        if (text.length > 0) {
+          processBtn.disabled = false;
+          try {
+            jsonData = JSON.parse(text);
+            validateJSON(jsonData);
+            showMessage('JSON is valid. Click "Process JSON" to continue.', 'success');
+          } catch (error) {
+            jsonData = null;
+            showMessage('Invalid JSON: ' + error.message, 'error');
+          }
+        } else {
+          processBtn.disabled = true;
+          jsonData = null;
+          hideMessage();
+        }
+      }
+
+      function clearPastedJSON() {
+        jsonTextarea.value = '';
+        pasteCharCount.textContent = '0 characters';
+        processBtn.disabled = true;
+        jsonData = null;
+        csvData = [];
+        csvText = '';
+        previewSection.classList.add('hidden');
+        exportSection.classList.add('hidden');
+        hideMessage();
+      }
+
+      function handleFileSelect(file) {
+        if (!file.name.endsWith('.json')) {
+          showMessage('Please select a JSON file', 'error');
+          return;
+        }
+
+        fileName.textContent = file.name;
+        fileSize.textContent = formatFileSize(file.size);
+        fileInfo.classList.remove('hidden');
+        processBtn.disabled = false;
+
+        // Read file
+        const reader = new FileReader();
+        reader.onload = (e) => {
+          try {
+            jsonData = JSON.parse(e.target.result);
+            validateJSON(jsonData);
+            showMessage('JSON loaded successfully. Click "Process JSON" to continue.', 'success');
+          } catch (error) {
+            showMessage('Invalid JSON file: ' + error.message, 'error');
+            clearFile();
+          }
+        };
+        reader.readAsText(file);
+      }
+
+      function clearFile() {
+        fileInput.value = '';
+        fileInfo.classList.add('hidden');
+        processBtn.disabled = true;
+        jsonData = null;
+        csvData = [];
+        csvText = '';
+        previewSection.classList.add('hidden');
+        exportSection.classList.add('hidden');
+        hideMessage();
+      }
+
+      function validateJSON(data) {
+        if (!data.locationKeyToName) throw new Error('Missing required key: locationKeyToName');
+        if (!data.dateTradeStarted) throw new Error('Missing required key: dateTradeStarted');
+        if (!data.dateTradeCompleted) throw new Error('Missing required key: dateTradeCompleted');
+      }
+
+      function processJSON() {
+        try {
+          showMessage('Processing JSON data...', 'info');
+          
+          // Extract data
+          const locationMapping = jsonData.locationKeyToName;
+          const startDates = jsonData.dateTradeStarted || {};
+          const endDates = jsonData.dateTradeCompleted || {};
+
+          // Group locations by floor/zone
+          const grouped = groupLocationsByFloor(locationMapping);
+          
+          // Build CSV data
+          csvData = buildCSVData(grouped, locationMapping, startDates, endDates);
+          
+          // Generate CSV text
+          csvText = generateCSVText(csvData);
+          
+          // Calculate stats
+          const stats = calculateStats(grouped, startDates);
+          
+          // Update preview
+          updatePreview(csvData.slice(0, 20), stats);
+          
+          showMessage(`Successfully processed ${stats.locations} locations with ${stats.activities} activities`, 'success');
+          previewSection.classList.remove('hidden');
+          exportSection.classList.remove('hidden');
+        } catch (error) {
+          showMessage('Error processing JSON: ' + error.message, 'error');
+          console.error(error);
+        }
+      }
+
+      function extractFloorPrefix(locationName) {
+        const hyphenIndex = locationName.indexOf('-');
+        if (hyphenIndex === -1) return 'Other';
+        return locationName.substring(0, hyphenIndex).trim();
+      }
+
+      function groupLocationsByFloor(locationMapping) {
+        const grouped = {};
+        
+        for (const [locationId, locationName] of Object.entries(locationMapping)) {
+          const floor = extractFloorPrefix(locationName);
+          if (!grouped[floor]) grouped[floor] = [];
+          grouped[floor].push({ id: locationId, name: locationName });
+        }
+        
+        // Sort floors
+        const sortedFloors = {};
+        Object.keys(grouped).sort().forEach(floor => {
+          sortedFloors[floor] = grouped[floor].sort((a, b) => a.name.localeCompare(b.name));
+        });
+        
+        return sortedFloors;
+      }
+
+      function buildCSVData(grouped, locationMapping, startDates, endDates) {
+        const rows = [];
+        
+        // Header row with 6 columns
+        rows.push(['ID', 'Location/Activity', 'Scheduled Start Date', 'Scheduled End Date', 'Detected Start Date', 'Detected End Date']);
+        
+        // Process each floor/zone
+        for (const [floor, locations] of Object.entries(grouped)) {
+          // Floor header
+          rows.push(['', floor, '', '', '', '']);
+          
+          // Process each location
+          for (const location of locations) {
+            const locationId = location.id;
+            const locationName = location.name;
+            
+            // Get activities for this location
+            const activities = buildActivityData(locationId, startDates, endDates);
+            
+            // Always include location header (even if no activities)
+            rows.push(['', locationName, '', '', '', '']);
+            
+            // Activity rows (if any)
+            activities.forEach(activity => {
+              rows.push(['', activity.name, '', '', activity.startDate, activity.endDate]);
+            });
+          }
+        }
+        
+        return rows;
+      }
+
+      function buildActivityData(locationId, startDates, endDates) {
+        const activities = [];
+        const locationStartDates = startDates[locationId] || {};
+        const locationEndDates = endDates[locationId] || {};
+        
+        // Get all trades that have start dates
+        for (const [tradeName, startDate] of Object.entries(locationStartDates)) {
+          if (startDate) { // Only include if start date exists
+            activities.push({
+              name: tradeName,
+              startDate: startDate,
+              endDate: locationEndDates[tradeName] || ''
+            });
+          }
+        }
+        
+        // Sort activities by start date, then by name
+        activities.sort((a, b) => {
+          if (a.startDate !== b.startDate) return a.startDate.localeCompare(b.startDate);
+          return a.name.localeCompare(b.name);
+        });
+        
+        return activities;
+      }
+
+      function generateCSVText(rows) {
+        return rows.map(row => {
+          return row.map(cell => {
+            // Escape cells that contain commas, quotes, or newlines
+            const cellStr = String(cell);
+            if (cellStr.includes(',') || cellStr.includes('"') || cellStr.includes('\n')) {
+              return '"' + cellStr.replace(/"/g, '""') + '"';
+            }
+            return cellStr;
+          }).join(',');
+        }).join('\n');
+      }
+
+      function calculateStats(grouped, startDates) {
+        let totalLocations = 0;
+        let locationsWithActivities = 0;
+        let activities = 0;
+        const trades = new Set();
+        
+        for (const [floor, locs] of Object.entries(grouped)) {
+          for (const loc of locs) {
+            totalLocations++;
+            const locationStartDates = startDates[loc.id] || {};
+            const hasActivities = Object.values(locationStartDates).some(date => date);
+            
+            if (hasActivities) {
+              locationsWithActivities++;
+              for (const [tradeName, startDate] of Object.entries(locationStartDates)) {
+                if (startDate) {
+                  activities++;
+                  trades.add(tradeName);
+                }
+              }
+            }
+          }
+        }
+        
+        const locationsWithoutActivities = totalLocations - locationsWithActivities;
+        console.log(`Stats: ${totalLocations} total locations (${locationsWithActivities} with activities, ${locationsWithoutActivities} without), ${activities} total activities`);
+        
+        return {
+          locations: totalLocations,
+          zones: Object.keys(grouped).length,
+          activities,
+          trades: trades.size
+        };
+      }
+
+      function updatePreview(rows, stats) {
+        // Update stats
+        locationCount.textContent = stats.locations;
+        zoneCount.textContent = stats.zones;
+        activityCount.textContent = stats.activities;
+        tradeCount.textContent = stats.trades;
+        
+        // Update table preview
+        previewTableBody.innerHTML = '';
+        
+        rows.slice(1).forEach((row, rowIndex) => { // Skip header row
+          const tr = document.createElement('tr');
+          tr.className = 'border-b border-slate-100';
+          
+          // With 6 columns: [ID, Location/Activity, Scheduled Start, Scheduled End, Detected Start, Detected End]
+          // Headers have empty values in columns 2-5 (Scheduled Start, Scheduled End, Detected Start, Detected End)
+          const isHeader = row[2] === '' && row[3] === '' && row[4] === '' && row[5] === '';
+          const isZoneHeader = isHeader && !row[1].includes('-');
+          const isLocationHeader = isHeader && row[1].includes('-');
+          
+          row.forEach((cell, index) => {
+            const td = document.createElement('td');
+            
+            // Build class list based on row type
+            let classes = ['py-2', 'px-4'];
+            
+            if (isZoneHeader) {
+              // Dark grey for zone headers (DCH1, DCH2, DWTR) - all columns
+              classes.push('bg-slate-300', 'font-bold', 'text-slate-900');
+            } else if (isLocationHeader) {
+              // Light grey for location headers (DCH1-FSA-1, DCH2-1, etc.) - all columns
+              classes.push('bg-slate-100', 'font-semibold', 'text-slate-700');
+              // Indent Location/Activity column (index 1)
+              if (index === 1) classes.push('pl-8');
+            } else {
+              // Activity rows - no background, only Location/Activity column styled
+              if (index === 1) {
+                classes.push('text-slate-600', 'pl-12');
+              }
+            }
+            
+            td.className = classes.join(' ');
+            // Use &nbsp; for empty cells so background color shows
+            td.textContent = cell || '\u00A0';
+            
+            tr.appendChild(td);
+          });
+          
+          // Add hover effect only to activity rows
+          if (!isHeader) {
+            tr.className += ' hover:bg-slate-50';
+          }
+          
+          previewTableBody.appendChild(tr);
+        });
+      }
+
+      function downloadCSV() {
+        const blob = new Blob([csvText], { type: 'text/csv;charset=utf-8;' });
+        const link = document.createElement('a');
+        const url = URL.createObjectURL(blob);
+        
+        link.setAttribute('href', url);
+        link.setAttribute('download', 'progress_ai_schedule_export.csv');
+        link.style.visibility = 'hidden';
+        
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        
+        showMessage('CSV downloaded successfully!', 'success');
+      }
+
+      async function downloadExcel() {
+        try {
+          // Create workbook and worksheet
+          const workbook = new ExcelJS.Workbook();
+          const worksheet = workbook.addWorksheet('Schedule');
+          
+          // Set column widths for 6 columns
+          worksheet.columns = [
+            { width: 12 },  // ID column
+            { width: 35 },  // Location/Activity column
+            { width: 20 },  // Scheduled Start Date column
+            { width: 20 },  // Scheduled End Date column
+            { width: 20 },  // Detected Start Date column
+            { width: 20 }   // Detected End Date column
+          ];
+          
+          // Add rows and apply styling
+          csvData.forEach((row, rowIndex) => {
+            const excelRow = worksheet.addRow(row);
+            
+            // With 6 columns: [ID, Location/Activity, Scheduled Start, Scheduled End, Detected Start, Detected End]
+            const isHeader = row[2] === '' && row[3] === '' && row[4] === '' && row[5] === '';
+            const isZoneHeader = isHeader && !row[1].includes('-');
+            const isLocationHeader = isHeader && row[1].includes('-');
+            
+            excelRow.eachCell({ includeEmpty: true }, (cell, colNumber) => {
+              if (rowIndex === 0) {
+                // Table header row (ID, Location/Activity, Scheduled Start, Scheduled End, Detected Start, Detected End)
+                cell.font = { bold: true, color: { argb: 'FFFFFFFF' } };
+                cell.fill = { type: 'pattern', pattern: 'solid', fgColor: { argb: 'FF1E3A8A' } };
+                cell.alignment = { horizontal: 'left', vertical: 'middle' };
+              } else if (isZoneHeader) {
+                // Zone headers (DCH1, DCH2, DWTR) - dark grey
+                cell.font = { bold: true, color: { argb: 'FF1F2937' } };
+                cell.fill = { type: 'pattern', pattern: 'solid', fgColor: { argb: 'FFD1D5DB' } };
+                cell.alignment = { horizontal: 'left', vertical: 'middle' };
+              } else if (isLocationHeader) {
+                // Location headers (DCH1-FSA-1, DCH2-1, etc.) - light grey
+                cell.font = { bold: true, color: { argb: 'FF374151' } };
+                cell.fill = { type: 'pattern', pattern: 'solid', fgColor: { argb: 'FFF3F4F6' } };
+                cell.alignment = { horizontal: 'left', vertical: 'middle' };
+                // Add indent for Location/Activity column (colNumber 2)
+                if (colNumber === 2) {
+                  cell.alignment = { ...cell.alignment, indent: 1 };
+                }
+              } else {
+                // Activity rows - white background
+                cell.font = { color: { argb: 'FF4B5563' } };
+                cell.fill = { type: 'pattern', pattern: 'solid', fgColor: { argb: 'FFFFFFFF' } };
+                cell.alignment = { horizontal: 'left', vertical: 'middle' };
+                // Add double indent for Location/Activity column (colNumber 2)
+                if (colNumber === 2) {
+                  cell.alignment = { ...cell.alignment, indent: 2 };
+                }
+              }
+            });
+          });
+          
+          // Generate Excel file and trigger download
+          const buffer = await workbook.xlsx.writeBuffer();
+          const blob = new Blob([buffer], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
+          const link = document.createElement('a');
+          const url = URL.createObjectURL(blob);
+          
+          link.setAttribute('href', url);
+          link.setAttribute('download', 'progress_ai_schedule_export.xlsx');
+          link.style.visibility = 'hidden';
+          
+          document.body.appendChild(link);
+          link.click();
+          document.body.removeChild(link);
+          
+          showMessage('Excel file downloaded successfully!', 'success');
+        } catch (error) {
+          showMessage('Error generating Excel file: ' + error.message, 'error');
+          console.error(error);
+        }
+      }
+
+      function showMessage(text, type) {
+        const types = {
+          success: 'bg-green-50 border-green-200 text-green-800',
+          error: 'bg-red-50 border-red-200 text-red-800',
+          info: 'bg-blue-50 border-blue-200 text-blue-800'
+        };
+        
+        message.textContent = text;
+        message.className = `text-sm p-3 rounded-lg border ${types[type] || types.info}`;
+        messageContainer.classList.remove('hidden');
+      }
+
+      function hideMessage() {
+        messageContainer.classList.add('hidden');
+      }
+
+      function formatFileSize(bytes) {
+        if (bytes < 1024) return bytes + ' B';
+        if (bytes < 1024 * 1024) return (bytes / 1024).toFixed(1) + ' KB';
+        return (bytes / (1024 * 1024)).toFixed(1) + ' MB';
+      }
+    </script>
+
+  </body>
+</html>
+
