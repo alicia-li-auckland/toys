@@ -518,30 +518,73 @@
           // Extract location from schedule name (e.g., "HA 13" from "Activity-HA 13")
           const scheduleLocation = extractLocationFromScheduleName(scheduleName);
           
+          // Debug logging for first 5 items that contain "Drill" and have location
+          const shouldDebug = index < 100 && scheduleName.toLowerCase().includes('drill') && scheduleLocation.numbers.length > 0;
+          if (shouldDebug) {
+            console.log('\n=== MATCHING DEBUG ===');
+            console.log('Schedule Activity:', scheduleName);
+            console.log('Extracted Location:', scheduleLocation);
+          }
+          
           // Find best match in actual data
           let bestMatch = null;
           let bestScore = 0;
           let bestNameScore = 0;
           let bestLocationScore = 0;
+          const candidateMatches = []; // Track candidates for debugging
           
-          actualData.forEach(actualItem => {
+          // STEP 1: Filter actual data by location if schedule has location info
+          let filteredActualData = actualData;
+          if (scheduleLocation.numbers.length > 0) {
+            const scheduleNum = scheduleLocation.numbers[0];
+            
+            // Filter to only records where location contains the schedule number
+            const locationFilteredData = actualData.filter(actualItem => {
+              const actualLocation = actualItem.Location_Name || actualItem.location || '';
+              const actualNumbers = extractNumbersFromLocation(actualLocation);
+              return actualNumbers.includes(scheduleNum);
+            });
+            
+            if (shouldDebug) {
+              console.log(`Location Filter: Looking for number ${scheduleNum}`);
+              console.log(`  Found ${locationFilteredData.length} location-matching records out of ${actualData.length} total`);
+            }
+            
+            // If we found location matches, use only those. Otherwise fall back to all data.
+            if (locationFilteredData.length > 0) {
+              filteredActualData = locationFilteredData;
+            }
+          }
+          
+          // STEP 2: Find best activity name match within filtered data
+          filteredActualData.forEach(actualItem => {
             const actualName = actualItem[nameColumn] || '';
             const actualLocation = actualItem.Location_Name || actualItem.location || '';
             
             // Calculate activity name similarity
             const nameScore = calculateSimilarity(scheduleName, actualName);
             
-            // Calculate location alignment score
+            // Calculate location alignment score (for scoring purposes)
             const locationScore = calculateLocationMatch(scheduleLocation, actualLocation);
             
-            // Combined score: 70% name + 30% location
-            // If location doesn't match at all, reduce score significantly
+            // Combined score: Since we pre-filtered by location, name is more important
+            // If location was filtered: 90% name + 10% location boost
+            // If no location filter: 100% name only
             let combinedScore = nameScore;
-            if (locationScore > 0) {
-              combinedScore = (nameScore * 0.7) + (locationScore * 0.3);
-            } else if (scheduleLocation.numbers.length > 0 && actualLocation) {
-              // Location info exists but doesn't match - penalize heavily
-              combinedScore = nameScore * 0.3;
+            if (scheduleLocation.numbers.length > 0 && filteredActualData.length < actualData.length) {
+              // We filtered by location, so give small bonus for exact match
+              combinedScore = (nameScore * 0.9) + (locationScore * 0.1);
+            }
+            
+            // Track for debugging
+            if (shouldDebug && nameScore > 0.5) {
+              candidateMatches.push({
+                actualName,
+                actualLocation,
+                nameScore: nameScore.toFixed(2),
+                locationScore: locationScore.toFixed(2),
+                combinedScore: combinedScore.toFixed(2)
+              });
             }
             
             if (combinedScore > bestScore) {
@@ -551,6 +594,20 @@
               bestLocationScore = locationScore;
             }
           });
+          
+          // Debug output for candidates
+          if (shouldDebug && candidateMatches.length > 0) {
+            console.log('\nTop Candidates (name score > 0.5):');
+            candidateMatches
+              .sort((a, b) => parseFloat(b.combinedScore) - parseFloat(a.combinedScore))
+              .slice(0, 5)
+              .forEach((c, i) => {
+                console.log(`  ${i+1}. ${c.actualName} @ ${c.actualLocation}`);
+                console.log(`     Name: ${c.nameScore}, Location: ${c.locationScore}, Combined: ${c.combinedScore}`);
+              });
+            console.log('\nBest Match Selected:', bestMatch ? `${bestMatch[nameColumn]} @ ${bestMatch.Location_Name || bestMatch.location}` : 'None');
+            console.log('Final Scores - Name:', bestNameScore.toFixed(2), 'Location:', bestLocationScore.toFixed(2), 'Combined:', bestScore.toFixed(2));
+          }
           
           matchedData.push({
             schedule: scheduleItem,
@@ -579,11 +636,12 @@
       // Patterns: -HA 13, -HA13, (HA 13), -MDA 1, etc.
       const result = {
         text: '',
-        numbers: []
+        numbers: [],
+        rawNumber: '' // Keep the raw number string with leading zeros
       };
       
       const patterns = [
-        /[-_]\s*(HA|CA|MDA)\s*(\d+)/i,      // -HA 13, -CA 05
+        /[-_]\s*(HA|CA|MDA)\s*(\d+)/i,      // -HA 13, -CA 05, -HA 08
         /[-_]\s*([A-Z]{2,4})\s+(\d+)/i,     // -RACK 13
         /\(\s*(HA|CA|MDA)\s*(\d+)\s*\)/i,  // (HA 13)
       ];
@@ -592,7 +650,8 @@
         const match = activityName.match(pattern);
         if (match) {
           result.text = match[0].replace(/^[-_\s(]+|[)\s]+$/g, '');
-          result.numbers = [parseInt(match[2])];
+          result.rawNumber = match[2]; // Keep original string like "08" or "8"
+          result.numbers = [parseInt(match[2], 10)]; // Parse to int: "08" → 8
           break;
         }
       }

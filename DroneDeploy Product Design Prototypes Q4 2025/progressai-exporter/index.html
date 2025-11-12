@@ -496,20 +496,41 @@
         const locationStartDates = startDates[locationId] || {};
         const locationEndDates = endDates[locationId] || {};
         
-        // Get all trades that have start dates
-        for (const [tradeName, startDate] of Object.entries(locationStartDates)) {
-          if (startDate) { // Only include if start date exists
+        // Get all unique trade names from both start and end dates
+        const allTradeNames = new Set([
+          ...Object.keys(locationStartDates),
+          ...Object.keys(locationEndDates)
+        ]);
+        
+        // Include all trades that have either a start date or end date
+        for (const tradeName of allTradeNames) {
+          const startDate = locationStartDates[tradeName] || '';
+          const endDate = locationEndDates[tradeName] || '';
+          
+          // Only include if at least one date exists
+          if (startDate || endDate) {
             activities.push({
               name: tradeName,
               startDate: startDate,
-              endDate: locationEndDates[tradeName] || ''
+              endDate: endDate
             });
           }
         }
         
-        // Sort activities by start date, then by name
+        // Sort activities by start date (empty dates go last), then by end date, then by name
         activities.sort((a, b) => {
-          if (a.startDate !== b.startDate) return a.startDate.localeCompare(b.startDate);
+          // If both have start dates, compare them
+          if (a.startDate && b.startDate && a.startDate !== b.startDate) {
+            return a.startDate.localeCompare(b.startDate);
+          }
+          // If only one has a start date, it comes first
+          if (a.startDate && !b.startDate) return -1;
+          if (!a.startDate && b.startDate) return 1;
+          // If neither has start date, compare end dates
+          if (a.endDate && b.endDate && a.endDate !== b.endDate) {
+            return a.endDate.localeCompare(b.endDate);
+          }
+          // Finally, sort by name
           return a.name.localeCompare(b.name);
         });
         
@@ -527,9 +548,19 @@
           const locationStartDates = startDates[locationId] || {};
           const locationEndDates = endDates[locationId] || {};
           
-          // Get all trades that have start dates
-          for (const [tradeName, startDate] of Object.entries(locationStartDates)) {
-            if (startDate) { // Only include if start date exists
+          // Get all unique trade names from both start and end dates
+          const allTradeNames = new Set([
+            ...Object.keys(locationStartDates),
+            ...Object.keys(locationEndDates)
+          ]);
+          
+          // Include all trades that have either a start date or end date
+          for (const tradeName of allTradeNames) {
+            const startDate = locationStartDates[tradeName] || '';
+            const endDate = locationEndDates[tradeName] || '';
+            
+            // Only include if at least one date exists
+            if (startDate || endDate) {
               rows.push([
                 locationId,
                 locationName,
@@ -537,7 +568,7 @@
                 '', // Scheduled Start Date (empty)
                 '', // Scheduled End Date (empty)
                 startDate,
-                locationEndDates[tradeName] || ''
+                endDate
               ]);
             }
           }

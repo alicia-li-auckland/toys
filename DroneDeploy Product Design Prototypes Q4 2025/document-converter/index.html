@@ -1,0 +1,780 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document to Data Converter</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/exceljs@4.3.0/dist/exceljs.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+    <style>
+      .split-pane {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 1rem;
+        height: 600px;
+      }
+      
+      .pane {
+        overflow: auto;
+        border: 1px solid #e5e7eb;
+        border-radius: 0.5rem;
+        padding: 1rem;
+      }
+      
+      .editable-cell {
+        min-height: 24px;
+        padding: 4px 8px;
+        border: 1px solid transparent;
+        cursor: text;
+      }
+      
+      .editable-cell:hover {
+        background-color: #f3f4f6;
+        border-color: #d1d5db;
+      }
+      
+      .editable-cell:focus {
+        outline: none;
+        border-color: #3b82f6;
+        background-color: white;
+      }
+      
+      .column-header {
+        position: relative;
+        cursor: pointer;
+        user-select: none;
+      }
+      
+      .column-header input {
+        background: transparent;
+        border: none;
+        font-weight: 600;
+        width: 100%;
+      }
+      
+      .column-header input:focus {
+        outline: none;
+        background: white;
+      }
+      
+      #pdfCanvas {
+        max-width: 100%;
+        height: auto;
+      }
+      
+      .loading-spinner {
+        border: 3px solid #f3f4f6;
+        border-top: 3px solid #3b82f6;
+        border-radius: 50%;
+        width: 40px;
+        height: 40px;
+        animation: spin 1s linear infinite;
+      }
+      
+      @keyframes spin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+      }
+    </style>
+  </head>
+  <body class="bg-gradient-to-br from-slate-50 to-slate-100 min-h-screen">
+    <div class="container mx-auto px-4 py-8 max-w-7xl">
+      
+      <!-- Header -->
+      <div class="mb-6">
+        <h1 class="text-3xl font-bold text-slate-800 mb-2">Document to Data Converter</h1>
+        <p class="text-slate-600">Extract tables from Word/PDF documents and export to CSV or Excel</p>
+      </div>
+
+      <!-- API Key Section -->
+      <div class="bg-white rounded-xl shadow-lg border border-slate-200 p-6 mb-6">
+        <div class="flex items-center gap-4">
+          <div class="flex-1">
+            <label for="apiKey" class="block text-sm font-medium text-slate-700 mb-2">
+              Google Gemini API Key
+              <span class="text-slate-500 text-xs ml-2">(stored in browser session only)</span>
+            </label>
+            <input 
+              type="password" 
+              id="apiKey" 
+              placeholder="AIza..." 
+              class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+            >
+          </div>
+          <button 
+            id="testApiBtn" 
+            class="px-6 py-2 bg-slate-600 text-white rounded-lg hover:bg-slate-700 transition-colors self-end disabled:bg-slate-300"
+            disabled
+          >
+            Test Connection
+          </button>
+        </div>
+        <div id="apiStatus" class="mt-3 hidden"></div>
+      </div>
+
+      <!-- Upload Section -->
+      <div class="bg-white rounded-xl shadow-lg border border-slate-200 overflow-hidden mb-6">
+        <div class="p-6 border-b border-slate-200">
+          <h2 class="text-lg font-semibold text-slate-800 mb-4">Upload Document</h2>
+          
+          <!-- Drop Zone -->
+          <div 
+            id="dropZone" 
+            class="border-2 border-dashed border-slate-300 rounded-lg p-8 text-center cursor-pointer hover:border-blue-500 hover:bg-blue-50 transition-all"
+          >
+            <input type="file" id="fileInput" accept=".pdf,.docx,.doc" class="hidden">
+            <div class="flex flex-col items-center gap-2">
+              <svg class="w-12 h-12 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"></path>
+              </svg>
+              <div class="text-slate-700 font-medium">Drop document here or click to browse</div>
+              <div class="text-sm text-slate-500">Supports PDF and Word documents (.pdf, .docx)</div>
+            </div>
+          </div>
+
+          <!-- File Info -->
+          <div id="fileInfo" class="hidden mt-4 bg-slate-50 rounded-lg p-4 border border-slate-200">
+            <div class="flex items-center justify-between">
+              <div class="flex items-center gap-3">
+                <div class="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center">
+                  <svg class="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                  </svg>
+                </div>
+                <div>
+                  <div id="fileName" class="font-medium text-slate-800"></div>
+                  <div id="fileSize" class="text-sm text-slate-500"></div>
+                </div>
+              </div>
+              <div class="flex gap-2">
+                <button 
+                  id="extractBtn" 
+                  class="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors disabled:bg-slate-300"
+                  disabled
+                >
+                  Extract Tables
+                </button>
+                <button id="clearFileBtn" class="text-slate-400 hover:text-slate-600">
+                  <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                  </svg>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Processing Status -->
+          <div id="processingStatus" class="hidden mt-4">
+            <div class="flex items-center gap-3 text-blue-600">
+              <div class="loading-spinner"></div>
+              <span id="processingText">Extracting tables from document...</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Split Pane View -->
+        <div id="splitPaneSection" class="hidden p-6">
+          <div class="split-pane">
+            <!-- Left: Document Preview -->
+            <div class="pane bg-slate-50">
+              <h3 class="text-sm font-semibold text-slate-700 mb-3">Original Document</h3>
+              <div id="documentPreview">
+                <canvas id="pdfCanvas"></canvas>
+                <div id="docPreview" class="text-slate-500 text-sm"></div>
+              </div>
+            </div>
+
+            <!-- Right: Extracted Data Table -->
+            <div class="pane bg-white">
+              <div class="flex items-center justify-between mb-3">
+                <h3 class="text-sm font-semibold text-slate-700">Extracted Data</h3>
+                <div class="flex gap-2">
+                  <button id="addRowBtn" class="px-3 py-1 text-sm bg-slate-100 text-slate-700 rounded hover:bg-slate-200">
+                    + Add Row
+                  </button>
+                  <button id="addColumnBtn" class="px-3 py-1 text-sm bg-slate-100 text-slate-700 rounded hover:bg-slate-200">
+                    + Add Column
+                  </button>
+                </div>
+              </div>
+              <div id="dataTableContainer" class="overflow-auto">
+                <table id="dataTable" class="w-full text-sm">
+                  <thead id="tableHead" class="bg-slate-100 sticky top-0">
+                    <!-- Headers will be inserted here -->
+                  </thead>
+                  <tbody id="tableBody">
+                    <!-- Rows will be inserted here -->
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Export Section -->
+      <div id="exportSection" class="hidden bg-white rounded-xl shadow-lg border border-slate-200 p-6">
+        <h2 class="text-lg font-semibold text-slate-800 mb-4">Export Options</h2>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+          <!-- Column Selection -->
+          <div>
+            <h3 class="text-sm font-medium text-slate-700 mb-2">Select Columns to Export</h3>
+            <div id="columnCheckboxes" class="space-y-2 max-h-48 overflow-auto bg-slate-50 rounded-lg p-3">
+              <!-- Checkboxes will be inserted here -->
+            </div>
+          </div>
+
+          <!-- Format Selection -->
+          <div>
+            <h3 class="text-sm font-medium text-slate-700 mb-2">Output Format</h3>
+            <div class="space-y-2">
+              <label class="flex items-center gap-2 p-3 bg-slate-50 rounded-lg cursor-pointer hover:bg-slate-100">
+                <input type="radio" name="exportFormat" value="csv" checked class="w-4 h-4 text-blue-600">
+                <div>
+                  <div class="font-medium text-slate-800">CSV</div>
+                  <div class="text-xs text-slate-500">Comma-separated values, universal format</div>
+                </div>
+              </label>
+              <label class="flex items-center gap-2 p-3 bg-slate-50 rounded-lg cursor-pointer hover:bg-slate-100">
+                <input type="radio" name="exportFormat" value="excel" class="w-4 h-4 text-blue-600">
+                <div>
+                  <div class="font-medium text-slate-800">Excel</div>
+                  <div class="text-xs text-slate-500">Formatted spreadsheet with styling</div>
+                </div>
+              </label>
+            </div>
+          </div>
+        </div>
+
+        <div class="flex gap-3">
+          <button id="downloadCsvBtn" class="px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors flex items-center gap-2">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path>
+            </svg>
+            Download CSV
+          </button>
+          <button id="downloadExcelBtn" class="px-6 py-3 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors flex items-center gap-2">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path>
+            </svg>
+            Download Excel
+          </button>
+        </div>
+      </div>
+
+    </div>
+
+    <script>
+      // PDF.js configuration
+      pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+
+      // DOM Elements
+      const apiKeyInput = document.getElementById('apiKey');
+      const testApiBtn = document.getElementById('testApiBtn');
+      const apiStatus = document.getElementById('apiStatus');
+      const dropZone = document.getElementById('dropZone');
+      const fileInput = document.getElementById('fileInput');
+      const fileInfo = document.getElementById('fileInfo');
+      const fileName = document.getElementById('fileName');
+      const fileSize = document.getElementById('fileSize');
+      const clearFileBtn = document.getElementById('clearFileBtn');
+      const extractBtn = document.getElementById('extractBtn');
+      const processingStatus = document.getElementById('processingStatus');
+      const processingText = document.getElementById('processingText');
+      const splitPaneSection = document.getElementById('splitPaneSection');
+      const pdfCanvas = document.getElementById('pdfCanvas');
+      const docPreview = document.getElementById('docPreview');
+      const dataTable = document.getElementById('dataTable');
+      const tableHead = document.getElementById('tableHead');
+      const tableBody = document.getElementById('tableBody');
+      const addRowBtn = document.getElementById('addRowBtn');
+      const addColumnBtn = document.getElementById('addColumnBtn');
+      const exportSection = document.getElementById('exportSection');
+      const columnCheckboxes = document.getElementById('columnCheckboxes');
+      const downloadCsvBtn = document.getElementById('downloadCsvBtn');
+      const downloadExcelBtn = document.getElementById('downloadExcelBtn');
+
+      // State
+      let uploadedFile = null;
+      let extractedData = [];
+      let columnHeaders = [];
+
+      // Event Listeners
+      apiKeyInput.addEventListener('input', () => {
+        testApiBtn.disabled = !apiKeyInput.value.trim();
+      });
+
+      testApiBtn.addEventListener('click', testApiConnection);
+
+      dropZone.addEventListener('click', () => fileInput.click());
+      dropZone.addEventListener('dragover', (e) => {
+        e.preventDefault();
+        dropZone.classList.add('border-blue-500', 'bg-blue-50');
+      });
+      dropZone.addEventListener('dragleave', () => {
+        dropZone.classList.remove('border-blue-500', 'bg-blue-50');
+      });
+      dropZone.addEventListener('drop', (e) => {
+        e.preventDefault();
+        dropZone.classList.remove('border-blue-500', 'bg-blue-50');
+        const file = e.dataTransfer.files[0];
+        if (file) handleFileSelect(file);
+      });
+
+      fileInput.addEventListener('change', (e) => {
+        const file = e.target.files[0];
+        if (file) handleFileSelect(file);
+      });
+
+      clearFileBtn.addEventListener('click', clearFile);
+      extractBtn.addEventListener('click', extractTableData);
+      addRowBtn.addEventListener('click', addRow);
+      addColumnBtn.addEventListener('click', addColumn);
+      downloadCsvBtn.addEventListener('click', downloadCSV);
+      downloadExcelBtn.addEventListener('click', downloadExcel);
+
+      // Functions
+      function formatFileSize(bytes) {
+        if (bytes < 1024) return bytes + ' B';
+        if (bytes < 1024 * 1024) return (bytes / 1024).toFixed(1) + ' KB';
+        return (bytes / (1024 * 1024)).toFixed(1) + ' MB';
+      }
+
+      function handleFileSelect(file) {
+        const validTypes = ['application/pdf', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document', 'application/msword'];
+        if (!validTypes.includes(file.type)) {
+          showMessage('Please select a PDF or Word document', 'error');
+          return;
+        }
+
+        uploadedFile = file;
+        fileName.textContent = file.name;
+        fileSize.textContent = formatFileSize(file.size);
+        fileInfo.classList.remove('hidden');
+        extractBtn.disabled = !apiKeyInput.value.trim();
+      }
+
+      function clearFile() {
+        uploadedFile = null;
+        fileInput.value = '';
+        fileInfo.classList.add('hidden');
+        splitPaneSection.classList.add('hidden');
+        exportSection.classList.add('hidden');
+        extractBtn.disabled = true;
+      }
+
+      async function testApiConnection() {
+        const apiKey = apiKeyInput.value.trim();
+        if (!apiKey) return;
+
+        testApiBtn.disabled = true;
+        testApiBtn.textContent = 'Testing...';
+        apiStatus.className = 'mt-3 p-3 rounded-lg text-sm';
+
+        try {
+          const response = await fetch(`https://generativelanguage.googleapis.com/v1/models?key=${apiKey}`);
+
+          if (response.ok) {
+            apiStatus.classList.remove('hidden');
+            apiStatus.className += ' bg-green-50 border border-green-200 text-green-800';
+            apiStatus.textContent = '✓ API key is valid';
+          } else {
+            throw new Error('Invalid API key');
+          }
+        } catch (error) {
+          apiStatus.classList.remove('hidden');
+          apiStatus.className += ' bg-red-50 border border-red-200 text-red-800';
+          apiStatus.textContent = '✗ Invalid API key or connection error';
+        } finally {
+          testApiBtn.disabled = false;
+          testApiBtn.textContent = 'Test Connection';
+        }
+      }
+
+      function showMessage(text, type) {
+        // Placeholder for status messages
+        console.log(`${type}: ${text}`);
+      }
+
+      // PDF Preview Function
+      async function renderPDFPreview(file) {
+        try {
+          const arrayBuffer = await file.arrayBuffer();
+          const pdf = await pdfjsLib.getDocument({ data: arrayBuffer }).promise;
+          
+          // Render first page
+          const page = await pdf.getPage(1);
+          const scale = 1.5;
+          const viewport = page.getViewport({ scale });
+          
+          const canvas = pdfCanvas;
+          const context = canvas.getContext('2d');
+          canvas.height = viewport.height;
+          canvas.width = viewport.width;
+          
+          const renderContext = {
+            canvasContext: context,
+            viewport: viewport
+          };
+          
+          await page.render(renderContext).promise;
+          
+          // Add page info
+          docPreview.innerHTML = `<div class="text-center mt-2 text-xs text-slate-500">Page 1 of ${pdf.numPages}</div>`;
+          
+        } catch (error) {
+          console.error('Error rendering PDF:', error);
+          docPreview.innerHTML = '<div class="text-red-600">Failed to render PDF preview</div>';
+        }
+      }
+
+      // OpenAI API Functions
+      async function extractTableData() {
+        const apiKey = apiKeyInput.value.trim();
+        if (!apiKey) {
+          showMessage('Please enter your OpenAI API key', 'error');
+          return;
+        }
+
+        if (!uploadedFile) {
+          showMessage('Please upload a document first', 'error');
+          return;
+        }
+
+        // Show processing status
+        processingStatus.classList.remove('hidden');
+        extractBtn.disabled = true;
+        processingText.textContent = 'Extracting tables from document...';
+
+        try {
+          // Convert file to base64 for API
+          const base64Data = await fileToBase64(uploadedFile);
+          
+          // Determine if PDF or Word
+          const isPDF = uploadedFile.type === 'application/pdf';
+          
+          // Call Gemini API
+          const extractedTables = await callOpenAIVision(apiKey, base64Data, isPDF);
+          
+          // Parse and display results
+          if (extractedTables && extractedTables.length > 0) {
+            extractedData = extractedTables;
+            columnHeaders = Object.keys(extractedTables[0]);
+            
+            // Show preview
+            if (isPDF) {
+              await renderPDFPreview(uploadedFile);
+            }
+            
+            // Display extracted data
+            renderDataTable();
+            renderColumnCheckboxes();
+            
+            // Show sections
+            splitPaneSection.classList.remove('hidden');
+            exportSection.classList.remove('hidden');
+            
+            processingText.textContent = `✓ Successfully extracted ${extractedTables.length} rows`;
+            setTimeout(() => {
+              processingStatus.classList.add('hidden');
+            }, 2000);
+          } else {
+            throw new Error('No tables found in document');
+          }
+          
+        } catch (error) {
+          console.error('Extraction error:', error);
+          processingText.textContent = `✗ Error: ${error.message}`;
+          setTimeout(() => {
+            processingStatus.classList.add('hidden');
+          }, 3000);
+        } finally {
+          extractBtn.disabled = false;
+        }
+      }
+
+      async function fileToBase64(file) {
+        return new Promise((resolve, reject) => {
+          const reader = new FileReader();
+          reader.onload = () => {
+            const base64 = reader.result.split(',')[1];
+            resolve(base64);
+          };
+          reader.onerror = reject;
+          reader.readAsDataURL(file);
+        });
+      }
+
+      async function callOpenAIVision(apiKey, base64Data, isPDF) {
+        const prompt = `Extract all tables from this document. This appears to be a construction schedule.
+        
+        Please extract the table data and return it as a JSON array of objects. Each object should represent one row with keys as column names.
+        
+        Common columns might include: Activity, Task, Description, Start Date, End Date, Duration, Status, Location, Trade, etc.
+        
+        Return ONLY valid JSON in this format:
+        [
+          {"Activity": "...", "Start Date": "...", "End Date": "...", ...},
+          {"Activity": "...", "Start Date": "...", "End Date": "...", ...}
+        ]
+        
+        If there are multiple tables, combine them into one array. Ensure all rows have the same structure.`;
+
+        const mimeType = isPDF ? 'application/pdf' : 'application/vnd.openxmlformats-officedocument.wordprocessingml.document';
+        
+        const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-latest:generateContent?key=${apiKey}`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            contents: [
+              {
+                parts: [
+                  {
+                    text: prompt
+                  },
+                  {
+                    inline_data: {
+                      mime_type: mimeType,
+                      data: base64Data
+                    }
+                  }
+                ]
+              }
+            ],
+            generationConfig: {
+              temperature: 0.2,
+              maxOutputTokens: 8000
+            }
+          })
+        });
+
+        if (!response.ok) {
+          const error = await response.json();
+          throw new Error(error.error?.message || 'API request failed');
+        }
+
+        const data = await response.json();
+        const content = data.candidates[0].content.parts[0].text;
+        
+        // Parse JSON from response
+        const jsonMatch = content.match(/\[[\s\S]*\]/);
+        if (!jsonMatch) {
+          throw new Error('Could not extract JSON from response');
+        }
+        
+        return JSON.parse(jsonMatch[0]);
+      }
+
+      // Data Table Rendering
+      function renderDataTable() {
+        // Render headers
+        tableHead.innerHTML = '';
+        const headerRow = document.createElement('tr');
+        
+        columnHeaders.forEach((header, index) => {
+          const th = document.createElement('th');
+          th.className = 'text-left py-2 px-3 font-medium text-slate-700 column-header';
+          
+          const input = document.createElement('input');
+          input.value = header;
+          input.className = 'w-full';
+          input.addEventListener('blur', (e) => {
+            columnHeaders[index] = e.target.value;
+            renderColumnCheckboxes();
+          });
+          
+          th.appendChild(input);
+          
+          // Add delete button
+          const deleteBtn = document.createElement('button');
+          deleteBtn.innerHTML = '×';
+          deleteBtn.className = 'ml-2 text-slate-400 hover:text-red-600 text-lg';
+          deleteBtn.addEventListener('click', () => deleteColumn(index));
+          th.appendChild(deleteBtn);
+          
+          headerRow.appendChild(th);
+        });
+        
+        tableHead.appendChild(headerRow);
+        
+        // Render body
+        tableBody.innerHTML = '';
+        extractedData.forEach((row, rowIndex) => {
+          const tr = document.createElement('tr');
+          tr.className = 'border-b border-slate-100 hover:bg-slate-50';
+          
+          columnHeaders.forEach((header) => {
+            const td = document.createElement('td');
+            td.className = 'py-2 px-3 editable-cell';
+            td.contentEditable = true;
+            td.textContent = row[header] || '';
+            
+            td.addEventListener('blur', (e) => {
+              row[header] = e.target.textContent;
+            });
+            
+            tr.appendChild(td);
+          });
+          
+          // Add delete row button
+          const tdDelete = document.createElement('td');
+          tdDelete.className = 'py-2 px-3';
+          const deleteBtn = document.createElement('button');
+          deleteBtn.innerHTML = '×';
+          deleteBtn.className = 'text-slate-400 hover:text-red-600 text-lg';
+          deleteBtn.addEventListener('click', () => deleteRow(rowIndex));
+          tdDelete.appendChild(deleteBtn);
+          tr.appendChild(tdDelete);
+          
+          tableBody.appendChild(tr);
+        });
+      }
+
+      function renderColumnCheckboxes() {
+        columnCheckboxes.innerHTML = '';
+        columnHeaders.forEach((header, index) => {
+          const label = document.createElement('label');
+          label.className = 'flex items-center gap-2 cursor-pointer hover:bg-slate-100 p-2 rounded';
+          
+          const checkbox = document.createElement('input');
+          checkbox.type = 'checkbox';
+          checkbox.checked = true;
+          checkbox.className = 'w-4 h-4';
+          checkbox.dataset.columnIndex = index;
+          
+          const span = document.createElement('span');
+          span.textContent = header;
+          span.className = 'text-sm text-slate-700';
+          
+          label.appendChild(checkbox);
+          label.appendChild(span);
+          columnCheckboxes.appendChild(label);
+        });
+      }
+
+      function addRow() {
+        const newRow = {};
+        columnHeaders.forEach(header => {
+          newRow[header] = '';
+        });
+        extractedData.push(newRow);
+        renderDataTable();
+      }
+
+      function addColumn() {
+        const newColumnName = prompt('Enter column name:', 'New Column');
+        if (newColumnName) {
+          columnHeaders.push(newColumnName);
+          extractedData.forEach(row => {
+            row[newColumnName] = '';
+          });
+          renderDataTable();
+          renderColumnCheckboxes();
+        }
+      }
+
+      function deleteRow(index) {
+        if (confirm('Delete this row?')) {
+          extractedData.splice(index, 1);
+          renderDataTable();
+        }
+      }
+
+      function deleteColumn(index) {
+        if (confirm(`Delete column "${columnHeaders[index]}"?`)) {
+          const headerToDelete = columnHeaders[index];
+          columnHeaders.splice(index, 1);
+          extractedData.forEach(row => {
+            delete row[headerToDelete];
+          });
+          renderDataTable();
+          renderColumnCheckboxes();
+        }
+      }
+
+      function downloadCSV() {
+        // Get selected columns
+        const selectedColumns = getSelectedColumns();
+        
+        // Generate CSV
+        const csvRows = [];
+        csvRows.push(selectedColumns.join(','));
+        
+        extractedData.forEach(row => {
+          const values = selectedColumns.map(col => {
+            const value = String(row[col] || '');
+            // Escape values with commas or quotes
+            if (value.includes(',') || value.includes('"') || value.includes('\n')) {
+              return '"' + value.replace(/"/g, '""') + '"';
+            }
+            return value;
+          });
+          csvRows.push(values.join(','));
+        });
+        
+        const csvContent = csvRows.join('\n');
+        downloadFile(csvContent, 'extracted_data.csv', 'text/csv');
+      }
+
+      async function downloadExcel() {
+        const selectedColumns = getSelectedColumns();
+        
+        // Create workbook
+        const workbook = new ExcelJS.Workbook();
+        const worksheet = workbook.addWorksheet('Data');
+        
+        // Add headers
+        worksheet.addRow(selectedColumns);
+        
+        // Style header
+        worksheet.getRow(1).font = { bold: true, color: { argb: 'FFFFFFFF' } };
+        worksheet.getRow(1).fill = { type: 'pattern', pattern: 'solid', fgColor: { argb: 'FF1E3A8A' } };
+        
+        // Add data
+        extractedData.forEach(row => {
+          const values = selectedColumns.map(col => row[col] || '');
+          worksheet.addRow(values);
+        });
+        
+        // Auto-size columns
+        selectedColumns.forEach((col, index) => {
+          worksheet.getColumn(index + 1).width = 20;
+        });
+        
+        // Generate and download
+        const buffer = await workbook.xlsx.writeBuffer();
+        const blob = new Blob([buffer], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
+        const url = URL.createObjectURL(blob);
+        
+        const link = document.createElement('a');
+        link.href = url;
+        link.download = 'extracted_data.xlsx';
+        link.click();
+        
+        URL.revokeObjectURL(url);
+      }
+
+      function getSelectedColumns() {
+        const checkboxes = columnCheckboxes.querySelectorAll('input[type="checkbox"]:checked');
+        return Array.from(checkboxes).map(cb => columnHeaders[parseInt(cb.dataset.columnIndex)]);
+      }
+
+      function downloadFile(content, fileName, mimeType) {
+        const blob = new Blob([content], { type: mimeType });
+        const url = URL.createObjectURL(blob);
+        
+        const link = document.createElement('a');
+        link.href = url;
+        link.download = fileName;
+        link.click();
+        
+        URL.revokeObjectURL(url);
+      }
+    </script>
+  </body>
+</html>
+
