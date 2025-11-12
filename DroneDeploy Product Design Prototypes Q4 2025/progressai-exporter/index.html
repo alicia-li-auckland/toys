@@ -164,24 +164,52 @@
 
         <!-- Export Section -->
         <div id="exportSection" class="hidden p-6">
-          <div class="flex items-center justify-between">
-            <div>
-              <h3 class="text-lg font-semibold text-slate-800">Ready to Export</h3>
-              <p class="text-sm text-slate-600">Download the formatted file for your scheduler</p>
+          <div class="flex flex-col gap-6">
+            <!-- Grouped Format Export -->
+            <div class="flex items-center justify-between">
+              <div>
+                <h3 class="text-lg font-semibold text-slate-800">Grouped Format (Hierarchical)</h3>
+                <p class="text-sm text-slate-600">Activities organized by floor/zone with location headers</p>
+              </div>
+              <div class="flex gap-3">
+                <button id="downloadCsvBtn" class="px-6 py-3 rounded-lg bg-blue-600 text-white font-semibold text-sm hover:bg-blue-700 transition-colors flex items-center gap-2">
+                  <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path>
+                  </svg>
+                  Download CSV
+                </button>
+                <button id="downloadExcelBtn" class="px-6 py-3 rounded-lg bg-green-600 text-white font-semibold text-sm hover:bg-green-700 transition-colors flex items-center gap-2">
+                  <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path>
+                  </svg>
+                  Download Excel
+                </button>
+              </div>
             </div>
-            <div class="flex gap-3">
-              <button id="downloadCsvBtn" class="px-6 py-3 rounded-lg bg-blue-600 text-white font-semibold text-sm hover:bg-blue-700 transition-colors flex items-center gap-2">
-                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path>
-                </svg>
-                Download CSV
-              </button>
-              <button id="downloadExcelBtn" class="px-6 py-3 rounded-lg bg-green-600 text-white font-semibold text-sm hover:bg-green-700 transition-colors flex items-center gap-2">
-                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path>
-                </svg>
-                Download Excel
-              </button>
+
+            <!-- Divider -->
+            <div class="border-t border-slate-200"></div>
+
+            <!-- Simple Format Export -->
+            <div class="flex items-center justify-between">
+              <div>
+                <h3 class="text-lg font-semibold text-slate-800">Simple Format (Flat Table)</h3>
+                <p class="text-sm text-slate-600">All activities in a single flat table with location column</p>
+              </div>
+              <div class="flex gap-3">
+                <button id="downloadSimpleCsvBtn" class="px-6 py-3 rounded-lg bg-blue-600 text-white font-semibold text-sm hover:bg-blue-700 transition-colors flex items-center gap-2">
+                  <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path>
+                  </svg>
+                  Download CSV
+                </button>
+                <button id="downloadSimpleExcelBtn" class="px-6 py-3 rounded-lg bg-green-600 text-white font-semibold text-sm hover:bg-green-700 transition-colors flex items-center gap-2">
+                  <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path>
+                  </svg>
+                  Download Excel
+                </button>
+              </div>
             </div>
           </div>
         </div>
@@ -228,6 +256,8 @@
       const exportSection = document.getElementById('exportSection');
       const downloadCsvBtn = document.getElementById('downloadCsvBtn');
       const downloadExcelBtn = document.getElementById('downloadExcelBtn');
+      const downloadSimpleCsvBtn = document.getElementById('downloadSimpleCsvBtn');
+      const downloadSimpleExcelBtn = document.getElementById('downloadSimpleExcelBtn');
       const previewTableBody = document.getElementById('previewTableBody');
       const locationCount = document.getElementById('locationCount');
       const zoneCount = document.getElementById('zoneCount');
@@ -238,6 +268,8 @@
       let jsonData = null;
       let csvData = [];
       let csvText = '';
+      let simpleCSVData = [];
+      let simpleCSVText = '';
       let currentTab = 'upload'; // 'upload' or 'paste'
 
       // Event Listeners
@@ -267,6 +299,8 @@
       processBtn.addEventListener('click', processJSON);
       downloadCsvBtn.addEventListener('click', downloadCSV);
       downloadExcelBtn.addEventListener('click', downloadExcel);
+      downloadSimpleCsvBtn.addEventListener('click', downloadSimpleCSV);
+      downloadSimpleExcelBtn.addEventListener('click', downloadSimpleExcel);
 
       // Functions
       function switchTab(tab) {
@@ -382,6 +416,10 @@
           // Generate CSV text
           csvText = generateCSVText(csvData);
           
+          // Build simple CSV data
+          simpleCSVData = buildSimpleCSVData(locationMapping, startDates, endDates);
+          simpleCSVText = generateCSVText(simpleCSVData);
+          
           // Calculate stats
           const stats = calculateStats(grouped, startDates);
           
@@ -476,6 +514,45 @@
         });
         
         return activities;
+      }
+
+      function buildSimpleCSVData(locationMapping, startDates, endDates) {
+        const rows = [];
+        
+        // Header row with 7 columns
+        rows.push(['ID', 'Location_Name', 'Actualised_Activity_Name', 'Scheduled Start Date', 'Scheduled End Date', 'Detected Start Date', 'Detected End Date']);
+        
+        // Process each location
+        for (const [locationId, locationName] of Object.entries(locationMapping)) {
+          const locationStartDates = startDates[locationId] || {};
+          const locationEndDates = endDates[locationId] || {};
+          
+          // Get all trades that have start dates
+          for (const [tradeName, startDate] of Object.entries(locationStartDates)) {
+            if (startDate) { // Only include if start date exists
+              rows.push([
+                locationId,
+                locationName,
+                tradeName,
+                '', // Scheduled Start Date (empty)
+                '', // Scheduled End Date (empty)
+                startDate,
+                locationEndDates[tradeName] || ''
+              ]);
+            }
+          }
+        }
+        
+        // Sort by location name, then by detected start date, then by activity name
+        const header = rows.shift();
+        rows.sort((a, b) => {
+          if (a[1] !== b[1]) return a[1].localeCompare(b[1]); // Sort by Location_Name
+          if (a[5] !== b[5]) return a[5].localeCompare(b[5]); // Sort by Detected Start Date
+          return a[2].localeCompare(b[2]); // Sort by Activity Name
+        });
+        rows.unshift(header);
+        
+        return rows;
       }
 
       function generateCSVText(rows) {
@@ -599,6 +676,22 @@
         showMessage('CSV downloaded successfully!', 'success');
       }
 
+      function downloadSimpleCSV() {
+        const blob = new Blob([simpleCSVText], { type: 'text/csv;charset=utf-8;' });
+        const link = document.createElement('a');
+        const url = URL.createObjectURL(blob);
+        
+        link.setAttribute('href', url);
+        link.setAttribute('download', 'progress_ai_simple_export.csv');
+        link.style.visibility = 'hidden';
+        
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        
+        showMessage('Simple CSV downloaded successfully!', 'success');
+      }
+
       async function downloadExcel() {
         try {
           // Create workbook and worksheet
@@ -674,6 +767,63 @@
           showMessage('Excel file downloaded successfully!', 'success');
         } catch (error) {
           showMessage('Error generating Excel file: ' + error.message, 'error');
+          console.error(error);
+        }
+      }
+
+      async function downloadSimpleExcel() {
+        try {
+          // Create workbook and worksheet
+          const workbook = new ExcelJS.Workbook();
+          const worksheet = workbook.addWorksheet('Schedule');
+          
+          // Set column widths for 7 columns
+          worksheet.columns = [
+            { width: 12 },  // ID column
+            { width: 25 },  // Location_Name column
+            { width: 35 },  // Actualised_Activity_Name column
+            { width: 20 },  // Scheduled Start Date column
+            { width: 20 },  // Scheduled End Date column
+            { width: 20 },  // Detected Start Date column
+            { width: 20 }   // Detected End Date column
+          ];
+          
+          // Add rows and apply styling
+          simpleCSVData.forEach((row, rowIndex) => {
+            const excelRow = worksheet.addRow(row);
+            
+            excelRow.eachCell({ includeEmpty: true }, (cell, colNumber) => {
+              if (rowIndex === 0) {
+                // Header row
+                cell.font = { bold: true, color: { argb: 'FFFFFFFF' } };
+                cell.fill = { type: 'pattern', pattern: 'solid', fgColor: { argb: 'FF1E3A8A' } };
+                cell.alignment = { horizontal: 'left', vertical: 'middle' };
+              } else {
+                // Data rows - simple white background
+                cell.font = { color: { argb: 'FF4B5563' } };
+                cell.fill = { type: 'pattern', pattern: 'solid', fgColor: { argb: 'FFFFFFFF' } };
+                cell.alignment = { horizontal: 'left', vertical: 'middle' };
+              }
+            });
+          });
+          
+          // Generate Excel file and trigger download
+          const buffer = await workbook.xlsx.writeBuffer();
+          const blob = new Blob([buffer], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
+          const link = document.createElement('a');
+          const url = URL.createObjectURL(blob);
+          
+          link.setAttribute('href', url);
+          link.setAttribute('download', 'progress_ai_simple_export.xlsx');
+          link.style.visibility = 'hidden';
+          
+          document.body.appendChild(link);
+          link.click();
+          document.body.removeChild(link);
+          
+          showMessage('Simple Excel file downloaded successfully!', 'success');
+        } catch (error) {
+          showMessage('Error generating simple Excel file: ' + error.message, 'error');
           console.error(error);
         }
       }

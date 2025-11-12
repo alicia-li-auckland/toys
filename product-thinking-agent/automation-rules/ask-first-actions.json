@@ -1,0 +1,136 @@
+{
+  "description": "Actions that require user confirmation before execution",
+  "version": "1.0.0",
+  "categories": {
+    "file_modifications": {
+      "description": "Any action that modifies files",
+      "actions": [
+        {
+          "action": "write_file",
+          "rationale": "Creating or overwriting files is permanent",
+          "ask_message": "I'll create/update {file_path}. Should I proceed?",
+          "conditions": ["user_approves"]
+        },
+        {
+          "action": "delete_file",
+          "rationale": "Deletion is irreversible",
+          "ask_message": "I'll delete {file_path}. This cannot be undone. Proceed?",
+          "conditions": ["user_approves", "confirm_twice_for_important"]
+        },
+        {
+          "action": "modify_code",
+          "rationale": "Code changes affect functionality",
+          "ask_message": "I'll modify {file_path} to {description}. OK?",
+          "conditions": ["user_approves"]
+        }
+      ]
+    },
+    "data_transformations": {
+      "description": "Operations that transform or process data",
+      "actions": [
+        {
+          "action": "match_datasets",
+          "rationale": "Matching affects downstream analysis",
+          "ask_message": "I'll match schedule to actual data using {strategy}. This will process {row_count} rows. Continue?",
+          "conditions": ["user_approves"],
+          "can_become_learned": true
+        },
+        {
+          "action": "detect_anomalies",
+          "rationale": "Anomaly detection may take time for large datasets",
+          "ask_message": "I'll run {detector_count} anomaly detectors on {row_count} rows. This may take a few seconds. OK?",
+          "conditions": ["user_approves"],
+          "can_become_learned": true
+        },
+        {
+          "action": "filter_data",
+          "rationale": "Filtering reduces dataset, want to confirm criteria",
+          "ask_message": "I'll filter data to {criteria}, reducing from {original_count} to ~{filtered_count} rows. Proceed?",
+          "conditions": ["user_approves"],
+          "can_become_learned": true
+        }
+      ]
+    },
+    "external_operations": {
+      "description": "Operations that interact with external systems",
+      "actions": [
+        {
+          "action": "api_call",
+          "rationale": "External API calls may have costs or side effects",
+          "ask_message": "I'll call {api_endpoint} to {purpose}. Proceed?",
+          "conditions": ["user_approves"]
+        },
+        {
+          "action": "send_email",
+          "rationale": "Sending emails is public-facing",
+          "ask_message": "I'll email {recipients} with {subject}. Send?",
+          "conditions": ["user_approves", "preview_shown"]
+        },
+        {
+          "action": "upload_file",
+          "rationale": "Uploading shares data externally",
+          "ask_message": "I'll upload {file} to {destination}. OK?",
+          "conditions": ["user_approves"]
+        }
+      ]
+    },
+    "expensive_operations": {
+      "description": "Operations that take significant time or resources",
+      "actions": [
+        {
+          "action": "process_large_file",
+          "rationale": "Large files take time and memory",
+          "ask_message": "This file is {file_size}. Processing may take {estimated_time}. Continue?",
+          "conditions": ["user_approves", "file_size_over_threshold"]
+        },
+        {
+          "action": "generate_pdf",
+          "rationale": "PDF generation can be slow",
+          "ask_message": "I'll generate a PDF report with {page_count} pages. This will take ~{estimated_time}. OK?",
+          "conditions": ["user_approves"],
+          "can_become_learned": true
+        },
+        {
+          "action": "batch_process_multiple_files",
+          "rationale": "Batch operations affect multiple files",
+          "ask_message": "I'll process {file_count} files. This will take ~{estimated_time}. Proceed?",
+          "conditions": ["user_approves"]
+        }
+      ]
+    }
+  },
+  "progressive_trust": {
+    "description": "Actions that can transition from ask-first to learned-auto",
+    "learning_conditions": [
+      "User has approved this action type 3+ times",
+      "Parameters are similar to previous approvals",
+      "No recent rejections for this action type"
+    ],
+    "transition_message": "I've noticed you always approve {action_type}. Should I auto-execute this going forward (you can change this later)?",
+    "examples": [
+      {
+        "action": "match_datasets",
+        "learned_after": "User approves matching 3 times with similar parameters",
+        "new_behavior": "Auto-match with same strategy, show results, offer to undo"
+      },
+      {
+        "action": "detect_anomalies",
+        "learned_after": "User runs anomaly detection 3+ times",
+        "new_behavior": "Auto-run when new progress data is loaded"
+      },
+      {
+        "action": "generate_pdf",
+        "learned_after": "User generates PDF exports 3+ times",
+        "new_behavior": "Auto-generate with same template, offer to customize"
+      }
+    ]
+  },
+  "notes": [
+    "Always ask before modifying files or data",
+    "Show preview when possible (especially for writes)",
+    "Estimate time for long operations",
+    "Learn user preferences over time",
+    "Allow users to configure their own trust levels"
+  ]
+}
+

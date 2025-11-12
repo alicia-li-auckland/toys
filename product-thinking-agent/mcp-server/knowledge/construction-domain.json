@@ -1,0 +1,199 @@
+{
+  "version": "1.0.0",
+  "description": "Construction domain knowledge including trade sequences, conflicts, and patterns",
+  "trade_sequence_order": {
+    "description": "Standard sequence order for construction project milestones. Each trade must complete before its dependent trades can begin.",
+    "sequence": [
+      {
+        "order": 1,
+        "name": "In Wall Insulation",
+        "code": "in_wall_insulation",
+        "prerequisites": [],
+        "description": "First trade with no prerequisites"
+      },
+      {
+        "order": 2,
+        "name": "Wall Drywall",
+        "code": "wall_drywall",
+        "prerequisites": ["in_wall_insulation"],
+        "description": "Requires In Wall Insulation completion"
+      },
+      {
+        "order": 3,
+        "name": "Overhead Plumbing",
+        "code": "overhead_plumbing",
+        "prerequisites": ["wall_drywall"],
+        "description": "Requires Wall Drywall completion"
+      },
+      {
+        "order": 4,
+        "name": "Overhead Duct Rough In",
+        "code": "overhead_duct_rough_in",
+        "prerequisites": ["overhead_plumbing"],
+        "description": "Requires Overhead Plumbing completion"
+      },
+      {
+        "order": 5,
+        "name": "Overhead Duct Insulation",
+        "code": "overhead_duct_insulation",
+        "prerequisites": ["overhead_duct_rough_in"],
+        "description": "Requires Overhead Duct Rough In completion"
+      },
+      {
+        "order": 6,
+        "name": "Wall Drywall Finish",
+        "code": "wall_drywall_finish",
+        "prerequisites": ["overhead_duct_insulation"],
+        "description": "Requires Overhead Duct Insulation completion"
+      },
+      {
+        "order": 7,
+        "name": "Wall Prime Paint",
+        "code": "wall_prime_paint",
+        "prerequisites": ["wall_drywall_finish"],
+        "description": "Requires Wall Drywall Finish completion"
+      }
+    ]
+  },
+  "conflicting_trade_pairs": {
+    "description": "Trade pairs that cannot be active simultaneously in the same location",
+    "conflicts": [
+      {
+        "trade_a": "overhead_duct_rough_in",
+        "trade_b": "wall_prime_paint",
+        "reason": "Physical space conflict - cannot paint while installing ductwork"
+      },
+      {
+        "trade_a": "overhead_plumbing",
+        "trade_b": "wall_drywall_finish",
+        "reason": "Plumbing work may damage finished drywall"
+      },
+      {
+        "trade_a": "overhead_duct_insulation",
+        "trade_b": "wall_prime_paint",
+        "reason": "Insulation debris affects paint quality"
+      },
+      {
+        "trade_a": "wall_drywall",
+        "trade_b": "overhead_duct_rough_in",
+        "reason": "Ductwork must go in before drywall covers ceiling"
+      }
+    ]
+  },
+  "standard_trade_categories": {
+    "description": "Standard construction trade categories with common aliases",
+    "categories": [
+      {
+        "name": "Site & Excavation",
+        "code": "site_excavation",
+        "aliases": ["Site Preparation", "Excavation", "Earthwork", "Grading"],
+        "activity_code": "M"
+      },
+      {
+        "name": "Foundations",
+        "code": "foundations",
+        "aliases": ["Foundation", "Concrete Foundation", "Footings", "SOG"],
+        "activity_code": "N"
+      },
+      {
+        "name": "Structure",
+        "code": "structure",
+        "aliases": ["Structural", "Steel", "Framing", "Concrete Structure"],
+        "activity_code": "P"
+      },
+      {
+        "name": "Enclosure",
+        "code": "enclosure",
+        "aliases": ["Building Envelope", "Exterior Walls", "Roofing", "Windows"],
+        "activity_code": "Q"
+      },
+      {
+        "name": "Interior Rough-In",
+        "code": "interior_rough_in",
+        "aliases": ["MEP Rough-In", "Plumbing Rough", "Electrical Rough", "HVAC Rough"],
+        "activity_code": "S"
+      },
+      {
+        "name": "Equipment",
+        "code": "equipment",
+        "aliases": ["Equipment Install", "Mechanical Equipment", "HVAC Units"],
+        "activity_code": "T"
+      },
+      {
+        "name": "Finishes",
+        "code": "finishes",
+        "aliases": ["Drywall", "Paint", "Flooring", "Interior Finishes", "Ceiling"],
+        "activity_code": "U"
+      },
+      {
+        "name": "Site Improvements",
+        "code": "site_improvements",
+        "aliases": ["Landscaping", "Paving", "Site Utilities", "Parking"],
+        "activity_code": "V"
+      }
+    ]
+  },
+  "non_construction_codes": {
+    "description": "Activity codes for non-construction activities (typically filtered out in construction-only views)",
+    "codes": [
+      {
+        "code": "A",
+        "type": "Milestones",
+        "description": "Project milestone markers"
+      },
+      {
+        "code": "D",
+        "type": "Design",
+        "description": "Design phase activities"
+      },
+      {
+        "code": "E",
+        "type": "Pre-Construction",
+        "description": "Pre-construction planning"
+      },
+      {
+        "code": "H",
+        "type": "Procurement",
+        "description": "Material and equipment procurement"
+      },
+      {
+        "code": "L",
+        "type": "Mobilization",
+        "description": "Site mobilization activities"
+      },
+      {
+        "code": "X",
+        "type": "Close-Out",
+        "description": "Project closeout activities"
+      }
+    ]
+  },
+  "common_abbreviations": {
+    "description": "Common construction abbreviations and their meanings",
+    "abbreviations": {
+      "SOG": "Slab on Grade / Concrete Pour",
+      "MEP": "Mechanical, Electrical, Plumbing",
+      "HVAC": "Heating, Ventilation, Air Conditioning",
+      "GWB": "Gypsum Wall Board / Drywall",
+      "ACT": "Acoustic Ceiling Tile",
+      "VCT": "Vinyl Composition Tile",
+      "CMU": "Concrete Masonry Unit",
+      "RFP": "Request for Proposal",
+      "RFI": "Request for Information",
+      "WBS": "Work Breakdown Structure",
+      "FF&E": "Furniture, Fixtures & Equipment"
+    }
+  },
+  "typical_project_structure": {
+    "description": "Typical construction project data structure",
+    "phases": [
+      "Project Management",
+      "Procurement",
+      "Construction",
+      "Closeout"
+    ],
+    "wbs_levels": "Typically 4+ hierarchical levels",
+    "activity_count": "Ranges from 500 (small) to 50,000+ (large complex projects)"
+  }
+}
+

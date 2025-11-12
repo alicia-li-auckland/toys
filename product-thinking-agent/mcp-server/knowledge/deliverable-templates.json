@@ -1,0 +1,241 @@
+{
+  "version": "1.0.0",
+  "description": "Common prototype patterns and deliverable types for rapid experimentation",
+  "deliverable_types": [
+    {
+      "name": "Schedule vs Actual Matching Tool",
+      "description": "Match actual construction progress data against scheduled activities",
+      "typical_inputs": [
+        "Schedule file (XER, CSV, Excel)",
+        "Actual progress data (CSV from Progress AI or customer)"
+      ],
+      "typical_outputs": [
+        "Matched activities with confidence scores",
+        "Unmatched items flagged for review",
+        "Variance analysis (schedule vs actual)",
+        "Export as CSV or interactive dashboard"
+      ],
+      "technical_stack_options": [
+        "Single HTML file with vanilla JS (portable, no build)",
+        "Vite + React + shadcn/ui (fast iteration, component reuse)",
+        "Node.js script + CSV output (headless processing)"
+      ],
+      "key_features": [
+        "Fuzzy matching with confidence scores",
+        "Manual review interface for low-confidence matches",
+        "Visual indication of match quality",
+        "Export/handoff capability"
+      ]
+    },
+    {
+      "name": "Interactive Data Dashboard",
+      "description": "Customer-facing dashboard showing project status",
+      "typical_inputs": [
+        "Progress data (CSV or JSON)",
+        "Schedule data (optional for comparison)",
+        "Project metadata"
+      ],
+      "typical_outputs": [
+        "Interactive visualizations (charts, tables)",
+        "Filtering and drill-down capabilities",
+        "Export to PDF or CSV"
+      ],
+      "technical_stack_options": [
+        "Single HTML with Chart.js/D3 (standalone)",
+        "Vite + React + Recharts (modern, interactive)",
+        "Observable notebook (exploratory analysis)"
+      ],
+      "key_features": [
+        "Real-time filtering by location/trade",
+        "Progress over time visualizations",
+        "Completion percentage summaries",
+        "Mobile-responsive design"
+      ]
+    },
+    {
+      "name": "Anomaly Detection Report",
+      "description": "Identify construction progress anomalies and patterns",
+      "typical_inputs": [
+        "Progress data with timestamps (CSV)",
+        "Schedule data (for sequence validation)",
+        "Trade dependency rules"
+      ],
+      "typical_outputs": [
+        "List of detected anomalies with severity",
+        "Visual heat maps of problem areas",
+        "Recommendations for investigation",
+        "Export as PDF report or interactive HTML"
+      ],
+      "technical_stack_options": [
+        "Node.js script with HTML report generation",
+        "Python notebook for analysis + visualization",
+        "Web app with interactive drill-down"
+      ],
+      "key_features": [
+        "15 anomaly detection algorithms",
+        "Confidence scoring for each detection",
+        "Grouped by severity/type",
+        "Actionable recommendations"
+      ]
+    },
+    {
+      "name": "Schedule Converter/Parser",
+      "description": "Parse and visualize construction schedules",
+      "typical_inputs": [
+        "Schedule file (XER, MSP, PDF, Excel)"
+      ],
+      "typical_outputs": [
+        "Gantt chart visualization",
+        "Trade-grouped activity lists",
+        "Timeline view",
+        "Export as CSV or JSON"
+      ],
+      "technical_stack_options": [
+        "Web app with dhtmlx-gantt or similar",
+        "Vite + React + custom timeline component",
+        "Static HTML with data visualization"
+      ],
+      "key_features": [
+        "Multi-format parsing support",
+        "Activity grouping by trade/location",
+        "Dependency visualization",
+        "Construction-only filtering"
+      ]
+    },
+    {
+      "name": "Progress Comparison View",
+      "description": "Side-by-side comparison of multiple projects or time periods",
+      "typical_inputs": [
+        "Progress data for multiple projects/periods (CSV)",
+        "Project metadata"
+      ],
+      "typical_outputs": [
+        "Comparative visualizations",
+        "Variance analysis",
+        "Best/worst performers highlighted",
+        "Export as report"
+      ],
+      "technical_stack_options": [
+        "React with comparison grid layout",
+        "D3.js for custom visualizations",
+        "Observable for exploratory analysis"
+      ],
+      "key_features": [
+        "Normalize data for fair comparison",
+        "Highlight significant variances",
+        "Filter by trade/location/timeframe",
+        "Trend analysis"
+      ]
+    },
+    {
+      "name": "PDF Export Generator",
+      "description": "Generate formatted PDF reports from data",
+      "typical_inputs": [
+        "Data to visualize (CSV, JSON)",
+        "Report template/structure"
+      ],
+      "typical_outputs": [
+        "Formatted PDF with charts and tables",
+        "Professional layout",
+        "Customer branding"
+      ],
+      "technical_stack_options": [
+        "Node.js with Puppeteer (HTML to PDF)",
+        "jsPDF with custom layout",
+        "Server-side rendering + PDF library"
+      ],
+      "key_features": [
+        "Template-based generation",
+        "Include charts and visualizations",
+        "Professional formatting",
+        "Automated generation workflow"
+      ]
+    },
+    {
+      "name": "Data Analysis Notebook",
+      "description": "Exploratory analysis of construction data",
+      "typical_inputs": [
+        "Raw construction data (any format)"
+      ],
+      "typical_outputs": [
+        "Insights and patterns",
+        "Statistical summaries",
+        "Visualizations",
+        "Findings documentation"
+      ],
+      "technical_stack_options": [
+        "Observable notebook (JavaScript)",
+        "Jupyter notebook (Python)",
+        "HTML with embedded analysis"
+      ],
+      "key_features": [
+        "Interactive exploration",
+        "Real-time data manipulation",
+        "Shareable results",
+        "Reproducible analysis"
+      ]
+    }
+  ],
+  "common_patterns": {
+    "file_upload_handling": {
+      "description": "Pattern for handling file uploads in prototypes",
+      "options": [
+        "Drag-and-drop with FileReader API",
+        "File input with immediate parsing",
+        "Paste data from clipboard"
+      ],
+      "libraries": ["papaparse for CSV", "fast-xml-parser for XER", "xlsx for Excel"]
+    },
+    "data_visualization": {
+      "description": "Common visualization patterns",
+      "options": [
+        "Gantt charts for schedules",
+        "Heat maps for location × trade matrices",
+        "Line charts for progress over time",
+        "Bar charts for comparisons",
+        "Tables with sorting/filtering"
+      ],
+      "libraries": [
+        "Chart.js (simple, lightweight)",
+        "D3.js (powerful, custom)",
+        "Recharts (React-friendly)",
+        "dhtmlx-gantt (specialized for schedules)"
+      ]
+    },
+    "export_capabilities": {
+      "description": "Common export formats",
+      "formats": [
+        "CSV (universal compatibility)",
+        "JSON (API integration)",
+        "PDF (presentation/reports)",
+        "Excel (customer preference)",
+        "PNG/SVG (visualizations)"
+      ],
+      "libraries": [
+        "papaparse (CSV)",
+        "jsPDF (PDF)",
+        "xlsx (Excel)",
+        "html2canvas (screenshots)"
+      ]
+    }
+  },
+  "technical_considerations": {
+    "performance": {
+      "small_datasets": "< 1,000 rows - can process entirely in browser",
+      "medium_datasets": "1,000 - 10,000 rows - use Web Workers for heavy processing",
+      "large_datasets": "10,000+ rows - consider server-side processing or chunking"
+    },
+    "portability": {
+      "single_file": "Easiest for sharing - all JS/CSS inline",
+      "multi_file": "Better organization - requires hosting or bundling",
+      "dependencies": "Minimize for rapid iteration - use CDN for libraries when needed"
+    },
+    "maintainability": {
+      "documentation": "Always include inline comments explaining business logic",
+      "data_validation": "Validate inputs and show helpful error messages",
+      "edge_cases": "Handle missing data, empty files, malformed input",
+      "testing": "Include sample data files for quick testing"
+    }
+  }
+}
+

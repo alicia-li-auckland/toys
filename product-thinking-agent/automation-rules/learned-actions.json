@@ -1,0 +1,126 @@
+{
+  "description": "Actions that have been approved multiple times and can now run automatically with user's permission",
+  "version": "1.0.0",
+  "learning_system": {
+    "how_it_works": [
+      "Track user approvals/rejections for each action type",
+      "After 3 consistent approvals, suggest auto-execution",
+      "User can approve auto-execution for this action going forward",
+      "Still show what was done and offer undo",
+      "User can revoke auto-execution at any time"
+    ],
+    "confidence_threshold": {
+      "min_approvals": 3,
+      "max_rejections": 0,
+      "parameter_similarity": 0.8
+    }
+  },
+  "learned_actions_template": {
+    "action_id": "unique_identifier",
+    "action_type": "match_datasets",
+    "learned_date": "2024-12-01",
+    "approval_count": 5,
+    "rejection_count": 0,
+    "typical_parameters": {
+      "strategy": "hybrid",
+      "confidence_threshold": 0.8,
+      "data_size_range": "1000-10000 rows"
+    },
+    "auto_execution_approved": true,
+    "notifications": {
+      "show_completion_message": true,
+      "show_summary_stats": true,
+      "offer_undo": true
+    }
+  },
+  "example_learned_actions": [
+    {
+      "action_id": "match_schedule_hybrid",
+      "action_type": "match_datasets",
+      "learned_date": "2024-12-01",
+      "approval_count": 5,
+      "rejection_count": 0,
+      "typical_parameters": {
+        "strategy": "hybrid",
+        "confidence_threshold": 0.8
+      },
+      "auto_execution_approved": true,
+      "behavior": {
+        "pre_message": "Running hybrid matching (you approved auto-execution)...",
+        "post_message": "✓ Matched {matched_count} of {total_count} rows ({match_rate}%). [Undo]",
+        "show_summary": true
+      }
+    },
+    {
+      "action_id": "detect_anomalies_all",
+      "action_type": "detect_anomalies",
+      "learned_date": "2024-12-01",
+      "approval_count": 4,
+      "rejection_count": 0,
+      "typical_parameters": {
+        "detectors": ["all"]
+      },
+      "auto_execution_approved": true,
+      "behavior": {
+        "pre_message": "Running anomaly detection...",
+        "post_message": "✓ Found {anomaly_count} anomalies across {detector_count} checks. [View Details]",
+        "show_summary": true
+      }
+    },
+    {
+      "action_id": "export_csv_filtered",
+      "action_type": "export_csv",
+      "learned_date": "2024-12-01",
+      "approval_count": 3,
+      "rejection_count": 0,
+      "typical_parameters": {
+        "format": "csv",
+        "include_filters": true
+      },
+      "auto_execution_approved": true,
+      "behavior": {
+        "pre_message": "Exporting filtered data to CSV...",
+        "post_message": "✓ Exported {row_count} rows to {filename}. [Download]",
+        "show_summary": true
+      }
+    }
+  ],
+  "tracking_schema": {
+    "action_history": [
+      {
+        "timestamp": "2024-12-01T10:00:00Z",
+        "action_type": "match_datasets",
+        "parameters": { "strategy": "hybrid", "threshold": 0.8 },
+        "user_response": "approved",
+        "execution_time_ms": 1500,
+        "result_summary": { "matched": 450, "total": 500 }
+      }
+    ]
+  },
+  "user_controls": {
+    "view_learned_actions": "Show list of actions that run automatically",
+    "revoke_action": "Stop auto-executing a specific action",
+    "adjust_threshold": "Change confidence threshold for learning",
+    "reset_all": "Clear all learned actions, start fresh"
+  },
+  "safety_features": {
+    "never_auto_execute": [
+      "file deletion",
+      "data overwrites",
+      "external API calls with side effects",
+      "sending emails or messages"
+    ],
+    "always_show_summary": true,
+    "always_offer_undo": "Where possible, allow user to undo auto-executed actions",
+    "log_all_actions": "Keep audit trail of what was auto-executed"
+  },
+  "notes": [
+    "Learned actions make repeat tasks faster",
+    "User always stays in control",
+    "Can revoke auto-execution at any time",
+    "Still shows what was done (transparency)",
+    "Offers undo when possible",
+    "Never learn destructive actions"
+  ]
+}
+

@@ -1,0 +1,93 @@
+{
+  "description": "Actions that are always safe to execute automatically without asking user permission",
+  "version": "1.0.0",
+  "categories": {
+    "file_reading": {
+      "description": "Reading files to understand context",
+      "actions": [
+        {
+          "action": "read_file",
+          "rationale": "Reading files is read-only and helps understand context",
+          "conditions": ["file_exists", "within_workspace"]
+        },
+        {
+          "action": "list_directory",
+          "rationale": "Listing directory contents is read-only exploration",
+          "conditions": ["within_workspace"]
+        },
+        {
+          "action": "search_codebase",
+          "rationale": "Searching helps find relevant code without modifications",
+          "conditions": []
+        }
+      ]
+    },
+    "data_analysis": {
+      "description": "Analyzing data without modifying anything",
+      "actions": [
+        {
+          "action": "parse_csv",
+          "rationale": "Parsing CSV files to understand data structure",
+          "conditions": ["file_size_reasonable"]
+        },
+        {
+          "action": "parse_xer",
+          "rationale": "Parsing XER files to extract schedule data",
+          "conditions": ["file_size_reasonable"]
+        },
+        {
+          "action": "analyze_data_structure",
+          "rationale": "Understanding data format before processing",
+          "conditions": []
+        },
+        {
+          "action": "calculate_statistics",
+          "rationale": "Computing summary stats for analysis",
+          "conditions": []
+        }
+      ]
+    },
+    "mcp_tools_read": {
+      "description": "Read-only MCP tool invocations",
+      "actions": [
+        {
+          "action": "analyze_schedule",
+          "rationale": "Analyzing schedule files to understand structure",
+          "conditions": ["analysis_type_is_readonly"]
+        },
+        {
+          "action": "read_knowledge_resource",
+          "rationale": "Loading domain knowledge to inform decisions",
+          "conditions": []
+        }
+      ]
+    },
+    "validation": {
+      "description": "Validating data without modifications",
+      "actions": [
+        {
+          "action": "validate_data_format",
+          "rationale": "Checking if data meets expected format",
+          "conditions": []
+        },
+        {
+          "action": "check_file_exists",
+          "rationale": "Verifying files exist before operations",
+          "conditions": []
+        },
+        {
+          "action": "validate_column_headers",
+          "rationale": "Ensuring required columns are present",
+          "conditions": []
+        }
+      ]
+    }
+  },
+  "notes": [
+    "These actions never modify files or data",
+    "They help gather context for informed decision-making",
+    "Can be executed silently without user interruption",
+    "Should still log actions for transparency"
+  ]
+}
+

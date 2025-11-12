@@ -1,0 +1,157 @@
+{
+  "version": "1.0.0",
+  "description": "Known data formats and schemas for customer construction data",
+  "file_formats": {
+    "xer": {
+      "name": "Primavera P6 XER Format",
+      "description": "Text-based export format from Oracle Primavera P6",
+      "structure": "Tab-delimited tables with headers",
+      "encoding": "UTF-8 or Windows-1252",
+      "key_tables": {
+        "PROJECT": "Project metadata and settings",
+        "PROJWBS": "Work Breakdown Structure hierarchy",
+        "TASK": "Individual activities/tasks",
+        "TASKPRED": "Task dependencies and relationships",
+        "ACTVTYPE": "Activity code type definitions",
+        "ACTVCODE": "Individual activity codes and values",
+        "TASKACTV": "Links between tasks and activity codes",
+        "CALENDAR": "Project calendars",
+        "RSRC": "Resource definitions",
+        "TASKRSRC": "Resource assignments to tasks"
+      },
+      "common_fields": {
+        "task_id": "Unique identifier for activities",
+        "task_name": "Activity description",
+        "task_code": "Short activity code",
+        "start_date": "Planned start date",
+        "end_date": "Planned finish date",
+        "duration": "Planned duration in hours/days",
+        "percent_complete": "Completion percentage",
+        "wbs_id": "Link to WBS hierarchy",
+        "status_code": "Activity status (TK_NotStart, TK_Active, TK_Complete)"
+      }
+    },
+    "csv_progress_data": {
+      "name": "Construction Progress CSV",
+      "description": "Actual construction progress tracking data",
+      "typical_columns": [
+        "location",
+        "trade",
+        "activity_name",
+        "completion_percentage",
+        "status",
+        "start_date",
+        "last_updated",
+        "notes"
+      ],
+      "variations": [
+        {
+          "source": "DroneDeploy Progress AI",
+          "columns": ["Location", "Trade", "Status", "Completion %", "Last Activity Date"]
+        },
+        {
+          "source": "Customer Export",
+          "columns": ["Zone", "Activity", "% Complete", "Trade Type", "Updated"]
+        }
+      ]
+    },
+    "csv_trades_locations": {
+      "name": "Trades × Locations Matrix",
+      "description": "Matrix showing trade activities across project locations",
+      "structure": {
+        "rows": "Locations (buildings, floors, rooms, zones)",
+        "columns": "Trades (concrete, framing, MEP, finishes, etc.)",
+        "values": "Completion percentage or status"
+      },
+      "sample_structure": {
+        "Location": "string",
+        "Building": "string (optional)",
+        "Floor": "string (optional)",
+        "Trade_1": "number (0-100)",
+        "Trade_2": "number (0-100)",
+        "Trade_N": "number (0-100)"
+      }
+    },
+    "synthesized_data": {
+      "name": "Synthesized Construction Data",
+      "description": "Combined schedule + progress data for analysis",
+      "typical_fields": [
+        "activity_id",
+        "activity_name",
+        "location",
+        "trade",
+        "scheduled_start",
+        "scheduled_finish",
+        "actual_start",
+        "actual_completion_pct",
+        "variance_days",
+        "status"
+      ]
+    }
+  },
+  "data_quality_patterns": {
+    "common_issues": [
+      {
+        "issue": "Inconsistent trade naming",
+        "example": "'Concrete' vs 'Concrete Pour' vs 'SOG'",
+        "solution": "Trade mapping dictionary with fuzzy matching"
+      },
+      {
+        "issue": "Location naming variations",
+        "example": "'Building A - Floor 2' vs 'A-2' vs 'Bldg A 2nd Floor'",
+        "solution": "Location normalization rules"
+      },
+      {
+        "issue": "Missing data fields",
+        "example": "Activities without completion dates or trade assignments",
+        "solution": "Inference from activity names or manual mapping"
+      },
+      {
+        "issue": "Duplicate activities",
+        "example": "Same activity appears multiple times with different IDs",
+        "solution": "Deduplication by location + trade + name similarity"
+      }
+    ]
+  },
+  "matching_strategies": {
+    "description": "Strategies for matching schedule activities to actual progress",
+    "strategies": [
+      {
+        "name": "Exact ID Match",
+        "use_case": "When both datasets share a common unique identifier",
+        "accuracy": "100% (when IDs exist)",
+        "performance": "Fast (O(n))",
+        "implementation": "Hash map lookup"
+      },
+      {
+        "name": "Location + Trade Match",
+        "use_case": "No shared IDs, but location and trade names are consistent",
+        "accuracy": "80-95% (depends on naming consistency)",
+        "performance": "Fast (O(n log n))",
+        "implementation": "Multi-key index with normalization"
+      },
+      {
+        "name": "Fuzzy String Match",
+        "use_case": "Naming variations exist, need similarity scoring",
+        "accuracy": "70-90% (with confidence thresholds)",
+        "performance": "Slow (O(n²) or O(n log n) with indexing)",
+        "implementation": "Levenshtein distance, Jaro-Winkler, or natural.js"
+      },
+      {
+        "name": "Rule-Based Match",
+        "use_case": "Known customer-specific patterns",
+        "accuracy": "90-95% (for defined rules)",
+        "performance": "Fast (O(n))",
+        "implementation": "Regular expressions and mapping tables"
+      },
+      {
+        "name": "Hybrid Two-Pass",
+        "use_case": "Large datasets with mixed quality",
+        "accuracy": "85-95%",
+        "performance": "Moderate",
+        "implementation": "Pass 1: Exact/rule-based. Pass 2: Fuzzy for remainder"
+      }
+    ]
+  }
+}
+
