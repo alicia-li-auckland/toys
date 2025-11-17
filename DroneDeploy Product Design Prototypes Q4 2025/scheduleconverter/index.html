@@ -288,6 +288,9 @@
           
           if (file.name.endsWith('.csv')) {
             actualData = parseCSVData(content);
+            console.log('✓ CSV Loaded:', actualData.length, 'records');
+            console.log('Sample record:', actualData[0]);
+            console.log('Columns:', Object.keys(actualData[0] || {}));
           } else if (file.name.endsWith('.json')) {
             const jsonData = JSON.parse(content);
             
@@ -488,12 +491,26 @@
         select.appendChild(option);
       });
       
-      // Auto-select if there's a column with 'name' or 'activity' in it
-      const nameCol = actualColumns.find(c => 
-        c.toLowerCase().includes('name') || c.toLowerCase().includes('activity')
+      // Auto-select column: prioritize "Actualised_Activity_Name", then any column with 'name' or 'activity'
+      let nameCol = actualColumns.find(c => 
+        c === 'Actualised_Activity_Name' || c === 'actualised_activity_name'
       );
+      
+      if (!nameCol) {
+        nameCol = actualColumns.find(c => 
+          c.toLowerCase().includes('activity') && c.toLowerCase().includes('name')
+        );
+      }
+      
+      if (!nameCol) {
+        nameCol = actualColumns.find(c => 
+          c.toLowerCase().includes('name') || c.toLowerCase().includes('activity')
+        );
+      }
+      
       if (nameCol) {
         select.value = nameCol;
+        console.log('✓ Auto-selected column:', nameCol);
       }
     }
 
@@ -510,6 +527,12 @@
         const nameColumn = document.getElementById('actualNameColumn').value || detectNameColumn();
         const threshold = parseInt(document.getElementById('confidenceThreshold').value) / 100;
         
+        console.log('\n===== STARTING MATCH =====');
+        console.log('Threshold:', threshold);
+        console.log('Detected activity name column:', nameColumn);
+        console.log('Total schedule items:', scheduleData.length);
+        console.log('Total actual items:', actualData.length);
+        
         matchedData = [];
         
         scheduleData.forEach((scheduleItem, index) => {
@@ -518,12 +541,17 @@
           // Extract location from schedule name (e.g., "HA 13" from "Activity-HA 13")
           const scheduleLocation = extractLocationFromScheduleName(scheduleName);
           
-          // Debug logging for first 5 items that contain "Drill" and have location
-          const shouldDebug = index < 100 && scheduleName.toLowerCase().includes('drill') && scheduleLocation.numbers.length > 0;
+          // Debug logging for items that contain "Drill" OR "Epoxy" and have location HA 08 or HA 04
+          const shouldDebug = index < 500 && 
+            (scheduleName.toLowerCase().includes('drill') || scheduleName.toLowerCase().includes('epoxy')) && 
+            scheduleLocation.numbers.length > 0 &&
+            (scheduleLocation.numbers[0] === 8 || scheduleLocation.numbers[0] === 4);
+          
           if (shouldDebug) {
             console.log('\n=== MATCHING DEBUG ===');
             console.log('Schedule Activity:', scheduleName);
-            console.log('Extracted Location:', scheduleLocation);
+            console.log('Extracted Schedule Location:', scheduleLocation);
+            console.log('Looking for location number:', scheduleLocation.numbers[0]);
           }
           
           // Find best match in actual data
@@ -546,8 +574,25 @@
             });
             
             if (shouldDebug) {
-              console.log(`Location Filter: Looking for number ${scheduleNum}`);
-              console.log(`  Found ${locationFilteredData.length} location-matching records out of ${actualData.length} total`);
+              console.log(`\nLocation Filter: Looking for number ${scheduleNum}`);
+              console.log(`  Total actual data records: ${actualData.length}`);
+              console.log(`  Found ${locationFilteredData.length} location-matching records`);
+              
+              // Show what locations we're checking
+              const sampleLocations = actualData.slice(0, 10).map(item => {
+                const loc = item.Location_Name || item.location || '';
+                const nums = extractNumbersFromLocation(loc);
+                return `${loc} → [${nums.join(', ')}]`;
+              });
+              console.log(`  Sample location parsing:`, sampleLocations);
+              
+              // Show matched locations
+              if (locationFilteredData.length > 0) {
+                const matchedLocs = locationFilteredData.slice(0, 5).map(item => 
+                  item.Location_Name || item.location || ''
+                );
+                console.log(`  Matched locations (first 5):`, matchedLocs);
+              }
             }
             
             // If we found location matches, use only those. Otherwise fall back to all data.
@@ -703,26 +748,26 @@
     function extractNumbersFromLocation(locationText) {
       // Extract numbers from location strings like:
       // "RACK 13-14" → [13, 14]
-      // "RACK 11-12" → [11, 12]
+      // "HA 08-09" → [8, 9]
       // "HA 29" → [29]
       
       const numbers = [];
       
-      // Check for range pattern like "13-14" or "11-12"
+      // Check for range pattern like "13-14" or "08-09" or "11-12"
       const rangeMatch = locationText.match(/(\d+)\s*-\s*(\d+)/);
       if (rangeMatch) {
-        const start = parseInt(rangeMatch[1]);
-        const end = parseInt(rangeMatch[2]);
+        const start = parseInt(rangeMatch[1], 10); // Use base 10 to handle leading zeros
+        const end = parseInt(rangeMatch[2], 10);
         for (let i = start; i <= end; i++) {
           numbers.push(i);
         }
         return numbers;
       }
       
-      // Extract single numbers
+      // Extract single numbers (handle leading zeros by parsing with base 10)
       const singleMatches = locationText.match(/\d+/g);
       if (singleMatches) {
-        return singleMatches.map(n => parseInt(n));
+        return singleMatches.map(n => parseInt(n, 10));
       }
       
       return [];
