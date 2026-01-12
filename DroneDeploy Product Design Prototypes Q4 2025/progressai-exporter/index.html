@@ -396,6 +396,38 @@
         if (!data.locationKeyToName) throw new Error('Missing required key: locationKeyToName');
         if (!data.dateTradeStarted) throw new Error('Missing required key: dateTradeStarted');
         if (!data.dateTradeCompleted) throw new Error('Missing required key: dateTradeCompleted');
+        // table is optional - if present, we'll use it for status data
+      }
+
+      // Extract the most recent status for each location-trade combination
+      function extractTradeStatus(tableData) {
+        const tradeStatus = {}; // { locationId: { tradeName: status } }
+        
+        if (!tableData) return tradeStatus;
+        
+        // Get all dates and sort them to find the most recent
+        const dates = Object.keys(tableData).sort().reverse();
+        
+        // For each location-trade, find the most recent status
+        for (const date of dates) {
+          const dateData = tableData[date];
+          
+          for (const [locationId, trades] of Object.entries(dateData)) {
+            if (!tradeStatus[locationId]) {
+              tradeStatus[locationId] = {};
+            }
+            
+            for (const [tradeName, status] of Object.entries(trades)) {
+              // Only set if we haven't seen this location-trade combination yet
+              // (since we're iterating from most recent to oldest)
+              if (!tradeStatus[locationId][tradeName]) {
+                tradeStatus[locationId][tradeName] = status;
+              }
+            }
+          }
+        }
+        
+        return tradeStatus;
       }
 
       function processJSON() {
@@ -406,6 +438,7 @@
           const locationMapping = jsonData.locationKeyToName;
           const startDates = jsonData.dateTradeStarted || {};
           const endDates = jsonData.dateTradeCompleted || {};
+          const tradeStatus = extractTradeStatus(jsonData.table);
 
           // Group locations by floor/zone
           const grouped = groupLocationsByFloor(locationMapping);
@@ -417,7 +450,7 @@
           csvText = generateCSVText(csvData);
           
           // Build simple CSV data
-          simpleCSVData = buildSimpleCSVData(locationMapping, startDates, endDates);
+          simpleCSVData = buildSimpleCSVData(locationMapping, startDates, endDates, tradeStatus);
           simpleCSVText = generateCSVText(simpleCSVData);
           
           // Calculate stats
@@ -537,34 +570,38 @@
         return activities;
       }
 
-      function buildSimpleCSVData(locationMapping, startDates, endDates) {
+      function buildSimpleCSVData(locationMapping, startDates, endDates, tradeStatus = {}) {
         const rows = [];
         
-        // Header row with 7 columns
-        rows.push(['ID', 'Location_Name', 'Actualised_Activity_Name', 'Scheduled Start Date', 'Scheduled End Date', 'Detected Start Date', 'Detected End Date']);
+        // Header row with 8 columns (added Status column)
+        rows.push(['ID', 'Location_Name', 'Actualised_Activity_Name', 'Status', 'Scheduled Start Date', 'Scheduled End Date', 'Detected Start Date', 'Detected End Date']);
         
         // Process each location
         for (const [locationId, locationName] of Object.entries(locationMapping)) {
           const locationStartDates = startDates[locationId] || {};
           const locationEndDates = endDates[locationId] || {};
+          const locationStatus = tradeStatus[locationId] || {};
           
-          // Get all unique trade names from both start and end dates
+          // Get all unique trade names from start dates, end dates, and status
           const allTradeNames = new Set([
             ...Object.keys(locationStartDates),
-            ...Object.keys(locationEndDates)
+            ...Object.keys(locationEndDates),
+            ...Object.keys(locationStatus)
           ]);
           
-          // Include all trades that have either a start date or end date
+          // Include all trades that have either a start date, end date, or status
           for (const tradeName of allTradeNames) {
             const startDate = locationStartDates[tradeName] || '';
             const endDate = locationEndDates[tradeName] || '';
+            const status = locationStatus[tradeName] || '';
             
-            // Only include if at least one date exists
-            if (startDate || endDate) {
+            // Only include if at least one field exists
+            if (startDate || endDate || status) {
               rows.push([
                 locationId,
                 locationName,
                 tradeName,
+                status, // Status column (not started/in progress/complete/no data)
                 '', // Scheduled Start Date (empty)
                 '', // Scheduled End Date (empty)
                 startDate,
@@ -578,7 +615,7 @@
         const header = rows.shift();
         rows.sort((a, b) => {
           if (a[1] !== b[1]) return a[1].localeCompare(b[1]); // Sort by Location_Name
-          if (a[5] !== b[5]) return a[5].localeCompare(b[5]); // Sort by Detected Start Date
+          if (a[6] !== b[6]) return a[6].localeCompare(b[6]); // Sort by Detected Start Date (now column 6)
           return a[2].localeCompare(b[2]); // Sort by Activity Name
         });
         rows.unshift(header);
