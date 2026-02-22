@@ -1318,6 +1318,7 @@
 
   <div class="nav-section">
     <a href="#hero">Intro</a>
+    <a href="#business-case">The Business Case</a>
     <a href="#vision">The Vision</a>
   </div>
 
@@ -1335,9 +1336,9 @@
     <div class="nav-group-label">Strategy</div>
     <a href="#competitive-moat">Why Us</a>
     <a href="#deliberate-omissions">What We Won't Build</a>
+    <a href="#how-we-work">How We Work</a>
     <a href="#design-principles">Design Principles</a>
     <a href="#extensibility">New Product Playbook</a>
-    <a href="#business-case">The Business Case</a>
   </div>
 </nav>
 
@@ -1366,9 +1367,42 @@
       <li style="font-size:15px;color:var(--text-secondary);display:flex;align-items:flex-start;gap:10px"><strong style="color:var(--text);flex-shrink:0">Vision:</strong> One unified platform that delivers AI-powered insights across Progress, Inspection, and Safety — before you go looking for them.</li>
       <li style="font-size:15px;color:var(--text-secondary);display:flex;align-items:flex-start;gap:10px"><strong style="color:var(--text);flex-shrink:0">Architecture:</strong> Two halves — Jobs to Be Done (the what) plug into the Insight Engine (the how). Same five-step scaffold, different vocabulary per product.</li>
       <li style="font-size:15px;color:var(--text-secondary);display:flex;align-items:flex-start;gap:10px"><strong style="color:var(--text);flex-shrink:0">Engine:</strong> Capture → Analyze → Detect → Alert → Resolve. Every feature maps to a step. Every product runs through the same pattern.</li>
-      <li style="font-size:15px;color:var(--text-secondary);display:flex;align-items:flex-start;gap:10px"><strong style="color:var(--text);flex-shrink:0">Moats:</strong> Pure LLM (improves for free), unified multi-product platform (cross-product insights), and insight-first delivery (value before you open the app).</li>
+      <li style="font-size:15px;color:var(--text-secondary);display:flex;align-items:flex-start;gap:10px"><strong style="color:var(--text);flex-shrink:0">Process:</strong> Rapid discovery with real prototypes and real data — validated designs in days, not months. Proven with Google.</li>
       <li style="font-size:15px;color:var(--text-secondary);display:flex;align-items:flex-start;gap:10px"><strong style="color:var(--text);flex-shrink:0">Bet:</strong> Build it once, configure per product. 3× faster to market than building three separate systems.</li>
     </ul>
+  </div>
+
+  <!-- ==================== THE BUSINESS CASE ==================== -->
+  <div class="section" id="business-case">
+    <div class="section-label">The Business Case</div>
+    <h2>Why this matters right now</h2>
+    <p class="section-intro">We have three AI products to ship — Progress, Inspection, and Safety. The question isn't whether to build them. It's whether to build them as three separate systems or one unified platform. The math is clear.</p>
+
+    <div class="number-row">
+      <div class="number-card">
+        <div class="num red">3×</div>
+        <div class="label">infrastructure code if separated</div>
+      </div>
+      <div class="number-card">
+        <div class="num red">3×</div>
+        <div class="label">time to market per product</div>
+      </div>
+      <div class="number-card">
+        <div class="num red">3</div>
+        <div class="label">UIs for customers to learn</div>
+      </div>
+      <div class="number-card">
+        <div class="num red">0</div>
+        <div class="label">cross-product insights</div>
+      </div>
+    </div>
+
+    <div class="thesis">
+      <h3>The unified platform alternative</h3>
+      <p><em>One codebase.</em> Bug fixes benefit all products. <em>One interface.</em> Customers learn it once. <em>One data model.</em> A site manager sees progress, inspection findings, and safety flags for the same physical space in a single click.</p>
+      <p style="margin-top:16px">That last point is the one no competitor can match. Separated systems <em>cannot</em> show you that a tank has active rust on the north face, its coating remediation is 60% complete, and there's an open hatch safety flag — all in one view. A unified platform can.</p>
+      <p style="margin-top:16px"><em>This document is the UX architecture that makes the unified approach work.</em> It gives the product team a clear scaffold to build against — one set of patterns, one interaction model, one design system — so every new product ships faster than the last.</p>
+    </div>
   </div>
 
   <!-- ==================== THE VISION & FRAMEWORK ==================== -->
@@ -1626,11 +1660,11 @@
   <div class="section" id="step-3">
     <div class="section-label">Step 3: Detect</div>
     <h2>How the system tells you<br>what it found.</h2>
-    <p class="section-intro">The engine has captured data and analyzed it. Now it needs to communicate everything it found to the user. This starts at the smallest unit of information — a single entity (a location, an asset, a zone) — and scales up through lenses and altitude to give every person the right view.</p>
+    <p class="section-intro">The engine has captured data and analyzed it. Now it needs to communicate everything it found to the user. This starts at the smallest unit of information — a single entity — and scales up through lenses and altitude to give every person the right view.</p>
 
-    <!-- 1. What lives inside each location -->
-    <h3>What lives at each location</h3>
-    <p style="color:var(--text-secondary);max-width:720px;margin-bottom:16px">Each product evaluates its own entity type — a location, an asset, a zone — but the structure is identical: a list of things to evaluate, each with a status determined by AI or human. When entities share physical space, cross-product insights emerge.</p>
+    <!-- 1. What lives inside each entity -->
+    <h3>What the AI evaluates</h3>
+    <p style="color:var(--text-secondary);max-width:720px;margin-bottom:16px">Each product evaluates its own entity type. Progress AI processes <strong>locations</strong> (rooms, areas). Inspection AI processes <strong>assets</strong> (tanks, equipment — which may span or move between locations). Safety AI processes <strong>zones</strong> (work areas with compliance requirements). The structure is identical: a list of scope items to evaluate, each with a status determined by AI or human. When entities share physical space, cross-product insights emerge.</p>
 
     <div class="card-row">
       <div class="card" style="border-top:3px solid var(--dd-blue)">
@@ -1646,7 +1680,7 @@
       </div>
       <div class="card" style="border-top:3px solid var(--dd-yellow)">
         <div class="card-tag inspection">Inspection AI</div>
-        <h4>Condition items</h4>
+        <h4>Asset conditions</h4>
         <p style="font-size:14px;margin-bottom:10px">Rust, coating failure, structural crack…</p>
         <div style="display:flex;flex-direction:column;gap:4px;font-size:13px">
           <div style="display:flex;align-items:center;gap:8px"><div style="width:10px;height:10px;border-radius:3px;background:var(--green)"></div>Low concern</div>
@@ -2074,6 +2108,52 @@
     </div>
   </div>
 
+  <!-- ==================== HOW WE WORK ==================== -->
+  <div class="section" id="how-we-work">
+    <div class="section-label">How We Work</div>
+    <h2>Rapid discovery.<br>Real prototypes. Real data.</h2>
+    <p class="section-intro">Traditional design process: months of interviews, wireframes, stakeholder reviews, engineering handoff, and a delivered product that's already out of date. We do it differently — and it's how we won Google.</p>
+
+    <div class="card-row card-row-2">
+      <div class="card" style="border-left:4px solid var(--red);opacity:0.7">
+        <h4 style="color:var(--red-text)">The old way</h4>
+        <p style="margin-bottom:12px">Weeks of user interviews → static wireframes → stakeholder review cycles → pixel-perfect mocks → engineering handoff → 3 months later: a product that doesn't match what users actually needed.</p>
+        <p style="font-size:13px;color:var(--text-tertiary)">Slow feedback loops. High risk of building the wrong thing. Users can't react to wireframes the way they react to working software.</p>
+      </div>
+      <div class="card" style="border-left:4px solid var(--green)">
+        <h4 style="color:var(--green-text)">How we work</h4>
+        <p style="margin-bottom:12px">Talk to users → vibe-code a working prototype with real data in days → put it in front of customers → iterate on what they actually respond to → hand engineering a validated design, not a guess.</p>
+        <p style="font-size:13px;color:var(--text-tertiary)">Users react to real software, not mockups. We find the right answer faster because we show them something they can touch.</p>
+      </div>
+    </div>
+
+    <div class="thesis">
+      <h3>This isn't about moving fast for the sake of it</h3>
+      <p>The high-level strategy and customer commitments stay locked. We're not changing <em>what</em> we ship — we're changing <em>how quickly we find the right design</em> for it. The rapid prototype isn't the product. It's the fastest way to validate that our design actually solves the user's problem before engineering builds it.</p>
+      <p style="margin-top:16px"><em>This is how we got Google to want to continue with us.</em> They saw real software with their own data in days, not decks. They gave us feedback on something tangible. The result: higher confidence, fewer iterations in engineering, and a product that matched what users actually needed — not what we guessed in a conference room.</p>
+      <p style="margin-top:16px">The same approach works for Amazon. The same approach works for every customer. It's not a shortcut — it's a better process.</p>
+    </div>
+
+    <h3>What this means for the product team</h3>
+    <div class="card-row">
+      <div class="card">
+        <div class="card-icon blue">🎯</div>
+        <h4>Validated designs, not guesses</h4>
+        <p>Engineering gets designs that have already been tested with real users on real data. Fewer surprises, fewer pivots mid-sprint.</p>
+      </div>
+      <div class="card">
+        <div class="card-icon green">⚡</div>
+        <h4>Days to prototype, not months</h4>
+        <p>A working prototype with real project data can be in front of a customer within a week. That's the feedback loop that de-risks the build.</p>
+      </div>
+      <div class="card">
+        <div class="card-icon yellow">🔄</div>
+        <h4>Clear scaffold to build against</h4>
+        <p>The Insight Engine gives every product the same five-step pattern. New products don't start from zero — they configure the scaffold and ship.</p>
+      </div>
+    </div>
+  </div>
+
   <!-- ==================== DESIGN PRINCIPLES ==================== -->
   <div class="section" id="design-principles">
     <div class="section-label">Design Principles</div>
@@ -2087,8 +2167,8 @@
       </div>
       <div class="principle-card">
         <div class="principle-num">2</div>
-        <h4>The entity is the unit of truth</h4>
-        <p>Every product evaluates a specific entity: a <em>location</em> in Progress AI, an <em>asset</em> in Inspection AI, a <em>zone</em> in Safety AI. The entity is where the AI's judgment lives. Entities can share physical space — that's how cross-product insights emerge — but each product owns its own vocabulary and processing model.</p>
+        <h4>Each product owns its entity type</h4>
+        <p>Progress AI evaluates <em>locations</em>. Inspection AI evaluates <em>assets</em> (which may span or move between locations). Safety AI evaluates <em>zones</em>. Each product owns its entity, its vocabulary, and its processing model. Entities can share physical space — that's how cross-product insights emerge.</p>
       </div>
       <div class="principle-card">
         <div class="principle-num">3</div>
@@ -2148,36 +2228,10 @@
     </div>
   </div>
 
-  <!-- ==================== THE COST ==================== -->
-  <div class="section" id="business-case">
-    <div class="section-label">The Business Case</div>
-    <h2>The cost of building this three times</h2>
-
-    <div class="number-row">
-      <div class="number-card">
-        <div class="num red">3×</div>
-        <div class="label">infrastructure code if separated</div>
-      </div>
-      <div class="number-card">
-        <div class="num red">3×</div>
-        <div class="label">time to market per product</div>
-      </div>
-      <div class="number-card">
-        <div class="num red">3</div>
-        <div class="label">UIs for customers to learn</div>
-      </div>
-      <div class="number-card">
-        <div class="num red">0</div>
-        <div class="label">cross-product insights</div>
-      </div>
-    </div>
-
-  </div>
-
   <!-- ==================== CLOSING ==================== -->
   <div class="closing" style="text-align:left;padding:64px 64px">
     <h2 style="font-size:32px;margin-bottom:24px">The insight is the product.<br>The platform is the engine.<br>The interface is the evidence.</h2>
-    <p style="color:rgba(255,255,255,0.8);max-width:700px;margin:0 0 20px"><em style="color:var(--dd-yellow);font-style:normal;font-weight:600">One codebase.</em> Bug fixes benefit all products. <em style="color:var(--dd-yellow);font-style:normal;font-weight:600">One interface.</em> Customers learn it once. <em style="color:var(--dd-yellow);font-style:normal;font-weight:600">One location model.</em> A site manager sees progress, inspection findings, and safety flags for the same physical location in a single click.</p>
+    <p style="color:rgba(255,255,255,0.8);max-width:700px;margin:0 0 20px"><em style="color:var(--dd-yellow);font-style:normal;font-weight:600">One codebase.</em> Bug fixes benefit all products. <em style="color:var(--dd-yellow);font-style:normal;font-weight:600">One interface.</em> Customers learn it once. <em style="color:var(--dd-yellow);font-style:normal;font-weight:600">One data model.</em> A site manager sees progress, asset condition, and safety flags for the same physical space in a single click.</p>
     <p style="color:rgba(255,255,255,0.8);max-width:700px;margin:0 0 20px">That last point is the one no competitor can match. Separated systems <em style="color:var(--dd-yellow);font-style:normal;font-weight:600">cannot</em> show you that a tank has active rust on the north face, its coating remediation is 60% complete, and there's an open hatch safety flag — all in one view. A unified platform can.</p>
     <p style="color:rgba(255,255,255,0.6);margin:0">One team. One scaffold. One experience model. Three products that share everything except vocabulary — and a customer who gets answers before they ask.</p>
   </div>
